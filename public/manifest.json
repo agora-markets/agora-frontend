@@ -1,0 +1,25 @@
+{
+  "background_color": "#000",
+  "display": "standalone",
+  "homepage_url": "https://agoracro.com",
+  "providedBy": {
+    "name": "Agora",
+    "url": "https://agoracro.com"
+  },
+  "icons": [
+    {
+      "src": "./icon.png",
+      "sizes": "256x256",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "orientation": "portrait",
+  "name": "Agora",
+  "description": "Fully-fledged NFT marketplace on Cronos & Arbitrum.",
+  "iconPath": "./icon.png",
+  "short_name": "Agora",
+  "start_url": ".",
+  "theme_color": "#000000",
+  "skylink": "200f7q3hef7au79i6b6nr8seqs5sft664rb71uftdnjonnpscs0t4o0"
+}

@@ -1,0 +1,182 @@
+@import '../../../../style/global.scss';
+
+.filterHeaderRoot {
+  display: flex;
+  flex-flow: wrap;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding-right: 20px;
+  background-color: var(--color-page-background) !important;
+}
+
+.MuiMenuItem-root:hover {
+  transform: translateY(-2px);
+}
+
+.filterHeaderLeft {
+  display: flex;
+  align-items: center;
+  flex-flow: wrap;
+}
+
+.filterCollectionsList {
+  margin-left: 20px;
+  display: flex;
+  align-items: center;
+  flex-flow: wrap;
+}
+
+.filterCollectionItem {
+  display: flex;
+  align-items: center;
+  border-radius: 50px;
+  border: 1px solid rgb(109, 186, 252);
+  background-color: rgba(0, 123, 255, 0.06);
+  padding: 6px 8px;
+  margin-right: 6px;
+  margin-top: 10px;
+}
+
+.filterCollectionItem:hover {
+  box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.filterCollectionItemLogo {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+}
+
+.filterCollectionItemName {
+  color: rgb(109, 186, 252);
+  white-space: nowrap;
+  margin: 0 6px;
+}
+
+.filterCollectionRemoveItem {
+  color: var(--color-text);
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+.filterResultLabel {
+  font-weight: 500;
+  font-size: 18px;
+  color: var(--color-text);
+  white-space: nowrap;
+  margin-right: 20px;
+  margin-top: 10px;
+}
+
+.MuiSelect-outlined.MuiSelect-outlined {
+  padding-right: 32px;
+  height: 10px !important;
+}
+
+.filterSelectGroup {
+  margin-top: 10px;
+}
+
+.filterHeaderFormControl {
+  margin-right: 18px !important;
+  width: 200px;
+  top: unset !important;
+}
+
+.filterHeaderFormControl:last-child {
+  margin-right: 0 !important;
+}
+
+.selectBox {
+  padding: 6px 15px;
+  box-sizing: border-box;
+  border-radius: 0px !important;
+  outline: none !important;
+  background-color: var(--color-box) !important;
+  border: 1px solid var(--color-text);
+  color: var(--color-text) !important;
+  opacity: 0.6;
+  font-size: 16px !important;
+}
+
+.selectBox::before,
+.selectBox::after {
+  display: none;
+}
+
+.selectInner {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.selectMenu {
+  background-color: transparent !important;
+  color: var(--color-text);
+}
+
+.selectIcon {
+  right: 10px !important;
+  color: var(--color-text) !important;
+}
+
+.menuPropsPaper {
+  box-sizing: border-box;
+  padding: 25px;
+  background-color: var(--color-page-background) !important;
+  border-radius: 8px !important;
+  border: 1px solid var(--border-box);
+  box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.15);
+  transform: translateY(35px) !important;
+}
+
+.menuItemList {
+  padding: 0 !important;
+}
+
+.menuItem {
+  width: fit-content !important;
+  font-weight: 400 !important;
+  font-size: 18px;
+  line-height: 22px;
+  color: var(--color-text) !important;
+  opacity: 0.6;
+  padding: 0 !important;
+  margin-bottom: 20px !important;
+  background-color: transparent !important;
+}
+
+.menuItem:last-child {
+  margin-bottom: 0 !important;
+}
+
+.menuItemSelected {
+  color: #ff6bc7 !important;
+}
+
+@media only screen and (max-width: 600px) {
+  .filterHeaderRoot {
+    padding-right: 0;
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+
+  .filterHeaderLeft {
+    margin-top: 6px;
+  }
+
+  .filterSelectGroup {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .filterHeaderFormControl {
+    margin-right: 0 !important;
+    margin-bottom: 12px !important;
+  }
+
+  .filterHeaderFormControl:last-child {
+    margin-bottom: 0 !important;
+  }
+}

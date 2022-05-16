@@ -1,0 +1,365 @@
+@import '../../style/global.scss';
+
+.root {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+}
+
+.card {
+  min-height: 300px;
+  flex-grow: 1;
+  cursor: pointer;
+  transition: transform ease 0.1s;
+  border: 1px solid var(--color-text);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease-in-out;
+
+  &:nth-child(n + 2) {
+    position: absolute;
+    height: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: -1;
+  }
+
+  &:nth-child(2) {
+    width: 93%;
+    top: 4px;
+  }
+
+  &:nth-child(3) {
+    width: 96%;
+    top: 1px;
+  }
+
+  &:hover {
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+  }
+}
+
+.itemCategory {
+  font-size: 16px;
+  font-weight: 400;
+  color: rgb(109, 186, 252);
+  white-space: nowrap;
+}
+
+.ranking {
+  font-size: 16px;
+  font-weight: 700;
+  margin-right: auto;
+  color: rgba(255, 107, 199, 1) !important;
+}
+
+.cardHeader {
+  display: flex;
+  bottom: 0%;
+  margin-top: auto;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 6px 12px;
+  color: var(--color-text);
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+
+  &.liking {
+    color: rgb(109, 186, 252);
+  }
+}
+
+.card:hover .mediaPanel {
+  transform: scale(1.1);
+}
+
+.card:hover .ranking {
+  background: unset;
+  -webkit-background-clip: unset;
+  -webkit-text-fill-color: unset;
+}
+
+.favIcon {
+  height: 20px;
+  margin-right: 6px;
+
+  &:hover {
+    color: rgb(109, 186, 252);
+  }
+}
+
+.favLabel {
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.createBtn {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.createIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgb(109, 186, 252);
+  background: linear-gradient(
+    93deg,
+    rgba(109, 186, 252, 1) 0%,
+    rgba(255, 107, 199, 1) 100%
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 12px;
+  }
+}
+
+.createLabel {
+  font-size: 16px;
+  font-weight: 700;
+  background: rgb(109, 186, 252);
+  background: linear-gradient(
+    93deg,
+    rgba(109, 186, 252, 1) 0%,
+    rgba(255, 107, 199, 1) 100%
+  );
+  margin-top: 21px;
+}
+
+.link {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  text-decoration: inherit;
+  border-radius: 10px;
+  background-color: var(--color-box);
+}
+
+.label {
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 19px;
+  margin-bottom: 4px;
+  color: rgb(109, 186, 252);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+}
+
+.label3 {
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 19px;
+  margin-bottom: 4px;
+  color: #a2a2ad;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+}
+
+.checkIcon {
+  font-size: 18px !important;
+  color: rgb(109, 186, 252);
+  margin-left: 4px;
+}
+
+.price {
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--color-text);
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  margin: 0;
+
+  img {
+    height: 16px;
+    margin-right: 6px;
+  }
+}
+
+.label2 {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  margin-bottom: 4px;
+  color: #a2a2ad;
+}
+
+.price2 {
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--color-text);
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  margin: 0;
+
+  img {
+    height: 12px;
+    margin-right: 4px;
+  }
+}
+
+.name {
+  flex: 1;
+  font-weight: 700;
+  font-size: 15px;
+  margin: 0;
+  color: var(--color-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.name2 {
+  flex: 1;
+  font-weight: 700;
+  font-size: 12px;
+  margin: 0;
+  color: var(--color-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mediaBox {
+  position: relative;
+  padding-bottom: calc(100% - 16px);
+  overflow: hidden;
+  border-bottom: var(--color-text) 1px solid;
+}
+
+.mediaPanel {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+.loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.mediaLoading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.carousel {
+  width: 100%;
+  height: 100%;
+}
+
+.imageBox {
+  width: 100%;
+  position: relative;
+  padding-bottom: 100%;
+  box-sizing: border-box;
+}
+
+.media {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: contain;
+  object-fit: contain;
+  border: 0;
+}
+
+.dots {
+  position: absolute;
+  bottom: 10px;
+  left: 12px;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 1px solid #b0b0b0;
+  background-color: #b0b0b0;
+  box-sizing: border-box;
+}
+
+:global {
+  .BrainhubCarousel__thumbnail {
+    padding: 0 !important;
+    opacity: 1 !important;
+    margin-right: 5px;
+  }
+
+  .BrainhubCarousel__thumbnail--selected {
+    :local {
+      .dot {
+        background: rgb(109, 186, 252);
+        background: linear-gradient(
+          93deg,
+          rgba(109, 186, 252, 1) 0%,
+          rgba(255, 107, 199, 1) 100%
+        );
+      }
+    }
+  }
+}
+
+.content {
+  padding: 10px 0px 0px 0px !important;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.topLine {
+  padding-left: 10px;
+  padding-right: 10px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.itemName {
+  margin-right: 16px;
+  overflow: hidden;
+}
+
+.alignBottom {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  margin-top: 12px;
+}
+
+.alignRight {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
