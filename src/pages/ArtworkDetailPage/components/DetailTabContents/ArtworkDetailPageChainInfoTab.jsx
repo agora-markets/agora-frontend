@@ -24,7 +24,7 @@ export function ArtworkDetailPageChainInfoTab(props) {
       </div>
       <div className={styles.panelLine}>
         <div className={styles.panelLabel}>Chain ID</div>
-        <div className={styles.panelValue}>888</div>
+        <div className={styles.panelValue}>25</div>
       </div>
     </div>
   );

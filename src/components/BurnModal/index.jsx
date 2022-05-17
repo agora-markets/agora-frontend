@@ -29,7 +29,7 @@ const BurnModal = ({
     >
       <div className={styles.formGroup}>
       This deletion confirmation will result in the permanent removal of your NFT and cannot be undone.<br/><br/>
-      Please make sure this action is deliberate and you fully understand the consequences as OpenZoo will not be held responsible for the loss of NFTs under any circumstances.
+      Please make sure this action is deliberate and you fully understand the consequences as Agora will not be held responsible for the loss of NFTs under any circumstances.
       </div>
       
     </Modal>

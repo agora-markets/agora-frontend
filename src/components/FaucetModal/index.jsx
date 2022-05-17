@@ -88,11 +88,11 @@ const FaucetModal = ({ account, visible, onClose, setFaucetModalVisible }) => {
       onSubmit={() => (!claiming && recaptchaValue ? handleMakeOffer() : null)}
     >
       <p className="faucetP">
-        <span className="color_brand">CLAIM YOUR FREE WAN</span>
+        <span className="color_brand">CLAIM YOUR FREE CRO</span>
         <br />
         to begin your creative journey
         <br />
-        with OpenZoo
+        with Agora
       </p>
 
       <div className="faucetBalance">

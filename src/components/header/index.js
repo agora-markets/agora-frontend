@@ -345,7 +345,7 @@ const Header = (props) => {
         <div className={cx('header__search', styles.searchWrapper)}>
           <input
             type="text"
-            placeholder="Search on OpenZoo"
+            placeholder="Search on Agora"
             onChange={e => handleSearch(e.target.value)}
             onFocus={() => setSearchBarActive(true)}
             onBlur={() => setTimeout(() => setSearchBarActive(false), 200)}
@@ -421,7 +421,7 @@ const Header = (props) => {
                   {account.imageHash ? (
                     <img
                       className={styles.resultimg}
-                      src={`https://openzoo.mypinata.cloud/ipfs/${account.imageHash}`}
+                      src={`https://cloudflare-ipfs.com/ipfs/${account.imageHash}`}
                     />
                   ) : (
                     <Identicon

@@ -69,7 +69,7 @@ export function HeaderAvatarMenu(props) {
     const provider = new ethers.providers.Web3Provider(web3provider);
 
     const ZOO_ADDRESS = {
-      888: '0x6e11655d6aB3781C6613db8CB1Bc3deE9a7e111F',
+      25: '0x6e11655d6aB3781C6613db8CB1Bc3deE9a7e111F',
       999: '0x890589dC8BD3F973dcAFcB02b6e1A133A76C8135',
     };
 
@@ -176,7 +176,7 @@ export function HeaderAvatarMenu(props) {
         ) : props.user?.imageHash ? (
           <img
             className="avatar"
-            src={`https://openzoo.mypinata.cloud/ipfs/${props.user?.imageHash}`}
+            src={`https://cloudflare-ipfs.com/ipfs/${props.user?.imageHash}`}
             alt="avatar"
           />
         ) : (

@@ -9,7 +9,7 @@ import { AUCTION_CONTRACT_ABI } from './abi';
 
 // eslint-disable-next-line no-undef
 const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
-const CHAIN = isMainnet ? 888 : 999;
+const CHAIN = isMainnet ? 25 : 999;
 
 export const useAuctionContract = () => {
   const { getContract } = useContract();

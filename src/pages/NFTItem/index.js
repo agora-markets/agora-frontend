@@ -110,7 +110,7 @@ const filters = ['Trade History', 'Transfer History'];
 
 // eslint-disable-next-line no-undef
 const ENV = process.env.REACT_APP_ENV;
-const CHAIN = ENV === 'MAINNET' ? 888 : 999;
+const CHAIN = ENV === 'MAINNET' ? 25 : 999;
 
 const NFTItem = () => {
   const dispatch = useDispatch();
@@ -300,7 +300,7 @@ const NFTItem = () => {
   const prevAuthToken = usePrevious(authToken);
 
   const isLoggedIn = () => {
-    return account && (ENV === 'MAINNET' ? chainId === 888 : chainId === 999);
+    return account && (ENV === 'MAINNET' ? chainId === 25 : chainId === 999);
   };
 
   useEffect(() => {
@@ -1688,7 +1688,7 @@ const NFTItem = () => {
       let addr;
       try {
         const signer = await getSigner();
-        const msg = `Approve Signature on OpenZoo.io with nonce ${nonce}`;
+        const msg = `Approve Signature on Agoracro.com with nonce ${nonce}`;
         signature = await signer.signMessage(msg);
         addr = ethers.utils.verifyMessage(msg, signature);
       } catch {
@@ -2662,7 +2662,7 @@ const NFTItem = () => {
                 <div className={styles.ownerAvatar}>
                   {ownerInfo?.imageHash ? (
                     <img
-                      src={`https://openzoo.mypinata.cloud/ipfs/${ownerInfo.imageHash}`}
+                      src={`https://cloudflare-ipfs.com/ipfs/${ownerInfo.imageHash}`}
                       className={styles.avatar}
                     />
                   ) : (
@@ -2871,7 +2871,7 @@ const NFTItem = () => {
             <div className={styles.ownerAvatar}>
               {creatorInfo?.imageHash ? (
                 <img
-                  src={`https://openzoo.mypinata.cloud/ipfs/${creatorInfo.imageHash}`}
+                  src={`https://cloudflare-ipfs.com/ipfs/${creatorInfo.imageHash}`}
                   className={styles.avatar}
                 />
               ) : (
@@ -2989,7 +2989,7 @@ const NFTItem = () => {
         </div>
         <div className={styles.panelLine}>
           <div className={styles.panelLabel}>Chain ID</div>
-          <div className={styles.panelValue}>888</div>
+          <div className={styles.panelValue}>25</div>
         </div>
       </div>
     </Panel>
@@ -3457,7 +3457,7 @@ const NFTItem = () => {
                               <div className={styles.userAvatarWrapper}>
                                 {ownerInfo?.imageHash ? (
                                   <img
-                                    src={`https://openzoo.mypinata.cloud/ipfs/${ownerInfo.imageHash}`}
+                                    src={`https://cloudflare-ipfs.com/ipfs/${ownerInfo.imageHash}`}
                                     className={styles.userAvatar}
                                   />
                                 ) : (
@@ -3513,7 +3513,7 @@ const NFTItem = () => {
                             <div className={styles.userAvatarWrapper}>
                               {listing.image ? (
                                 <img
-                                  src={`https://openzoo.mypinata.cloud/ipfs/${listing.image}`}
+                                  src={`https://cloudflare-ipfs.com/ipfs/${listing.image}`}
                                   className={styles.userAvatar}
                                 />
                               ) : (
@@ -3596,7 +3596,7 @@ const NFTItem = () => {
                                 <div className={styles.userAvatarWrapper}>
                                   {offer.image ? (
                                     <img
-                                      src={`https://openzoo.mypinata.cloud/ipfs/${offer.image}`}
+                                      src={`https://cloudflare-ipfs.com/ipfs/${offer.image}`}
                                       className={styles.userAvatar}
                                     />
                                   ) : (
@@ -3791,7 +3791,7 @@ const NFTItem = () => {
                         <div className={styles.userAvatarWrapper}>
                           {history.fromImage ? (
                             <img
-                              src={`https://openzoo.mypinata.cloud/ipfs/${history.fromImage}`}
+                              src={`https://cloudflare-ipfs.com/ipfs/${history.fromImage}`}
                               className={styles.userAvatar}
                             />
                           ) : (
@@ -3814,7 +3814,7 @@ const NFTItem = () => {
                         <div className={styles.userAvatarWrapper}>
                           {history.toImage ? (
                             <img
-                              src={`https://openzoo.mypinata.cloud/ipfs/${history.toImage}`}
+                              src={`https://cloudflare-ipfs.com/ipfs/${history.toImage}`}
                               className={styles.userAvatar}
                             />
                           ) : (

@@ -11,7 +11,7 @@ const EmbedModal = ({ visible, onClose, embedTitle }) => {
     height: 300,
     width: 400,
     src: window.location.href + "?" + ["embed", darkMode ? "theme=dark" : ""].filter(x => !!x).join("&"),
-    title: ["OpenZoo", embedTitle].filter(x => !!x).join(" - ")
+    title: ["Agora", embedTitle].filter(x => !!x).join(" - ")
   }
 
   const value = `<iframe width="${frameProps.width}" height="${frameProps.height}" src="${frameProps.src}" title="${frameProps.title}" frameborder="0"></iframe>`

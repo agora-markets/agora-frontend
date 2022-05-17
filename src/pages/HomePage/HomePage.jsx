@@ -23,7 +23,7 @@ export function HomePage() {
             <div>
               <div className={styles.nftmkt}>NFT MARKETPLACE</div>
               <div className={styles.openzoo}>
-                OPEN<span>ZOO</span>
+                AGORA<span>MARKETS</span>
               </div>
               <div className={styles.subtitle}>
                 not so ordinary,
@@ -45,7 +45,7 @@ export function HomePage() {
               <a
                 target="_blank"
                 rel="noreferrer"
-                href="https://docs.openzoo.io"
+                href="https://docs.agoracro.com"
                 className="btn btn-dark btn-sm home-btn"
               >
                 <FontAwesomeIcon icon={faBook} /> Docs
@@ -79,7 +79,7 @@ export function HomePage() {
                   <span>
                     <a
                       rel="noreferrer"
-                      href="https://t.me/openzoo_validation"
+                      href="https://t.me/AgoraMarketNFT"
                       target="_blank"
                     >
                       here

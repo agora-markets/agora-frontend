@@ -437,7 +437,7 @@ const PaintBoard = () => {
       showToast('info', 'Connect your wallet first');
       return;
     }
-    if (chainId !== 888 && chainId !== 999) {
+    if (chainId !== 25 && chainId !== 999) {
       showToast('info', 'You are not connected to Wanchain Network');
       return;
     }
@@ -484,7 +484,7 @@ const PaintBoard = () => {
       const { data: nonce } = await getNonce(account, authToken);
       try {
         const signer = await getSigner();
-        const msg = `Approve Signature on OpenZoo.io with nonce ${nonce}`;
+        const msg = `Approve Signature on Agoracro.com with nonce ${nonce}`;
         signature = await signer.signMessage(msg);
         addr = ethers.utils.verifyMessage(msg, signature);
       } catch (err) {
@@ -733,7 +733,7 @@ const PaintBoard = () => {
                   onChange={e => setIsAcceptTerms(event.target.checked)}
                 />
               }
-              label="I accept OpenZoo's Terms and Conditions. *"
+              label="I accept Agora's Terms and Conditions. *"
               className="align-items-start"
             />
           </FormGroup>
@@ -771,7 +771,7 @@ const PaintBoard = () => {
                   }}
                 >
                   <img
-                    src={`https://openzoo.mypinata.cloud/ipfs/${item.logoImageHash}`}
+                    src={`https://cloudflare-ipfs.com/ipfs/${item.logoImageHash}`}
                     className={styles.collectionLogo}
                   />
                   <div className={styles.collectionName}>
@@ -783,7 +783,7 @@ const PaintBoard = () => {
                 values.length > 0 ? (
                   <div className={styles.collection}>
                     {<img
-                      src={`https://openzoo.mypinata.cloud/ipfs/${values[0].logoImageHash}`}
+                      src={`https://cloudflare-ipfs.com/ipfs/${values[0].logoImageHash}`}
                       className={styles.collectionLogo}
                     />}
                     <div className={styles.collectionName}>

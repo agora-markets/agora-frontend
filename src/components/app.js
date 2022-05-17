@@ -38,7 +38,7 @@ const App = () => {
   useEffect(() => {
     const getPrice = async () => {
       try {
-        if (chainId === 888) {
+        if (chainId === 25) {
           const web3provider = await connector.getProvider();
           //await web3provider.enable();
           const provider = new ethers.providers.Web3Provider(web3provider);

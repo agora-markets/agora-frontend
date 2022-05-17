@@ -53,7 +53,7 @@ export function ArtworkDetailPageStateSection(props) {
     >
       <div className={cx('ml-10 space-y-10')}>
         {(!owner && !tokenType.current) &&
-          <div className={`${styles.itemOwner} text-danger`}><WarningIcon className={styles.itemIcon} c /> This item is not listed on OpenZoo (Still syncing, Burned, or Banned)</div>
+          <div className={`${styles.itemOwner} text-danger`}><WarningIcon className={styles.itemIcon} c /> This item is not listed on Agora (Still syncing, Burned, or Banned)</div>
 
         }
         {(ownerInfoLoading || tokenOwnerLoading || owner || tokenInfo) && (
@@ -66,7 +66,7 @@ export function ArtworkDetailPageStateSection(props) {
                 <div className={styles.ownerAvatar}>
                   {ownerInfo?.imageHash ? (
                     <img
-                      src={`https://openzoo.mypinata.cloud/ipfs/${ownerInfo.imageHash}`}
+                      src={`https://cloudflare-ipfs.com/ipfs/${ownerInfo.imageHash}`}
                       className={styles.avatar}
                     />
                   ) : (
@@ -121,7 +121,7 @@ export function ArtworkDetailPageStateSection(props) {
                 <div className={styles.ownerAvatar}>
                   {creatorInfo?.imageHash ? (
                     <img
-                      src={`https://openzoo.mypinata.cloud/ipfs/${creatorInfo.imageHash}`}
+                      src={`https://cloudflare-ipfs.com/ipfs/${creatorInfo.imageHash}`}
                       className={styles.avatar}
                     />
                   ) : (

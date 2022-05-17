@@ -39,7 +39,7 @@ const AccountModal = () => {
   useEffect(() => {
     if (accountModalVisible) {
       if (user.imageHash) {
-        setAvatar(`https://openzoo.mypinata.cloud/ipfs/${user.imageHash}`);
+        setAvatar(`https://cloudflare-ipfs.com/ipfs/${user.imageHash}`);
       } else {
         setAvatar(null);
       }
@@ -113,7 +113,7 @@ const AccountModal = () => {
       let addr;
       try {
         const signer = await getSigner();
-        const msg = `Approve Signature on OpenZoo.io with nonce ${nonce}`;
+        const msg = `Approve Signature on Agoracro.com with nonce ${nonce}`;
         signature = await signer.signMessage(msg);
         addr = ethers.utils.verifyMessage(msg, signature);
       } catch (err) {

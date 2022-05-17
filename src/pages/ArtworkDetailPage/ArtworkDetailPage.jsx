@@ -101,7 +101,7 @@ const ONE_MONTH = ONE_DAY * 30;
 
 // eslint-disable-next-line no-undef
 const ENV = process.env.REACT_APP_ENV;
-const CHAIN = ENV === 'MAINNET' ? 888 : 999;
+const CHAIN = ENV === 'MAINNET' ? 25 : 999;
 
 import { useZooElixirContract } from 'contracts/zookeeper';
 import { FooterEmbed } from 'components/FooterEmbed';
@@ -304,7 +304,7 @@ export function ArtworkDetailPage() {
   const prevAuthToken = usePrevious(authToken);
 
   const isLoggedIn = () => {
-    return account && (ENV === 'MAINNET' ? chainId === 888 : chainId === 999);
+    return account && (ENV === 'MAINNET' ? chainId === 25 : chainId === 999);
   };
 
   useEffect(() => {
@@ -1872,7 +1872,7 @@ export function ArtworkDetailPage() {
       let addr;
       try {
         const signer = await getSigner();
-        const msg = `Approve Signature on OpenZoo.io with nonce ${nonce}`;
+        const msg = `Approve Signature on Agoracro.com with nonce ${nonce}`;
         signature = await signer.signMessage(msg);
         addr = ethers.utils.verifyMessage(msg, signature);
       } catch {
@@ -2669,7 +2669,7 @@ export function ArtworkDetailPage() {
               <b>
                 <FontAwesomeIcon icon={faExclamationTriangle} /> Warning:
               </b>{' '}
-              This content has been flagged by the OpenZoo Team as suspicious.
+              This content has been flagged by the Agora Team as suspicious.
             </div>
           )}
           <div className="row md:space-y-20">
@@ -3181,7 +3181,7 @@ export function ArtworkDetailPage() {
                                   <div className={styles.userAvatarWrapper}>
                                     {ownerInfo?.imageHash ? (
                                       <img
-                                        src={`https://openzoo.mypinata.cloud/ipfs/${ownerInfo.imageHash}`}
+                                        src={`https://cloudflare-ipfs.com/ipfs/${ownerInfo.imageHash}`}
                                         className={styles.userAvatar}
                                       />
                                     ) : (
@@ -3296,7 +3296,7 @@ export function ArtworkDetailPage() {
                                 <div className={styles.userAvatarWrapper}>
                                   {listing.image ? (
                                     <img
-                                      src={`https://openzoo.mypinata.cloud/ipfs/${listing.image}`}
+                                      src={`https://cloudflare-ipfs.com/ipfs/${listing.image}`}
                                       className={styles.userAvatar}
                                     />
                                   ) : (
@@ -3440,7 +3440,7 @@ export function ArtworkDetailPage() {
                                     <div className={styles.userAvatarWrapper}>
                                       {offer.image ? (
                                         <img
-                                          src={`https://openzoo.mypinata.cloud/ipfs/${offer.image}`}
+                                          src={`https://cloudflare-ipfs.com/ipfs/${offer.image}`}
                                           className={styles.userAvatar}
                                         />
                                       ) : (

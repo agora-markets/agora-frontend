@@ -107,7 +107,7 @@ export function AccountProfileActivitiesList(props) {
                     <div className={styles.ownerAvatarWrapper}>
                       {activity.image ? (
                         <img
-                          src={`https://openzoo.mypinata.cloud/ipfs/${activity.image}`}
+                          src={`https://cloudflare-ipfs.com/ipfs/${activity.image}`}
                           className={styles.ownerAvatar}
                         />
                       ) : (

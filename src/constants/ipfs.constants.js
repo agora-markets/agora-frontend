@@ -1,9 +1,8 @@
 export const IPFSConstants = {
-  HashURI: 'https://openzoo.mypinata.cloud/ipfs/',
+  HashURI: 'https://cloudflare-ipfs.com/ipfs/',
 };
 
 export const IPFSUris = [
-  'https://openzoo.mypinata.cloud/ipfs/',
-  'https://openzoo2.mypinata.cloud/ipfs/',
-  'https://openzoo3.mypinata.cloud/ipfs/',
+  'https://agora.mypinata.cloud/ipfs/',
+  'https://agora2.mypinata.cloud/ipfs/',
 ];

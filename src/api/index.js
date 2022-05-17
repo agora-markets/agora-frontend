@@ -5,21 +5,20 @@ const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
 
 export const useApi = () => {
   const explorerUrl = isMainnet
-    ? 'https://wanscan.org'
-    : 'https://testnet.wanscan.org';
+    ? 'https://cronoscan.com'
+    : 'https://arbiscan.io';
 
   const apiUrl = isMainnet
-    ? 'https://api-mainnet.openzoo.io'
-    : 'https://api.openzoo.io';
+    ? 'https://agoramarket-api.herokuapp.com'
+    : 'https://agoramarket-api.herokuapp.com';
 
   // eslint-disable-next-line no-undef
   // const apiUrl = process.env.REACT_APP_API_URI;
   const storageUrl = isMainnet
-    ? 'https://api-mainnet.openzoo.io'
-    : 'https://api.openzoo.io';
+    ? 'https://agoramarket-api.herokuapp.com'
+    : 'https://agoramarket-api.herokuapp.com';
 
   // const tokenURL = 'https://fetch-tokens.vercel.app/api';
-  // const tokenURL = 'https://api.artion.io/nftitems/fetchTokens';
 
   const getNonce = async (address, authToken) => {
     const res = await axios({
