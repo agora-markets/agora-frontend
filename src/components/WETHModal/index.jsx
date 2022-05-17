@@ -19,7 +19,7 @@ import Modal from '../Modal';
 import styles from './styles.module.scss';
 
 const WETHModal = ({ visible, onClose }) => {
-  const { account, chainId } = useWeb3React();
+  const { account, chainId, library } = useWeb3React();
   const { explorerUrl } = useApi();
   const { getWETHBalance, wrapETH, unwrapETH } = useWETHContract();
 
@@ -38,15 +38,15 @@ const WETHModal = ({ visible, onClose }) => {
       setLoading(true);
     }
 
-    await window.ethereum.enable();
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    // await library.enable();
+    // const provider = new ethers.providers.Web3Provider(window.ethereum);
 
-    let [ftmBal, wethBal] = await Promise.all([
-      await provider.getBalance(account),
+    let [ethBal, wethBal] = await Promise.all([
+      await library.getBalance(account),
       await getWETHBalance(account),
     ]);
 
-    setBalance(parseFloat(ftmBal.toString()) / 10 ** 18);
+    setBalance(parseFloat(ethBal.toString()) / 10 ** 18);
     setWrappedBalance(parseFloat(wethBal.toString()) / 10 ** 18);
 
     if (!overrideLoading) {
@@ -54,12 +54,12 @@ const WETHModal = ({ visible, onClose }) => {
     }
 
     return [
-      parseFloat(ftmBal.toString()) / 10 ** 18,
+      parseFloat(ethBal.toString()) / 10 ** 18,
       parseFloat(wethBal.toString()) / 10 ** 18,
     ];
   };
 
-  const pollBalanceChange = async (initialFtmBal, initialWftmBal) => {
+  const pollBalanceChange = async (initialEthBal, initialWethBal) => {
     setLoading(true);
     let timeout;
     let updated = false;
@@ -68,8 +68,8 @@ const WETHModal = ({ visible, onClose }) => {
       resolve =>
         (timeout = setTimeout(
           () =>
-            getBalances(true).then(([ftmBal, wethBal]) => {
-              if (ftmBal !== initialFtmBal || wethBal !== initialWftmBal) {
+            getBalances(true).then(([ethBal, wethBal]) => {
+              if (ethBal !== initialEthBal || wethBal !== initialWethBal) {
                 updated = true;
               }
               resolve();
@@ -79,7 +79,7 @@ const WETHModal = ({ visible, onClose }) => {
     );
 
     if (!updated) {
-      await pollBalanceChange(initialFtmBal, initialWftmBal);
+      await pollBalanceChange(initialEthBal, initialWethBal);
     }
 
     clearTimeout(timeout);
@@ -127,7 +127,7 @@ const WETHModal = ({ visible, onClose }) => {
         await pollBalanceChange(balance, wrappedBalance);
         const toastId = showToast(
           'success',
-          'Wrapped WAN successfully!',
+          'Wrapped CRO successfully!',
           '',
           () => {
             toast.dismiss(toastId);
@@ -140,7 +140,7 @@ const WETHModal = ({ visible, onClose }) => {
         await pollBalanceChange(balance, wrappedBalance);
         const toastId = showToast(
           'success',
-          'Unwrap WWAN successfully!',
+          'Unwrap WCRO successfully!',
           '',
           () => {
             toast.dismiss(toastId);
@@ -161,7 +161,7 @@ const WETHModal = ({ visible, onClose }) => {
   return (
     <Modal
       visible={visible}
-      title="WAN / WWAN Station"
+      title="CRO / WCRO Station"
       onClose={onClose}
       submitDisabled={
         confirming ||
@@ -189,18 +189,22 @@ const WETHModal = ({ visible, onClose }) => {
     >
       <div className={cx(styles.swapContainer, !wrap && styles.reverse)}>
         <div className={styles.swapBox}>
-          <div className={styles.symbol}>WAN</div>
+          <div className={styles.symbol}>CRO</div>
           <div className={styles.swapBoxInner}>
             <div className={styles.balance}>
               Balance:{' '}
               {loading ? (
-                <Skeleton width={60} height={20} />
+                <Skeleton
+                  width={60}
+                  height={20}
+                  style={{ background: 'var(--color-skel)' }}
+                />
               ) : (
                 parseBalance(balance)
               )}
               {wrap && !isMax() && !loading && balance > 0 && (
                 <div className={styles.max} onClick={onMax}>
-                  (Max)
+                  Max
                 </div>
               )}
             </div>
@@ -220,21 +224,28 @@ const WETHModal = ({ visible, onClose }) => {
           </div>
         </div>
         <div className={styles.swapbtn} onClick={() => setWrap(!wrap)}>
-          <SwapVertIcon className={styles.icon} />
+          <SwapVertIcon
+            className={styles.icon}
+            style={{ filter: 'invert(var(--color-logo))' }}
+          />
         </div>
         <div className={styles.swapBox}>
-          <div className={styles.symbol}>WWAN</div>
+          <div className={styles.symbol}>WCRO</div>
           <div className={styles.swapBoxInner}>
             <div className={styles.balance}>
               Balance:{' '}
               {loading ? (
-                <Skeleton width={60} height={20} />
+                <Skeleton
+                  width={60}
+                  height={20}
+                  style={{ background: 'var(--color-skel)' }}
+                />
               ) : (
                 parseBalance(wrappedBalance)
               )}
               {!wrap && !isMax() && !loading && balance > 0 && (
                 <div className={styles.max} onClick={onMax}>
-                  (Max)
+                  Max
                 </div>
               )}
             </div>

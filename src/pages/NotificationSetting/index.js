@@ -9,27 +9,24 @@ import { useWeb3React } from '@web3-react/core';
 import { ethers } from 'ethers';
 
 import HeaderActions from 'actions/header.actions';
+import Header from 'components/header';
 import { useApi } from 'api';
-import useConnectionUtils from 'hooks/useConnectionUtils';
+import { getSigner } from 'contracts';
 import toast from 'utils/toast';
 
 import styles from './styles.module.scss';
-import { PageLayout } from 'components/Layouts/PageLayout';
 
 const selfSettings = [
-  /*
   {
     value: 'sBundleBuy',
     title: 'Bundle Purchased',
     description: 'You have purchased a bundle.',
   },
-  
   {
     value: 'sBundleSell',
     title: 'Bundle Sold',
     description: 'Your bundle is sold.',
   },
-  
   {
     value: 'sBundleOffer',
     title: 'Get a new offer for your bundle',
@@ -40,7 +37,6 @@ const selfSettings = [
     title: 'An offer to you bundle called off',
     description: 'An offer to your bundle is canceled.',
   },
-  */
   {
     value: 'sNftAuctionPrice',
     title: "Your bid's Auction Price update",
@@ -89,7 +85,6 @@ const selfSettings = [
 ];
 
 const followerSettings = [
-  /*
   {
     value: 'fBundleCreation',
     title: 'New bundle creation by follower',
@@ -105,7 +100,6 @@ const followerSettings = [
     title: 'Bundle Price Update by follower',
     description: 'Updated the bundle sale price.',
   },
-  */
   {
     value: 'fNftAuctionPrice',
     title: 'NFT Auction Price update by follower',
@@ -131,7 +125,7 @@ const followerSettings = [
 const CustomCheckbox = withStyles({
   root: {
     '&$checked': {
-      color: '#1a2999',
+      color: 'rgba(255, 107, 199, 1)',
     },
   },
   checked: {},
@@ -161,13 +155,14 @@ const SettingOption = ({
         <div className={styles.optionDesc}>{description}</div>
       </div>
     }
+    style={{ marginLeft: 'unset', marginRight: 'unset' }}
   />
 );
 
 const NotificationSetting = () => {
   const dispatch = useDispatch();
-  const {getSigner} = useConnectionUtils();
-  const { account } = useWeb3React();
+
+  const { account, library } = useWeb3React();
   const {
     getNonce,
     getNotificationSettings,
@@ -207,8 +202,8 @@ const NotificationSetting = () => {
       let addr;
       try {
         const { data: nonce } = await getNonce(account, authToken);
-        const signer = await getSigner();
-        const msg = `Approve Signature on Agoracro.com with nonce ${nonce}`;
+        const signer = await getSigner(library);
+        const msg = `Approve Signature on Agoranft.io with nonce ${nonce}`;
         signature = await signer.signMessage(msg);
         addr = ethers.utils.verifyMessage(msg, signature);
       } catch (err) {
@@ -238,10 +233,13 @@ const NotificationSetting = () => {
     settings[key] === undefined ? true : settings[key];
 
   return (
-    <PageLayout containerClassName="form-container-page box">
+    <div className={styles.container}>
+      <Header border />
       <div className={styles.inner}>
-        <div className={styles.title}>Notification Settings</div>
-
+        <div className={styles.titleWrapper}>
+          <div className={styles.aboutTitle}>Notifications</div>
+          <div className={styles.aboutTitleBis}>Notifications</div>
+        </div>
         <div className={styles.body}>
           <div className={styles.group}>
             <FormControlLabel
@@ -301,21 +299,19 @@ const NotificationSetting = () => {
                 />
               ))}
             </div>
-            <div className={styles.buttonsWrapper}>
-              <div
-                className={cx(styles.createButton, saving && styles.disabled)}
-                onClick={!saving ? handleSave : null}
-              >
-                {saving ? <ClipLoader color="#FFF" size={16} /> : 'Save Settings'}
-              </div>
-            </div>
           </div>
-
         </div>
 
-
+        <div className={styles.buttonsWrapper}>
+          <div
+            className={cx(styles.createButton, saving && styles.disabled)}
+            onClick={!saving ? handleSave : null}
+          >
+            {saving ? <ClipLoader color="#FFF" size={16} /> : 'Save Settings'}
+          </div>
+        </div>
       </div>
-    </PageLayout>
+    </div>
   );
 };
 

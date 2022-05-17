@@ -7,8 +7,7 @@ import iconError from 'assets/svgs/error.svg';
 import iconWarning from 'assets/svgs/warning.svg';
 
 import styles from './styles.module.scss';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
+
 const icons = {
   info: iconInfo,
   success: iconSuccess,
@@ -18,11 +17,8 @@ const icons = {
 
 export default (type, title, body = '', onClick = () => {}) => {
   return toast(
-    (t) => (
+    () => (
       <div className={styles.toastInner} onClick={onClick}>
-        <div className={styles.close} onClick={() => toast.dismiss(t.id)}>
-          <FontAwesomeIcon icon={faTimes}/>
-        </div>
         <div className={styles.header}>
           <img src={icons[type]} alt={type} className={styles.icon} />
           <span>{title}</span>
@@ -31,7 +27,7 @@ export default (type, title, body = '', onClick = () => {}) => {
       </div>
     ),
     {
-      duration: 30000,
+      duration: 5000,
       className: styles.toast,
     }
   );

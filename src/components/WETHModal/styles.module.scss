@@ -1,3 +1,5 @@
+@import '../../style/global.scss';
+
 .swapContainer {
   display: flex;
   flex-direction: column;
@@ -12,8 +14,8 @@
 .swapbtn {
   width: 50px;
   height: 50px;
-  border-radius: 50%;
-  background-color: #FFF;
+  background-color: var(--icon-wrapper);
+  border: 1px solid var(--icon-wrapper);
   box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
   align-self: center;
   display: flex;
@@ -21,19 +23,24 @@
   justify-content: center;
   cursor: pointer;
   margin-top: 18px;
+
+  &:hover {
+    border: rgba(255, 107, 199, 1) 1px solid;
+  }
 }
 
 .icon {
   width: 26px;
   height: 26px;
-  color: #3D3D3D;
+  color: #3d3d3d;
 }
 
 .symbol {
   font-weight: 400;
   font-size: 18px;
-  letter-spacing: -0.2px;
-  color: #121223;
+  letter-spacing: 1px;
+  font-family: Inter;
+  color: var(--color-text);
   margin-bottom: 11px;
   margin-left: 10px;
 }
@@ -41,8 +48,9 @@
 .swapBoxInner {
   display: flex;
   align-items: center;
-  border-radius: 10px;
-  border: 1px solid #EAEAF1;
+  background-color: var(--color-box);
+  border: 1px solid var(--border-box);
+  border: 1px solid var(--color-text);
 }
 
 .rightBox {
@@ -55,7 +63,7 @@
 .balance {
   font-weight: 400;
   font-size: 16px;
-  color: #3D3D3D;
+  color: var(--color-text);
   display: flex;
   align-items: center;
   padding: 16px;
@@ -64,7 +72,7 @@
 
 .max {
   margin-left: 4px;
-  color: #007BFF;
+  color: rgba(255, 107, 199, 1);
   cursor: pointer;
 }
 
@@ -74,7 +82,7 @@
   height: 100%;
   flex-grow: 1;
   font-size: 18px;
-  color: #3D3D3D;
+  color: var(--color-text);
   background-color: transparent;
   text-align: right;
   border: none;
@@ -87,10 +95,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-left: 1px solid #EAEAF1;
+  border-left: 1px solid var(--border-box);
   font-weight: 500;
   font-size: 16px;
-  color: rgba(0, 0, 0, 0.4);
+  color: var(--color-text);
 }
 
 @media only screen and (max-width: 600px) {
@@ -101,6 +109,6 @@
   .rightBox {
     width: 100%;
     flex: 0 0 50px;
-    border-top: 1px solid #EAEAF1;
+    border-top: 1px solid var(--border-box);
   }
 }

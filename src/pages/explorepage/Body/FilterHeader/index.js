@@ -1,5 +1,4 @@
-import { React, useEffect } from 'react';
-import { useParams } from 'react-router';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Skeleton from 'react-loading-skeleton';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -10,49 +9,39 @@ import {
   Close as CloseIcon,
 } from '@material-ui/icons';
 
-import { GroupFilters, SortByOptions } from 'constants/filter.constants';
+import { /*GroupFilters,*/ SortByOptions } from 'constants/filter.constants';
 import FilterActions from 'actions/filter.actions';
 import { formatNumber, formatCategory, getRandomIPFS } from 'utils';
 import nftActiveIcon from 'assets/svgs/nft_active.svg';
 
 import './styles.css';
 
-
 const ExploreFilterHeader = ({ loading, category }) => {
   const dispatch = useDispatch();
-
-  const { addr } = useParams();
 
   const { collections: collectionItems } = useSelector(
     state => state.Collections
   );
   const { count } = useSelector(state => state.Tokens);
-  const { groupType, sortBy, collections } = useSelector(state => state.Filter);
-  useEffect(() => {
-    if (addr) {
-      dispatch(FilterActions.updateCollectionsFilter([addr]));
-    }
-  }, [addr]);
+  const { /*groupType,*/ sortBy, collections } = useSelector(
+    state => state.Filter
+  );
+
   const selectedCollections = () => {
     const res = new Array(collections.length).fill(null);
-
     collectionItems.map(item => {
-
       const index = collections.findIndex(_item => _item === item.address);
-
-
       if (index > -1) {
         res[index] = item;
       }
     });
-
     return res.filter(item => !!item);
   };
 
-  const handleGroupTypeChange = e => {
-    const newGroupType = e.target.value;
-    dispatch(FilterActions.updateGroupTypeFilter(newGroupType));
-  };
+  // const handleGroupTypeChange = e => {
+  //   const newGroupType = e.target.value;
+  //   dispatch(FilterActions.updateGroupTypeFilter(newGroupType));
+  // };
 
   const handleSortByChange = e => {
     const newSortBy = e.target.value;
@@ -70,10 +59,15 @@ const ExploreFilterHeader = ({ loading, category }) => {
       <div className="filterHeaderLeft">
         <label className="filterResultLabel">
           {loading ? (
-            <Skeleton width={100} height={24} />
+            <Skeleton
+              width={100}
+              height={24}
+              style={{ background: 'var(--color-skel)' }}
+            />
           ) : (
             `${formatNumber(count)} Result${count !== 1 ? 's' : ''}
-            ${category === null ? '' : `- Category: ${formatCategory(category)}`
+            ${
+              category === null ? '' : `- Category: ${formatCategory(category)}`
             }`
           )}
         </label>
@@ -98,7 +92,7 @@ const ExploreFilterHeader = ({ loading, category }) => {
         ))}
       </div>
       <div className="filterSelectGroup">
-        <FormControl className="filterHeaderFormControl">
+        {/* <FormControl className="filterHeaderFormControl">
           <Select
             value={groupType}
             onChange={handleGroupTypeChange}
@@ -129,7 +123,7 @@ const ExploreFilterHeader = ({ loading, category }) => {
               );
             })}
           </Select>
-        </FormControl>
+        </FormControl> */}
         <FormControl className="filterHeaderFormControl">
           <Select
             value={sortBy}

@@ -6,8 +6,8 @@ export const NETWORK_LABEL = {
   [ChainId.ROPSTEN]: 'Ropsten',
   [ChainId.GÖRLI]: 'Görli',
   [ChainId.KOVAN]: 'Kovan',
-  [ChainId.FANTOM]: 'Fantom',
-  [ChainId.FANTOM_TESTNET]: 'Fantom Testnet',
+  [25]: 'Cronos',
+  [ChainId.ARBITRUM]: 'Arbitrum',
   [ChainId.MATIC]: 'Matic',
   [ChainId.MATIC_TESTNET]: 'Matic Testnet',
   [ChainId.XDAI]: 'xDai',
@@ -20,8 +20,6 @@ export const NETWORK_LABEL = {
   [ChainId.HECO_TESTNET]: 'HECO Testnet',
   [ChainId.HARMONY]: 'Harmony',
   [ChainId.HARMONY_TESTNET]: 'Harmony Testnet',
-  [ChainId.ARBITRUM]: 'Arbitrum',
-  25: 'Cronos',
 };
 
 export const Contracts = {

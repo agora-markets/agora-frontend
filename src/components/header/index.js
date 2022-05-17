@@ -2,20 +2,25 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useHistory, withRouter, NavLink, Link } from 'react-router-dom';
 import cx from 'classnames';
 import Skeleton from 'react-loading-skeleton';
+import { Menu } from '@material-ui/core';
+import { MdLightMode, MdDarkMode } from 'react-icons/md';
 import { useWeb3React } from '@web3-react/core';
+import { ExpandMore, Search as SearchIcon } from '@material-ui/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
+
+import { Menu as MenuIcon } from '@material-ui/icons';
 
 import WalletConnectActions from 'actions/walletconnect.actions';
 import AuthActions from 'actions/auth.actions';
 import ModalActions from 'actions/modal.actions';
-import { getRandomIPFS } from 'utils';
+import Setmode from 'actions/setmode.actions';
+import { shortenAddress, getRandomIPFS } from 'utils';
 import { useApi } from 'api';
+import { NETWORK_LABEL } from 'constants/networks';
 import { ADMIN_ADDRESS } from 'constants/index';
 import WETHModal from 'components/WETHModal';
 import ModModal from 'components/ModModal';
-import VerifyCollectionModal from 'components/VerifyCollectionModal';
-import WarnCollectionModal from 'components/WarnCollectionModal';
 import BanCollectionModal from 'components/BanCollectionModal';
 import BanItemModal from 'components/BanItemModal';
 import BanUserModal from 'components/BanUserModal';
@@ -23,21 +28,26 @@ import BoostCollectionModal from 'components/BoostCollectionModal';
 import ConnectWalletModal from 'components/ConnectWalletModal';
 import Identicon from 'components/Identicon';
 
-import logoSmallBlue from 'assets/svgs/openzoo_icon.svg';
+import logob from 'assets/imgs/logoblack.png';
+import logow from 'assets/imgs/logowhite.png';
+import iconUser from 'assets/imgs/user.png';
+import iconNotification from 'assets/imgs/notification.png';
+import iconAdd from 'assets/svgs/add.svg';
+import iconEdit from 'assets/imgs/verify.png';
+import iconSwap from 'assets/imgs/exchanging.png';
+import trade from 'assets/imgs/exchange.png';
 
 import styles from './styles.module.scss';
-import FilterActions from '../../actions/filter.actions';
-import { HeaderAvatarMenu } from './HeaderAvatarMenu';
-//import { HeaderNotificationMenu } from './HeaderNotificationMenu';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSun, faMoon, faAngleUp } from '@fortawesome/free-solid-svg-icons';
-const Header = (props) => {
+
+import { useCookies } from 'react-cookie';
+
+const Header = ({ border }) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
   const {
     apiUrl,
-    /*storageUrl,*/
+    storageUrl,
     getAuthToken,
     getAccountDetails,
     getIsModerator,
@@ -50,22 +60,16 @@ const Header = (props) => {
   const { wethModalVisible, connectWalletModalVisible } = useSelector(
     state => state.Modal
   );
-
-
+  let darkTheme = useSelector(state => state.Setmode.darkmode);
+  const [cookies, setCookie, removeCookie] = useCookies(['dark-mode']);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorEl2, setAnchorEl2] = useState(null);
   const [loading, setLoading] = useState(false);
   const [searchBarActive, setSearchBarActive] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
   const [modModalVisible, setModModalVisible] = useState(false);
   const [isBan, setIsBan] = useState(false);
   const [banCollectionModalVisible, setBanCollectionModalVisible] = useState(
-    false
-  );
-  const [isVerify, setIsVerfiy] = useState(false);
-  const [verifyCollectionModalVisible, setVerifyCollectionModalVisible] = useState(
-    false
-  );
-  const [isWarn, setIsWarn] = useState(false);
-  const [warnCollectionModalVisible, setWarnCollectionModalVisible] = useState(
     false
   );
   const [banItemModalVisible, setBanItemModalVisible] = useState(false);
@@ -75,7 +79,6 @@ const Header = (props) => {
     boostCollectionModalVisible,
     setBoostCollectionModalVisible,
   ] = useState(false);
-  const [burgerActive, setBurgerActive] = useState(false);
 
   const [keyword, setKeyword] = useState('');
   const [cancelSource, setCancelSource] = useState(null);
@@ -84,46 +87,11 @@ const Header = (props) => {
   const [tokens, setTokens] = useState([]);
   const [bundles, setBundles] = useState([]);
   const [tokenDetailsLoading, setTokenDetailsLoading] = useState(false);
+  // const [utils, setutils] = useState(false);
   const timer = useRef(null);
 
-  const [DarkMode, setDarkMode] = React.useState(() => {
-    const DarkValue = window.localStorage.getItem('darkmode');
-    return DarkValue !== null
-      ? JSON.parse(DarkValue)
-      : false;
-  });
-
-  useEffect(() => {
-    if (DarkMode === true) {
-      document.body.classList.add('is__dark');
-      window.localStorage.setItem('darkmode', true);
-      props?.setDark && props.setDark(true)
-    }
-    else {
-      document.body.classList.remove('is__dark');
-      window.localStorage.setItem('darkmode', false);
-      props?.setDark && props.setDark(false)
-    }
-  }, [DarkMode])
-
-  const [onlyVerified, setOnlyVerified] = React.useState(() => {
-    const onlyVerifiedValue = window.localStorage.getItem('onlyVerified');
-
-    if (onlyVerifiedValue === null) return true;
-    return onlyVerifiedValue !== null ? JSON.parse(onlyVerifiedValue) : false;
-  });
-
-  useEffect(() => {
-
-    if (onlyVerified === true) {
-      dispatch(FilterActions.updateStatusFilter('onlyVerified', true));
-      window.localStorage.setItem('onlyVerified', true);
-    }
-    else {
-      dispatch(FilterActions.updateStatusFilter('onlyVerified', false));
-      window.localStorage.setItem('onlyVerified', false);
-    }
-  }, [onlyVerified])
+  const isMenuOpen = Boolean(anchorEl);
+  const isUtilsOpen = Boolean(anchorEl2);
 
   const login = async () => {
     try {
@@ -156,6 +124,58 @@ const Header = (props) => {
       handleSignOut();
     }
   }, [account, chainId]);
+
+  useEffect(() => {
+    if (cookies['dark-mode']) {
+      dispatch(Setmode.SetdarkmodeActions());
+    } else {
+      dispatch(Setmode.SetlightmodeActions());
+    }
+  }, []);
+
+  useEffect(() => {
+    // Accessing scss variable "--background-color"
+    // and "--text-color" using plain JavaScript
+    // and changing the same according to the state of "darkTheme"
+    const root = document.documentElement;
+    root?.style.setProperty(
+      '--color-page-background',
+      darkTheme ? '#221f20' : '#efedea'
+    );
+    root?.style.setProperty('--color-text', darkTheme ? '#efedea' : '#221f20');
+
+    root?.style.setProperty('--color-skel', darkTheme ? '#141414' : '#efedea');
+
+    root?.style.setProperty('--color-logo', darkTheme ? '100%' : '0%');
+
+    root?.style.setProperty('--color-icon', darkTheme ? '0%' : '100%');
+
+    root?.style.setProperty('--hover-menu', darkTheme ? '#15150e' : '#eaeaf1');
+
+    root?.style.setProperty(
+      '--border-box',
+      darkTheme ? 'rgba(25, 25, 25, 1)' : 'rgba(235,235,235,1)'
+    );
+
+    root?.style.setProperty('--card-bg', darkTheme ? '#000' : '#fff');
+
+    root?.style.setProperty(
+      '--card-header',
+      darkTheme
+        ? 'linear-gradient(rgba(36, 33, 30, 0.392) 0%, rgb(0, 0, 0) 40%)'
+        : 'linear-gradient(rgba(229, 232, 235, 0.392) 0%, rgb(255, 255, 255) 20%)'
+    );
+
+    root?.style.setProperty(
+      '--icon-wrapper',
+      darkTheme ? 'rgba(25,25,25,1)' : 'rgba(250,250,250,1)'
+    );
+
+    root?.style.setProperty(
+      '--color-box',
+      darkTheme ? 'rgba(21,21,21,.64)' : 'rgba(255,255,255,.64)'
+    );
+  }, [darkTheme]);
 
   const handleConnectWallet = () => {
     dispatch(ModalActions.showConnectWalletModal());
@@ -235,11 +255,9 @@ const Header = (props) => {
     }
   };
 
-  /*
   const handleSelectCollection = addr => {
-    dispatch(FilterActions.updateCollectionsFilter([addr]));
+    history.push(`/collection/${addr}`);
   };
-  */
 
   const handleSearch = word => {
     if (timer.current) {
@@ -253,592 +271,629 @@ const Header = (props) => {
     deactivate();
     dispatch(WalletConnectActions.disconnectWallet());
     dispatch(AuthActions.signOut());
-    dispatch(FilterActions.updateStatusFilter('onlyVerified', true));
+    handleMenuClose();
   };
 
-
-
-  const handleClickBurgerMenu = () => {
-    setBurgerActive(previousValue => !previousValue);
+  const handleProfileMenuOpen = e => {
+    setAnchorEl(e.currentTarget);
   };
 
+  const handleUtilsOpen = a => {
+    setAnchorEl2(a.currentTarget);
+  };
 
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleUtilsClose = () => {
+    setAnchorEl2(null);
+  };
+
+  const goToMyProfile = () => {
+    history.push(`/account/${account}`);
+    handleMenuClose();
+  };
+
+  const goToStaking = () => {
+    history.push(`/staking`);
+    handleMenuClose();
+  };
+
+  const goToNotificationSettings = () => {
+    history.push(`/settings/notification`);
+    handleMenuClose();
+  };
+
+  const handleCreateCollection = () => {
+    history.push('/collections/create');
+    handleMenuClose();
+  };
+
+  const handleRegisterCollection = () => {
+    history.push('/collections/register');
+    handleMenuClose();
+  };
+
+  const openWrapStation = () => {
+    dispatch(ModalActions.showWETHModal());
+    handleMenuClose();
+  };
 
   const addMod = () => {
     setIsAdding(true);
     setModModalVisible(true);
-
+    handleMenuClose();
   };
 
   const removeMod = () => {
     setIsAdding(false);
     setModModalVisible(true);
-
+    handleMenuClose();
   };
 
   const reviewCollections = () => {
-    history.push('/collection/review');
-
+    history.push('/collections/review');
+    handleMenuClose();
   };
 
   const banCollection = () => {
     setIsBan(true);
     setBanCollectionModalVisible(true);
-
+    handleMenuClose();
   };
 
   const unbanCollection = () => {
     setIsBan(false);
     setBanCollectionModalVisible(true);
-
-  };
-
-  const verifyCollection = () => {
-    setIsVerfiy(true);
-    setVerifyCollectionModalVisible(true);
-
-  };
-
-  const unverifyCollection = () => {
-    setIsVerfiy(false);
-    setVerifyCollectionModalVisible(true);
-
-  };
-
-  const warnCollection = () => {
-    setIsWarn(true);
-    setWarnCollectionModalVisible(true);
-
-  };
-
-  const unwarnCollection = () => {
-    setIsWarn(false);
-    setWarnCollectionModalVisible(true);
-
+    handleMenuClose();
   };
 
   const banItems = () => {
     setBanItemModalVisible(true);
-
+    handleMenuClose();
   };
 
   const banUser = () => {
     setBanUserModalVisible(true);
-
+    handleMenuClose();
   };
 
   const unbanUser = () => {
     setUnbanUserModalVisible(true);
-
+    handleMenuClose();
   };
 
   const boostCollection = () => {
     setBoostCollectionModalVisible(true);
-
+    handleMenuClose();
   };
 
+  const changeMode = () => {
+    if (darkTheme) {
+      removeCookie('dark-mode');
+      dispatch(Setmode.SetlightmodeActions());
+    } else {
+      setCookie('dark-mode', true, { path: '/' });
+      dispatch(Setmode.SetdarkmodeActions());
+    }
+  };
 
+  const renderMenu = (
+    <Menu
+      anchorEl={anchorEl}
+      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      keepMounted
+      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+      open={isMenuOpen}
+      onClose={handleMenuClose}
+      classes={{
+        paper: styles.profilemenu,
+        list: styles.menuList,
+      }}
+    >
+      {account && (
+        <div
+          className={cx(styles.menuItem, styles.topItem)}
+          onClick={goToMyProfile}
+        >
+          <img
+            src={iconUser}
+            className={styles.menuIcon}
+            style={{ filter: 'invert(var(--color-logo))' }}
+          />
+          My Profile
+        </div>
+      )}
+      <div className={styles.menuItem} onClick={goToStaking}>
+        <img
+          src={trade}
+          className={styles.menuIcon}
+          style={{ filter: 'invert(var(--color-logo))' }}
+        />
+        Staking
+      </div>
+      <div className={styles.menuItem} onClick={goToNotificationSettings}>
+        <img
+          src={iconNotification}
+          className={styles.menuIcon}
+          style={{ filter: 'invert(var(--color-logo))' }}
+        />
+        Notifications
+      </div>
+      <div className={styles.menuItem} onClick={handleCreateCollection}>
+        <img
+          src={iconAdd}
+          className={styles.menuIcon}
+          style={{ filter: 'invert(var(--color-logo))' }}
+        />
+        Create New Collection
+      </div>
+      <div className={styles.menuItem} onClick={openWrapStation}>
+        <img
+          src={iconSwap}
+          className={styles.menuIcon}
+          style={{ filter: 'invert(var(--color-logo))' }}
+        />
+        CRO / WCRO Station
+      </div>
+      <div className={styles.menuItem} onClick={handleRegisterCollection}>
+        <img
+          src={iconEdit}
+          className={styles.menuIcon}
+          style={{ filter: 'invert(var(--color-logo))' }}
+        />
+        Register Your Collection
+      </div>
+
+      <div className={styles.menuSeparator} />
+      {account?.toLowerCase() === ADMIN_ADDRESS.toLowerCase()
+        ? [
+            <div key={0} className={styles.menuItem} onClick={addMod}>
+              Add Mod
+            </div>,
+            <div key={1} className={styles.menuItem} onClick={removeMod}>
+              Remove Mod
+            </div>,
+            <div
+              key={2}
+              className={styles.menuItem}
+              onClick={reviewCollections}
+            >
+              Review Collections
+            </div>,
+            <div key={3} className={styles.menuItem} onClick={banCollection}>
+              Ban Collection
+            </div>,
+            <div key={4} className={styles.menuItem} onClick={unbanCollection}>
+              Unban Collection
+            </div>,
+            <div key={5} className={styles.menuItem} onClick={banItems}>
+              Ban Items
+            </div>,
+            <div key={6} className={styles.menuItem} onClick={banUser}>
+              Ban a user
+            </div>,
+            <div key={7} className={styles.menuItem} onClick={unbanUser}>
+              Unban a user
+            </div>,
+            <div key={8} className={styles.menuItem} onClick={boostCollection}>
+              Boost Collection
+            </div>,
+            <div key={9} className={styles.menuSeparator} />,
+          ]
+        : isModerator
+        ? [
+            <div key={1} className={styles.menuItem} onClick={banCollection}>
+              Ban Collection
+            </div>,
+            <div key={2} className={styles.menuItem} onClick={banItems}>
+              Ban Items
+            </div>,
+            <div key={3} className={styles.menuItem} onClick={banUser}>
+              Ban a user
+            </div>,
+            <div key={6} className={styles.menuItem} onClick={unbanUser}>
+              Unban a user
+            </div>,
+            <div key={4} className={styles.menuSeparator} />,
+          ]
+        : null}
+      <div className={styles.signOut} onClick={handleSignOut}>
+        Sign Out
+      </div>
+    </Menu>
+  );
+
+  const renderUtils = (
+    <Menu
+      anchorEl={anchorEl2}
+      anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
+      keepMounted
+      transformOrigin={{ vertical: 'top', horizontal: 'left' }}
+      open={isUtilsOpen}
+      onClose={handleUtilsClose}
+      classes={{
+        paper: styles.profilemenu,
+        list: styles.menuList,
+      }}
+    >
+      <NavLink
+        to="/launchpad"
+        className={cx(styles.utilsItem, styles.topItem, styles.link)}
+      >
+        Launchpad
+      </NavLink>
+      <NavLink
+        to="/explore"
+        className={cx(styles.utilsItem, styles.topItem, styles.link)}
+      >
+        Explore
+      </NavLink>
+      <NavLink
+        to="/explorecollections"
+        className={cx(styles.utilsItem, styles.topItem, styles.link)}
+      >
+        Collections
+      </NavLink>
+      <NavLink
+        to="/create"
+        className={cx(styles.utilsItem, styles.topItem, styles.link)}
+      >
+        Create
+      </NavLink>
+    </Menu>
+  );
 
   const renderSearchBox = () => (
-    <div className={cx(styles.searchcont)}>
+    <div className={cx(styles.searchcont, searchBarActive && styles.active)}>
       <div className={styles.searchcontinner}>
-        <div className={cx('header__search', styles.searchWrapper)}>
+        <div className={styles.searchbar}>
+          <SearchIcon className={styles.searchicon} />
           <input
-            type="text"
-            placeholder="Search on Agora"
+            placeholder="Search items, collections and accounts"
+            className={styles.searchinput}
             onChange={e => handleSearch(e.target.value)}
             onFocus={() => setSearchBarActive(true)}
             onBlur={() => setTimeout(() => setSearchBarActive(false), 200)}
           />
-          <button className="header__result">
-            <i className="ri-search-line"></i>
-          </button>
         </div>
-
-        {renderSearchResult()}
+        {searchBarActive && (
+          <div className={styles.resultcont}>
+            {collections.length > 0 && (
+              <div className={styles.resultsection}>
+                <div className={styles.resultsectiontitle}>Collections</div>
+                <div className={styles.separator} />
+                <div className={styles.resultlist}>
+                  {collections.map((collection, idx) => (
+                    <div
+                      key={idx}
+                      className={styles.result}
+                      onClick={() =>
+                        handleSelectCollection(
+                          collection?.collectionName
+                            ?.toLowerCase()
+                            .replace(' ', '') ||
+                            collection?.name?.toLowerCase().replace(' ', '')
+                        )
+                      }
+                    >
+                      <img
+                        className={styles.resultimg}
+                        src={`${getRandomIPFS('', true)}${
+                          collection.logoImageHash
+                        }`}
+                      />
+                      <div className={styles.resulttitle}>
+                        {collection.collectionName}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+            {accounts.length > 0 && (
+              <div className={styles.resultsection}>
+                <div className={styles.resultsectiontitle}>Accounts</div>
+                <div className={styles.separator} />
+                <div className={styles.resultlist}>
+                  {accounts.map((account, idx) => (
+                    <Link
+                      to={`/account/${account.address}`}
+                      key={idx}
+                      className={styles.result}
+                    >
+                      {account.imageHash ? (
+                        <img
+                          className={styles.resultimg}
+                          src={`https://cloudflare-ipfs.com/ipfs/${account.imageHash}`}
+                        />
+                      ) : (
+                        <Identicon
+                          className={styles.resultimg}
+                          account={account.address}
+                          size={40}
+                        />
+                      )}
+                      <div className={styles.resulttitle}>{account.alias}</div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+            {tokens.length > 0 && (
+              <div className={styles.resultsection}>
+                <div className={styles.resultsectiontitle}>Items</div>
+                <div className={styles.separator} />
+                <div className={styles.resultlist}>
+                  {tokens.map((tk, idx) => (
+                    <Link
+                      to={`/explore/${tk.contractAddress}/${tk.tokenID}`}
+                      key={idx}
+                      className={styles.result}
+                    >
+                      <div className={styles.resultimg}>
+                        {tokenDetailsLoading ? (
+                          <Skeleton
+                            width={40}
+                            height={40}
+                            style={{ background: 'var(--color-skel)' }}
+                          />
+                        ) : (
+                          tk.thumbnailPath &&
+                          (tk.thumbnailPath.length > 10 ? (
+                            <img
+                              src={`${storageUrl}/image/${tk.thumbnailPath}`}
+                            />
+                          ) : tk.thumbnailPath === '.' ? (
+                            <img src={tk.imageURL} />
+                          ) : null)
+                        )}
+                      </div>
+                      <div className={styles.resulttitle}>{tk.name}</div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+            {bundles.length > 0 && (
+              <div className={styles.resultsection}>
+                <div className={styles.resultsectiontitle}>Bundles</div>
+                <div className={styles.separator} />
+                <div className={styles.resultlist}>
+                  {bundles.map((bundle, idx) => (
+                    <Link
+                      to={`/bundle/${bundle._id}`}
+                      key={idx}
+                      className={styles.result}
+                    >
+                      <div className={styles.resultimg}></div>
+                      <div className={styles.resulttitle}>{bundle.name}</div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+            {keyword.length > 0 &&
+              collections.length === 0 &&
+              accounts.length === 0 &&
+              tokens.length === 0 &&
+              bundles.length === 0 && (
+                <div className={styles.noResults}>No Results</div>
+              )}
+          </div>
+        )}
       </div>
     </div>
   );
 
-  const renderSearchResult = () => {
-    if (!searchBarActive || keyword.length === 0) {
-      return null;
-    }
-
-    return (
-      <div className={cx('shadow', styles.resultcont)}>
-        {collections.length > 0 && (
-          <div className={styles.resultsection}>
-            <div className={styles.resultsectiontitle}>Collections</div>
-            <div className={styles.separator} />
-            <div className={styles.resultlist}>
-              {collections.map((collection, idx) => (
-                <Link
-                  key={idx}
-                  className={styles.result}
-                  to={'/collection/' + collection.erc721Address}
-                  onClick={() => {
-                    // Delete //
-                    window.localStorage.removeItem('explore_tokens');
-                    window.localStorage.removeItem('explore_count');
-                    window.localStorage.removeItem('explore_from');
-                    window.localStorage.removeItem('explore_to');
-                    window.localStorage.removeItem('fromTop');
-
-                    // Delete //
-                    window.localStorage.removeItem('collection_tokens');
-                    window.localStorage.removeItem('collection_count');
-                    window.localStorage.removeItem('collection_from');
-                    window.localStorage.removeItem('collection_to');
-                    window.localStorage.removeItem('collection_fromTop');
-
-                  }}
-                >
-                  <img
-                    className={styles.resultimg}
-                    src={`${getRandomIPFS('', true)}${collection.logoImageHash
-                      }`}
-                  />
-                  <div className={styles.resulttitle}>
-                    {collection.collectionName} {collection?.isVerified && <img src="https://assets.openzoo.io/verified.svg" />}
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-        )}
-        {accounts.length > 0 && (
-          <div className={styles.resultsection}>
-            <div className={styles.resultsectiontitle}>Accounts</div>
-            <div className={styles.separator} />
-            <div className={styles.resultlist}>
-              {accounts.map((account, idx) => (
-                <Link
-                  to={`/account/${account.address}`}
-                  key={idx}
-                  className={styles.result}
-                >
-                  {account.imageHash ? (
-                    <img
-                      className={styles.resultimg}
-                      src={`https://cloudflare-ipfs.com/ipfs/${account.imageHash}`}
-                    />
-                  ) : (
-                    <Identicon
-                      className={styles.resultimg}
-                      account={account.address}
-                      size={40}
-                    />
-                  )}
-                  <div className={styles.resulttitle}>{account.alias}</div>
-                </Link>
-              ))}
-            </div>
-          </div>
-        )}
-        {tokens.length > 0 && (
-          <div className={styles.resultsection}>
-            <div className={styles.resultsectiontitle}>Items</div>
-            <div className={styles.separator} />
-            <div className={styles.resultlist}>
-              {tokens.map((tk, idx) => (
-                <Link
-                  to={`/collection/${tk.contractAddress}/${tk.tokenID}`}
-                  key={idx}
-                  className={styles.result}
-                >
-                  <div className={styles.resultimg}>
-                    {tokenDetailsLoading ? (
-                      <Skeleton width={40} height={40} />
-                    ) : (
-                      (tk.thumbnailPath.length > 10 ? (
-                        <img src={`${apiUrl}/image/${tk.thumbnailPath}`} />
-                      ) : tk.thumbnailPath === '.' ? (
-                        <img src={tk.imageURL} />
-                      ) : null)
-
-                    )}
-
-                  </div>
-                  <div className={styles.resulttitle}>{tk.name}</div>
-                </Link>
-              ))}
-            </div>
-          </div>
-        )}
-        {bundles.length > 0 && (
-          <div className={styles.resultsection}>
-            <div className={styles.resultsectiontitle}>Bundles</div>
-            <div className={styles.separator} />
-            <div className={styles.resultlist}>
-              {bundles.map((bundle, idx) => (
-                <Link
-                  to={`/bundle/${bundle._id}`}
-                  key={idx}
-                  className={styles.result}
-                >
-                  <div className={styles.resultimg}></div>
-                  <div className={styles.resulttitle}>{bundle.name}</div>
-                </Link>
-              ))}
-            </div>
-          </div>
-        )}
-        {keyword.length > 0 &&
-          collections.length === 0 &&
-          accounts.length === 0 &&
-          tokens.length === 0 &&
-          bundles.length === 0 && (
-            <div className={styles.noResults}>No Results</div>
-          )}
-
-      </div>
-    );
-  };
-
-  const scrollToTop = () => {
-    window.scrollTo(0, 0);
-  }
-
   return (
-    <header className={cx('header__1', 'js-header', styles.header)}>
-      <div onClick={scrollToTop} className="scroll-to-top"><FontAwesomeIcon icon={faAngleUp} /></div>
-      <div className={'container'}>
-        <div className={'wrapper js-header-wrapper'}>
-          <div className="header__logo">
-            <Link to="/" className={'header__logo'}>
-              <img src={logoSmallBlue} alt="logo" />
-            </Link>
-          </div>
-          <div className={cx('header__menu', styles.left)}>
-            <ul className="d-flex space-x-20">
-              {/*
-              <li>
-                <NavLink
-                  to="/home"
-                  className={'color_black'}
-                  activeClassName={styles.active}
-                >
-                  Home
-                </NavLink>
-              </li>
-              */}
-              <li>
-                <NavLink
-                  to="/explore"
-                  className={'color_black'}
-                  activeClassName={styles.active}
-                >
-                  Explore
-                </NavLink>
-              </li>
-              {
-                <li>
-                  <NavLink
-                    to="/collections"
-                    className={'color_black'}
-                    activeClassName={styles.active}
-                  >
-                    Collections
-                  </NavLink>
-                </li>
-              }
-            </ul>
-          </div>
-          {renderSearchBox()}
-          <div className={cx('header__menu')}>
-            <ul className="d-flex space-x-20">
-              <li>
-                <div className={styles.darkmodeToggle}>
-                  <span style={{ marginLeft: 5, display: 'flex' }}>
-                    <img src="https://assets.openzoo.io/verified.svg" style={{
-                      width: 24,
-                      height: 24,
+    <div className={cx(styles.header, border && styles.hasBorder)}>
+      <div className={styles.left}>
+        <Link to="/" className={styles.logo}>
+          {darkTheme ? (
+            <img src={logow} alt="logo" />
+          ) : (
+            <img src={logob} alt="logo" />
+          )}
+        </Link>
 
-                      filter: 'drop-shadow(1px 1px 0px rgba(0, 0, 0, 0.2))',
-                    }} />
-                  </span>
-                  <input
-                    id="onlyVerified-toggle"
-                    type="checkbox"
-                    checked={!onlyVerified}
-                    onChange={() => {
-                      // Delete //
-                      window.localStorage.removeItem('explore_tokens');
-                      window.localStorage.removeItem('explore_count');
-                      window.localStorage.removeItem('explore_from');
-                      window.localStorage.removeItem('explore_to');
-                      window.localStorage.removeItem('fromTop');
-                      setOnlyVerified(!onlyVerified);
-                    }}
-                  />
-                  <label
-                    style={{ marginBottom: 0 }}
-                    className="toggle"
-                    htmlFor={`onlyVerified-toggle`}
-                  >
-                    Toggle
-                  </label>
-                  <span style={{ marginRight: 5, display: 'flex', fontSize: 11, textAlign: 'left', lineHeight: '11px' }}>
-                    All<br />Collections
-                  </span>
+        {darkTheme ? (
+          <MdLightMode
+            color="white"
+            style={{ marginLeft: '20px' }}
+            className={styles.themeTrigger}
+            onClick={() => changeMode()}
+          />
+        ) : (
+          <MdDarkMode
+            className={styles.themeTrigger}
+            style={{ marginLeft: '20px' }}
+            onClick={() => changeMode()}
+          />
+        )}
+        <div
+          className={styles.utils}
+          style={{
+            marginLeft: 'auto',
+            marginRight: 'unset',
+            position: 'absolute',
+            right: '30px',
+          }}
+          onClick={handleUtilsOpen}
+        >
+          <MenuIcon />
+        </div>
+        {renderUtils}
 
-                </div>
-              </li>
-              <li>
-                <div className={styles.darkmodeToggle}>
-                  <span style={{ marginRight: 5, display: 'flex' }}>
-                    <FontAwesomeIcon icon={faSun} />
-                  </span>
-                  <input
-                    id="darkmode-toggle"
-                    type="checkbox"
-                    checked={DarkMode}
-                    onChange={() => {
-                      setDarkMode(!DarkMode);
-                    }}
-                  />
-                  <label
-                    style={{ marginBottom: 0 }}
-                    className="toggle"
-                    htmlFor={`darkmode-toggle`}
-                  >
-                    Toggle
-                  </label>
-                  <span style={{ marginLeft: 5, display: 'flex' }}>
-                    <FontAwesomeIcon icon={faMoon} />
-                  </span>
-                </div>
-              </li>
-
-            </ul>
-          </div>
-
-          <div className="d-flex align-items-center space-x-20 sm:space-x-10">
-
-            {account ? (
-              <>
-                {/*<HeaderNotificationMenu />*/}
-                <HeaderAvatarMenu
-
-                  user={user}
-                  loading={loading}
-                  isAdmin={
-                    account?.toLowerCase() && ADMIN_ADDRESS.includes(account?.toLowerCase())
-                  }
-                  isModerator={isModerator}
-                  onClickSignOut={handleSignOut}
-                  addMod={addMod}
-                  removeMod={removeMod}
-                  reviewCollections={reviewCollections}
-                  banCollection={banCollection}
-                  unbanCollection={unbanCollection}
-                  verifyCollection={verifyCollection}
-                  unverifyCollection={unverifyCollection}
-                  warnCollection={warnCollection}
-                  unwarnCollection={unwarnCollection}
-                  banItems={banItems}
-                  banUser={banUser}
-                  unbanUser={unbanUser}
-                  boostCollection={boostCollection}
-                />
-                <div className="header__btns">
-                  <NavLink
-                    to="/create"
-                    className={'btn btn-warning btn-sm'}
-
-                  >
-                    Create
-                  </NavLink>
-                </div>
-              </>
-            ) : (
-              <div className="header__btns">
-                <a
-                  className="btn btn-warning btn-sm"
-                  onClick={handleConnectWallet}
-                >
-                  <i className="ri-wallet-3-line"></i>
-                  Connect wallet
-                </a>
-              </div>
-            )}
-            <div
-              className={cx('header__burger', burgerActive && 'active')}
-              onClick={handleClickBurgerMenu}
-            ></div>
-          </div>
-
-          <div
-            className={cx(
-              'header__mobile js-header-mobile shadow-sm',
-              burgerActive && 'visible'
-            )}
+        {isSearchbarShown && renderSearchBox()}
+        <div className={styles.secondmenu}>
+          <NavLink
+            to="/launchpad"
+            className={cx(styles.menuLink, styles.link)}
+            activeClassName={styles.active}
+            data-title="Launchpad"
           >
-            <div className="header__mobile__menu space-y-20">
-              <ul className="d-flex space-y-20">
-                <li>
-                  <NavLink className="color_black" to="/home">
-                    Home
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink className="color_black" to="/explore">
-                    Explore
-                  </NavLink>
-                </li>
-                {
-                  <li>
-                    <NavLink className="color_black" to="/collections">
-                      Collections
-                    </NavLink>
-                  </li>
-                }
-
-                <li>
-                  <div className={styles.darkmodeToggle}>
-                    <span style={{ marginLeft: 5, display: 'flex' }}>
-                      <img src="https://assets.openzoo.io/verified.svg" style={{
-                        width: 24,
-                        height: 24,
-
-                        filter: 'drop-shadow(1px 1px 0px rgba(0, 0, 0, 0.2))',
-                      }} />
-                    </span>
-                    <input
-                      id="onlyVerified-toggle"
-                      type="checkbox"
-                      checked={!onlyVerified}
-                      onChange={() => {
-                        setOnlyVerified(!onlyVerified);
-                      }}
-                    />
-                    <label
-                      style={{ marginBottom: 0 }}
-                      className="toggle"
-                      htmlFor={`onlyVerified-toggle`}
-                    >
-                      Toggle
-                    </label>
-                    <span style={{ marginRight: 5, display: 'flex', fontSize: 11, textAlign: 'left', lineHeight: '11px' }}>
-                      All<br />Collections
-                    </span>
-
-                  </div>
-                </li>
-                <li>
-                  <div className={styles.darkmodeToggle}>
-                    <span style={{ marginRight: 5, display: 'flex' }}>
-                      <FontAwesomeIcon icon={faSun} />
-                    </span>
-                    <input
-                      id="darkmode-toggle"
-                      type="checkbox"
-                      checked={DarkMode}
-                      onChange={() => {
-                        setDarkMode(!DarkMode);
-                      }}
-                    />
-                    <label
-                      style={{ marginBottom: 0 }}
-                      className="toggle"
-                      htmlFor={`darkmode-toggle`}
-                    >
-                      Toggle
-                    </label>
-                    <span style={{ marginLeft: 5, display: 'flex' }}>
-                      <FontAwesomeIcon icon={faMoon} />
-                    </span>
-                  </div>
-                </li>
-              </ul>
-              {account ? (
-                <div className="col-md-12 col-sm-12">
-                  <Link
-                    to="/create"
-                    className={'btn btn-warning w-full'}
-                    activeClassName={styles.active}
-                  >
-                    Create
-                  </Link>
-                </div>
-              ) : (
-                <a
-                  className="btn btn-warning w-full"
-                  onClick={handleConnectWallet}
-                >
-                  Connect wallet
-                </a>
-              )}
-              <div className="space-y-20">
-                <div className="header__search in_mobile w-full">
-                  <input
-                    type="text"
-                    placeholder="Search"
-                    onChange={e => handleSearch(e.target.value)}
-                    onFocus={() => setSearchBarActive(true)}
-                    onBlur={() =>
-                      setTimeout(() => setSearchBarActive(false), 200)
-                    }
-                  />
-                  <button className="header__result">
-                    <i className="ri-search-line"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div className="header__mobile__menu">{renderSearchResult()}</div>
-          </div>
-
-          <WETHModal
-            visible={wethModalVisible}
-            onClose={() => dispatch(ModalActions.hideWETHModal())}
-          />
-          <ModModal
-            isAdding={isAdding}
-            visible={modModalVisible}
-            onClose={() => setModModalVisible(false)}
-          />
-          <VerifyCollectionModal
-            visible={verifyCollectionModalVisible}
-            isVerify={isVerify}
-            onClose={() => setVerifyCollectionModalVisible(false)}
-          />
-          <WarnCollectionModal
-            visible={warnCollectionModalVisible}
-            isWarn={isWarn}
-            onClose={() => setWarnCollectionModalVisible(false)}
-          />
-          <BanCollectionModal
-            visible={banCollectionModalVisible}
-            isBan={isBan}
-            onClose={() => setBanCollectionModalVisible(false)}
-          />
-          <BanItemModal
-            visible={banItemModalVisible}
-            onClose={() => setBanItemModalVisible(false)}
-          />
-          <BanUserModal
-            visible={banUserModalVisible}
-            onClose={() => setBanUserModalVisible(false)}
-            isForBanning={true}
-          />
-          <BanUserModal
-            visible={unbanUserModalVisible}
-            onClose={() => setUnbanUserModalVisible(false)}
-            isForBanning={false}
-          />
-          <BoostCollectionModal
-            visible={boostCollectionModalVisible}
-            onClose={() => setBoostCollectionModalVisible(false)}
-          />
-          <ConnectWalletModal
-            visible={connectWalletModalVisible}
-            onClose={() => dispatch(ModalActions.hideConnectWalletModal())}
-          />
+            Launchpad
+          </NavLink>
+          <NavLink
+            to="/explore"
+            className={cx(styles.menuLink, styles.link)}
+            activeClassName={styles.active}
+            data-title="Explore"
+          >
+            Explore
+          </NavLink>
+          <NavLink
+            to="/explorecollections"
+            className={cx(styles.menuLink, styles.link)}
+            activeClassName={styles.active}
+            data-title="Collections"
+          >
+            Collections
+          </NavLink>
+          <NavLink
+            to="/create"
+            className={cx(styles.menuLink, styles.link)}
+            activeClassName={styles.active}
+            data-title="Create"
+          >
+            Create
+          </NavLink>
         </div>
       </div>
-    </header>
+      <div className={styles.menu}>
+        {isSearchbarShown && renderSearchBox()}
+        <NavLink
+          to="/launchpad"
+          className={cx(styles.menuLink, styles.link)}
+          activeClassName={styles.active}
+          data-title="Launchpad"
+        >
+          Launchpad
+        </NavLink>
+        <NavLink
+          to="/explore"
+          className={cx(styles.menuLink, styles.link)}
+          activeClassName={styles.active}
+          data-title="Explore"
+        >
+          Explore
+        </NavLink>
+        <NavLink
+          to="/explorecollections"
+          className={cx(styles.menuLink, styles.link)}
+          activeClassName={styles.active}
+          data-title="Collections"
+        >
+          Collections
+        </NavLink>
+        <NavLink
+          to="/create"
+          className={cx(styles.menuLink, styles.link)}
+          activeClassName={styles.active}
+          data-title="Create"
+        >
+          Create
+        </NavLink>
+        {account ? (
+          <div
+            className={cx(styles.account, styles.menuUser)}
+            onClick={handleProfileMenuOpen}
+          >
+            {loading ? (
+              <Skeleton
+                className={styles.avatar}
+                style={{ background: 'var(--color-skel)' }}
+              />
+            ) : user?.imageHash ? (
+              <img
+                src={`https://cloudflare-ipfs.com/ipfs/${user?.imageHash}`}
+                width="24"
+                height="24"
+                className={styles.avatar}
+              />
+            ) : (
+              <Identicon
+                account={account}
+                size={36}
+                className={styles.avatar}
+              />
+            )}
+            <div className={styles.profile}>
+              <div
+                className={styles.address}
+                data-title={user?.alias || shortenAddress(account)}
+              >
+                {loading ? (
+                  <Skeleton
+                    width={120}
+                    style={{ background: 'var(--color-skel)' }}
+                  />
+                ) : (
+                  user?.alias || shortenAddress(account)
+                )}
+              </div>
+              <div className={styles.network}>
+                {loading ? (
+                  <Skeleton
+                    width={80}
+                    style={{ background: 'var(--color-skel)' }}
+                  />
+                ) : (
+                  NETWORK_LABEL[chainId]
+                )}
+              </div>
+            </div>
+
+            <ExpandMore
+              className={cx(styles.expand, isMenuOpen && styles.expanded)}
+            />
+          </div>
+        ) : (
+          <div className={cx(styles.connect)} onClick={handleConnectWallet}>
+            Connect Wallet
+          </div>
+        )}
+      </div>
+      {renderMenu}
+      <WETHModal
+        visible={wethModalVisible}
+        onClose={() => dispatch(ModalActions.hideWETHModal())}
+      />
+      <ModModal
+        isAdding={isAdding}
+        visible={modModalVisible}
+        onClose={() => setModModalVisible(false)}
+      />
+      <BanCollectionModal
+        visible={banCollectionModalVisible}
+        isBan={isBan}
+        onClose={() => setBanCollectionModalVisible(false)}
+      />
+      <BanItemModal
+        visible={banItemModalVisible}
+        onClose={() => setBanItemModalVisible(false)}
+      />
+      <BanUserModal
+        visible={banUserModalVisible}
+        onClose={() => setBanUserModalVisible(false)}
+        isForBanning={true}
+      />
+      <BanUserModal
+        visible={unbanUserModalVisible}
+        onClose={() => setUnbanUserModalVisible(false)}
+        isForBanning={false}
+      />
+      <BoostCollectionModal
+        visible={boostCollectionModalVisible}
+        onClose={() => setBoostCollectionModalVisible(false)}
+      />
+      <ConnectWalletModal
+        visible={connectWalletModalVisible}
+        onClose={() => dispatch(ModalActions.hideConnectWalletModal())}
+      />
+    </div>
   );
 };
 

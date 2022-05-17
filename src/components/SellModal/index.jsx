@@ -3,11 +3,12 @@ import cx from 'classnames';
 import { ClipLoader } from 'react-spinners';
 import Select from 'react-dropdown-select';
 import Skeleton from 'react-loading-skeleton';
+import axios from 'axios';
 import { ethers } from 'ethers';
 
 import { formatNumber } from 'utils';
 import useTokens from 'hooks/useTokens';
-import { useSalesContract } from 'contracts';
+// import { useSalesContract } from 'contracts';
 import PriceInput from 'components/PriceInput';
 
 import Modal from '../Modal';
@@ -24,10 +25,9 @@ const SellModal = ({
   contractApproving,
   contractApproved,
   totalSupply,
-  myListing,
 }) => {
   const { tokens } = useTokens();
-  const { getSalesContract } = useSalesContract();
+  // const { getSalesContract } = useSalesContract();
 
   const [price, setPrice] = useState('');
   const [quantity, setQuantity] = useState('1');
@@ -43,15 +43,6 @@ const SellModal = ({
     setQuantity('1');
     if (visible && tokens?.length) {
       setSelected([tokens[0]]);
-      if (myListing) {
-        tokens.map((v, i) => {
-          if (
-            myListing.paymentToken?.toLowerCase() === v.address?.toLowerCase()
-          ) {
-            setSelected([tokens[i]]);
-          }
-        });
-      }
     }
   }, [visible]);
 
@@ -66,9 +57,14 @@ const SellModal = ({
     const func = async () => {
       const tk = selected[0].address || ethers.constants.AddressZero;
       try {
-        const salesContract = await getSalesContract();
-        const price = await salesContract.getPrice(tk);
-        setTokenPrice(parseFloat(ethers.utils.formatUnits(price, 18)));
+        // const salesContract = await getSalesContract();
+        // const price = await salesContract.getPrice(tk);
+        // setTokenPrice(parseFloat(ethers.utils.formatUnits(price, 18)));
+        let response;
+        let _price;
+        response = await axios.get(`https://api.mm.finance/api/tokens/${tk}`);
+        _price = parseFloat(response.data.data.price);
+        setTokenPrice(_price);
       } catch {
         setTokenPrice(null);
       }
@@ -146,12 +142,13 @@ const SellModal = ({
       }
     >
       <div className={styles.formGroup}>
-        <div className={styles.formLabel}>Price per Item</div>
+        <div className={styles.formLabel}>Price</div>
         <div className={cx(styles.formInputCont, focused && styles.focused)}>
           <Select
             options={options}
             disabled={confirming}
             values={selected}
+            style={{ width: '20px' }}
             onChange={tk => {
               setSelected(tk);
             }}
@@ -181,40 +178,36 @@ const SellModal = ({
               )
             }
           />
-          <PriceInput
-            className={styles.formInput}
-            placeholder="0.00"
-            decimals={selected[0]?.decimals || 0}
-            value={'' + price}
-            onChange={setPrice}
-            onFocus={() => setFocused(true)}
-            onBlur={() => setFocused(false)}
-            disabled={contractApproving || confirming}
-            onInputError={setInputError}
-          />
-          <div className={`${styles.usdPrice} d-none d-sm-flex`}>
-            {!isNaN(tokenPrice) && tokenPrice !== null ? (
-              `$${formatNumber(
-                ((parseFloat(price) || 0) * tokenPrice).toFixed(2)
-              )}`
-            ) : (
-              <Skeleton width={100} height={24} />
-            )}
+          <div style={{ display: 'flex', flexDirection: 'row' }}>
+            <PriceInput
+              className={styles.formInput}
+              placeholder="0.00"
+              decimals={selected[0]?.decimals || 0}
+              value={'' + price}
+              onChange={setPrice}
+              onFocus={() => setFocused(true)}
+              onBlur={() => setFocused(false)}
+              disabled={contractApproving || confirming}
+              onInputError={setInputError}
+            />
+            <div className={styles.usdPrice}>
+              {!isNaN(tokenPrice) && tokenPrice !== null ? (
+                `$${formatNumber(
+                  ((parseFloat(price) || 0) * tokenPrice).toFixed(2)
+                )}`
+              ) : (
+                <Skeleton
+                  width={100}
+                  height={24}
+                  style={{ background: 'var(--color-skel)' }}
+                />
+              )}
+            </div>
           </div>
-        </div>
-        <div className={`${styles.usdPriceMobile} d-sm-none`}>
-          {!isNaN(tokenPrice) && tokenPrice !== null ? (
-            `$${formatNumber(
-              ((parseFloat(price) || 0) * tokenPrice).toFixed(2)
-            )}`
-          ) : (
-            <Skeleton width={100} height={24} />
-          )}
         </div>
         <InputError text={inputError} />
       </div>
-
-      {startPrice === 0 && totalSupply !== null && (
+      {totalSupply !== null && (
         <div className={styles.formGroup}>
           <div className={styles.formLabel}>Quantity</div>
           <div className={styles.formInputCont}>
@@ -226,9 +219,6 @@ const SellModal = ({
               disabled={contractApproving || confirming || totalSupply === 1}
             />
           </div>
-          <p style={{ fontSize: 14, marginTop: 5, marginLeft: 10 }}>
-            Your Supply: <b>{totalSupply}</b> NFT(s)
-          </p>
         </div>
       )}
     </Modal>

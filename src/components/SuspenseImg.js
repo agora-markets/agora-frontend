@@ -34,7 +34,18 @@ const imgCache = {
 const SuspenseImg = ({ src, ...rest }) => {
   imgCache.read(src);
 
-  return <img alt="" src={src} {...rest} />;
+  return (
+    <img
+      alt=""
+      src={src}
+      {...rest}
+      style={{
+        imageRendering: rest?.alt?.includes('CronosPunk')
+          ? 'pixelated'
+          : 'optimizespeed',
+      }}
+    />
+  );
 };
 
 export default SuspenseImg;

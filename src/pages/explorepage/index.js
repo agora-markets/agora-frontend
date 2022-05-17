@@ -6,7 +6,7 @@ import { useWeb3React } from '@web3-react/core';
 import { useResizeDetector } from 'react-resize-detector';
 
 import StatusFilter from 'components/StatusFilter';
-import CollectionsFilter from 'components/CollectionsFilter';
+import CollectionsFilter from 'components/CollectionsFilterExplore';
 import CategoriesFilter from 'components/CategoriesFilter';
 import ExploreFilterHeader from './Body/FilterHeader';
 import NFTsGrid from 'components/NFTsGrid';
@@ -15,10 +15,11 @@ import { useApi } from 'api';
 import CollectionsActions from 'actions/collections.actions';
 import TokensActions from 'actions/tokens.actions';
 import HeaderActions from 'actions/header.actions';
+import FilterActions from 'actions/filter.actions';
 import useWindowDimensions from 'hooks/useWindowDimensions';
 import usePrevious from 'hooks/usePrevious';
 
-import iconCollapse from 'assets/svgs/collapse.svg';
+import iconCollapse from 'assets/imgs/arrow.png';
 
 import styles from './styles.module.scss';
 
@@ -33,7 +34,7 @@ const ExploreAllPage = () => {
   const { width } = useWindowDimensions();
 
   const conRef = useRef();
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
   const [fetchInterval, setFetchInterval] = useState(null);
   const [cancelSource, setCancelSource] = useState(null);
   const [likeCancelSource, setLikeCancelSource] = useState(null);
@@ -276,6 +277,12 @@ const ExploreAllPage = () => {
     }
   }, [tokens, authToken]);
 
+  useEffect(() => {
+    dispatch(FilterActions.updateCollectionsFilter([]));
+    dispatch(FilterActions.updateStatusFilter('statusBuyNow', true));
+    dispatch(FilterActions.updateStatusFilter('statusOnAuction', true));
+  }, []);
+
   return (
     <>
       <Header border />
@@ -291,9 +298,10 @@ const ExploreAllPage = () => {
               src={iconCollapse}
               className={styles.iconCollapse}
               onClick={() => setCollapsed(!collapsed)}
+              style={{ filter: 'invert(var(--color-logo))' }}
             />
           </div>
-          <div className={styles.filterList}>
+          <div className={cx(styles.filterList)}>
             <StatusFilter />
             <CollectionsFilter />
             <CategoriesFilter />

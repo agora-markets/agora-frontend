@@ -7,7 +7,6 @@ import Skeleton from 'react-loading-skeleton';
 import {
   FavoriteBorder as FavoriteBorderIcon,
   Favorite as FavoriteIcon,
-  CheckCircle as CheckCircleIcon,
 } from '@material-ui/icons';
 import Loader from 'react-loader-spinner';
 import Carousel, { Dots } from '@brainhubeu/react-carousel';
@@ -21,9 +20,10 @@ import { formatNumber, getRandomIPFS } from 'utils';
 import { useApi } from 'api';
 import { useAuctionContract } from 'contracts';
 import useTokens from 'hooks/useTokens';
+import verified from 'assets/imgs/verified.png';
 
 import iconPlus from 'assets/svgs/plus.svg';
-import wETHLogo from 'assets/imgs/wftm.png';
+import wETHLogo from 'assets/imgs/CRO.png';
 
 import styles from './styles.module.scss';
 
@@ -200,7 +200,7 @@ const BaseCard = ({ item, loading, style, create, onCreate, onLike }) => {
               fallback={
                 <Loader
                   type="Oval"
-                  color="#1a2999"
+                  color="rgb(109, 186, 252)"
                   height={32}
                   width={32}
                   className={styles.loader}
@@ -231,26 +231,6 @@ const BaseCard = ({ item, loading, style, create, onCreate, onLike }) => {
   const renderContent = () => {
     return (
       <>
-        <div className={cx(styles.cardHeader, isLike && styles.liking)}>
-          {!item ? (
-            <Skeleton width={80} height={20} />
-          ) : (
-            <>
-              {isLike ? (
-                <FavoriteIcon
-                  className={styles.favIcon}
-                  onClick={toggleFavorite}
-                />
-              ) : (
-                <FavoriteBorderIcon
-                  className={styles.favIcon}
-                  onClick={toggleFavorite}
-                />
-              )}
-              <span className={styles.favLabel}>{liked || 0}</span>
-            </>
-          )}
-        </div>
         <div className={styles.mediaBox}>
           <div className={styles.mediaPanel}>
             {loading || fetching ? (
@@ -258,6 +238,7 @@ const BaseCard = ({ item, loading, style, create, onCreate, onLike }) => {
                 width="100%"
                 height="100%"
                 className={styles.mediaLoading}
+                style={{ background: 'var(--color-skel)' }}
               />
             ) : item.items ? (
               <>
@@ -300,7 +281,7 @@ const BaseCard = ({ item, loading, style, create, onCreate, onLike }) => {
                       fallback={
                         <Loader
                           type="Oval"
-                          color="#1a2999"
+                          color="rgb(109, 186, 252)"
                           height={32}
                           width={32}
                           className={styles.loader}
@@ -311,7 +292,7 @@ const BaseCard = ({ item, loading, style, create, onCreate, onLike }) => {
                         src={
                           item.thumbnailPath?.length > 10
                             ? `${storageUrl}/image/${item.thumbnailPath}`
-                            : item?.imageURL || info?.image
+                            : item?.imageURLCM || item?.imageURL || info?.image
                         }
                         className={styles.media}
                         alt={item.name}
@@ -323,38 +304,61 @@ const BaseCard = ({ item, loading, style, create, onCreate, onLike }) => {
           </div>
         </div>
         <div className={styles.content}>
+          {loading || fetching ? (
+            <Skeleton
+              width={100}
+              height={20}
+              style={{ background: 'var(--color-skel)', marginLeft: '10px' }}
+            />
+          ) : (
+            <Link
+              to={`/collection/${collection?.collectionName
+                ?.toLowerCase()
+                .replace(' ', '') ||
+                collection?.name?.toLowerCase().replace(' ', '')}`}
+              style={{ textDecoration: 'none' }}
+            >
+              <div className={styles.label}>
+                {collection?.collectionName || collection?.name}
+                {collection?.isVerified && (
+                  <BootstrapTooltip title="Verified Collection" placement="top">
+                    <img
+                      src={verified}
+                      width={'20px'}
+                      style={{ paddingLeft: '5px' }}
+                    />
+                  </BootstrapTooltip>
+                )}
+              </div>
+            </Link>
+          )}
           <div className={styles.topLine}>
             <div className={styles.itemName}>
               {loading || fetching ? (
-                <Skeleton width={100} height={20} />
+                <Skeleton
+                  width={100}
+                  height={20}
+                  style={{ background: 'var(--color-skel)' }}
+                />
               ) : (
-                <div className={styles.label}>
-                  {collection?.collectionName || collection?.name}
-                  {collection?.isVerified && (
-                    <BootstrapTooltip
-                      title="Verified Collection"
-                      placement="top"
-                    >
-                      <CheckCircleIcon className={styles.checkIcon} />
-                    </BootstrapTooltip>
-                  )}
+                <div className={styles.name}>
+                  {item?.tokenID || info?.tokenID}
                 </div>
-              )}
-              {loading || fetching ? (
-                <Skeleton width={100} height={20} />
-              ) : (
-                <div className={styles.name}>{item?.name || info?.name}</div>
               )}
             </div>
             {auction?.reservePrice || item?.price ? (
               <div className={styles.alignRight}>
                 {!loading && (
-                  <div className={styles.label}>
+                  <div className={styles.label3}>
                     {auctionActive ? 'Auction' : 'Price'}
                   </div>
                 )}
                 {loading || fetching ? (
-                  <Skeleton width={80} height={20} />
+                  <Skeleton
+                    width={80}
+                    height={20}
+                    style={{ background: 'var(--color-skel)' }}
+                  />
                 ) : (
                   <div className={cx(styles.label, styles.price)}>
                     <img
@@ -392,7 +396,11 @@ const BaseCard = ({ item, loading, style, create, onCreate, onLike }) => {
               <div className={styles.alignRight}>
                 {!loading && <div className={styles.label2}>Last Price</div>}
                 {loading || fetching ? (
-                  <Skeleton width={80} height={20} />
+                  <Skeleton
+                    width={80}
+                    height={20}
+                    style={{ background: 'var(--color-skel)' }}
+                  />
                 ) : (
                   <div className={cx(styles.label2, styles.price2)}>
                     <img
@@ -406,7 +414,7 @@ const BaseCard = ({ item, loading, style, create, onCreate, onLike }) => {
               </div>
             )}
             {/* {loading || fetching ? (
-              <Skeleton width={80} height={20} />
+              <Skeleton width={80} height={20} style={{ background: 'var(--color-skel)' }}/>
             ) : (
               <div className={styles.label}>
                 {item.items
@@ -418,6 +426,34 @@ const BaseCard = ({ item, loading, style, create, onCreate, onLike }) => {
                     )} of ${formatNumber(item?.supply || 1)}`}
               </div>
             )} */}
+          </div>
+          <div className={cx(styles.cardHeader, isLike && styles.liking)}>
+            {!item ? (
+              <Skeleton
+                width={80}
+                height={20}
+                style={{ background: 'var(--color-skel)' }}
+              />
+            ) : (
+              <>
+                {item?.rank > 0 && (
+                  <div className={styles.ranking}>Rank {item?.rank}</div>
+                )}
+
+                {isLike ? (
+                  <FavoriteIcon
+                    className={styles.favIcon}
+                    onClick={toggleFavorite}
+                  />
+                ) : (
+                  <FavoriteBorderIcon
+                    className={styles.favIcon}
+                    onClick={toggleFavorite}
+                  />
+                )}
+                <span className={styles.favLabel}>{liked || 0}</span>
+              </>
+            )}
           </div>
         </div>
       </>
@@ -439,7 +475,7 @@ const BaseCard = ({ item, loading, style, create, onCreate, onLike }) => {
             to={
               item.items
                 ? `/bundle/${item._id}`
-                : `/collection/${item.contractAddress}/${item.tokenID}`
+                : `/explore/${item.contractAddress}/${item.tokenID}`
             }
             className={styles.link}
           >

@@ -17,15 +17,15 @@
   width: 640px;
   border-radius: 10px;
   box-sizing: border-box;
-  background-color: #FFF;
+  background-color: #fff;
   outline: none;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
-  color: #3D3D3D;
+  color: #3d3d3d;
 }
 
 .header {
   height: 70px;
-  border-bottom: 1px solid #EAEAF1;
+  border-bottom: 1px solid #eaeaf1;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -73,7 +73,7 @@
   display: flex;
   align-items: center;
   border-radius: 10px;
-  border: 1px solid #EAEAF1;
+  border: 1px solid #eaeaf1;
 }
 
 .formInput {
@@ -90,13 +90,13 @@
 .usdPrice {
   min-width: 130px;
   height: 50px;
-  border-left: 1px solid #EAEAF1;
+  border-left: 1px solid #eaeaf1;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 500;
   font-size: 16px;
-  color: rgba(0, 0, 0, .4);
+  color: rgba(0, 0, 0, 0.4);
 }
 
 .longInput {
@@ -109,7 +109,7 @@
   margin-top: 6px;
   margin-right: 6px;
   text-align: right;
-  color: rgba(0, 0, 0, .6);
+  color: rgba(0, 0, 0, 0.6);
 }
 
 .footer {
@@ -121,10 +121,15 @@
 .button {
   width: 169px;
   height: 48px;
-  border-radius: 8px;
+  border-radius: 50px;
   font-weight: 700;
   font-size: 16px;
-  background-color: #007bff;
+  background: rgb(109, 186, 252);
+  background: linear-gradient(
+    93deg,
+    rgba(109, 186, 252, 1) 0%,
+    rgba(255, 107, 199, 1) 100%
+  );
   box-shadow: none;
   display: flex;
   align-items: center;
@@ -133,15 +138,20 @@
 }
 
 .save {
-  background-color: #1a2999;
-  color: #FFF;
-};
+  background: rgb(109, 186, 252);
+  background: linear-gradient(
+    93deg,
+    rgba(109, 186, 252, 1) 0%,
+    rgba(255, 107, 199, 1) 100%
+  );
+  color: #fff;
+}
 
 .avatarBox {
   position: relative;
   width: 100px;
   height: 100px;
-  background-color: #FAFAFA;
+  background-color: #fafafa;
   border-radius: 100px;
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
@@ -161,7 +171,7 @@
 
 .itemList {
   height: 300px;
-  border: 1px solid #EAEAF1;
+  border: 1px solid #eaeaf1;
   border-radius: 12px;
   overflow-y: auto;
   overflow-x: hidden;
@@ -175,7 +185,7 @@
   cursor: pointer;
 
   &:hover {
-    background-color: rgba(0, 0, 0, .05);
+    background-color: rgba(0, 0, 0, 0.05);
   }
 
   &.selected {

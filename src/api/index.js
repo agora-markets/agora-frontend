@@ -10,13 +10,13 @@ export const useApi = () => {
 
   const apiUrl = isMainnet
     ? 'https://agoramarket-api.herokuapp.com'
-    : 'https://agoramarket-api.herokuapp.com';
+    : 'https://api.testnet.artion.io';
 
   // eslint-disable-next-line no-undef
   // const apiUrl = process.env.REACT_APP_API_URI;
   const storageUrl = isMainnet
-    ? 'https://agoramarket-api.herokuapp.com'
-    : 'https://agoramarket-api.herokuapp.com';
+    ? 'https://storage.artion.io'
+    : 'https://storage.testnet.artion.io';
 
   // const tokenURL = 'https://fetch-tokens.vercel.app/api';
 
@@ -29,6 +29,28 @@ export const useApi = () => {
       },
     });
     return res.data;
+  };
+
+  const getAttributes = async address => {
+    let result = await axios({
+      method: 'post',
+      url: `${apiUrl}/transfer/getAttributes`,
+      data: JSON.stringify({ address: address }),
+      headers: { 'Content-Type': 'application/json' },
+    });
+    if (result.data.status == 'success') {
+      return result.data.data;
+    }
+    return null;
+  };
+  const refreshMetadata = async (address, tokenID) => {
+    const res = await axios({
+      method: 'post',
+      url: `${apiUrl}/transfer/updateMetadata`,
+      data: JSON.stringify({ address: address, tokenID: tokenID }),
+      headers: { 'Content-Type': 'application/json' },
+    });
+    return res;
   };
 
   const getAuthToken = async address => {
@@ -82,24 +104,19 @@ export const useApi = () => {
     return res.data;
   };
 
-  const getUserAccountAlias = async address => {
-    const data = { address };
+  const getUserFigures = async address => {
     const res = await axios({
-      method: 'post',
-      url: `${apiUrl}/account/getuseraccountalias`,
-      data: JSON.stringify(data),
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      method: 'get',
+      url: `${apiUrl}/info/getFigures/${address}`,
     });
 
     return res.data;
   };
 
-  const getUserFigures = async address => {
+  const getLatestStats = async () => {
     const res = await axios({
       method: 'get',
-      url: `${apiUrl}/info/getFigures/${address}`,
+      url: `${apiUrl}/info/latestStats`,
     });
 
     return res.data;
@@ -153,6 +170,22 @@ export const useApi = () => {
     return res.data;
   };
 
+  const updateCollectionBanner = async (imageData, authToken, address) => {
+    const formData = new FormData();
+    formData.append('imgData', imageData);
+    formData.append('collectionAddress', address);
+    const res = await axios({
+      method: 'post',
+      url: `${apiUrl}/ipfs/uploadCollectionBannerImage2Server`,
+      data: formData,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+    return res.data;
+  };
+
   const get1155Info = async (contractAddress, tokenID) => {
     const { data } = await axios.get(
       `${apiUrl}/info/get1155info/${contractAddress}/${tokenID}`
@@ -167,44 +200,8 @@ export const useApi = () => {
     return data;
   };
 
-  const fetchWarnedCollections = async () => {
-    const res = await axios.get(`${apiUrl}/info/getWarnedCollections`);
-    return res.data;
-  };
-
   const fetchCollections = async () => {
     const res = await axios.get(`${apiUrl}/info/getcollections`);
-    return res.data;
-  };
-
-  // For Profile Colleciton List //
-  const fetchProfileCollectionList = async owner => {
-    const res = await axios({
-      method: 'post',
-      url: `${apiUrl}/info/getProfileCollectionList`,
-      data: JSON.stringify({ owner }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    return res.data;
-  };
-
-  // For Colleciton List page //
-  const fetchCollectionList = async (isVerified, start, _count, sortedBy) => {
-    const res = await axios({
-      method: 'post',
-      url: `${apiUrl}/info/getCollectionList`,
-      data: JSON.stringify({
-        isVerified,
-        start,
-        count: _count,
-        sortedBy: sortedBy.id,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
     return res.data;
   };
 
@@ -213,29 +210,6 @@ export const useApi = () => {
       method: 'post',
       url: `${apiUrl}/collection/getCollectionInfo`,
       data: JSON.stringify({ contractAddress }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    return res.data;
-  };
-
-  const fetchCollectionStatistic = async contractAddress => {
-    const res = await axios({
-      method: 'post',
-      url: `${apiUrl}/collection/getCollectionStatistic`,
-      data: JSON.stringify({ contractAddress }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    return res.data;
-  };
-  const fetchAuctionBidParticipants = async (contractAddress, tokenID) => {
-    const res = await axios({
-      method: 'post',
-      url: `${apiUrl}/auction/getBidParticipants`,
-      data: JSON.stringify({ contractAddress, tokenID }),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -309,30 +283,28 @@ export const useApi = () => {
     filterBy = [],
     address = null,
     cancelToken,
-    isProfile = false,
-    mediaType = null,
-    attributes = {},
+    attributes = [],
+    tokenIds = []
   ) => {
-    const data = { from, count, type, isProfile };
+    const data = { from, count, type };
     if (collections.length > 0) {
       data.collectionAddresses = collections;
+    }
+    if (attributes.length > 0) {
+      data.attributes = attributes;
+    }
+    if (tokenIds.length > 0) {
+      data.tokenIds = tokenIds;
     }
     if (category !== null) {
       data.category = category;
     }
-    if (mediaType !== null) {
-      data.mediaType = mediaType;
-    }
     if (address) {
-      data.address = address;
+      data.address = address.length ? address : [address];
     }
     if (filterBy.length) {
       data.filterby = filterBy;
     }
-    if (Object.keys(attributes).length) {
-      data.attributes = attributes;
-    }
-
     data.sortby = sortBy;
     const res = await axios({
       method: 'post',
@@ -389,7 +361,6 @@ export const useApi = () => {
 
   const fetchItemDetails = async (contractAddress, tokenID) => {
     const data = { contractAddress, tokenID };
-    console.log('!2 fetchItemDetails', data);
     const res = await axios({
       method: 'post',
       url: `${apiUrl}/nftItems/getSingleItemDetails`,
@@ -398,8 +369,6 @@ export const useApi = () => {
         'Content-Type': 'application/json',
       },
     });
-    console.log('!2 fetchItemDetails', res.data);
-
     return res.data;
   };
 
@@ -542,83 +511,6 @@ export const useApi = () => {
     const res = await axios({
       method: 'post',
       url: `${apiUrl}/ban/unbanCollection`,
-      data: JSON.stringify(data),
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${authToken}`,
-      },
-    });
-    return res.data;
-  };
-
-  // Warn / Unwarn //
-  const warnCollection = async (
-    address,
-    authToken,
-    signature,
-    signatureAddress
-  ) => {
-    const data = { address, signature, signatureAddress };
-    const res = await axios({
-      method: 'post',
-      url: `${apiUrl}/ban/warnCollection`,
-      data: JSON.stringify(data),
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${authToken}`,
-      },
-    });
-    return res.data;
-  };
-
-  const unwarnCollection = async (
-    address,
-    authToken,
-    signature,
-    signatureAddress
-  ) => {
-    const data = { address, signature, signatureAddress };
-    const res = await axios({
-      method: 'post',
-      url: `${apiUrl}/ban/unwarnCollection`,
-      data: JSON.stringify(data),
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${authToken}`,
-      },
-    });
-    return res.data;
-  };
-
-  const verifyCollection = async (
-    address,
-    authToken,
-    signature,
-    signatureAddress
-  ) => {
-    const data = { address, signature, signatureAddress };
-    const res = await axios({
-      method: 'post',
-      url: `${apiUrl}/ban/verifyCollection`,
-      data: JSON.stringify(data),
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${authToken}`,
-      },
-    });
-    return res.data;
-  };
-
-  const unverifyCollection = async (
-    address,
-    authToken,
-    signature,
-    signatureAddress
-  ) => {
-    const data = { address, signature, signatureAddress };
-    const res = await axios({
-      method: 'post',
-      url: `${apiUrl}/ban/unverifyCollection`,
       data: JSON.stringify(data),
       headers: {
         'Content-Type': 'application/json',
@@ -985,51 +877,9 @@ export const useApi = () => {
     return res.data;
   };
 
-  const getAttributeFilterData = async contractAddress => {
-    const res = await axios({
-      method: 'get',
-      url: `${apiUrl}/collection/${contractAddress}/attributeFilter`,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }).then(res => res.data);
-
-    return res.status === 'success' ? res.data : [];
-  };
-
-  const isAttributeFilterAvailable = async contractAddress => {
-    const res = await axios({
-      method: 'get',
-      url: `${apiUrl}/collection/${contractAddress}/attributeFilter/exists`,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then(() => true)
-      .catch(() => false);
-
-    return res;
-  };
-
-  const updateCollection = async (collection, signature, signatureAddress, authToken) => {
-    const res = await axios({
-      method: 'post',
-      url: `${apiUrl}/collection/update`,
-      data: JSON.stringify({
-        signature,
-        signatureAddress,
-        collection
-      }),
-      headers: {
-        'content-type': 'application/json',
-        Authorization: `Bearer ${authToken}`,
-      }
-    });
-
-    return res;
-  }
-
   return {
+    getAttributes,
+    getLatestStats,
     explorerUrl,
     apiUrl,
     storageUrl,
@@ -1038,19 +888,14 @@ export const useApi = () => {
     getIsModerator,
     getAccountDetails,
     getUserAccountDetails,
-    getUserAccountAlias,
     getUserFigures,
     updateAccountDetails,
     updateBanner,
+    updateCollectionBanner,
     get1155Info,
     getTokenHolders,
-    fetchWarnedCollections,
     fetchCollections,
     fetchCollection,
-    fetchCollectionStatistic,
-    fetchCollectionList,
-    fetchProfileCollectionList,
-    fetchAuctionBidParticipants,
     fetchPendingCollections,
     approveCollection,
     rejectCollection,
@@ -1094,12 +939,6 @@ export const useApi = () => {
     updateNotificationSettings,
     addUnlockableContent,
     retrieveUnlockableContent,
-    verifyCollection,
-    unverifyCollection,
-    getAttributeFilterData,
-    isAttributeFilterAvailable,
-    warnCollection,
-    unwarnCollection,
-    updateCollection
+    refreshMetadata,
   };
 };

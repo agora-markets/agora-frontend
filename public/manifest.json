@@ -1,15 +1,25 @@
 {
-  "short_name": "Agora Markets",
-  "name": "Create React App Sample",
+  "background_color": "#000",
+  "display": "standalone",
+  "homepage_url": "https://agoracro.com",
+  "providedBy": {
+    "name": "Agora",
+    "url": "https://agoracro.com"
+  },
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
-    } 
+      "src": "./icon.png",
+      "sizes": "256x256",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
   ],
+  "orientation": "portrait",
+  "name": "Agora",
+  "description": "Fully-fledged NFT marketplace on Cronos & Arbitrum.",
+  "iconPath": "./icon.png",
+  "short_name": "Agora",
   "start_url": ".",
-  "display": "standalone",
   "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "skylink": "200f7q3hef7au79i6b6nr8seqs5sft664rb71uftdnjonnpscs0t4o0"
 }

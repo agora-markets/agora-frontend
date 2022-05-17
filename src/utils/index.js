@@ -4,8 +4,7 @@ import { getAddress } from '@ethersproject/address';
 import { Categories } from 'constants/filter.constants';
 import { IPFSUris } from 'constants/ipfs.constants';
 import MetamaskErrors from 'constants/errors';
-
-
+// import { useWeb3React } from '@web3-react/core';
 
 export function isAddress(value) {
   try {
@@ -38,61 +37,26 @@ export const getHigherGWEI = async library => {
   return price;
 };
 
-
-export const getRandomIPFS = (tokenURI, justURL = false, isFallback = false) => {
+export const getRandomIPFS = (tokenURI, justURL = false) => {
   let random = Math.floor(Math.random() * IPFSUris.length);
 
   if (justURL) {
     return `${IPFSUris[random]}`;
   }
-  if (isFallback) {
-    if (tokenURI.includes('ipfs://')) {
-      return `https://artion.mypinata.cloud/ipfs/${tokenURI.split('ipfs://')[1].replace(/([^:]\/)\/+/g, "$1")}`;
-    }
-    else {
-      return `https://artion.mypinata.cloud/ipfs/${tokenURI.split('ipfs/')[1]}`;
-    }
-  }
-  try {
-    if (
-      tokenURI.includes('pinata.cloud') ||
-      tokenURI.includes('cloudflare') ||
-      tokenURI.includes('ipfs.io') ||
-      tokenURI.includes('ipfs.infura.io')
-    ) {
-      return `${IPFSUris[random]}${tokenURI.split('ipfs/')[1]}`;
-    } else if (tokenURI.includes('ipfs://')) {
-      return `${IPFSUris[random]}${tokenURI.split('ipfs://')[1].replace(/([^:]\/)\/+/g, "$1")}`;
-    }
-    return tokenURI;
-  }
-  catch (error) {
-    return tokenURI;
+
+  if (
+    tokenURI.includes('gateway.pinata.cloud') ||
+    tokenURI.includes('cloudflare') ||
+    tokenURI.includes('ipfs.io') ||
+    tokenURI.includes('ipfs.infura.io')
+  ) {
+    return `${IPFSUris[random]}${tokenURI.split('ipfs/')[1]}`;
+  } else if (tokenURI.includes('ipfs://')) {
+    return `${IPFSUris[random]}${tokenURI.split('ipfs://')[1]}`;
   }
 
-
+  return tokenURI;
 };
-
-export const formatUSD = (num, digits) => {
-  if (num < 1) {
-    return '$' + num.toFixed(digits);
-  }
-  const lookup = [
-    { value: 1, symbol: "" },
-    { value: 1e3, symbol: "k" },
-    { value: 1e6, symbol: "M" },
-    { value: 1e9, symbol: "G" },
-    { value: 1e12, symbol: "T" },
-    { value: 1e15, symbol: "P" },
-    { value: 1e18, symbol: "E" }
-  ];
-  const rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
-  var item = lookup.slice().reverse().find(function (item) {
-    return num >= item.value;
-  });
-  return item ? '$' + (num / item.value).toFixed(digits).replace(rx, "$1") + item.symbol : "$0";
-}
-
 
 export const formatNumber = num => {
   if (isNaN(num) || num === null) return '';
@@ -100,8 +64,6 @@ export const formatNumber = num => {
   parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   return parts.join('.');
 };
-
-
 
 export const formatCategory = category => {
   return Categories.find(item => item.id === category).label;
@@ -151,54 +113,3 @@ export const calculateGasMargin = value => {
     .mul(ethers.BigNumber.from(10000).add(ethers.BigNumber.from(1000)))
     .div(ethers.BigNumber.from(10000));
 };
-
-export const formatDateTimeAgo = (_date, _now) => {
-  const ONE_MIN = 60;
-  const ONE_HOUR = ONE_MIN * 60;
-  const ONE_DAY = ONE_HOUR * 24;
-  const ONE_MONTH = ONE_DAY * 30;
-
-  const now = _now ?? new Date();
-  const date = new Date(_date);
-  const diff = Math.floor((now - date.getTime()) / 1000);
-  if (diff >= ONE_MONTH) {
-    const m = Math.ceil(diff / ONE_MONTH);
-    return `${m} Month${m > 1 ? 's' : ''} Ago`;
-  }
-  if (diff >= ONE_DAY) {
-    const d = Math.ceil(diff / ONE_DAY);
-    return `${d} Day${d > 1 ? 's' : ''} Ago`;
-  }
-  if (diff >= ONE_HOUR) {
-    const h = Math.ceil(diff / ONE_HOUR);
-    return `${h} Hour${h > 1 ? 's' : ''} Ago`;
-  }
-  if (diff >= ONE_MIN) {
-    const h = Math.ceil(diff / ONE_MIN);
-    return `${h} Min${h > 1 ? 's' : ''} Ago`;
-  }
-  return `${diff} Second${diff > 1 ? 's' : ''} Ago`;
-};
-
-function getLocationSearchParams() {
-  try {
-    return window.location.search.replace("?", "").toLowerCase().split("&");
-  } catch {
-    return []
-  }
-}
-
-function isEmbed() {
-  return getLocationSearchParams().find(x => x.startsWith("embed")) ?? false;
-}
-
-function isDarkModeRequested() {
-  return getLocationSearchParams().find(x => x.startsWith("theme=dark")) ?? false;
-}
-
-export function getEmbedParams() {
-  return {
-    isEmbed: isEmbed(),
-    isDarkMode: isDarkModeRequested()
-  }
-}

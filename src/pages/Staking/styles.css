@@ -1,0 +1,20 @@
+.MuiTab-wrapper {
+  color: inherit;
+}
+
+.MuiTabs-flexContainer {
+  border: 1px solid var(--color-text);
+  width: fit-content;
+  margin: 10px;
+}
+.MuiTab-textColorInherit.Mui-selected {
+  background-color: var(--color-text);
+  color: var(--color-page-background) !important;
+}
+.MuiTab-wrapper {
+  color: #aaa;
+}
+
+.MuiTab-wrapper.Mui-selected {
+  color: var(--color-page-background) !important;
+}

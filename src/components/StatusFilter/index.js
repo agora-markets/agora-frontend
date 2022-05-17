@@ -2,9 +2,10 @@ import React from 'react';
 import cx from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
-
+// import styles from './styles.scss';
 import FilterActions from 'actions/filter.actions';
 import FilterWrapper from 'components/FilterWrapper';
+// import { StylesContext } from '@material-ui/styles';
 
 const useStyles = makeStyles(() => ({
   body: {
@@ -13,11 +14,15 @@ const useStyles = makeStyles(() => ({
     gridGap: '8px',
   },
   formControl: {
+    '&:hover': {
+      transform: 'translateY(-2px)',
+      boxShadow: '0 0 6px rgba(0, 0, 0, 0.2)',
+    },
     width: '100%',
     height: 40,
     boxSizing: 'border-box',
-    borderRadius: 10,
-    border: '1px solid #A2A2AD',
+
+    border: '1px solid var(--color-text)',
     cursor: 'pointer',
     margin: '0 !important',
     display: 'flex',
@@ -25,11 +30,11 @@ const useStyles = makeStyles(() => ({
     justifyContent: 'center',
     fontSize: 14,
     fontWeight: '400',
-    color: '#121223',
-    backgroundColor: '#FFF',
+    color: 'var(--color-text)',
+    backgroundColor: 'var(--color-box)',
   },
   selected: {
-    backgroundColor: '#1a2999',
+    background: 'rgba(255, 107, 199, 1)',
     color: '#FFF',
     fontWeight: 700,
     border: 0,
@@ -52,7 +57,11 @@ const ExploreStatus = () => {
   };
 
   return (
-    <FilterWrapper title="Status" classes={{ body: classes.body }}>
+    <FilterWrapper
+      title="Status"
+      classes={{ body: classes.body }}
+      style={{ color: 'blue' }}
+    >
       <div
         className={cx(
           classes.formControl,
@@ -61,6 +70,15 @@ const ExploreStatus = () => {
         onClick={() => handleStatusChange('statusBuyNow', !statusBuyNow)}
       >
         Buy Now
+      </div>
+      <div
+        className={cx(
+          classes.formControl,
+          statusOnAuction ? classes.selected : null
+        )}
+        onClick={() => handleStatusChange('statusOnAuction', !statusOnAuction)}
+      >
+        On Auction
       </div>
       <div
         className={cx(
@@ -79,15 +97,6 @@ const ExploreStatus = () => {
         onClick={() => handleStatusChange('statusHasOffers', !statusHasOffers)}
       >
         Has Offers
-      </div>
-      <div
-        className={cx(
-          classes.formControl,
-          statusOnAuction ? classes.selected : null
-        )}
-        onClick={() => handleStatusChange('statusOnAuction', !statusOnAuction)}
-      >
-        On Auction
       </div>
     </FilterWrapper>
   );

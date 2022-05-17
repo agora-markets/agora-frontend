@@ -5,28 +5,27 @@ import { ClipLoader } from 'react-spinners';
 import Select from 'react-dropdown-select';
 import Skeleton from 'react-loading-skeleton';
 import { ethers } from 'ethers';
-import cx from 'classnames';
+import axios from 'axios';
 
 import { formatNumber } from 'utils';
 import useTokens from 'hooks/useTokens';
-import { useSalesContract } from 'contracts';
+// import { useSalesContract } from 'contracts';
 import PriceInput from 'components/PriceInput';
 
-import { RaroinModal as Modal } from '../Modal/RaroinModal';
+import Modal from '../Modal';
 import styles from '../Modal/common.module.scss';
 import InputError from '../InputError';
+import './stylecalendar.css';
 
 const OfferModal = ({
   visible,
-  info,
   onClose,
   onMakeOffer,
   confirming,
   totalSupply,
 }) => {
   const { tokens } = useTokens();
-
-  const { getSalesContract } = useSalesContract();
+  // const { getSalesContract } = useSalesContract();
 
   const [price, setPrice] = useState('');
   const [quantity, setQuantity] = useState('1');
@@ -40,8 +39,7 @@ const OfferModal = ({
   const [inputError, setInputError] = useState(null);
 
   useEffect(() => {
-    console.log('tokens', tokens);
-    if (tokens?.length) {
+    if (tokens?.length >= 1) {
       setOptions(tokens);
     }
   }, [tokens]);
@@ -51,7 +49,7 @@ const OfferModal = ({
       setPrice('');
       setQuantity('1');
       setEndTime(new Date(new Date().getTime() + 24 * 60 * 60 * 1000));
-      if (tokens?.length) {
+      if (tokens?.length >= 1) {
         setSelected([tokens[0]]);
       }
     }
@@ -62,10 +60,16 @@ const OfferModal = ({
     const func = async () => {
       const tk = selected[0].address || ethers.constants.AddressZero;
       try {
-        const salesContract = await getSalesContract();
-        const price = await salesContract.getPrice(tk);
-        setTokenPrice(parseFloat(ethers.utils.formatUnits(price, 18)));
-      } catch {
+        // const salesContract = await getSalesContract();
+        // const price = await salesContract.getPrice(tk);
+        // setTokenPrice(parseFloat(ethers.utils.formatUnits(price, 18)));
+        let response;
+        let _price;
+        response = await axios.get(`https://api.mm.finance/api/tokens/${tk}`);
+        _price = parseFloat(response.data.data.price);
+        setTokenPrice(_price);
+      } catch (error) {
+        console.error(error);
         setTokenPrice(null);
       }
     };
@@ -110,27 +114,19 @@ const OfferModal = ({
   return (
     <Modal
       visible={visible}
-      title="PLACE YOUR OFFER"
+      title="Place your offer"
       onClose={onClose}
       submitDisabled={confirming || !validateInput() || inputError}
       submitLabel={
-        confirming ? <ClipLoader color="#FFF" size={16} /> : 'PLACE OFFER'
+        confirming ? <ClipLoader color="#FFF" size={16} /> : 'Place Offer'
       }
       onSubmit={() =>
         !confirming && validateInput() ? handleMakeOffer() : null
       }
     >
-      {info?.name && (
-        <p>
-          You are about to place an offer for
-          <br />
-          <span className="color_brand">{info?.name}</span>
-        </p>
-      )}
-
       <div className={styles.formGroup}>
         <div className={styles.formLabel}>Price</div>
-        <div className="d-flex rounded-15 bg_input align-items-center">
+        <div className={styles.formInputCont}>
           <Select
             options={options}
             disabled={confirming}
@@ -138,7 +134,7 @@ const OfferModal = ({
             onChange={tk => {
               setSelected(tk);
             }}
-            className={cx(styles.select, 'bg_input')}
+            className={styles.select}
             placeholder=""
             itemRenderer={({ item, itemIndex, methods }) => (
               <div
@@ -164,41 +160,37 @@ const OfferModal = ({
               )
             }
           />
-          <PriceInput
-            className={styles.formInput}
-            placeholder="0"
-            decimals={0}
-            value={'' + price}
-            onChange={setPrice}
-            disabled={confirming}
-            onInputError={err => setInputError(err)}
-          />
-          <div className={`${styles.usdPrice} d-none d-sm-flex`}>
-            {!isNaN(tokenPrice) && tokenPrice !== null ? (
-              `$${formatNumber(
-                ((parseFloat(price) || 0) * tokenPrice).toFixed(2)
-              )}`
-            ) : (
-              <Skeleton width={100} height={24} />
-            )}
+          <div style={{ display: 'flex', flexDirection: 'row', width: '100%' }}>
+            <PriceInput
+              className={styles.formInput}
+              placeholder="0.00"
+              decimals={selected[0]?.decimals || 0}
+              value={'' + price}
+              onChange={setPrice}
+              disabled={confirming}
+              onInputError={err => setInputError(err)}
+            />
+            <div className={styles.usdPrice}>
+              {!isNaN(tokenPrice) && tokenPrice !== null ? (
+                `$${formatNumber(
+                  ((parseFloat(price) || 0) * tokenPrice).toFixed(2)
+                )}`
+              ) : (
+                <Skeleton
+                  width={100}
+                  height={24}
+                  style={{ background: 'var(--color-skel)' }}
+                />
+              )}
+            </div>
           </div>
-        </div>
-        <div className={`${styles.usdPriceMobile} d-sm-none`}>
-          {!isNaN(tokenPrice) && tokenPrice !== null ? (
-            `$${formatNumber(
-              ((parseFloat(price) || 0) * tokenPrice).toFixed(2)
-            )}`
-          ) : (
-            <Skeleton width={100} height={24} />
-          )}
         </div>
         <InputError text={inputError} />
       </div>
-
       {totalSupply !== null && (
         <div className={styles.formGroup}>
           <div className={styles.formLabel}>Quantity</div>
-          <div className="d-flex rounded-15 bg_input align-items-center">
+          <div className={styles.formInputCont}>
             <input
               className={styles.formInput}
               placeholder={totalSupply}
@@ -211,7 +203,7 @@ const OfferModal = ({
       )}
       <div className={styles.formGroup}>
         <div className={styles.formLabel}>Offer Expiration</div>
-        <div className="d-flex rounded-15 bg_input align-items-center">
+        <div className={styles.formInputCont}>
           <Datetime
             value={endTime}
             onChange={val => setEndTime(val.toDate())}

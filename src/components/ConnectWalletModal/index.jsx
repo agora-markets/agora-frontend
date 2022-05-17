@@ -51,7 +51,6 @@ const ConnectWalletModal = ({ visible, onClose }) => {
 
     conn &&
       activate(conn, undefined, true).catch(error => {
-        //console.log('conn',conn)
         if (error instanceof UnsupportedChainIdError) {
           activate(conn); // a little janky...can't use setError because the connector isn't set
         }
@@ -83,40 +82,7 @@ const ConnectWalletModal = ({ visible, onClose }) => {
       return (
         <div>
           <div className={styles.text}>
-            Please connect to the{' '}
-            {isMainnet ? 'Wanchain Mainnet' : 'Wanchain Testnet'}.
-          </div>
-          <div
-            className={styles.switchBtn}
-            style={{ backgroundColor: '#f9bb32' }}
-            onClick={async () => {
-              if (!window.ethereum) {
-                window.alert('please install MetaMask at: MetaMask.io');
-              } else {
-                try {
-                  const param = { 
-                    chainId: '0x378',
-                    chainName: 'Wanchain Mainnet',
-                    rpcUrls: ['https://gwan-ssl.wandevs.org:56891'],
-                    blockExplorerUrls: ['https://wanscan.org/'],
-                    nativeCurrency: {
-                      name: 'WAN',
-                      symbol: 'WAN', // 2-6 characters long
-                      decimals: 18,
-                    },
-                  };
-                  await window.ethereum.request({
-                    method: 'wallet_addEthereumChain',
-                    params: [param],
-                  });
-                } catch (addError) {
-                  // handle "add" error
-                  console.error('addError', addError);
-                }
-              }
-            }}
-          >
-            Switch to Wanchain in MetaMask
+            Please connect to {isMainnet ? 'Cronos' : 'Arbitrum'}.
           </div>
           <div className={styles.switchBtn} onClick={deactivate}>
             Disconnect

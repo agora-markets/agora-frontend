@@ -30,7 +30,11 @@ const LikesModal = ({ visible, onClose, users }) => {
           <div className={styles.holderInfo}>
             <div className={styles.avatarWrapper}>
               {!user ? (
-                <Skeleton width={40} height={40} />
+                <Skeleton
+                  width={40}
+                  height={40}
+                  style={{ background: 'var(--color-skel)' }}
+                />
               ) : user.imageHash ? (
                 <img
                   src={`https://cloudflare-ipfs.com/ipfs/${user.imageHash}`}
@@ -50,14 +54,22 @@ const LikesModal = ({ visible, onClose, users }) => {
                 {user ? (
                   user.alias || 'Unnamed'
                 ) : (
-                  <Skeleton width={100} height={20} />
+                  <Skeleton
+                    width={100}
+                    height={20}
+                    style={{ background: 'var(--color-skel)' }}
+                  />
                 )}
               </div>
               <div className={styles.address}>
                 {user ? (
                   shortenAddress(user.address)
                 ) : (
-                  <Skeleton width={100} height={20} />
+                  <Skeleton
+                    width={100}
+                    height={20}
+                    style={{ background: 'var(--color-skel)' }}
+                  />
                 )}
               </div>
             </div>

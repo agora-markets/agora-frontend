@@ -1,11 +1,40 @@
+@import '../../style/global.scss';
+
 .container {
   width: 100%;
   height: 100vh;
   overflow-y: auto;
+  padding-top: 80px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   position: relative;
+  background-color: var(--color-page-background);
+}
+
+.collectionsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.collectionCard {
+  padding: 30px;
+  border-radius: 15px;
+  color: var(--color-text);
+  border-radius: 50px;
+  border: 1px solid;
+  border-color: var(--border-box);
+  background-color: var(--color-box);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.15);
+  }
 }
 
 .profile {
@@ -41,22 +70,23 @@
   right: 32px;
   width: 48px;
   height: 48px;
-  border-radius: 10px;
-  background-color: #fff;
+  border: 1px solid;
+  border-color: var(--border-box);
+  background-color: var(--color-box);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
 
   &:hover {
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+    border-color: rgba(255, 107, 199, 1);
   }
 }
 
 .editIcon {
   width: 20px;
   height: 20px;
-  color: #a2a2ad;
+  color: var(--color-text);
 }
 
 .buttonsWrapper {
@@ -70,8 +100,9 @@
 .settings {
   width: 48px;
   height: 48px;
-  border-radius: 10px;
-  border: 1px solid #eaeaf1;
+  border: 1px solid;
+  border-color: var(--border-box);
+  background-color: var(--color-box);
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -81,6 +112,10 @@
 
   &:last-child {
     margin-right: 0;
+  }
+
+  &:hover {
+    border-color: rgba(255, 107, 199, 1);
   }
 }
 
@@ -97,7 +132,7 @@
   width: 160px;
   height: 160px;
   border-radius: 50%;
-  border: 6px solid #fff;
+  border: 6px solid var(--color-page-background);
   z-index: 1;
   overflow: hidden;
   position: relative;
@@ -120,16 +155,17 @@
 .username {
   font-size: 32px;
   font-weight: 700;
-  color: #121223;
+  color: var(--color-text);
+  font-family: Inter;
+  color: rgba(255, 107, 199, 1);
 }
 
 .followBtn {
   margin-left: 16px;
   width: 80px;
   height: 26px;
-  border-radius: 4px;
-  background-color: #1a2999;
-  color: #fff;
+  color: var(--color-text);
+  border: 1px solid var(--color-text);
   font-size: 14px;
   display: flex;
   align-items: center;
@@ -137,6 +173,11 @@
   cursor: pointer;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
   user-select: none;
+  padding: 5px;
+  &:hover {
+    border-color: rgba(255, 107, 199, 1);
+    color: rgba(255, 107, 199, 1);
+  }
 }
 
 .bottomWrapper {
@@ -150,23 +191,22 @@
   height: 40px;
   padding-left: 16px;
   padding-right: 4px;
-  background-color: #fafafb;
+  border: 1px solid;
+  border-color: var(--border-box);
+  background-color: var(--color-box);
   display: flex;
   align-items: center;
-  border-radius: 30px;
 }
 
 .address {
   font-size: 14px;
   font-weight: 700;
-  color: #1a2999;
+  color: rgba(255, 107, 199, 1);
 }
 
 .copyIcon {
   width: 32px;
   height: 32px;
-  border-radius: 16px;
-  background-color: #1a2999;
   margin-left: 20px;
   cursor: pointer;
   display: flex;
@@ -187,7 +227,7 @@
   margin-left: 56px;
   font-size: 16px;
   font-weight: 400;
-  color: #121223;
+  color: var(--color-text);
   cursor: pointer;
 }
 
@@ -197,21 +237,22 @@
   margin-top: 6px;
   font-size: 18px;
   font-weight: 400;
-  color: rgba(0, 0, 0, 0.6);
+  color: var(--color-text);
+  font-family: Inter;
 }
 
 .content {
   width: 100%;
   max-height: calc(100vh - 80px);
   box-sizing: border-box;
-  border: 1px solid #eaeaf1;
+  border: 1px solid var(--border-box);
   display: flex;
 }
 
 .contentSidebar {
   width: 288px;
   flex: 0 0 288px;
-  border-right: 1px solid #eaeaf1;
+  border-right: 1px solid var(--border-box);
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -222,7 +263,7 @@
   width: 100%;
   padding: 35px 35px 16px 32px;
   box-sizing: border-box;
-  border-bottom: 1px solid #eaeaf1;
+  border-bottom: 1px solid var(--border-box);
 
   &:last-child {
     border-bottom: 0;
@@ -233,7 +274,7 @@
   font-size: 14px;
   line-height: 22px;
   font-weight: 700;
-  color: #a2a2ad;
+  color: var(--color-text);
   margin-bottom: 16px;
 }
 
@@ -266,8 +307,8 @@
   align-items: center;
 
   &.selected {
-    background-color: #fafafb;
-    color: #121223;
+    background-color: var(--color-box);
+    color: var(--color-text);
   }
 }
 
@@ -299,33 +340,23 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 20px;
-  color: #121223;
+  color: var(--color-text);
+  border: 1px solid var(--border-box);
 }
 
 .activityHeader {
   width: 100%;
   padding: 9px 14px;
-  background-color: #f6f7f9;
-  font-weight: bold;
-}
-
-:global {
-  .is__dark {
-    :local {
-      .activityHeader {
-        background-color: #4b4b4b !important;
-      }
-    }
-  }
+  background-color: var(--color-box);
 }
 
 .activity {
   padding: 14px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid var(--border-box);
 
   .name,
   .owner {
-    color: #1a2999;
+    color: rgb(109, 186, 252);
     text-decoration: none;
   }
 }
@@ -374,7 +405,6 @@
 
 .quantity {
   flex: 2 0 0;
-  text-align: center;
 }
 
 .owner {
@@ -424,6 +454,7 @@
 
 .shareMenu {
   transform: translateY(55px) !important;
+  background-color: var(--color-page-background) !important;
 }
 
 .shareMenuList {
@@ -436,7 +467,7 @@
   align-items: center;
   font-size: 14px;
   font-weight: 400;
-  color: #121223;
+  color: var(--color-text) !important;
 
   img {
     width: 20px;

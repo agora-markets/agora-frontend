@@ -5,16 +5,7 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 
 import styles from './styles.module.scss';
 
-const Panel = ({
-  title,
-  icon,
-  expanded,
-  fixed,
-  responsive,
-  children,
-  containerClassName,
-  headerClassName,
-}) => {
+const Panel = ({ title, icon, expanded, fixed, responsive, children }) => {
   const [open, setOpen] = useState(!!expanded || !!fixed);
 
   const handleOpen = () => {
@@ -26,8 +17,8 @@ const Panel = ({
   const Icon = icon;
 
   return (
-    <div className={cx(styles.container, containerClassName)}>
-      <div className={cx(styles.header, headerClassName)} onClick={handleOpen}>
+    <div className={styles.container}>
+      <div className={styles.header} onClick={handleOpen}>
         <div className={styles.titleWrapper}>
           {icon && <Icon className={styles.titleIcon} />}
           <span className={styles.title}>{title}</span>

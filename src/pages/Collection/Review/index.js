@@ -49,7 +49,7 @@ const CollectionCreate = () => {
 
   useEffect(() => {
     if (account && authToken) {
-      if (ADMIN_ADDRESS.includes(account?.toLowerCase())) {
+      if (account.toLowerCase() === ADMIN_ADDRESS.toLowerCase()) {
         fetchCollections();
       } else {
         history.replace('/');
@@ -112,10 +112,8 @@ const CollectionCreate = () => {
   };
 
   return (
-    <>
-    <Header border />
-    <div className={cx('container','form-container-page', 'box')}>
-      
+    <div className={styles.container}>
+      <Header border />
       {loading ? (
         <div className={styles.loadingPanel}>
           <ClipLoader color="#3D3D3D" size={40} />
@@ -226,7 +224,7 @@ const CollectionCreate = () => {
                     <img src={webIcon} className={styles.linkIcon} />
                   </div>
                   <div className={styles.inputPrefix}>
-                    {collections[index].siteUrl}
+                    https://{collections[index].siteUrl}
                   </div>
                 </div>
                 <div className={styles.linkItem}>
@@ -234,7 +232,7 @@ const CollectionCreate = () => {
                     <img src={discordIcon} className={styles.linkIcon} />
                   </div>
                   <div className={styles.inputPrefix}>
-                    {collections[index].discord}
+                    https://discord.gg/{collections[index].discord}
                   </div>
                 </div>
                 <div className={styles.linkItem}>
@@ -242,7 +240,7 @@ const CollectionCreate = () => {
                     <img src={twitterIcon} className={styles.linkIcon} />
                   </div>
                   <div className={styles.inputPrefix}>
-                    {collections[index].twitterHandle}
+                    @{collections[index].twitterHandle}
                   </div>
                 </div>
                 <div className={styles.linkItem}>
@@ -250,7 +248,7 @@ const CollectionCreate = () => {
                     <img src={instagramIcon} className={styles.linkIcon} />
                   </div>
                   <div className={styles.inputPrefix}>
-                    {collections[index].instagramHandle}
+                    @{collections[index].instagramHandle}
                   </div>
                 </div>
                 <div className={styles.linkItem}>
@@ -258,7 +256,7 @@ const CollectionCreate = () => {
                     <img src={mediumIcon} className={styles.linkIcon} />
                   </div>
                   <div className={styles.inputPrefix}>
-                    {collections[index].mediumHandle}
+                    @{collections[index].mediumHandle}
                   </div>
                 </div>
                 <div className={styles.linkItem}>
@@ -266,7 +264,7 @@ const CollectionCreate = () => {
                     <img src={telegramIcon} className={styles.linkIcon} />
                   </div>
                   <div className={styles.inputPrefix}>
-                    {collections[index].telegram}
+                    https://t.me/{collections[index].telegram}
                   </div>
                 </div>
               </div>
@@ -319,7 +317,6 @@ const CollectionCreate = () => {
         </div>
       )}
     </div>
-    </>
   );
 };
 

@@ -1,89 +1,95 @@
-// import { ChainId } from '@sushiswap/sdk';
+import { ChainId } from '@sushiswap/sdk';
 
-// import iconETH from 'assets/imgs/ftm.png';
-//import iconWETH from 'assets/imgs/wwan.png';
-import iconZOO from 'assets/imgs/Zoo_ticker.svg';
-import iconVZOO from 'assets/imgs/vZoo_ticker.svg';
-// import iconUSDT from 'assets/imgs/usdt.png';
-// import iconUSDC from 'assets/imgs/usdc.png';
+// import iconFTM from 'assets/imgs/ftm.png';
+import iconWFTM from 'assets/imgs/CRO.png';
+import iconWETH from 'assets/imgs/CRO.png';
+import iconMMF from 'assets/imgs/mmf.png';
+import iconUSDC from 'assets/imgs/usdc.png';
+import iconAGO from 'assets/imgs/logoRound.png';
 // import iconDAI from 'assets/imgs/dai.png';
-// import iconUSDT from 'assets/imgs/wanUSDT.png';
-// import iconUSDC from 'assets/imgs/wanUSDC.png';
-// import iconETH from 'assets/imgs/wanETH.png';
-// import iconWASP from 'assets/imgs/wasp.png';
-
 
 // eslint-disable-next-line no-undef
 const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
 
 const Tokens = {
-  25: [
+  [25]: [
     // {
     //   address: '',
-    //   name: 'Fantom',
-    //   symbol: 'ETH',
+    //   name: 'Cronos',
+    //   symbol: 'CRO',
     //   decimals: 18,
-    //   icon: iconETH,
+    //   icon: iconCRO,
     // },
     {
-      address: '0x6e11655d6aB3781C6613db8CB1Bc3deE9a7e111F',
-      name: 'ZOO',
-      symbol: 'ZOO',
+      address: '0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23',
+      name: 'Wrapped Cro',
+      symbol: 'WCRO',
       decimals: 18,
-      icon: iconZOO,
-    },
-    /*
-    {
-      address: '0xdabd997ae5e4799be47d6e69d9431615cba28f48',
-      name: 'Wrapped WAN',
-      symbol: 'WWAN',
-      decimals: 18,
-      icon: iconWETH,
-    },
-    */
-  ],
-  999: [
-    // {
-    //   address: '',
-    //   name: 'Fantom',
-    //   symbol: 'ETH',
-    //   decimals: 18,
-    //   icon: iconETH,
-    // },
-    {
-      address: '0x890589dC8BD3F973dcAFcB02b6e1A133A76C8135',
-      name: 'ZOO',
-      symbol: 'ZOO',
-      decimals: 18,
-      icon: iconZOO,
+      icon: iconWFTM,
     },
     {
-      address: '0xcEEbf071CeFdD33364012a4A6BdC82105e754f53',
-      name: 'vZOO',
-      symbol: 'vZOO',
+      address: '0x97749c9b61f878a880dfe312d2594ae07aed7656',
+      name: 'Mad Meerkat Finance',
+      symbol: 'MMF',
       decimals: 18,
-      icon: iconVZOO,
+      icon: iconMMF,
+    },
+    {
+      address: '0xc21223249CA28397B4B6541dfFaEcC539BfF0c59',
+      name: 'USDC',
+      symbol: 'USDC',
+      decimals: 6,
+      icon: iconUSDC,
+    },
+    {
+      address: '0x383627caec2ce3b36793c34b576b2e97beda0466',
+      name: 'Agora Token',
+      symbol: 'AGO',
+      decimals: 18,
+      icon: iconAGO,
     },
     // {
-    //   address: '0x916283cc60fdaf05069796466af164876e35d21f',
-    //   name: 'Wrapped WAN',
-    //   symbol: 'WWAN',
-    //   decimals: 18,
-    //   icon: iconWETH,
-    // },
-    
-    // {
-    //   address: '0x3D5950287b45F361774E5fB6e50d70eEA06Bc167',
-    //   name: 'wanUSDT',
-    //   symbol: 'wanUSDT',
+    //   address: '0x049d68029688eabf473097a2fc38ef61633a3c7a',
+    //   name: 'Tether USD',
+    //   symbol: 'fUSDT',
     //   decimals: 6,
     //   icon: iconUSDT,
     // },
+    // {
+    //   address: '0x04068DA6C83AFCFA0e13ba15A6696662335D5B75',
+    //   name: 'USD Coin',
+    //   symbol: 'USDC',
+    //   decimals: 6,
+    //   icon: iconUSDC,
+    // },
+    // {
+    //   address: '0x8D11eC38a3EB5E956B052f67Da8Bdc9bef8Abf3E',
+    //   name: 'Dai Stablecoin',
+    //   symbol: 'DAI',
+    //   decimals: 18,
+    //   icon: iconDAI,
+    // },
+  ],
+  [ChainId.ARBITRUM]: [
+    // {
+    //   address: '',
+    //   name: 'Ether',
+    //   symbol: 'ETH',
+    //   decimals: 18,
+    //   icon: iconETH,
+    // },
+    {
+      address: '0xf1277d1ed8ad466beddf92ef448a132661956621',
+      name: 'Wrapped Ether',
+      symbol: 'WETH',
+      decimals: 18,
+      icon: iconWETH,
+    },
   ],
 };
 
 export default function useTokens() {
-  const chain = isMainnet ? 25 : 999;
+  const chain = isMainnet ? 25 : ChainId.ARBITRUM;
 
   const tokens = Tokens[chain];
 

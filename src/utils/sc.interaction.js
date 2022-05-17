@@ -3,14 +3,12 @@ import { useWeb3React } from '@web3-react/core';
 import { ethers } from 'ethers';
 
 const useContract = () => {
-  const { chainId, connector } = useWeb3React();
+  const { chainId, library } = useWeb3React();
 
   const loadContract = useCallback(
     async (address, abi) => {
-      const web3provider = await connector.getProvider();
-      await web3provider.enable();
-      const provider = new ethers.providers.Web3Provider(web3provider);
-      const signer = provider.getSigner();
+      // const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = library.getSigner();
       return new ethers.Contract(address, abi, signer);
     },
     [chainId]
@@ -18,10 +16,8 @@ const useContract = () => {
 
   const getAccountBalance = useCallback(
     async address => {
-      const web3provider = await connector.getProvider();
-      await web3provider.enable();
-      const provider = new ethers.providers.Web3Provider(web3provider);
-      let balance = await provider.getBalance(address);
+      // const provider = new ethers.providers.Web3Provider(window.ethereum);
+      let balance = await library.getBalance(address);
       balance = ethers.utils.formatEther(balance);
       return balance;
     },

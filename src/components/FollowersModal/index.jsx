@@ -30,7 +30,11 @@ const FollowersModal = ({ visible, onClose, title, users }) => {
           <div className={styles.holderInfo}>
             <div className={styles.avatarWrapper}>
               {!user ? (
-                <Skeleton width={40} height={40} />
+                <Skeleton
+                  width={40}
+                  height={40}
+                  style={{ background: 'var(--color-skel)' }}
+                />
               ) : user.imageHash ? (
                 <img
                   src={`https://cloudflare-ipfs.com/ipfs/${user.imageHash}`}
@@ -50,14 +54,22 @@ const FollowersModal = ({ visible, onClose, title, users }) => {
                 {user ? (
                   user.alias || 'Unnamed'
                 ) : (
-                  <Skeleton width={100} height={20} />
+                  <Skeleton
+                    width={100}
+                    height={20}
+                    style={{ background: 'var(--color-skel)' }}
+                  />
                 )}
               </div>
               <div className={styles.address}>
                 {user ? (
                   shortenAddress(user.address)
                 ) : (
-                  <Skeleton width={100} height={20} />
+                  <Skeleton
+                    width={100}
+                    height={20}
+                    style={{ background: 'var(--color-skel)' }}
+                  />
                 )}
               </div>
             </div>
@@ -68,7 +80,11 @@ const FollowersModal = ({ visible, onClose, title, users }) => {
                 user.followers !== 1 ? 's' : ''
               }`
             ) : (
-              <Skeleton width={80} height={24} />
+              <Skeleton
+                width={80}
+                height={24}
+                style={{ background: 'var(--color-skel)' }}
+              />
             )}
           </div>
         </Follower>

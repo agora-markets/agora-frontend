@@ -7,6 +7,7 @@ import { ClipLoader } from 'react-spinners';
 import Select from 'react-dropdown-select';
 import Skeleton from 'react-loading-skeleton';
 import { ethers } from 'ethers';
+import axios from 'axios';
 import { withStyles } from '@material-ui/core/styles';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -16,15 +17,14 @@ import BootstrapTooltip from 'components/BootstrapTooltip';
 import PriceInput from 'components/PriceInput';
 import { formatNumber } from 'utils';
 import useTokens from 'hooks/useTokens';
-import { useSalesContract } from 'contracts';
+// import { useSalesContract } from 'contracts';
 
-import { RaroinModal as Modal } from '../Modal/RaroinModal';
+import Modal from '../Modal';
 import styles from '../Modal/common.module.scss';
 import InputError from '../InputError';
 
 const AuctionModal = ({
   visible,
-  info,
   onClose,
   onStartAuction,
   auction,
@@ -35,7 +35,7 @@ const AuctionModal = ({
   contractApproved,
 }) => {
   const { tokens } = useTokens();
-  const { getSalesContract } = useSalesContract();
+  // const { getSalesContract } = useSalesContract();
 
   const [now, setNow] = useState(new Date());
   const [reservePrice, setReservePrice] = useState('');
@@ -85,11 +85,8 @@ const AuctionModal = ({
 
   const CustomCheckbox = withStyles({
     root: {
-      '&:hover': {
-        backgroundColor: 'transparent',
-      },
       '&$checked': {
-        color: '#1a2999',
+        color: 'rgb(109, 186, 252)',
       },
     },
     checked: {},
@@ -100,9 +97,14 @@ const AuctionModal = ({
     const func = async () => {
       const tk = selected[0].address || ethers.constants.AddressZero;
       try {
-        const salesContract = await getSalesContract();
-        const price = await salesContract.getPrice(tk);
-        setTokenPrice(parseFloat(ethers.utils.formatUnits(price, 18)));
+        // const salesContract = await getSalesContract();
+        // const price = await salesContract.getPrice(tk);
+        // setTokenPrice(parseFloat(ethers.utils.formatUnits(price, 18)));
+        let response;
+        let _price;
+        response = await axios.get(`https://api.mm.finance/api/tokens/${tk}`);
+        _price = parseFloat(response.data.data.price);
+        setTokenPrice(_price);
       } catch {
         setTokenPrice(null);
       }
@@ -130,7 +132,7 @@ const AuctionModal = ({
   return (
     <Modal
       visible={visible}
-      title={auction ? 'UPDATE AUCTION' : 'START AUCTION'}
+      title={auction ? 'Update Auction' : 'Start Auction'}
       onClose={onClose}
       submitDisabled={
         contractApproving ||
@@ -143,14 +145,14 @@ const AuctionModal = ({
           confirming ? (
             <ClipLoader color="#FFF" size={16} />
           ) : auction ? (
-            'UPDATE AUCTION'
+            'Update Auction'
           ) : (
-            'START AUCTION'
+            'Start Auction'
           )
         ) : contractApproving ? (
-          'APPROVING ITEM'
+          'Approving Item'
         ) : (
-          'APPROVE ITEM'
+          'Approve Item'
         )
       }
       onSubmit={() =>
@@ -167,29 +169,17 @@ const AuctionModal = ({
           : approveContract()
       }
     >
-      {info?.name && (
-        <p>
-          You are about to start an auction for
-          <br />
-          <span className="color_brand">{info?.name}</span>
-        </p>
-      )}
       <div className={styles.formGroup}>
         <div className={styles.formLabel}>
           Reserve Price&nbsp;
           <BootstrapTooltip
-            title="Reserve price is the minimum bid you are willing to accept for this auction."
+            title="Reserve price is your desired one you want to get from this auction."
             placement="top"
           >
             <HelpOutlineIcon />
           </BootstrapTooltip>
         </div>
-        <div
-          className={cx(
-            'd-flex rounded-15 bg_input align-items-center',
-            focused && styles.focused
-          )}
-        >
+        <div className={cx(styles.formInputCont, focused && styles.focused)}>
           <Select
             options={options}
             disabled={auction || confirming}
@@ -223,82 +213,80 @@ const AuctionModal = ({
               )
             }
           />
-          <PriceInput
-            className={styles.formInput}
-            placeholder="0.00"
-            value={'' + reservePrice}
-            decimals={selected[0]?.decimals || 0}
-            onChange={setReservePrice}
-            onFocus={() => setFocused(true)}
-            onBlur={() => setFocused(false)}
-            disabled={contractApproving || confirming}
-            onInputError={err => setInputError(err)}
-          />
-          <div className={`${styles.usdPrice} d-none d-sm-flex`}>
-            {!isNaN(tokenPrice) && tokenPrice !== null ? (
-              `$${formatNumber(
-                ((parseFloat(reservePrice) || 0) * tokenPrice).toFixed(2)
-              )}`
-            ) : (
-              <Skeleton width={100} height={24} />
-            )}
+          <div style={{ display: 'flex', flexDirection: 'row', width: '100%' }}>
+            <PriceInput
+              className={styles.formInput}
+              placeholder="0.00"
+              value={'' + reservePrice}
+              decimals={selected[0]?.decimals || 0}
+              onChange={setReservePrice}
+              onFocus={() => setFocused(true)}
+              onBlur={() => setFocused(false)}
+              disabled={contractApproving || confirming}
+              onInputError={err => setInputError(err)}
+            />
+            <div className={styles.usdPrice}>
+              {!isNaN(tokenPrice) && tokenPrice !== null ? (
+                `$${formatNumber(
+                  ((parseFloat(reservePrice) || 0) * tokenPrice).toFixed(2)
+                )}`
+              ) : (
+                <Skeleton
+                  width={100}
+                  height={24}
+                  style={{ background: 'var(--color-skel)' }}
+                />
+              )}
+            </div>
           </div>
-        </div>
-        <div className={`${styles.usdPriceMobile} d-sm-none`}>
-          {!isNaN(tokenPrice) && tokenPrice !== null ? (
-            `$${formatNumber(
-              ((parseFloat(reservePrice) || 0) * tokenPrice).toFixed(2)
-            )}`
-          ) : (
-            <Skeleton width={100} height={24} />
-          )}
         </div>
         <InputError text={inputError} />
       </div>
-      <div className={styles.formGroup}>
-        <div className={styles.formLabel}>Start Time</div>
-        <div className={'d-flex rounded-15 bg_input align-items-center'}>
-          <Datetime
-            value={startTime}
-            className={'calendarAboveInput'}
-            onChange={val => setStartTime(val.toDate())}
-            inputProps={{
-              className: styles.formInput,
-              onKeyDown: e => e.preventDefault(),
-              disabled: auctionStarted || contractApproving || confirming,
-            }}
-            closeOnSelect
-            isValidDate={cur =>
-              cur.valueOf() > now.getTime() - 1000 * 60 * 60 * 24
-            }
-          />
+      <div className={styles.formGroupDates}>
+        <div className={styles.formGroup}>
+          <div className={styles.formLabel}>Start Time</div>
+          <div className={styles.formInputCont}>
+            <Datetime
+              value={startTime}
+              className={'calendarAboveInput'}
+              onChange={val => setStartTime(val.toDate())}
+              inputProps={{
+                className: styles.formInput,
+                onKeyDown: e => e.preventDefault(),
+                disabled: auctionStarted || contractApproving || confirming,
+              }}
+              closeOnSelect
+              isValidDate={cur =>
+                cur.valueOf() > now.getTime() - 1000 * 60 * 60 * 24
+              }
+            />
+          </div>
         </div>
-      </div>
-      <div className={styles.formGroup}>
-        <div className={styles.formLabel}>Auction Expiration</div>
-        <div className={'d-flex rounded-15 bg_input align-items-center'}>
-          <Datetime
-            value={endTime}
-            className={'calendarAboveInput'}
-            onChange={val => setEndTime(val.toDate())}
-            inputProps={{
-              className: styles.formInput,
-              onKeyDown: e => e.preventDefault(),
-              disabled: contractApproving || confirming,
-            }}
-            closeOnSelect
-            isValidDate={cur =>
-              cur.valueOf() > startTime.getTime() - ((1000 * 60 * 60 * 24)+(300*1000))
-            }
-          />
+        <div className={styles.formGroup}>
+          <div className={styles.formLabel}>Auction Expiration</div>
+          <div className={styles.formInputCont}>
+            <Datetime
+              value={endTime}
+              className={'calendarAboveInput'}
+              onChange={val => setEndTime(val.toDate())}
+              inputProps={{
+                className: styles.formInput,
+                onKeyDown: e => e.preventDefault(),
+                disabled: contractApproving || confirming,
+              }}
+              closeOnSelect
+              isValidDate={cur =>
+                cur.valueOf() > startTime.getTime() - 1000 * 60 * 60 * 23
+              }
+            />
+          </div>
         </div>
       </div>
       <FormControlLabel
-        className={cx(styles.formControl, styles.selected, 'align-items-start')}
+        className={cx(styles.formControl, styles.selected)}
         classes={{ label: styles.groupTitle }}
         control={
           <CustomCheckbox
-            classes={{ root: 'pt-0' }}
             checked={minBidReserve}
             onChange={() => setMinBidReserve(prevState => !prevState)}
           />

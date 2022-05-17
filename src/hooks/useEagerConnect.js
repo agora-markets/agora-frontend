@@ -1,43 +1,29 @@
 import { useEffect, useState } from 'react';
 
-import { injected,walletconnect } from '../connectors';
+import { injected } from '../connectors';
 import { isMobile } from 'react-device-detect';
-import { useWeb3React } from '@web3-react/core';
-
+import { useWeb3React as useWeb3ReactCore } from '@web3-react/core';
 
 function useEagerConnect() {
-  const { activate, active } = useWeb3React(); // specifically using useWeb3ReactCore because of what this hook does
+  const { activate, active } = useWeb3ReactCore(); // specifically using useWeb3ReactCore because of what this hook does
   const [tried, setTried] = useState(false);
 
   useEffect(() => {
-
-    
-    if (localStorage.getItem('walletconnect'))
-    {
-      activate(walletconnect, undefined, true).catch(() => {
-        setTried(true);
-      });
-    }
-    else
-    {
-      injected.isAuthorized().then(isAuthorized => {
-        if (isAuthorized) {
+    injected.isAuthorized().then(isAuthorized => {
+      if (isAuthorized) {
+        activate(injected, undefined, true).catch(() => {
+          setTried(true);
+        });
+      } else {
+        if (isMobile && window.ethereum) {
           activate(injected, undefined, true).catch(() => {
             setTried(true);
           });
         } else {
-          if (isMobile && window.ethereum) {
-            activate(injected, undefined, true).catch(() => {
-              setTried(true);
-            });
-          } else {
-            setTried(true);
-          }
+          setTried(true);
         }
-      });
-    }
-
-
+      }
+    });
     // intentionally only running on mount (make sure it's only mounted once :))
   }, [activate]);
 

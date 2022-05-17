@@ -6,15 +6,14 @@ import { ethers } from 'ethers';
 
 import toast from 'utils/toast';
 import { useApi } from 'api';
-import useConnectionUtils from 'hooks/useConnectionUtils';
+import { getSigner } from 'contracts';
 
 import Modal from '../Modal';
 import styles from '../Modal/common.module.scss';
 
 const BanItemModal = ({ visible, onClose }) => {
   const { getNonce, banItems } = useApi();
-  const {getSigner} = useConnectionUtils();
-  const { account } = useWeb3React();
+  const { account, library } = useWeb3React();
 
   const { authToken } = useSelector(state => state.ConnectWallet);
 
@@ -39,8 +38,8 @@ const BanItemModal = ({ visible, onClose }) => {
       let signature;
       let addr;
       try {
-        const signer = await getSigner();
-        const msg = `Approve Signature on Agoracro.com with nonce ${nonce}`;
+        const signer = await getSigner(library);
+        const msg = `Approve Signature on Agoranft.io with nonce ${nonce}`;
         signature = await signer.signMessage(msg);
         addr = ethers.utils.verifyMessage(msg, signature);
       } catch (err) {

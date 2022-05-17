@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 
-//import closeIcon from 'assets/svgs/close.svg';
+import closeIcon from 'assets/svgs/close.svg';
 
 import styles from './styles.module.scss';
 
@@ -29,7 +29,10 @@ const Modal = ({
         <div className={styles.header}>
           <div className={styles.title}>{title}</div>
           <div className={styles.closeButton} onClick={onClose}>
-          ×
+            <img
+              src={closeIcon}
+              style={{ filter: 'invert(var(--color-logo))' }}
+            />
           </div>
         </div>
         <div className={styles.body}>{children}</div>
@@ -38,7 +41,6 @@ const Modal = ({
             <div
               className={cx(
                 styles.submitButton,
-                'btn btn-primary rounded-20',
                 submitDisabled && styles.disabled
               )}
               onClick={onSubmit}
