@@ -158,7 +158,7 @@ export function CollectionsPage() {
 
           <div className={'d-flex justify-content-center'} ref={loadMoreRef}>
             {loading && (
-              <Loader type="Oval" color="#00A59A" height={40} width={40} />
+              <Loader type="Oval" color="#1a2999" height={40} width={40} />
             )}
           </div>
         </div>

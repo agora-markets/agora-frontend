@@ -58,7 +58,7 @@
 }
 
 .attribute-filter-container .MuiSlider-root {
-  color: #00a59a !important;
+  color: #1a2999 !important;
   margin-top: 8px;
 }
 
@@ -102,12 +102,12 @@
 
 .attribute-filter-container .MuiChip-root {
   color: white;
-  background:#00a59a;
+  background:#1a2999;
 }
 
 .attribute-filter-container .MuiChip-root {
   color: white;
-  background:#00a59a;
+  background:#1a2999;
 }
 
 .attribute-filter-container .MuiChip-root svg
@@ -138,7 +138,7 @@
 }
 
 .is__dark .attribute-filter-container .MuiSlider-root span {
-  color: #00a59a !important;
+  color: #1a2999 !important;
 
 }
 
@@ -149,5 +149,5 @@
 
 .is__dark .attribute-filter-container .MuiChip-root
 {
-  background:#00a59a;
+  background:#1a2999;
 }

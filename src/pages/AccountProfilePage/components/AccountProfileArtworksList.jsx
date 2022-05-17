@@ -58,7 +58,7 @@ function AccountProfileArtworksListComponent(props) {
           ))}
           <div className={'d-flex justify-content-center'} ref={loadMoreRef}>
             {props.loading && (
-              <Loader type="Oval" color="#00A59A" height={32} width={32} />
+              <Loader type="Oval" color="#1a2999" height={32} width={32} />
             )}
           </div>
         </div>

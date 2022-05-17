@@ -50,7 +50,7 @@ const CustomCheckbox = withStyles({
       backgroundColor: 'transparent',
     },
     '&$checked': {
-      color: '#00a59a',
+      color: '#1a2999',
     },
   },
   checked: {},
@@ -59,7 +59,7 @@ const CustomCheckbox = withStyles({
 const CustomRadio = withStyles({
   root: {
     '&$checked': {
-      color: '#00a59a',
+      color: '#1a2999',
     },
   },
   checked: {},

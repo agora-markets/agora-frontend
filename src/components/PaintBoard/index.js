@@ -102,7 +102,7 @@ const CustomCheckbox = withStyles({
       backgroundColor: 'transparent',
     },
     '&$checked': {
-      color: '#00a59a',
+      color: '#1a2999',
     },
   },
   checked: {},
@@ -131,12 +131,12 @@ const PaintBoard = () => {
   const media_accept = ['.glb', '.mp4', '.mp3']; // '.gltf',
   const PurpleSwitch = withStyles({
     switchBase: {
-      color: '#00a59a',
+      color: '#1a2999',
       '&$checked': {
-        color: '#00a59a',
+        color: '#1a2999',
       },
       '&$checked + $track': {
-        backgroundColor: '#00a59aaa',
+        backgroundColor: '#1a2999aa',
       },
     },
     checked: {},

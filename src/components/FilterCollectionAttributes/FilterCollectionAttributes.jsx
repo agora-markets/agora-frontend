@@ -98,7 +98,7 @@ export function FilterCollectionAttributes({
 
     const optionTemplate = (option, state) => {
       const checkboxStyle = {
-        color: '#00a59a',
+        color: '#1a2999',
       };
 
       const chipStyle = {

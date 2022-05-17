@@ -23,7 +23,7 @@ function AccountProfileCollectionListComponent(props) {
           ))}
           <div className={'d-flex justify-content-center'}>
             {props.collectionLoading && (
-              <Loader type="Oval" color="#00A59A" height={32} width={32} />
+              <Loader type="Oval" color="#1a2999" height={32} width={32} />
             )}
           </div>
         </div>

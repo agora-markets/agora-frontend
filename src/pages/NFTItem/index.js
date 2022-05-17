@@ -2417,7 +2417,7 @@ const NFTItem = () => {
           fallback={
             <Loader
               type="Oval"
-              color="#00A59A"
+              color="#1a2999"
               height={32}
               width={32}
               className={styles.loader}
@@ -2838,7 +2838,7 @@ const NFTItem = () => {
         <div className={styles.bundleItemImage}>
           <Suspense
             fallback={
-              <Loader type="Oval" color="#00A59A" height={32} width={32} />
+              <Loader type="Oval" color="#1a2999" height={32} width={32} />
             }
           >
             <SuspenseImg
@@ -3134,7 +3134,7 @@ const NFTItem = () => {
                 {loading ? (
                   <Loader
                     type="Oval"
-                    color="#00A59A"
+                    color="#1a2999"
                     height={32}
                     width={32}
                     className={styles.loader}
@@ -3167,7 +3167,7 @@ const NFTItem = () => {
                             fallback={
                               <Loader
                                 type="Oval"
-                                color="#00A59A"
+                                color="#1a2999"
                                 height={32}
                                 width={32}
                                 className={styles.loader}
@@ -3421,7 +3421,7 @@ const NFTItem = () => {
                               <Line
                                 type="monotone"
                                 dataKey="price"
-                                stroke="#00a59a"
+                                stroke="#1a2999"
                               />
                             </LineChart>
                           </div>

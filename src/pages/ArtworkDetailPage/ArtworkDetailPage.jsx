@@ -2643,7 +2643,7 @@ export function ArtworkDetailPage() {
               alignItems: 'center',
             }}
           >
-            <Loader type="Oval" color="#00A59A" height={40} width={40} />
+            <Loader type="Oval" color="#1a2999" height={40} width={40} />
           </div>
         </div>
         <Footer />
@@ -3130,7 +3130,7 @@ export function ArtworkDetailPage() {
                                   <Line
                                     type="monotone"
                                     dataKey="price"
-                                    stroke="#00a59a"
+                                    stroke="#1a2999"
                                   />
                                 </LineChart>
                               </div>

@@ -161,7 +161,7 @@ input[type='number'] {
 
 .MuiStepIcon-root.MuiStepIcon-active,
 .MuiStepIcon-root.MuiStepIcon-completed {
-  color: #00a59a !important;
+  color: #1a2999 !important;
 }
 
 .card_body .bg_light {
@@ -184,7 +184,7 @@ input[type='number'] {
 }
 
 .is__dark .ri-checkbox-blank-circle-fill.color_brand:before {
-  color: #00a59a;
+  color: #1a2999;
 }
 
 .is__dark .react-loading-skeleton {
@@ -202,7 +202,7 @@ input[type='number'] {
   right: 15px;
   bottom: 15px;
   border-radius: 50%;
-  background: #00a59a;
+  background: #1a2999;
   color: white;
   width: 3rem;
   height: 3rem;
@@ -226,7 +226,7 @@ input[type='number'] {
 }
 
 .is__dark .collectionList .stat-card .color_brand {
-  color: #00a59a;
+  color: #1a2999;
 }
 
 .is__dark .collectionList .bg_hard_light {
@@ -254,7 +254,7 @@ input[type='number'] {
   font-weight: 700;
 }
 .claimFreeWanBtn {
-  background-color: #00a59a;
+  background-color: #1a2999;
   font-weight: bold;
   cursor: pointer;
   border-radius: 10px;
@@ -282,7 +282,7 @@ input[type='number'] {
   border-right: 1px solid rgba(255, 255, 255, 0.2) !important;
 }
 .is__dark .color_brand {
-  color: #00a59a !important;
+  color: #1a2999 !important;
 }
 .faucetBalanceTitle {
   min-width: fit-content;

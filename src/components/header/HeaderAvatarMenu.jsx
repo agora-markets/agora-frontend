@@ -103,7 +103,7 @@ export function HeaderAvatarMenu(props) {
         backgroundColor: 'transparent',
       },
       '&$checked': {
-        color: '#00a59a',
+        color: '#1a2999',
       },
     },
     checked: {},
