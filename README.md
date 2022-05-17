@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/fef080cb-1f75-44d2-bd4e-2297a9192f08/deploy-status)](https://app.netlify.com/sites/agoramarkets/deploys)
+
 # Client for Artion Marketplace - Powered by Fantom
 
 A client side implementation of the Artion Marketplace for NFT trading on Fantom Opera network.
