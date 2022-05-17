@@ -10,7 +10,7 @@ import { useApi } from 'api';
 
 // eslint-disable-next-line no-undef
 const ENV = process.env.REACT_APP_ENV;
-const CHAIN = ENV === 'MAINNET' ? 25 : 999;
+const CHAIN = ENV === 'MAINNET' ? 25 : 42161;
 const ZOOGENES_EXCLUDED = [
   'Background Points',
   'Body Points',
