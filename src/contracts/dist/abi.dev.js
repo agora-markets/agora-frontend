@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports["default"] = exports.ALCHEMY_ABI = exports.ZOOBOOSTER_ABI = exports.FACTORY_ABI = exports.WFTM_ABI = exports.ERC1155_CONTRACT_ABI = exports.ERC721_CONTRACT_ABI = exports.ERC20_CONTRACT_ABI = exports.AUCTION_CONTRACT_ABI = exports.BUNDLE_SALES_CONTRACT_ABI = exports.SALES_CONTRACT_ABI = void 0;
+exports["default"] = exports.ALCHEMY_ABI = exports.ZOOBOOSTER_ABI = exports.FACTORY_ABI = exports.WETH_ABI = exports.ERC1155_CONTRACT_ABI = exports.ERC721_CONTRACT_ABI = exports.ERC20_CONTRACT_ABI = exports.AUCTION_CONTRACT_ABI = exports.BUNDLE_SALES_CONTRACT_ABI = exports.SALES_CONTRACT_ABI = void 0;
 var SALES_CONTRACT_ABI = [{
   anonymous: false,
   inputs: [{
@@ -2450,7 +2450,7 @@ var ERC1155_CONTRACT_ABI = [{
   type: 'function'
 }];
 exports.ERC1155_CONTRACT_ABI = ERC1155_CONTRACT_ABI;
-var WFTM_ABI = [{
+var WETH_ABI = [{
   constant: true,
   inputs: [],
   name: 'name',
@@ -2663,7 +2663,7 @@ var WFTM_ABI = [{
   name: 'Withdrawal',
   type: 'event'
 }];
-exports.WFTM_ABI = WFTM_ABI;
+exports.WETH_ABI = WETH_ABI;
 var FACTORY_ABI = [{
   inputs: [{
     internalType: 'string',
@@ -2765,7 +2765,7 @@ var _default = {
   AUCTION_CONTRACT_ABI: AUCTION_CONTRACT_ABI,
   ERC721_CONTRACT_ABI: ERC721_CONTRACT_ABI,
   ERC1155_CONTRACT_ABI: ERC1155_CONTRACT_ABI,
-  WFTM_ABI: WFTM_ABI,
+  WETH_ABI: WETH_ABI,
   FACTORY_ABI: FACTORY_ABI
 };
 exports["default"] = _default;

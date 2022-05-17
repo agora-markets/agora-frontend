@@ -17,7 +17,7 @@ import { Link } from 'react-router-dom';
 //import ModalActions from 'actions/modal.actions';
 import { useWeb3React } from '@web3-react/core';
 import { ethers } from 'ethers';
-import { /*useWFTMContract,*/ useNFTContract } from 'contracts';
+import { /*useWETHContract,*/ useNFTContract } from 'contracts';
 import { formatNumber } from 'utils';
 import FaucetModal from 'components/FaucetModal';
 
@@ -36,7 +36,7 @@ export function HeaderAvatarMenu(props) {
   const { getERC20Contract } = useNFTContract();
   //const dispatch = useDispatch();
   const { account, chainId, connector } = useWeb3React();
-  //const { getWFTMBalance } = useWFTMContract();
+  //const { getWETHBalance } = useWETHContract();
 
   const styles = useStyle();
 
@@ -75,9 +75,9 @@ export function HeaderAvatarMenu(props) {
 
     const zooContract = await getERC20Contract(ZOO_ADDRESS[chainId]);
 
-    let [ftmBal, /*wftmBal,*/ zooBal] = await Promise.all([
+    let [ftmBal, /*wethBal,*/ zooBal] = await Promise.all([
       await provider.getBalance(account),
-      // await getWFTMBalance(account),
+      // await getWETHBalance(account),
       await zooContract.balanceOf(account),
     ]);
 
@@ -86,13 +86,13 @@ export function HeaderAvatarMenu(props) {
     setBalance(parseFloat(ftmBal.toString()) / 10 ** 18);
     setZooBalance(parseFloat(zooBal.toString()) / 10 ** 18);
 
-    // setWrappedBalance(parseFloat(wftmBal.toString()) / 10 ** 18);
+    // setWrappedBalance(parseFloat(wethBal.toString()) / 10 ** 18);
 
     //setGettingBalance(false);
 
     return [
       parseFloat(ftmBal.toString()) / 10 ** 18,
-      //parseFloat(wftmBal.toString()) / 10 ** 18,
+      //parseFloat(wethBal.toString()) / 10 ** 18,
     ];
   };
 
@@ -129,7 +129,7 @@ export function HeaderAvatarMenu(props) {
 
   /*
   const handleOpenWrapStation = () => {
-    dispatch(ModalActions.showWFTMModal());
+    dispatch(ModalActions.showWETHModal());
   };
   */
   /*

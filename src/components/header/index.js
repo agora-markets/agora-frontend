@@ -12,7 +12,7 @@ import ModalActions from 'actions/modal.actions';
 import { getRandomIPFS } from 'utils';
 import { useApi } from 'api';
 import { ADMIN_ADDRESS } from 'constants/index';
-import WFTMModal from 'components/WFTMModal';
+import WETHModal from 'components/WETHModal';
 import ModModal from 'components/ModModal';
 import VerifyCollectionModal from 'components/VerifyCollectionModal';
 import WarnCollectionModal from 'components/WarnCollectionModal';
@@ -47,7 +47,7 @@ const Header = (props) => {
   const { user } = useSelector(state => state.Auth);
   let isSearchbarShown = useSelector(state => state.HeaderOptions.isShown);
   const { isModerator } = useSelector(state => state.ConnectWallet);
-  const { wftmModalVisible, connectWalletModalVisible } = useSelector(
+  const { wethModalVisible, connectWalletModalVisible } = useSelector(
     state => state.Modal
   );
 
@@ -790,9 +790,9 @@ const Header = (props) => {
             <div className="header__mobile__menu">{renderSearchResult()}</div>
           </div>
 
-          <WFTMModal
-            visible={wftmModalVisible}
-            onClose={() => dispatch(ModalActions.hideWFTMModal())}
+          <WETHModal
+            visible={wethModalVisible}
+            onClose={() => dispatch(ModalActions.hideWETHModal())}
           />
           <ModModal
             isAdding={isAdding}

@@ -1,7 +1,7 @@
 // import { ChainId } from '@sushiswap/sdk';
 
-// import iconFTM from 'assets/imgs/ftm.png';
-//import iconWFTM from 'assets/imgs/wwan.png';
+// import iconETH from 'assets/imgs/ftm.png';
+//import iconWETH from 'assets/imgs/wwan.png';
 import iconZOO from 'assets/imgs/Zoo_ticker.svg';
 import iconVZOO from 'assets/imgs/vZoo_ticker.svg';
 // import iconUSDT from 'assets/imgs/usdt.png';
@@ -21,9 +21,9 @@ const Tokens = {
     // {
     //   address: '',
     //   name: 'Fantom',
-    //   symbol: 'FTM',
+    //   symbol: 'ETH',
     //   decimals: 18,
-    //   icon: iconFTM,
+    //   icon: iconETH,
     // },
     {
       address: '0x6e11655d6aB3781C6613db8CB1Bc3deE9a7e111F',
@@ -38,7 +38,7 @@ const Tokens = {
       name: 'Wrapped WAN',
       symbol: 'WWAN',
       decimals: 18,
-      icon: iconWFTM,
+      icon: iconWETH,
     },
     */
   ],
@@ -46,9 +46,9 @@ const Tokens = {
     // {
     //   address: '',
     //   name: 'Fantom',
-    //   symbol: 'FTM',
+    //   symbol: 'ETH',
     //   decimals: 18,
-    //   icon: iconFTM,
+    //   icon: iconETH,
     // },
     {
       address: '0x890589dC8BD3F973dcAFcB02b6e1A133A76C8135',
@@ -69,7 +69,7 @@ const Tokens = {
     //   name: 'Wrapped WAN',
     //   symbol: 'WWAN',
     //   decimals: 18,
-    //   icon: iconWFTM,
+    //   icon: iconWETH,
     // },
     
     // {

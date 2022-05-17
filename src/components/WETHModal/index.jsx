@@ -9,7 +9,7 @@ import SwapVertIcon from '@material-ui/icons/SwapVert';
 import toast from 'react-hot-toast';
 import InputError from '../InputError';
 
-import { useWFTMContract } from 'contracts';
+import { useWETHContract } from 'contracts';
 import PriceInput from 'components/PriceInput';
 import showToast from 'utils/toast';
 import { formatNumber, formatError } from 'utils';
@@ -18,10 +18,10 @@ import { useApi } from 'api';
 import Modal from '../Modal';
 import styles from './styles.module.scss';
 
-const WFTMModal = ({ visible, onClose }) => {
+const WETHModal = ({ visible, onClose }) => {
   const { account, chainId } = useWeb3React();
   const { explorerUrl } = useApi();
-  const { getWFTMBalance, wrapFTM, unwrapFTM } = useWFTMContract();
+  const { getWETHBalance, wrapETH, unwrapETH } = useWETHContract();
 
   const [loading, setLoading] = useState(false);
   const [balance, setBalance] = useState(0);
@@ -41,13 +41,13 @@ const WFTMModal = ({ visible, onClose }) => {
     await window.ethereum.enable();
     const provider = new ethers.providers.Web3Provider(window.ethereum);
 
-    let [ftmBal, wftmBal] = await Promise.all([
+    let [ftmBal, wethBal] = await Promise.all([
       await provider.getBalance(account),
-      await getWFTMBalance(account),
+      await getWETHBalance(account),
     ]);
 
     setBalance(parseFloat(ftmBal.toString()) / 10 ** 18);
-    setWrappedBalance(parseFloat(wftmBal.toString()) / 10 ** 18);
+    setWrappedBalance(parseFloat(wethBal.toString()) / 10 ** 18);
 
     if (!overrideLoading) {
       setLoading(false);
@@ -55,7 +55,7 @@ const WFTMModal = ({ visible, onClose }) => {
 
     return [
       parseFloat(ftmBal.toString()) / 10 ** 18,
-      parseFloat(wftmBal.toString()) / 10 ** 18,
+      parseFloat(wethBal.toString()) / 10 ** 18,
     ];
   };
 
@@ -68,8 +68,8 @@ const WFTMModal = ({ visible, onClose }) => {
       resolve =>
         (timeout = setTimeout(
           () =>
-            getBalances(true).then(([ftmBal, wftmBal]) => {
-              if (ftmBal !== initialFtmBal || wftmBal !== initialWftmBal) {
+            getBalances(true).then(([ftmBal, wethBal]) => {
+              if (ftmBal !== initialFtmBal || wethBal !== initialWftmBal) {
                 updated = true;
               }
               resolve();
@@ -115,14 +115,14 @@ const WFTMModal = ({ visible, onClose }) => {
     }
   };
 
-  const handleWrapFTM = async () => {
+  const handleWrapETH = async () => {
     if (confirming || loading) return;
 
     setConfirming(true);
     try {
       const price = ethers.utils.parseEther(amount);
       if (wrap) {
-        const tx = await wrapFTM(price, account);
+        const tx = await wrapETH(price, account);
         await tx.wait();
         await pollBalanceChange(balance, wrappedBalance);
         const toastId = showToast(
@@ -135,7 +135,7 @@ const WFTMModal = ({ visible, onClose }) => {
           }
         );
       } else {
-        const tx = await unwrapFTM(price);
+        const tx = await unwrapETH(price);
         await tx.wait();
         await pollBalanceChange(balance, wrappedBalance);
         const toastId = showToast(
@@ -184,7 +184,7 @@ const WFTMModal = ({ visible, onClose }) => {
         amount.length &&
         parseFloat(amount) > 0 &&
         parseFloat(amount) <= (wrap ? balance - 0.01 : wrappedBalance) &&
-        handleWrapFTM()
+        handleWrapETH()
       }
     >
       <div className={cx(styles.swapContainer, !wrap && styles.reverse)}>
@@ -259,4 +259,4 @@ const WFTMModal = ({ visible, onClose }) => {
   );
 };
 
-export default WFTMModal;
+export default WETHModal;

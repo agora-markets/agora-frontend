@@ -5,7 +5,7 @@ import Skeleton from 'react-loading-skeleton';
 import useTokens from 'hooks/useTokens';
 import { formatNumber } from 'utils';
 import { Link } from 'react-router-dom';
-import wFTMLogo from 'assets/imgs/wftm.png';
+import wETHLogo from 'assets/imgs/CRO.png';
 import { useWeb3React } from '@web3-react/core';
 export function AssetCardFourPriceTag(props) {
   const { account } = useWeb3React();
@@ -53,7 +53,7 @@ export function AssetCardFourPriceTag(props) {
               src={
                 auctionActive
                   ? auction?.token?.icon
-                  : getTokenByAddress(item?.paymentToken)?.icon || wFTMLogo
+                  : getTokenByAddress(item?.paymentToken)?.icon || wETHLogo
               }
               alt={auction?.token?.symbol}
               className={styles.tokenIcon}

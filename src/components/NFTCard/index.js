@@ -23,7 +23,7 @@ import { useAuctionContract } from 'contracts';
 import useTokens from 'hooks/useTokens';
 
 import iconPlus from 'assets/svgs/plus.svg';
-import wFTMLogo from 'assets/imgs/wftm.png';
+import wETHLogo from 'assets/imgs/wftm.png';
 
 import styles from './styles.module.scss';
 
@@ -362,7 +362,7 @@ const BaseCard = ({ item, loading, style, create, onCreate, onLike }) => {
                         auctionActive
                           ? auction?.token?.icon
                           : getTokenByAddress(item?.paymentToken)?.icon ||
-                            wFTMLogo
+                            wETHLogo
                       }
                     />
                     {formatNumber(
