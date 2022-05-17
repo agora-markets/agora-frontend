@@ -4,8 +4,25 @@ const FilterActions = {
   updateStatusFilter,
   updateCollectionsFilter,
   updateCategoryFilter,
+  updateMediaTypeFilter,
   updateGroupTypeFilter,
   updateSortByFilter,
+  updateVerifiedFilter,
+  updateAttributeFilter
+};
+
+function updateVerifiedFilter(field, selected) {
+  return dispatch => {
+    dispatch(_updateVerifiedFilter(field, selected));
+  };
+}
+
+const _updateVerifiedFilter = (field, selected) => {
+  return {
+    type: FilterConstants.UPDATE_VERIFIED_FILTER,
+    field,
+    selected,
+  };
 };
 
 function updateStatusFilter(field, selected) {
@@ -48,6 +65,19 @@ const _updateCategoryFilter = category => {
   };
 };
 
+function updateMediaTypeFilter(mediaType) {
+  return dispatch => {
+    dispatch(_updateMediaTypeFilter(mediaType));
+  };
+}
+
+const _updateMediaTypeFilter = mediaType => {
+  return {
+    type: FilterConstants.UPDATE_MEDIATYPE_FILTER,
+    mediaType,
+  };
+};
+
 function updateGroupTypeFilter(groupType) {
   return dispatch => {
     dispatch(_updateGroupTypeFilter(groupType));
@@ -73,5 +103,18 @@ const _updateSortByFilter = sortBy => {
     sortBy,
   };
 };
+
+function updateAttributeFilter(sortBy) {
+  return dispatch => {
+    dispatch(_updateAttributeFilter(sortBy));
+  };
+}
+
+const _updateAttributeFilter = attributes => {
+  return {
+    type: FilterConstants.UPDATE_ATTRIBUTE_FILTER,
+    attributes
+  }
+}
 
 export default FilterActions;

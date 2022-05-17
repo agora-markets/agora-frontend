@@ -3,8 +3,8 @@ import ModalConstants from '../constants/modal.constants';
 const ModalActions = {
   showAccountModal,
   hideAccountModal,
-  showWETHModal,
-  hideWETHModal,
+  showWFTMModal,
+  hideWFTMModal,
   showConnectWalletModal,
   hideConnectWalletModal,
 };
@@ -33,27 +33,27 @@ const _hideAccountModal = () => {
   };
 };
 
-function showWETHModal() {
+function showWFTMModal() {
   return dispatch => {
-    dispatch(_showWETHModal());
+    dispatch(_showWFTMModal());
   };
 }
 
-const _showWETHModal = () => {
+const _showWFTMModal = () => {
   return {
-    type: ModalConstants.SHOW_WETH_MODAL,
+    type: ModalConstants.SHOW_WFTM_MODAL,
   };
 };
 
-function hideWETHModal() {
+function hideWFTMModal() {
   return dispatch => {
-    dispatch(_hideWETHModal());
+    dispatch(_hideWFTMModal());
   };
 }
 
-const _hideWETHModal = () => {
+const _hideWFTMModal = () => {
   return {
-    type: ModalConstants.HIDE_WETH_MODAL,
+    type: ModalConstants.HIDE_WFTM_MODAL,
   };
 };
 

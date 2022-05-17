@@ -17,8 +17,7 @@ import { useBundleSalesContract, useNFTContract } from 'contracts';
 import { Contracts } from 'constants/networks';
 import toast from 'utils/toast';
 import useTokens from 'hooks/useTokens';
-import axios from 'axios';
-// import { useSalesContract } from 'contracts';
+import { useSalesContract } from 'contracts';
 
 import closeIcon from 'assets/svgs/close.svg';
 
@@ -39,7 +38,6 @@ const NFTItem = ({ item, selected, onClick }) => {
             width="100%"
             height="100%"
             className={styles.mediaLoading}
-            style={{ background: 'var(--color-skel)' }}
           />
         ) : (
           (item?.imageURL || item?.thumbnailPath?.length > 10) && (
@@ -47,7 +45,7 @@ const NFTItem = ({ item, selected, onClick }) => {
               fallback={
                 <Loader
                   type="Oval"
-                  color="rgb(109, 186, 252)"
+                  color="#00A59A"
                   height={32}
                   width={32}
                   className={styles.loader}
@@ -68,15 +66,7 @@ const NFTItem = ({ item, selected, onClick }) => {
         )}
       </div>
       <div className={styles.itemName}>
-        {item ? (
-          item.name
-        ) : (
-          <Skeleton
-            width={150}
-            height={24}
-            style={{ background: 'var(--color-skel)' }}
-          />
-        )}
+        {item ? item.name : <Skeleton width={150} height={24} />}
       </div>
     </div>
   );
@@ -85,7 +75,7 @@ const NFTItem = ({ item, selected, onClick }) => {
 const NewBundleModal = ({ visible, onClose, onCreateSuccess = () => {} }) => {
   const { tokens: payTokens } = useTokens();
   const { account, chainId } = useWeb3React();
-  // const { getSalesContract } = useSalesContract();
+  const { getSalesContract } = useSalesContract();
 
   const { uid } = useParams();
 
@@ -173,15 +163,9 @@ const NewBundleModal = ({ visible, onClose, onCreateSuccess = () => {} }) => {
     const func = async () => {
       const tk = selected[0].address || ethers.constants.AddressZero;
       try {
-        // const salesContract = await getSalesContract();
-        // const price = await salesContract.getPrice(tk);
-        // setTokenPrice(parseFloat(ethers.utils.formatUnits(price, 18)));
-
-        let response;
-        let _price;
-        response = await axios.get(`https://api.mm.finance/api/tokens/${tk}`);
-        _price = parseFloat(response.data.data.price);
-        setTokenPrice(_price);
+        const salesContract = await getSalesContract();
+        const price = await salesContract.getPrice(tk);
+        setTokenPrice(parseFloat(ethers.utils.formatUnits(price, 18)));
       } catch {
         setTokenPrice(null);
       }
@@ -426,11 +410,7 @@ const NewBundleModal = ({ visible, onClose, onCreateSuccess = () => {} }) => {
                   {!isNaN(tokenPrice) && tokenPrice !== null ? (
                     `$${((parseFloat(price) || 0) * tokenPrice).toFixed(2)}`
                   ) : (
-                    <Skeleton
-                      width={100}
-                      height={24}
-                      style={{ background: 'var(--color-skel)' }}
-                    />
+                    <Skeleton width={100} height={24} />
                   )}
                 </div>
               </div>

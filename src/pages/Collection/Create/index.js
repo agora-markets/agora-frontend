@@ -1,49 +1,65 @@
 /* eslint-disable react/no-unescaped-entities */
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useCallback, Fragment } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import cx from 'classnames';
 import axios from 'axios';
 import { withStyles } from '@material-ui/core/styles';
-import { Menu, MenuItem } from '@material-ui/core';
+import { Checkbox, FormGroup, Menu, MenuItem } from '@material-ui/core';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import CloseIcon from '@material-ui/icons/Close';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
-import InfoIcon from '@material-ui/icons/Info';
 import { ClipLoader } from 'react-spinners';
 import { useWeb3React } from '@web3-react/core';
 import { ethers } from 'ethers';
 import showToast from 'utils/toast';
-
+import Select from 'react-dropdown-select';
 import { Categories } from 'constants/filter.constants';
 import HeaderActions from 'actions/header.actions';
-import Header from 'components/header';
 import BootstrapTooltip from 'components/BootstrapTooltip';
 import PriceInput from 'components/PriceInput';
 import toast from 'utils/toast';
 import { useApi } from 'api';
-import { useFactoryContract, getSigner } from 'contracts';
+import { useFactoryContract } from 'contracts';
+import useConnectionUtils from 'hooks/useConnectionUtils';
+import nftIcon from 'assets/svgs/nft_black.svg';
 
-import { RiDiscordLine } from 'react-icons/ri';
-import { RiTelegramLine } from 'react-icons/ri';
-import { MdWebAsset } from 'react-icons/md';
-import { RiMediumLine } from 'react-icons/ri';
-import { RiInstagramLine } from 'react-icons/ri';
-import uploadIcon from 'assets/imgs/upload.png';
-import plusIcon from 'assets/svgs/plus.svg';
-import closeIcon from 'assets/svgs/close.svg';
-import { BiBookBookmark } from 'react-icons/bi';
-import { FiTwitter } from 'react-icons/fi';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGlobe, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
+import {
+  faDiscord,
+  faTwitter,
+  faInstagram,
+  faMedium,
+  faTelegramPlane,
+
+} from '@fortawesome/free-brands-svg-icons';
 
 import styles from './styles.module.scss';
 import { formatError, isAddress } from 'utils';
+import { PageLayout } from 'components/Layouts';
+import { ADMIN_ADDRESS } from 'constants/index';
+import { TokenChoiceCard } from './components/TokenChoiceCard';
+import { useDropzone } from 'react-dropzone';
+
+const CustomCheckbox = withStyles({
+  root: {
+    '&:hover': {
+      backgroundColor: 'transparent',
+    },
+    '&$checked': {
+      color: '#00a59a',
+    },
+  },
+  checked: {},
+})(props => <Checkbox color="default" {...props} />);
 
 const CustomRadio = withStyles({
   root: {
     '&$checked': {
-      color: 'rgba(255, 107, 199, 1) !important',
+      color: '#00a59a',
     },
   },
   checked: {},
@@ -52,9 +68,11 @@ const CustomRadio = withStyles({
 const CollectionCreate = ({ isRegister }) => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const {getSigner} = useConnectionUtils();
+  const { account } = useWeb3React();
 
-  const { account, library } = useWeb3React();
   const { apiUrl, getNonce } = useApi();
+  const { isModerator } = useSelector(state => state.ConnectWallet);
   const {
     getFactoryContract,
     getPrivateFactoryContract,
@@ -63,7 +81,19 @@ const CollectionCreate = ({ isRegister }) => {
     createNFTContract,
   } = useFactoryContract();
 
-  const inputRef = useRef(null);
+  const onDrop = useCallback(acceptedFiles => {
+    setLogo(acceptedFiles[0]);
+  }, []);
+
+  const { getRootProps, getInputProps } = useDropzone({
+    accept: 'image/*',
+    multiple: false,
+    onDrop,
+    maxSize: 15728640,
+  });
+
+  // const inputRef = useRef(null);
+  const imageRef = useRef();
 
   const { authToken } = useSelector(state => state.ConnectWallet);
 
@@ -91,8 +121,10 @@ const CollectionCreate = ({ isRegister }) => {
   const [instagramHandle, setInstagramHandle] = useState('');
   const [mediumHandle, setMediumHandle] = useState('');
   const [telegram, setTelegram] = useState('');
-  const [isPrivate, setIsPrivate] = useState(false);
+  const [isPrivate, setIsPrivate] = useState(true);
   const [isSingle, setIsSingle] = useState(true);
+  const [isAcceptUploadRight, setIsAcceptUploadRight] = useState(false);
+  const [isAcceptTerms, setIsAcceptTerms] = useState(false);
 
   const isMenuOpen = Boolean(anchorEl);
 
@@ -129,21 +161,24 @@ const CollectionCreate = ({ isRegister }) => {
 
   const removeImage = () => {
     setLogo(null);
-  };
-
-  const handleFileSelect = e => {
-    if (e.target.files.length > 0) {
-      const file = e.target.files[0];
-
-      const reader = new FileReader();
-
-      reader.onload = function(e) {
-        setLogo(e.target.result);
-      };
-
-      reader.readAsDataURL(file);
+    if (imageRef.current) {
+      imageRef.current.value = '';
     }
   };
+
+  // const handleFileSelect = e => {
+  //   if (e.target.files.length > 0) {
+  //     const file = e.target.files[0];
+
+  //     const reader = new FileReader();
+
+  //     reader.onload = function(e) {
+  //       setLogo(e.target.result);
+  //     };
+
+  //     reader.readAsDataURL(file);
+  //   }
+  // };
 
   const validateName = () => {
     if (name.length === 0) {
@@ -202,7 +237,7 @@ const CollectionCreate = ({ isRegister }) => {
   };
 
   const handleMenuOpen = e => {
-    if (selected.length < 3) {
+    if (selected.length < 2) {
       setAnchorEl(e.currentTarget);
     }
   };
@@ -222,6 +257,46 @@ const CollectionCreate = ({ isRegister }) => {
     setSelected(selected.filter(id => id !== catId));
   };
 
+  // Attributes //
+
+  const attributeDisplayTypeList = [
+    { display_type: 'text', display_value: 'Text' },
+    { display_type: 'number', display_value: 'Number' },
+    { display_type: 'boost_number', display_value: 'Range Number' },
+    { display_type: 'boost_percentage', display_value: 'Range Percentage' },
+    { display_type: 'date', display_value: 'Date' },
+  ];
+  const [attributeFields, setAttributeFields] = useState([
+    { trait_type: '', display_type: 'text' }
+  ]);
+  const handleAddFields = () => {
+    const values = [...attributeFields];
+    values.push({ trait_type: '', display_type: 'text' });
+    setAttributeFields(values);
+  };
+
+  const handleRemoveFields = index => {
+    const values = [...attributeFields];
+    if (values.length === 1) return;
+    values.splice(index, 1);
+    setAttributeFields(values);
+  };
+
+  const handleInputChange = (index, event) => {
+    const values = [...attributeFields];
+    event.target.value = event.target.value.replace(/[^a-zA-Z0-9_]/g, '');
+    values[index].trait_type = event.target.value;
+
+    setAttributeFields(values);
+  };
+
+  const handleSelectChange = (index, col) => {
+    const values = [...attributeFields];
+    values[index].display_type = col.display_type;
+
+    setAttributeFields(values);
+  };
+
   const isValid = (() => {
     if (!logo) return false;
     if (nameError) return false;
@@ -232,6 +307,22 @@ const CollectionCreate = ({ isRegister }) => {
     if (email.length === 0) return false;
     if (!validEmail(email)) return false;
     if (isRegister && !isAddress(feeRecipient)) return false;
+    if (!isAcceptUploadRight || !isAcceptTerms) return false;
+
+    // Attributes //
+    if (attributeFields.length > 1) {
+      let checkAttribute = true;
+      attributeFields.filter(v => {
+        if (v.trait_type.trim() === '') {
+          checkAttribute = false;
+        }
+      });
+
+      if (!checkAttribute) {
+        return false;
+      }
+    }
+
     return true;
   })();
 
@@ -261,7 +352,7 @@ const CollectionCreate = ({ isRegister }) => {
     setCreating(true);
 
     const img = new Image();
-    img.onload = function() {
+    img.onload = function () {
       const w = this.width;
       const h = this.height;
       const size = Math.min(w, h);
@@ -275,8 +366,8 @@ const CollectionCreate = ({ isRegister }) => {
           let signatureAddress;
 
           try {
-            const signer = await getSigner(library);
-            const msg = `Approve Signature on Agoranft.io with nonce ${nonce}`;
+            const signer = await getSigner();
+            const msg = `Approve Signature on OpenZoo.io with nonce ${nonce}`;
 
             signature = await signer.signMessage(msg);
             signatureAddress = ethers.utils.verifyMessage(msg, signature);
@@ -348,10 +439,11 @@ const CollectionCreate = ({ isRegister }) => {
         }
       });
     };
-    img.src = logo;
+    img.src = URL.createObjectURL(logo);
   };
 
   const handleCreate = async () => {
+
     setDeploying(true);
     try {
       const tx = await createNFTContract(
@@ -360,14 +452,15 @@ const CollectionCreate = ({ isRegister }) => {
             ? await getPrivateFactoryContract()
             : await getFactoryContract()
           : isPrivate
-          ? await getPrivateArtFactoryContract()
-          : await getArtFactoryContract(),
+            ? await getPrivateArtFactoryContract()
+            : await getArtFactoryContract(),
         name,
         symbol,
-        ethers.utils.parseEther('20'),
+        ethers.utils.parseEther('0'),
         account
       );
       const res = await tx.wait();
+      console.log(res);
       res.events.map(evt => {
         if (
           evt.topics[0] ===
@@ -379,7 +472,7 @@ const CollectionCreate = ({ isRegister }) => {
           const address = ethers.utils.hexDataSlice(evt.data, 44);
 
           const img = new Image();
-          img.onload = function() {
+          img.onload = function () {
             const w = this.width;
             const h = this.height;
             const size = Math.min(w, h);
@@ -391,9 +484,9 @@ const CollectionCreate = ({ isRegister }) => {
 
                 let signature;
                 try {
-                  const signer = await getSigner(library);
+                  const signer = await getSigner();
                   signature = await signer.signMessage(
-                    `Approve Signature on Agoranft.io with nonce ${nonce}`
+                    `Approve Signature on OpenZoo.io with nonce ${nonce}`
                   );
                 } catch (err) {
                   toast(
@@ -418,12 +511,12 @@ const CollectionCreate = ({ isRegister }) => {
                   },
                 });
                 const logoImageHash = result.data.data;
-
                 const data = {
                   email,
                   erc721Address: address,
                   collectionName: name,
                   description,
+                  attribute_template: attributeFields.filter((item) => { return item.trait_type.trim() !== '' }),
                   categories: selected.join(','),
                   logoImageHash,
                   siteUrl,
@@ -454,7 +547,7 @@ const CollectionCreate = ({ isRegister }) => {
               }
             });
           };
-          img.src = logo;
+          img.src = URL.createObjectURL(logo);
         }
       });
     } catch (err) {
@@ -468,469 +561,586 @@ const CollectionCreate = ({ isRegister }) => {
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
-      anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+      anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
       id={menuId}
       keepMounted
-      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+      transformOrigin={{ vertical: -48, horizontal: 0 }}
       open={isMenuOpen}
       onClose={handleMenuClose}
       classes={{
-        paper: styles.menu,
+        paper: cx(styles.menu, 'col-lg-3 col-md-6'),
       }}
     >
       {options.map((cat, idx) => (
         <MenuItem
           key={idx}
           className={styles.category}
-          onClick={() => selectCategory(cat.id)}
+          onClick={() => {
+            selectCategory(cat.id);
+            handleMenuClose(0);
+          }}
         >
-          <img src={cat.icon} style={{ width: '30px', height: '30px' }} />
+          {/*<img src={cat.icon} className={styles.categoryImage} />*/}
           <span className={styles.categoryLabel}>{cat.label}</span>
         </MenuItem>
       ))}
     </Menu>
   );
 
+
+
   return (
-    <div className={styles.container}>
-      <Header border />
-      <div className={styles.titleWrapper}>
-        <div className={styles.aboutTitle}>
-          {isRegister ? 'Register' : 'Create'} Collection
-        </div>
-        <div className={styles.aboutTitleBis}>
-          {isRegister ? 'Register' : 'Create'}
-        </div>
-      </div>
-      <div className={styles.inner}>
-        <br />
-        <div
-          className={styles.title}
-          style={{
-            fontSize: '13px',
-            textAlign: 'center',
-            fontFamily: 'Inter',
-            letterSpacing: '1px',
-          }}
-        >
-          Please submit this form if you want to be added on Agora. Please use
-          the address you used to deploy the NFT contract, or provide a proof of
-          ownership (agoramarketplacenft@gmail.com).
-        </div>
+    <PageLayout
+      containerClassName="form-container-page box"
+      cover={
+        !isRegister && (
+          <div className="container" style={{ paddingLeft: 0, paddingRight: 0 }}>
 
-        {!isRegister && (
-          <div className={styles.inputGroup}>
-            <RadioGroup
-              className={styles.inputWrapper}
-              value={JSON.stringify(isPrivate)}
-              onChange={e => setIsPrivate(e.currentTarget.value === 'true')}
-            >
-              <FormControlLabel
-                classes={{
-                  root: cx(styles.option, !isPrivate && styles.active),
-                  label: styles.optionLabel,
-                }}
-                value="false"
-                control={<CustomRadio style={{ color: 'var(--color-text)' }} />}
-                label="Allow others mint NFTs under my collection"
+            <div className="d-flex justify-content-between mt-40 space-x-40 sm:space-x-20">
+              <TokenChoiceCard
+                title="SINGLE TOKEN"
+                subtitle="STANDARD COLLECTION"
+                network="WRC721"
+                detail="Your collectible will be one of a kind"
+                selected={isSingle}
+                onClick={() => setIsSingle(true)}
               />
-              <FormControlLabel
-                classes={{
-                  root: cx(styles.option, isPrivate && styles.active),
-                  label: styles.optionLabel,
-                }}
-                value="true"
-                control={<CustomRadio style={{ color: 'var(--color-text)' }} />}
-                label="Only I can mint NFTs under my collection"
+              <TokenChoiceCard
+                title="MULTI TOKEN"
+                subtitle="STANDARD COLLECTION"
+                network="WRC1155"
+                detail="Your collectible will have multiple entities of one kind"
+                selected={!isSingle}
+                onClick={() => setIsSingle(false)}
               />
-            </RadioGroup>
+            </div>
           </div>
-        )}
-
-        <div className={styles.inputGroup}>
-          <div className={styles.inputTitle}>Logo Image *</div>
-          <div className={styles.inputSubTitle}>300x300 recommended.</div>
-          <div className={styles.inputWrapper}>
-            <div className={styles.logoUploadBox}>
-              {logo ? (
-                <>
-                  <img src={logo} />
-                  <div className={styles.removeOverlay}>
-                    <div className={styles.removeIcon} onClick={removeImage}>
-                      <img src={closeIcon} />
-                    </div>
-                  </div>
-                </>
-              ) : (
-                <div
-                  className={styles.uploadOverlay}
-                  onClick={() => inputRef.current?.click()}
+        )
+      }
+    >
+      <div className="row w-full py-20 px-40 mb-50">
+        <div className="col-lg-4 col-md-8 space-y-20">
+          <h4>{isRegister ? 'COLLECTION REGISTOR' : 'COLLECTION CREATOR'}</h4>
+          <p>
+            NFTs can represent essentially any type of digital file, with artists
+            creating NFTs featuring images, videos, gifs, audio files, or a
+            combination of each.
+          </p>
+          {!isRegister &&
+            (isModerator ||
+              account?.toLowerCase() && ADMIN_ADDRESS.includes(account?.toLowerCase())) && (
+              <div className={styles.inputGroup}>
+                <RadioGroup
+                  className={styles.inputWrapper}
+                  value={JSON.stringify(isPrivate)}
+                  onChange={e => setIsPrivate(e.currentTarget.value === 'true')}
                 >
-                  <input
-                    ref={inputRef}
-                    type="file"
-                    accept="image/*"
-                    hidden
-                    onChange={handleFileSelect}
+                  <FormControlLabel
+                    classes={{
+                      root: cx(styles.option, !isPrivate && styles.active),
+                      label: styles.optionLabel,
+                    }}
+                    value="false"
+                    control={<CustomRadio color="primary" />}
+                    label="Allow others mint NFTs under my collection"
                   />
-                  <div className={styles.upload}>
-                    <div className={styles.uploadInner}>
-                      <img
-                        src={uploadIcon}
-                        style={{
-                          filter: 'invert(var(--color-logo))',
-                          width: '35px',
-                        }}
-                      />
-                    </div>
-                    <div className={styles.plusIcon}>
-                      <img
-                        src={plusIcon}
-                        style={{ filter: 'invert(var(--color-icon))' }}
-                      />
-                    </div>
-                  </div>
+                  <FormControlLabel
+                    classes={{
+                      root: cx(styles.option, isPrivate && styles.active),
+                      label: styles.optionLabel,
+                    }}
+                    value="true"
+                    control={<CustomRadio color="primary" />}
+                    label="Only I can mint NFTs under my collection"
+                  />
+                </RadioGroup>
+              </div>
+            )}
+          <div
+            {...getRootProps({
+              className: cx(styles.uploadCont, 'md:mx-auto'),
+            })}
+          >
+            <input {...getInputProps()} ref={imageRef} />
+            {logo ? (
+              <>
+                <img className={styles.image} src={URL.createObjectURL(logo)} />
+                <div className={styles.overlay}>
+                  <CloseIcon className={styles.remove} onClick={removeImage} />
                 </div>
-              )}
-            </div>
-          </div>
-        </div>
-        <div className={styles.inputGroup}>
-          <div className={styles.inputTitle}>Name *</div>
-          <div className={styles.inputWrapper}>
-            <input
-              className={cx(styles.input, nameError && styles.hasError)}
-              maxLength={20}
-              placeholder="Collection Name"
-              value={name}
-              onChange={e => setName(e.target.value)}
-              onBlur={validateName}
-            />
-            <div className={styles.lengthIndicator}>{name.length}/20</div>
-            {nameError && <div className={styles.error}>{nameError}</div>}
-          </div>
-        </div>
-
-        {!isRegister && (
-          <div className={styles.inputGroup}>
-            <div className={styles.inputTitle}>
-              Symbol *&nbsp;
-              <BootstrapTooltip
-                title="A symbol is used when we deploy your NFT contract. If you are not sure about symbol, be aware that name and symbol share the same value."
-                placement="top"
-              >
-                <HelpOutlineIcon />
-              </BootstrapTooltip>
-            </div>
-            <div className={styles.inputWrapper}>
-              <input
-                className={cx(styles.input, symbolError && styles.hasError)}
-                maxLength={20}
-                placeholder="Collection Symbol"
-                value={symbol}
-                onChange={e => setSymbol(e.target.value)}
-                onBlur={validateSymbol}
-              />
-              <div className={styles.lengthIndicator}>{symbol.length}/20</div>
-              {symbolError && <div className={styles.error}>{symbolError}</div>}
-            </div>
-          </div>
-        )}
-
-        <div className={styles.inputGroup}>
-          <div className={styles.inputTitle}>Description *</div>
-          <div className={styles.inputWrapper}>
-            <textarea
-              className={cx(
-                styles.input,
-                styles.longInput,
-                descriptionError && styles.hasError
-              )}
-              maxLength={200}
-              placeholder="Provide a description for your NFT collection"
-              value={description}
-              onChange={e => setDescription(e.target.value)}
-              onBlur={validateDescription}
-            />
-            <div className={styles.lengthIndicator}>
-              {description.length}/200
-            </div>
-            {descriptionError && (
-              <div className={styles.error}>{descriptionError}</div>
+              </>
+            ) : (
+              <>
+                <div className={styles.uploadtitle}>
+                  Drop Collection logo image here or&nbsp;
+                  <span
+                    className={styles.browse}
+                    onClick={() => imageRef.current?.click()}
+                  >
+                    Browse
+                  </span>
+                </div>
+                <div className={cx(styles.uploadsubtitle, 'text-center')}>
+                  <strong>JPG, PNG</strong>
+                  <p>300x300 recommend</p>
+                </div>
+              </>
             )}
           </div>
+          <FormGroup>
+            <FormControlLabel
+              control={
+                <CustomCheckbox
+                  classes={{ root: 'pt-0' }}
+                  onChange={e => setIsAcceptUploadRight(e.target.checked)}
+                />
+              }
+              label="I confirm that I'm the owner, or have the rights of publication and sale of this collection. *"
+              className="align-items-start"
+              classes={{ root: 'pt-20' }}
+            />
+            <FormControlLabel
+              control={
+                <CustomCheckbox
+                  classes={{ root: 'pt-0' }}
+                  onChange={e => setIsAcceptTerms(e.target.checked)}
+                />
+              }
+              label="I accept OpenZoo's Terms and Conditions. *"
+              className="align-items-start"
+            />
+          </FormGroup>
         </div>
 
-        {isRegister && (
-          <div className={styles.inputGroup}>
-            <div className={styles.inputTitle}>
-              Royalty *&nbsp;
-              <BootstrapTooltip
-                title="Each sale made on Agora earns you a percentage. Please determine this percentage. "
-                placement="top"
-              >
-                <HelpOutlineIcon />
-              </BootstrapTooltip>
-            </div>
-            <div className={styles.inputWrapper}>
-              <PriceInput
-                className={styles.input}
-                placeholder="Collection Royalty"
-                decimals={2}
-                value={'' + royalty}
-                onChange={val =>
-                  val[val.length - 1] === '.'
-                    ? setRoyalty(val)
-                    : setRoyalty(Math.min(100, +val))
-                }
-              />
+        <div className="col-lg-4 col-md-8 space-y-20">
+          <div>
+            <div className={styles.inputTitle}>Category</div>
+            <div className={cx(styles.inputWrapper, styles.categoryList)}>
+              {selected.length < 2 && (
+                <div
+                  className={cx(
+                    styles.categoryButton,
+                    selected.length === 2 && styles.disabled,
+                    'w-100 border-none bg_input txt_sm color_text'
+                  )}
+                  onClick={handleMenuOpen}
+                >
+                  Add Category
+                </div>
+              )}
+              {selectedCategories.map((cat, idx) => (
+                <div
+                  className={styles.selectedCategory}
+                  key={idx}
+                  onClick={() => deselectCategory(cat.id)}
+                >
+                  {/*<img src={cat.icon} className={styles.categoryIcon} />*/}
+                  <span className={styles.categoryLabel}>{cat.label}</span>
+                  <CloseIcon className={styles.closeIcon} />
+                </div>
+              ))}
             </div>
           </div>
-        )}
-
-        {isRegister && (
-          <div className={styles.inputGroup}>
-            <div className={styles.inputTitle}>
-              Fee Recipient *&nbsp;
-              <BootstrapTooltip
-                title="The wallet on which you wish to receive these royalties."
-                placement="top"
-              >
-                <HelpOutlineIcon />
-              </BootstrapTooltip>
-            </div>
+          <div>
+            <div className={styles.inputTitle}>Name *</div>
             <div className={styles.inputWrapper}>
               <input
-                className={cx(styles.input, recipientError && styles.hasError)}
-                placeholder="Fee Recipient"
-                value={feeRecipient}
-                onChange={e => setFeeRecipient(e.target.value)}
-                onBlur={validateFeeRecipient}
+                type="text"
+                className={cx(styles.input, nameError && styles.hasError)}
+                maxLength={30}
+                placeholder="Collection Name"
+                value={name}
+                onChange={e => setName(e.target.value)}
+                onBlur={validateName}
               />
-              {recipientError && (
-                <div className={styles.error}>{recipientError}</div>
-              )}
+              <div className={styles.lengthIndicator}>{name.length}/30</div>
+              {nameError && <div className={styles.error}>{nameError}</div>}
             </div>
           </div>
-        )}
-
-        {!isRegister && (
+          {!isRegister && (
+            <div>
+              <div className={styles.inputTitle}>
+                Symbol *&nbsp;
+                <BootstrapTooltip
+                  title="A symbol is used when we deploy your NFT contract. If you are not sure about symbol, be aware that name and symbol share the same value."
+                  placement="top"
+                >
+                  <HelpOutlineIcon />
+                </BootstrapTooltip>
+              </div>
+              <div className={styles.inputWrapper}>
+                <input
+                  type="text"
+                  className={cx(styles.input, symbolError && styles.hasError)}
+                  maxLength={20}
+                  placeholder="Collection Symbol"
+                  value={symbol}
+                  onChange={e => setSymbol(e.target.value)}
+                  onBlur={validateSymbol}
+                />
+                <div className={styles.lengthIndicator}>{symbol.length}/20</div>
+                {symbolError && (
+                  <div className={styles.error}>{symbolError}</div>
+                )}
+              </div>
+            </div>
+          )}
           <div className={styles.inputGroup}>
-            <RadioGroup
-              className={styles.inputWrapper}
-              value={JSON.stringify(isSingle)}
-              onChange={e => setIsSingle(e.currentTarget.value === 'true')}
-            >
-              <FormControlLabel
-                classes={{
-                  root: cx(styles.option, isSingle && styles.active),
-                  label: styles.optionLabel,
-                }}
-                value="true"
-                control={<CustomRadio color="primary" />}
-                label="Single Token Standard"
+            <div className={styles.inputTitle}>Description *</div>
+            <div className={styles.inputWrapper}>
+              <textarea
+                className={cx(
+                  styles.input,
+                  styles.longInput,
+                  descriptionError && styles.hasError
+                )}
+                maxLength={250}
+                placeholder="Provide a description for your collection"
+                value={description}
+                onChange={e => setDescription(e.target.value)}
+                onBlur={validateDescription}
               />
-              {/* <FormControlLabel
-                  classes={{
-                    root: cx(styles.option, !isSingle && styles.active),
-                    label: styles.optionLabel,
-                  }}
-                  value="false"
-                  control={<CustomRadio color="primary" />}
-                  label="Multi Token Standard"
-                /> */}
-            </RadioGroup>
-          </div>
-        )}
-
-        <div className={styles.inputGroup}>
-          <div className={styles.inputTitle}>Category</div>
-          <div className={styles.inputSubTitle}>This is optional.</div>
-          <div
-            className={cx(styles.inputWrapper, styles.categoryList)}
-            style={{ marginTop: '16px' }}
-          >
-            <div
-              className={cx(
-                styles.categoryButton,
-                selected.length === 3 && styles.disabled
-              )}
-              onClick={handleMenuOpen}
-            >
-              Add Category
-            </div>
-            {selectedCategories.map((cat, idx) => (
-              <div
-                className={styles.selectedCategory}
-                key={idx}
-                onClick={() => deselectCategory(cat.id)}
-              >
-                <img src={cat.icon} className={styles.categoryIcon} />
-                <span className={styles.categoryLabel}>{cat.label}</span>
-                <CloseIcon className={styles.closeIcon} />
+              <div className={styles.lengthIndicator}>
+                {description.length}/250
               </div>
-            ))}
+              {descriptionError && (
+                <div className={styles.error}>{descriptionError}</div>
+              )}
+            </div>
           </div>
-        </div>
-        <div className={styles.inputGroup}>
-          <div className={styles.inputTitle}>
-            Email *&nbsp;
-            <BootstrapTooltip
-              title="We will use this email only to notify you about your collection application, nobody will have access to it."
-              placement="top"
-            >
-              <HelpOutlineIcon />
-            </BootstrapTooltip>
-          </div>
-          <div className={styles.inputWrapper}>
-            <input
-              className={cx(styles.input, emailError && styles.hasError)}
-              placeholder="Email Address"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-              onBlur={validateEmail}
-            />
-            {emailError && <div className={styles.error}>{emailError}</div>}
-          </div>
-        </div>
+          {
+            !isRegister && <div className={styles.inputGroup}>
+              <p className={styles.inputTitle}>Attribute Template</p>
 
-        <div className={styles.inputGroup}>
-          <div className={styles.inputTitle}>Social Media Links *</div>
-          <div className={styles.inputWrapper}>
-            <div className={styles.linksWrapper}>
-              {isRegister && (
-                <>
-                  <div
-                    className={cx(
-                      styles.linkItem,
-                      addressError && styles.hasError
-                    )}
-                  >
-                    <div className={styles.linkIconWrapper}>
-                      <BiBookBookmark style={{ color: 'var(--color-text)' }} />
+              {attributeFields.map((attributeField, index) => (
+                <Fragment key={`${attributeField}~${index}`}>
+                  <div className="form-row mt-10 space-x-5" style={{ display: 'flex' }}>
+                    <div className="form-group col-sm-5">
+                      <label htmlFor="trait_type">Title</label>
+                      <input
+                        style={{ height: 50 }}
+                        type="text"
+                        className="form-control"
+                        id="trait_type"
+                        name="trait_type"
+                        placeholder="Head,Body etc."
+                        value={attributeField.trait_type}
+                        onChange={event => handleInputChange(index, event)}
+                      />
                     </div>
-                    <input
-                      className={styles.linkInput}
-                      placeholder="NFT contract address"
-                      value={address}
-                      onChange={e => setAddress(e.target.value)}
-                      onBlur={validateAddress}
-                    />
-                  </div>
-                  {addressError && (
-                    <div className={styles.error}>{addressError}</div>
-                  )}
-                </>
-              )}
-              <div className={styles.linkItem}>
-                <div className={styles.linkIconWrapper}>
-                  <MdWebAsset style={{ color: 'var(--color-text)' }} />
-                </div>
-                <input
-                  className={styles.linkInput}
-                  placeholder="Website URL"
-                  value={siteUrl}
-                  onChange={e => setSiteUrl(e.target.value)}
-                />
-              </div>
-              <div className={styles.linkItem}>
-                <div className={styles.linkIconWrapper}>
-                  <RiDiscordLine style={{ color: 'var(--color-text)' }} />
-                </div>
-                <input
-                  className={styles.linkInput}
-                  placeholder="Discord URL"
-                  value={discord}
-                  onChange={e => setDiscord(e.target.value)}
-                />
-              </div>
-              <div className={styles.linkItem}>
-                <div className={styles.linkIconWrapper}>
-                  <FiTwitter style={{ color: 'var(--color-text)' }} />
-                </div>
-                <input
-                  className={styles.linkInput}
-                  placeholder="Twitter URL"
-                  value={twitterHandle}
-                  onChange={e => setTwitterHandle(e.target.value)}
-                />
-              </div>
-              <div className={styles.linkItem}>
-                <div className={styles.linkIconWrapper}>
-                  <RiTelegramLine style={{ color: 'var(--color-text)' }} />
-                </div>
-                <input
-                  className={styles.linkInput}
-                  placeholder="Telegram URL"
-                  value={telegram}
-                  onChange={e => setTelegram(e.target.value)}
-                />
-              </div>
-              <div className={styles.linkItem}>
-                <div className={styles.linkIconWrapper}>
-                  <RiMediumLine style={{ color: 'var(--color-text)' }} />
-                </div>
-                <input
-                  className={styles.linkInput}
-                  placeholder="Medium URL"
-                  value={mediumHandle}
-                  onChange={e => setMediumHandle(e.target.value)}
-                />
-              </div>
-              <div className={styles.linkItem}>
-                <div className={styles.linkIconWrapper}>
-                  <RiInstagramLine style={{ color: 'var(--color-text)' }} />
-                </div>
-                <input
-                  className={styles.linkInput}
-                  placeholder="Instagram URL"
-                  value={instagramHandle}
-                  onChange={e => setInstagramHandle(e.target.value)}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
+                    <div className="form-group col-sm-5">
+                      <label htmlFor="display_type">Display</label>
 
-        <div className={styles.buttonsWrapper}>
-          {isRegister ? (
-            <div
-              className={cx(
-                styles.createButton,
-                (creating || !isValid) && styles.disabled
-              )}
-              onClick={isValid ? handleRegister : null}
-              style={{ margin: 'auto' }}
-            >
-              {creating ? <ClipLoader color="#FFF" size={16} /> : 'Submit'}
+                      <Select
+                        options={attributeDisplayTypeList}
+                        values={attributeDisplayTypeList.filter((item) => { return item.display_type === attributeFields[index].display_type })}
+                        className={styles.select}
+                        onChange={([col]) => {
+                          handleSelectChange(index, col)
+                        }}
+                        placeholder="Choose Collection"
+                        itemRenderer={({ item, methods }) => (
+                          <div
+                            key={item.display_type}
+                            className={styles.collection}
+                            onClick={() => {
+                              methods.clearAll();
+                              methods.addItem(item);
+                            }}
+                          >
+                            <div className={`${styles.collectionName} ${styles.collectionList}`}>
+                              <strong>{item.display_value}</strong>
+                            </div>
+                          </div>
+                        )}
+                        contentRenderer={({ props: { values } }) =>
+                          <div className={styles.collection}>
+
+                            <div className={styles.collectionName}>
+                              <strong>{values[0].display_value}</strong>
+                            </div>
+                          </div>
+                        }
+                      />
+                    </div>
+
+                    <div className="form-group col-sm-2">
+
+                      <button
+                        className="btn btn-link"
+                        type="button"
+                        onClick={() => handleRemoveFields(index)}
+                        disabled={attributeFields.length<=1}
+                      >
+                        <FontAwesomeIcon icon={faMinus} />
+                      </button>
+                      <button
+                        className="btn btn-link"
+                        type="button"
+
+                        onClick={() => handleAddFields()}
+                      >
+                        <FontAwesomeIcon icon={faPlus} />
+                      </button>
+                    </div>
+                  </div>
+                </Fragment>
+              ))}
+              {
+                // <pre>
+                //   {JSON.stringify(attributeFields, null, 2)}
+                // </pre>
+              }
             </div>
-          ) : (
-            <div
-              className={cx(
-                styles.createButton,
-                (creating || deploying || !isValid) && styles.disabled
-              )}
-              onClick={isValid && !creating && !deploying ? handleCreate : null}
-            >
-              {creating ? (
-                <ClipLoader color="#FFF" size={16} />
-              ) : deploying ? (
-                'Deploying'
-              ) : (
-                'Create'
-              )}
+          }
+          {isRegister && (
+            <div className={styles.inputGroup}>
+              <div className={styles.inputTitle}>
+                Royalty *&nbsp;
+                <BootstrapTooltip
+                  title="Each NFT under this collection exchanged through OpenZoo will have a percentage of sale given to nominated wallet address."
+                  placement="top"
+                >
+                  <HelpOutlineIcon />
+                </BootstrapTooltip>
+              </div>
+              <div className={styles.inputWrapper}>
+                <PriceInput
+                  className={styles.input}
+                  placeholder="Collection Royalty"
+                  decimals={2}
+                  value={'' + royalty}
+                  onChange={val =>
+                    val[val.length - 1] === '.'
+                      ? setRoyalty(val)
+                      : setRoyalty(Math.min(100, +val))
+                  }
+                />
+              </div>
+            </div>
+          )}
+
+          {isRegister && (
+            <div className={styles.inputGroup}>
+              <div className={styles.inputTitle}>
+                Fee Recipient *&nbsp;
+                <BootstrapTooltip
+                  title="The wallet address to receive royalties from each sale in this collection."
+                  placement="top"
+                >
+                  <HelpOutlineIcon />
+                </BootstrapTooltip>
+              </div>
+              <div className={styles.inputWrapper}>
+                <input
+                  type="text"
+                  className={cx(
+                    styles.input,
+                    recipientError && styles.hasError
+                  )}
+                  placeholder="Fee Recipient"
+                  value={feeRecipient}
+                  onChange={e => setFeeRecipient(e.target.value)}
+                  onBlur={validateFeeRecipient}
+                />
+                {recipientError && (
+                  <div className={styles.error}>{recipientError}</div>
+                )}
+              </div>
             </div>
           )}
         </div>
-        {!isRegister && (
-          <div className={styles.fee}>
-            <InfoIcon />
-            20 CROs are charged to create a new collection.
+
+        <div className="col-lg-4 col-md-8 space-y-20">
+          <div className={styles.inputGroup}>
+            <div className={styles.inputTitle}>Links (complete URL)*</div>
+            <div className={styles.inputWrapper}>
+              <div className={cx(styles.linksWrapper, 'space-y-10')}>
+                {isRegister && (
+                  <>
+                    <div
+                      className={cx(
+                        styles.linkItem,
+                        addressError && styles.hasError
+                      )}
+                    >
+                      <div className={styles.linkIconWrapper}>
+                        <div className={styles.linkIcon}>
+                          <img src={nftIcon} className={styles.linkIconImg} />
+                        </div>
+                      </div>
+                      <input
+                        type="text"
+                        className={styles.linkInput}
+                        placeholder="Your collection's address"
+                        value={address}
+                        onChange={e => setAddress(e.target.value)}
+                        onBlur={validateAddress}
+                      />
+                    </div>
+                    {addressError && (
+                      <div className={styles.error}>{addressError}</div>
+                    )}
+                  </>
+                )}
+                <div className={styles.linkItem}>
+                  <div className={styles.linkIconWrapper}>
+                    <div className={styles.linkIcon}>
+                      <FontAwesomeIcon icon={faGlobe} size="lg" />
+                    </div>
+                  </div>
+                  <input
+                    type="text"
+                    className={styles.linkInput}
+                    placeholder="Website"
+                    value={siteUrl}
+                    onChange={e => setSiteUrl(e.target.value)}
+                  />
+                </div>
+                <div className={styles.linkItem}>
+                  <div className={styles.linkIconWrapper}>
+                    <div className={styles.linkIcon}>
+                      <FontAwesomeIcon icon={faDiscord} size="lg" />
+                    </div>
+                  </div>
+                  <input
+                    type="text"
+                    className={styles.linkInput}
+                    placeholder="Discord"
+                    value={discord}
+                    onChange={e => setDiscord(e.target.value)}
+                  />
+                </div>
+                <div className={styles.linkItem}>
+                  <div className={styles.linkIconWrapper}>
+                    <div className={styles.linkIcon}>
+                      <FontAwesomeIcon icon={faTwitter} size="lg" />
+                    </div>
+                  </div>
+                  <input
+                    type="text"
+                    className={styles.linkInput}
+                    placeholder="Twitter"
+                    value={twitterHandle}
+                    onChange={e => setTwitterHandle(e.target.value)}
+                  />
+                </div>
+                <div className={styles.linkItem}>
+                  <div className={styles.linkIconWrapper}>
+                    <div className={styles.linkIcon}>
+                      <FontAwesomeIcon icon={faInstagram} size="lg" />
+                    </div>
+                  </div>
+                  <input
+                    type="text"
+                    className={styles.linkInput}
+                    placeholder="Instagram"
+                    value={instagramHandle}
+                    onChange={e => setInstagramHandle(e.target.value)}
+                  />
+                </div>
+                <div className={styles.linkItem}>
+                  <div className={styles.linkIconWrapper}>
+                    <div className={styles.linkIcon}>
+                      <FontAwesomeIcon icon={faMedium} size="lg" />
+                    </div>
+                  </div>
+                  <input
+                    type="text"
+                    className={styles.linkInput}
+                    placeholder="Medium"
+                    value={mediumHandle}
+                    onChange={e => setMediumHandle(e.target.value)}
+                  />
+                </div>
+                <div className={styles.linkItem}>
+                  <div className={styles.linkIconWrapper}>
+                    <div className={styles.linkIcon}>
+                      <FontAwesomeIcon icon={faTelegramPlane} size="lg" />
+                    </div>
+                  </div>
+                  <input
+                    type="text"
+                    className={styles.linkInput}
+                    placeholder="Telegram"
+                    value={telegram}
+                    onChange={e => setTelegram(e.target.value)}
+                  />
+                </div>
+
+
+
+              </div>
+            </div>
           </div>
-        )}
+          <div className={styles.inputGroup}>
+            <div className={styles.inputTitle}>
+              Email Address *&nbsp;
+              <BootstrapTooltip
+                title="We will use this email to notify you about your collection application. This will not be shared with others."
+                placement="top"
+              >
+                <HelpOutlineIcon />
+              </BootstrapTooltip>
+            </div>
+            <div className={styles.inputWrapper}>
+              <input
+                type="email"
+                className={cx(styles.input, emailError && styles.hasError)}
+                placeholder="Email Address"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                onBlur={validateEmail}
+              />
+              {emailError && <div className={styles.error}>{emailError}</div>}
+            </div>
+          </div>
+          <div>
+            <strong>Note</strong>
+            <p>
+              The process of creating Collection is an irreversible process. Please make sure all of the above details are correct.
+            </p>
+          </div>
+          <div className={styles.buttonsWrapper}>
+            {isRegister ? (
+              <div
+                className={cx(
+                  styles.createButton,
+                  (creating || !isValid) && styles.disabled
+                )}
+                onClick={isValid ? handleRegister : null}
+              >
+                {creating ? (
+                  <ClipLoader color="#FFF" size={16} />
+                ) : (
+                  'REGISTER COLLECTION'
+                )}
+              </div>
+            ) : (
+              <div
+                className={cx(
+                  styles.createButton,
+                  (creating || deploying || !isValid) && styles.disabled
+                )}
+                onClick={
+                  isValid && !creating && !deploying ? handleCreate : null
+                }
+              >
+                {creating ? (
+                  <ClipLoader color="#FFF" size={16} />
+                ) : deploying ? (
+                  'Deploying'
+                ) : (
+                  'CREATE COLLECTION'
+                )}
+              </div>
+            )}
+          </div>
+
+        </div>
       </div>
       {renderMenu}
-    </div>
+    </PageLayout>
   );
 };
 

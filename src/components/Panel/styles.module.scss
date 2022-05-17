@@ -1,6 +1,7 @@
 .container {
   margin-bottom: -1px;
-  border-bottom: 1px solid var(--border-box);
+  margin-top: 1px;
+  border-bottom: 1px solid #EAEAF1;
   overflow: hidden;
 }
 
@@ -13,44 +14,57 @@
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
-  background-color: var(--color-box);
-  // border: 1px solid var(--border-box);
 }
 
 .titleWrapper {
   display: flex;
   align-items: center;
-  color: var(--color-text);
 }
 
 .titleIcon {
   margin-right: 16px;
   width: 20px;
   height: 20px;
-  color: var(--color-text);
+  color: #121223;
 }
 
 .title {
   font-size: 16px;
   font-weight: 700;
-  color: var(--color-text);
+  color: #121223;
 }
 
 .icon {
-  color: var(--color-text);
+  color: #A2A2AD;
+}
+
+:global
+{
+  .is__dark
+  {
+    :local
+    {
+      .body
+      {
+        border-top: 1px solid rgba(255,255,255,0.1);
+      }
+    }
+  }
 }
 
 .body {
-  border-top: 1px solid var(--border-box);
+  border-top: 1px solid #EAEAF1;
   max-height: 0;
   transition: max-height 100ms ease;
 
   &.open {
     max-height: 500px;
+    overflow:auto;
   }
 
   &.responsive.open {
     max-height: 800px;
+    overflow:auto;
   }
 
   &:not(.open) {

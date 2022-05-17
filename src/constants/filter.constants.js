@@ -1,11 +1,10 @@
-import iconArt from 'assets/svgs/art-light.svg';
-import iconCollectibles from 'assets/svgs/collectibles-light.svg';
-import iconSports from 'assets/svgs/sports-light.svg';
-import iconUtility from 'assets/svgs/utility-light.svg';
-import iconTrading from 'assets/svgs/trading-cards-light.svg';
-import iconVirtual from 'assets/svgs/virtual-worlds-light.svg';
-import iconDomain from 'assets/svgs/domain-names-light.svg';
-import iconMusic from 'assets/svgs/music-light.svg';
+import iconArt from 'assets/svgs/rainbow.svg';
+import iconCollectibles from 'assets/svgs/bear.svg';
+import iconSports from 'assets/svgs/soccerball.svg';
+import iconUtility from 'assets/svgs/tools.svg';
+import iconTrading from 'assets/svgs/cardboard.svg';
+import iconVirtual from 'assets/svgs/monster.svg';
+import iconDomain from 'assets/svgs/domain.svg';
 
 export const GroupFilters = [
   {
@@ -22,46 +21,66 @@ export const GroupFilters = [
   // },
 ];
 
+export const MediaTypes = [
+  {
+    id: 'image',
+    label: 'Image',
+  },
+  {
+    id: 'sound',
+    label: 'Sound',
+  },
+  {
+    id: 'video',
+    label: 'Video',
+  },
+  {
+    id: 'model',
+    label: '3D Model',
+  },
+]
+
 export const Categories = [
+  
   {
     id: 0,
     icon: iconArt,
-    label: 'Art',
+    label: 'Gaming Assets',
   },
   {
     id: 1,
     icon: iconCollectibles,
-    label: 'Collectibles',
+    label: 'Digital Art',
   },
   {
     id: 2,
     icon: iconSports,
-    label: 'Sports',
+    label: 'Traditional Art',
   },
   {
     id: 3,
     icon: iconUtility,
-    label: 'Utility',
+    label: 'Charity',
   },
   {
     id: 4,
     icon: iconTrading,
-    label: 'Trading Cards',
+    label: 'Music',
   },
   {
     id: 5,
     icon: iconVirtual,
-    label: 'Virtual Worlds',
+    label: 'Utilities',
   },
   {
     id: 6,
     icon: iconDomain,
-    label: 'Domain Names',
+    label: '3D assets',
   },
   {
     id: 7,
-    icon: iconMusic,
-    label: 'Music',
+    icon: iconDomain,
+    label: 'Video',
   },
 ];
 
@@ -95,20 +114,12 @@ export const SortByOptions = [
     label: 'Lowest Price',
   },
   {
-    id: 'rarityAsc',
-    label: 'Most Rare',
-  },
-  {
-    id: 'rarityDesc',
-    label: 'Least Rare',
-  },
-  {
     id: 'lastSalePrice',
     label: 'Highest Last Sale',
   },
   {
     id: 'viewed',
-    label: 'Mostly Viewed',
+    label: 'Most Viewed',
   },
 ];
 
@@ -116,8 +127,11 @@ const FilterConstants = {
   UPDATE_STATUS_FILTER: 'UPDATE_STATUS_FILTER',
   UPDATE_COLLECTIONS_FILTER: 'UPDATE_COLLECTIONS_FILTER',
   UPDATE_CATEGORIES_FILTER: 'UPDATE_CATEGORIES_FILTER',
+  UPDATE_MEDIATYPE_FILTER: 'UPDATE_MEDIATYPE_FILTER',
   UPDATE_GROUP_TYPE_FILTER: 'UPDATE_GROUP_TYPE_FILTER',
   UPDATE_SORT_BY_FILTER: 'UPDATE_SORT_BY_FILTER',
+  UPDATE_VERIFIED_FILTER: 'UPDATE_VERIFIED_FILTER',
+  UPDATE_ATTRIBUTE_FILTER: 'UPDATE_ATTRIBUTE_FILTER'
 };
 
 export default FilterConstants;

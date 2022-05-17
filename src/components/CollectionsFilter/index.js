@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import cx from 'classnames';
 import Skeleton from 'react-loading-skeleton';
 import { makeStyles } from '@material-ui/core/styles';
 import { InputBase } from '@material-ui/core';
-import { Search as SearchIcon } from '@material-ui/icons';
+import {
+  Search as SearchIcon,
+  CheckCircle as CheckCircleIcon,
+} from '@material-ui/icons';
 
 import { getRandomIPFS } from 'utils';
 
-import verified from 'assets/imgs/verified.png';
 import FilterWrapper from 'components/FilterWrapper';
 import BootstrapTooltip from 'components/BootstrapTooltip';
 import FilterActions from 'actions/filter.actions';
@@ -17,7 +19,6 @@ import nftActiveIcon from 'assets/svgs/nft_active.svg';
 import iconCheck from 'assets/svgs/check_blue.svg';
 
 import './styles.scss';
-import { useApi } from 'api';
 
 const useStyles = makeStyles(() => ({
   body: {
@@ -26,30 +27,25 @@ const useStyles = makeStyles(() => ({
     height: '100%',
   },
   collectionExpandDiv: {
+    borderRadius: 10,
     width: '100%',
     flex: '0 0 48px',
-    backgroundColor: 'var(--color-page-background)',
-    border: '1px solid var(--color-text)',
+    backgroundColor: '#FFF',
+    border: '1px solid #EAEAF1',
     padding: '0 14px',
     boxSizing: 'border-box',
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-
-    '&:hover': {
-      transform: 'translateY(-2px)',
-      boxShadow: '0 0 6px rgba(0, 0, 0, 0.2)',
-    },
   },
   input: {
     flexGrow: 1,
-    color: 'var(--color-text)',
   },
   iconButton: {
     width: 22,
     height: 22,
     marginRight: 10,
-    color: 'var(--color-text)',
+    color: 'rgba(0, 0, 0, 0.5)',
   },
   collectionsList: {
     overflowY: 'auto',
@@ -57,9 +53,6 @@ const useStyles = makeStyles(() => ({
     maxHeight: 260,
   },
   collection: {
-    '&:hover': {
-      transform: 'translateY(-2px)',
-    },
     height: 40,
     padding: '0 8px',
     margin: '12px 0',
@@ -85,18 +78,18 @@ const useStyles = makeStyles(() => ({
   },
   withBorder: {
     boxSizing: 'border-box',
-    border: '1px solid var(--border-box)',
+    border: '1px solid #D9E1EE',
   },
   name: {
     fontWeight: 700,
     fontSize: 16,
-    color: 'var(--color-text)',
+    color: '#000',
     opacity: 0.6,
     marginRight: 4,
   },
   checkIcon: {
     fontSize: 18,
-    color: 'rgb(109, 186, 252)',
+    color: '#007bff',
     marginLeft: 4,
   },
 }));
@@ -106,9 +99,6 @@ const ExploreCollections = () => {
 
   const classes = useStyles();
   const [filter, setFilter] = useState('');
-  // eslint-disable-next-line no-unused-vars
-  const [allCollections, setAllCollections] = useState([]);
-  const { fetchCollection } = useApi();
 
   const { collections: collectionItems, collectionsLoading } = useSelector(
     state => state.Collections
@@ -125,20 +115,16 @@ const ExploreCollections = () => {
     dispatch(FilterActions.updateCollectionsFilter(newCollections));
   };
 
-  const filteredCollections = async () => {
+  const filteredCollections = () => {
     const selected = [];
     let unselected = [];
-    await Promise.all(
-      collectionItems.map(async item => {
-        const res = await fetchCollection(item.address);
-        item.logoImageHash = res.data.logoImageHash;
-        if (collections.includes(item.address)) {
-          selected.push(item);
-        } else {
-          unselected.push(item);
-        }
-      })
-    );
+    collectionItems.map(item => {
+      if (collections.includes(item.address)) {
+        selected.push(item);
+      } else {
+        unselected.push(item);
+      }
+    });
     unselected = unselected.filter(
       item =>
         (item.name || item.collectionName || '')
@@ -148,16 +134,9 @@ const ExploreCollections = () => {
     return [...selected, ...unselected];
   };
 
-  useEffect(() => {
-    filteredCollections().then(d => setAllCollections(d));
-  }, [collectionItems, filter]);
-
   return (
     <FilterWrapper title="Collections" classes={{ body: classes.body }}>
-      <div
-        className={classes.collectionExpandDiv}
-        style={{ borderRadius: '50px' }}
-      >
+      <div className={classes.collectionExpandDiv}>
         <SearchIcon className={classes.iconButton} />
         <InputBase
           className={classes.input}
@@ -178,10 +157,9 @@ const ExploreCollections = () => {
                 width="100%"
                 height={40}
                 className={classes.collection}
-                style={{ background: 'var(--color-skel)' }}
               />
             ))}
-        {allCollections
+        {filteredCollections()
           .filter(item => item.isVisible)
           .map((item, idx) => (
             <div
@@ -210,7 +188,7 @@ const ExploreCollections = () => {
               </span>
               {item.isVerified && (
                 <BootstrapTooltip title="Verified Collection" placement="top">
-                  <img src={verified} width={'17px'} />
+                  <CheckCircleIcon className={classes.checkIcon} />
                 </BootstrapTooltip>
               )}
             </div>

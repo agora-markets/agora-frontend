@@ -30,14 +30,10 @@ const FollowersModal = ({ visible, onClose, title, users }) => {
           <div className={styles.holderInfo}>
             <div className={styles.avatarWrapper}>
               {!user ? (
-                <Skeleton
-                  width={40}
-                  height={40}
-                  style={{ background: 'var(--color-skel)' }}
-                />
+                <Skeleton width={40} height={40} />
               ) : user.imageHash ? (
                 <img
-                  src={`https://cloudflare-ipfs.com/ipfs/${user.imageHash}`}
+                  src={`https://openzoo.mypinata.cloud/ipfs/${user.imageHash}`}
                   width={40}
                   height={40}
                 />
@@ -54,22 +50,14 @@ const FollowersModal = ({ visible, onClose, title, users }) => {
                 {user ? (
                   user.alias || 'Unnamed'
                 ) : (
-                  <Skeleton
-                    width={100}
-                    height={20}
-                    style={{ background: 'var(--color-skel)' }}
-                  />
+                  <Skeleton width={100} height={20} />
                 )}
               </div>
               <div className={styles.address}>
                 {user ? (
                   shortenAddress(user.address)
                 ) : (
-                  <Skeleton
-                    width={100}
-                    height={20}
-                    style={{ background: 'var(--color-skel)' }}
-                  />
+                  <Skeleton width={100} height={20} />
                 )}
               </div>
             </div>
@@ -80,11 +68,7 @@ const FollowersModal = ({ visible, onClose, title, users }) => {
                 user.followers !== 1 ? 's' : ''
               }`
             ) : (
-              <Skeleton
-                width={80}
-                height={24}
-                style={{ background: 'var(--color-skel)' }}
-              />
+              <Skeleton width={80} height={24} />
             )}
           </div>
         </Follower>
