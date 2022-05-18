@@ -8,7 +8,6 @@ import { Filter } from './filter.reducers';
 import { Collections } from './collections.reducers';
 import { Tokens } from './tokens.reducers';
 import { Price } from './price.reducers';
-import { Setmode } from './setmode.reducers';
 
 const rootReducer = combineReducers({
   Auth,
@@ -19,7 +18,6 @@ const rootReducer = combineReducers({
   Collections,
   Tokens,
   Price,
-  Setmode,
 });
 
 export default rootReducer;

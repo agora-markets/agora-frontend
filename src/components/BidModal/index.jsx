@@ -3,20 +3,20 @@ import cx from 'classnames';
 import { ClipLoader } from 'react-spinners';
 import Select from 'react-dropdown-select';
 import Skeleton from 'react-loading-skeleton';
-import axios from 'axios';
 import { ethers } from 'ethers';
 
 import { formatNumber } from 'utils';
 import useTokens from 'hooks/useTokens';
-// import { useSalesContract } from 'contracts';
+import { useSalesContract } from 'contracts';
 import PriceInput from 'components/PriceInput';
 
-import Modal from '../Modal';
+import { RaroinModal as Modal } from '../Modal/RaroinModal';
 import styles from '../Modal/common.module.scss';
 import InputError from '../InputError';
 
 const BidModal = ({
   visible,
+  info,
   onClose,
   onPlaceBid,
   minBidAmount,
@@ -25,7 +25,7 @@ const BidModal = ({
   firstBid,
 }) => {
   const { tokens } = useTokens();
-  // const { getSalesContract } = useSalesContract();
+  const { getSalesContract } = useSalesContract();
   const [currentBid, setCurrentBid] = useState(0);
   const [price, setPrice] = useState('');
   const [focused, setFocused] = useState(false);
@@ -35,7 +35,15 @@ const BidModal = ({
   const [inputError, setInputError] = useState(null);
 
   useEffect(() => {
-    setPrice(minBidAmount);
+    if (firstBid)
+    {
+      setPrice(''+minBidAmount);
+    }
+    else
+    {
+      setPrice(''+(minBidAmount+1));
+    }
+    
     setCurrentBid(parseFloat(minBidAmount));
   }, [visible]);
 
@@ -50,15 +58,9 @@ const BidModal = ({
     const func = async () => {
       const tk = token.address || ethers.constants.AddressZero;
       try {
-        // const salesContract = await getSalesContract();
-        // const price = await salesContract.getPrice(tk);
-        // setTokenPrice(parseFloat(ethers.utils.formatUnits(price, 18)));
-
-        let response;
-        let _price;
-        response = await axios.get(`https://api.mm.finance/api/tokens/${tk}`);
-        _price = parseFloat(response.data.data.price);
-        setTokenPrice(_price);
+        const salesContract = await getSalesContract();
+        const price = await salesContract.getPrice(tk);
+        setTokenPrice(parseFloat(ethers.utils.formatUnits(price, 18)));
       } catch {
         setTokenPrice(null);
       }
@@ -74,6 +76,7 @@ const BidModal = ({
   }, [token]);
 
   const validateInput = () => {
+    //console.log(price);
     return (
       price.length > 0 &&
       parseFloat(price) > 0 &&
@@ -86,17 +89,31 @@ const BidModal = ({
   return (
     <Modal
       visible={visible}
-      title="Place Bid"
+      title="PLACE YOUR BID"
       onClose={onClose}
       submitDisabled={confirming || !validateInput() || inputError}
-      submitLabel={confirming ? <ClipLoader color="#FFF" size={16} /> : 'Place'}
+      submitLabel={
+        confirming ? <ClipLoader color="#FFF" size={16} /> : 'PLACE BID'
+      }
       onSubmit={() =>
         !confirming && validateInput() ? onPlaceBid(price) : null
       }
     >
+      {info?.name && (
+        <p>
+          You are about to place a bid for
+          <br />
+          <span className="color_brand">{info?.name}</span>
+        </p>
+      )}
       <div className={styles.formGroup}>
         <div className={styles.formLabel}>Price</div>
-        <div className={cx(styles.formInputCont, focused && styles.focused)}>
+        <div
+          className={cx(
+            'd-flex rounded-15 bg_input align-items-center',
+            focused && styles.focused
+          )}
+        >
           <Select
             options={options}
             disabled
@@ -131,27 +148,32 @@ const BidModal = ({
             className={styles.formInput}
             placeholder="0.00"
             decimals={token?.decimals || 0}
-            value={'' + price}
+            value={''+price}
             onChange={setPrice}
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
             disabled={confirming}
             onInputError={err => setInputError(err)}
           />
-          <div className={styles.usdPrice}>
+          <div className={`${styles.usdPrice} d-none d-sm-flex`}>
             {!isNaN(tokenPrice) && tokenPrice !== null ? (
               `$${formatNumber(
                 ((parseFloat(price) || 0) * tokenPrice).toFixed(2)
               )}`
             ) : (
-              <Skeleton
-                width={100}
-                height={24}
-                style={{ background: 'var(--color-skel)' }}
-              />
+              <Skeleton width={100} height={24} />
             )}
           </div>
         </div>
+        <div className={`${styles.usdPriceMobile} d-sm-none`}>
+            {!isNaN(tokenPrice) && tokenPrice !== null ? (
+              `$${formatNumber(
+                ((parseFloat(price) || 0) * tokenPrice).toFixed(2)
+              )}`
+            ) : (
+              <Skeleton width={100} height={24} />
+            )}
+          </div>
         <InputError text={inputError} />
       </div>
     </Modal>

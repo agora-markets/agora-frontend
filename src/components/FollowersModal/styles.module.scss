@@ -4,12 +4,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 2px solid var(--border-box);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   cursor: pointer;
   text-decoration: none;
-  &:hover {
-    border: 1px solid rgba(255, 107, 199, 1);
-  }
 }
 
 .holderInfo {
@@ -47,20 +44,17 @@
 .alias {
   font-weight: 500;
   font-size: 18px;
-  color: rgba(255, 107, 199, 1);
-  font-family: Inter;
+  color: #3D3D3D;
 }
 
 .address {
   margin-top: 4px;
   font-weight: 400;
   font-size: 16px;
-  color: var(--color-text);
-  font-family: Inter;
+  color: rgba(0, 0, 0, .4);
 }
 
 .followers {
   font-size: 18px;
-  color: var(--color-text);
-  font-family: Inter;
+  color: rgba(0, 0, 0, .6);
 }

@@ -6,14 +6,15 @@ import { ethers } from 'ethers';
 
 import toast from 'utils/toast';
 import { useApi } from 'api';
-import { getSigner } from 'contracts';
+import useConnectionUtils from 'hooks/useConnectionUtils';
 
 import Modal from '../Modal';
 import styles from '../Modal/common.module.scss';
 
 const BanCollectionModal = ({ visible, isBan, onClose }) => {
   const { getNonce, banCollection, unbanCollection } = useApi();
-  const { account, library } = useWeb3React();
+  const {getSigner} = useConnectionUtils();
+  const { account } = useWeb3React();
 
   const { authToken } = useSelector(state => state.ConnectWallet);
 
@@ -37,8 +38,8 @@ const BanCollectionModal = ({ visible, isBan, onClose }) => {
       let signature;
       let addr;
       try {
-        const signer = await getSigner(library);
-        const msg = `Approve Signature on Agoranft.io with nonce ${nonce}`;
+        const signer = await getSigner();
+        const msg = `Approve Signature on OpenZoo.io with nonce ${nonce}`;
         signature = await signer.signMessage(msg);
         addr = ethers.utils.verifyMessage(msg, signature);
       } catch (err) {

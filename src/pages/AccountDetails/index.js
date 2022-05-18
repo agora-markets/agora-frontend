@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect, Suspense } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, Link, Redirect, useHistory } from 'react-router-dom';
+import { useParams, Link, Redirect } from 'react-router-dom';
 import { useResizeDetector } from 'react-resize-detector';
 import cx from 'classnames';
 import { Edit as EditIcon } from '@material-ui/icons';
@@ -19,12 +19,7 @@ import Identicon from 'components/Identicon';
 import NewBundleModal from 'components/NewBundleModal';
 import FollowersModal from 'components/FollowersModal';
 import SuspenseImg from 'components/SuspenseImg';
-import {
-  isAddress,
-  shortenAddress,
-  formatFollowers,
-  getRandomIPFS,
-} from 'utils';
+import { isAddress, shortenAddress, formatFollowers } from 'utils';
 import toast from 'utils/toast';
 import { useApi } from 'api';
 import useTokens from 'hooks/useTokens';
@@ -36,17 +31,15 @@ import CollectionsActions from 'actions/collections.actions';
 import iconCopy from 'assets/svgs/copy.svg';
 import iconSettings from 'assets/svgs/settings.svg';
 import iconShare from 'assets/svgs/share.svg';
-import iconAgora from 'assets/imgs/logoblack.png';
+import iconArtion from 'assets/svgs/openzoo_icon.svg';
 import iconFacebook from 'assets/imgs/facebook.png';
 import iconTwitter from 'assets/svgs/twitter_blue.svg';
 import IconList from 'assets/icons/iconList';
 // import IconBundle from 'assets/icons/iconBundle';
 import IconHeart from 'assets/icons/iconHeart';
-import IconStaking from 'assets/icons/iconStaking';
 import IconClock from 'assets/icons/iconClock';
 
 import styles from './styles.module.scss';
-import { useStakingContract } from 'contracts';
 
 const ONE_MIN = 60;
 const ONE_HOUR = ONE_MIN * 60;
@@ -76,12 +69,10 @@ const AccountDetails = () => {
   const { getTokenByAddress } = useTokens();
   const { account, chainId } = useWeb3React();
   const { width, ref } = useResizeDetector();
-  const history = useHistory();
 
   const { uid } = useParams();
 
   const { authToken } = useSelector(state => state.ConnectWallet);
-  const { collections } = useSelector(state => state.Collections);
   const { user: me } = useSelector(state => state.Auth);
 
   const fileInput = useRef();
@@ -92,17 +83,11 @@ const AccountDetails = () => {
   const [followingsModalVisible, setFollowingsModalVisible] = useState(false);
   const [followersModalVisible, setFollowersModalVisible] = useState(false);
   const [fetching, setFetching] = useState(false);
-  // eslint-disable-next-line no-unused-vars
   const [bundleFetching, setBundleFetching] = useState(false);
   const [favFetching, setFavFetching] = useState(false);
-  // eslint-disable-next-line no-unused-vars
-  const [stakedFetching, setStakedFetching] = useState(false);
   const [fguresFetching, setFiguresFetching] = useState(false);
   const tokens = useRef([]);
-  // const createdTokens = useRef([]);
-  const createdCollections = useRef([]);
   const bundles = useRef([]);
-  const staked = useRef([]);
   const likes = useRef([]);
   const [followersLoading, setFollowersLoading] = useState(false);
   const followers = useRef([]);
@@ -110,13 +95,8 @@ const AccountDetails = () => {
   const [following, setFollowing] = useState(false);
   const [followingInProgress, setFollowingInProgress] = useState(false);
   const [count, setCount] = useState(0);
-  // eslint-disable-next-line no-unused-vars
   const [bundleCount, setBundleCount] = useState(0);
   const [favCount, setFavCount] = useState(0);
-  // const [createdCount, setCreatedCount] = useState(0);
-  const [createdCollectionsCount, setCreatedCollectionsCount] = useState(0);
-  // eslint-disable-next-line no-unused-vars
-  const [stakedCount, setStakedCount] = useState(0);
   const [now, setNow] = useState(new Date());
   const [page, setPage] = useState(0);
   const [bannerHash, setBannerHash] = useState();
@@ -138,8 +118,6 @@ const AccountDetails = () => {
 
   const numPerRow = Math.floor(width / 240);
   const fetchCount = numPerRow <= 3 ? 18 : numPerRow === 4 ? 16 : numPerRow * 3;
-
-  const { getIdsStaked, getIdsStakedXmas } = useStakingContract();
 
   const getUserDetails = async _account => {
     setLoading(true);
@@ -168,164 +146,70 @@ const AccountDetails = () => {
 
     try {
       const {
-        data: { single, bundle, fav, createdCollections },
+        data: { single, bundle, fav },
       } = await getUserFigures(_account);
       setCount(single);
       setBundleCount(bundle);
-      setCreatedCollectionsCount(createdCollections);
       setFavCount(fav);
     } catch {
       setCount(0);
       setBundleCount(0);
       setFavCount(0);
-      setCreatedCollectionsCount(0);
     }
 
     setFiguresFetching(false);
   };
 
   const fetchNFTs = async () => {
-    let stakedIDS;
-    let xmasIds;
-
     if (tab === 0) {
       if (fetching) return;
       setFetching(true);
     } else {
-      // if (bundleFetching) return;
-      // setBundleFetching(true);
-      if (stakedFetching) return;
-      setStakedFetching(true);
-
-      stakedIDS = await getIdsStaked(uid);
-      xmasIds = await getIdsStakedXmas(uid);
-      if (stakedIDS.length === 0 && xmasIds.length === 0) return;
+      if (bundleFetching) return;
+      setBundleFetching(true);
     }
 
-    // try {
-    //   const start = tab === 0 ? tokens.current.length : bundles.current.length;
-    //   const _count =
-    //     fetchCount -
-    //     ((tab === 0 ? tokens.current : bundles.current).length % numPerRow);
-    //   const { data } = await fetchTokens(
-    //     start,
-    //     _count,
-    //     tab === 0 ? 'single' : 'bundle',
-    //     [],
-    //     null,
-    //     'createdAt',
-    //     [],
-    //     uid
-    //   );
-
-    //   if (tab === 0) {
-    //     // eslint-disable-next-line require-atomic-updates
-    //     tokens.current = [...tokens.current, ...data.tokens];
-    //     setCount(data.total);
-    //     if (authToken) {
-    //       updateItems(tokens.current)
-    //         .then(_tokens => (tokens.current = _tokens))
-    //         .catch();
-    //     }
-    //   } else {
-    //     // eslint-disable-next-line require-atomic-updates
-    //     bundles.current = [...bundles.current, ...data.tokens];
-    //     setBundleCount(data.total);
-    //     if (authToken) {
-    //       updateItems(bundles.current)
-    //         .then(_bundles => (bundles.current = _bundles))
-    //         .catch();
-    //     }
-    //   }
-
-    //   setFetching(false);
-    //   setBundleFetching(false);
-    // } catch {
-    //   setFetching(false);
-    //   setBundleFetching(false);
-    // }
     try {
-      const start = tab === 0 ? tokens.current.length : staked.current.length;
+      const start = tab === 0 ? tokens.current.length : bundles.current.length;
       const _count =
         fetchCount -
-        ((tab === 0 ? tokens.current : staked.current).length % numPerRow);
-      let allData;
-      let data;
-      let data2;
-      if (tab === 0) {
-        const { data: _data } = await fetchTokens(
-          start,
-          _count,
-          'single',
-          [],
-          null,
-          'createdAt',
-          [],
-          uid,
-          null,
-          stakedIDS
-        );
-        allData = _data;
-      } else {
-        if (stakedIDS.length > 0) {
-          const { data: _data } = await fetchTokens(
-            start,
-            _count,
-            'single',
-            [],
-            null,
-            'createdAt',
-            [],
-            '0x6aa6D5447e4f904Eca62F45cDD1C01aE1dc05f02',
-            null,
-            stakedIDS
-          );
-          data = _data;
-        }
+        ((tab === 0 ? tokens.current : bundles.current).length % numPerRow);
+      const { data } = await fetchTokens(
+        start,
+        _count,
+        tab === 0 ? 'single' : 'bundle',
+        [],
+        null,
+        'createdAt',
+        [],
+        uid
+      );
 
-        if (xmasIds.length > 0) {
-          const { data: _data } = await fetchTokens(
-            start,
-            _count,
-            'single',
-            [],
-            null,
-            'createdAt',
-            [],
-            '0x2ee818b2dd3749d33943f8226e5a72d4d3b0c14b',
-            null,
-            xmasIds
-          );
-          data2 = _data;
-        }
-      }
       if (tab === 0) {
         // eslint-disable-next-line require-atomic-updates
-        tokens.current = [...tokens.current, ...allData.tokens];
-        setCount(allData.total);
+        tokens.current = [...tokens.current, ...data.tokens];
+        setCount(data.total);
         if (authToken) {
           updateItems(tokens.current)
             .then(_tokens => (tokens.current = _tokens))
-            .catch();
+            .catch(err => console.error(err));
         }
       } else {
         // eslint-disable-next-line require-atomic-updates
-        data ? (staked.current = [...staked.current, ...data.tokens]) : null;
-        data2 ? (staked.current = [...staked.current, ...data2.tokens]) : null;
-        data ? setStakedCount(prev => prev + data.total) : null;
-        data2 ? setStakedCount(prev => prev + data2.total) : null;
+        bundles.current = [...bundles.current, ...data.tokens];
+        setBundleCount(data.total);
         if (authToken) {
-          updateItems(staked.current)
-            .then(_staked => (staked.current = _staked))
+          updateItems(bundles.current)
+            .then(_bundles => (bundles.current = _bundles))
             .catch();
         }
       }
 
       setFetching(false);
-      setStakedFetching(false);
+      setBundleFetching(false);
     } catch {
       setFetching(false);
-      setStakedFetching(false);
+      setBundleFetching(false);
     }
   };
 
@@ -390,7 +274,6 @@ const AccountDetails = () => {
           else unverified.push(item);
         });
         dispatch(CollectionsActions.fetchSuccess([...verified, ...unverified]));
-        console.log(collections);
       }
     } catch {
       dispatch(CollectionsActions.fetchFailed());
@@ -412,10 +295,6 @@ const AccountDetails = () => {
     dispatch(HeaderActions.toggleSearchbar(true));
     setInterval(() => setNow(new Date()), 1000);
   }, []);
-
-  useEffect(() => {
-    getCreatedCollections();
-  }, [collections]);
 
   const updateItems = async _tokens => {
     return new Promise((resolve, reject) => {
@@ -489,19 +368,13 @@ const AccountDetails = () => {
         .then(_likes => (likes.current = _likes))
         .catch();
     }
-    if (staked.current.length) {
-      updateItems(staked.current)
-        .then(_staked => (staked.current = _staked))
-        .catch();
-    }
   }, [authToken]);
 
   const loadNextPage = () => {
     if (fetching || bundleFetching) return;
 
     if (tab === 0 && tokens.current.length === count) return;
-    // if (tab === 1 && bundles.current.length === bundleCount) return;
-    if (tab === 1 && staked.current.length === stakedCount) return;
+    if (tab === 1 && bundles.current.length === bundleCount) return;
     if (tab === 2 && likes.current.length === favCount) return;
 
     if (tab === 0 || tab === 1) {
@@ -524,13 +397,10 @@ const AccountDetails = () => {
     if (tab === 0) {
       tokens.current = [];
       setCount(0);
-      setStakedCount(null);
       fetchNFTs();
     } else if (tab === 1) {
-      // bundles.current = [];
-      // setBundleCount(0);
-      staked.current = [];
-      setStakedCount(0);
+      bundles.current = [];
+      setBundleCount(0);
       fetchNFTs();
     } else if (tab === 2) {
       likes.current = [];
@@ -542,8 +412,6 @@ const AccountDetails = () => {
       getOffersFromOthers();
     } else if (tab === 5) {
       getOffers();
-    } else if (tab === 6) {
-      getCreatedCollections();
     }
   };
 
@@ -567,7 +435,7 @@ const AccountDetails = () => {
   const handleShareToTwitter = () => {
     handleClose();
     window.open(
-      `https://twitter.com/intent/tweet?text=Check%20out%20this%20account%20on%Agora&url=${window.location.href}`,
+      `https://twitter.com/intent/tweet?text=Check%20out%20this%20account%20on%20Artion&url=${window.location.href}`,
       '_blank'
     );
   };
@@ -576,8 +444,6 @@ const AccountDetails = () => {
     tokens.current = [];
     bundles.current = [];
     likes.current = [];
-    staked.current = [];
-    createdCollections.current = [];
 
     setTab(_tab);
   };
@@ -632,12 +498,6 @@ const AccountDetails = () => {
     } catch {
       setBidsLoading(false);
     }
-  };
-
-  const getCreatedCollections = () => {
-    createdCollections.current = collections.filter(
-      c => c.owner === uid.toLowerCase()
-    );
   };
 
   const handleCopyAddress = () => {
@@ -785,7 +645,7 @@ const AccountDetails = () => {
       return (
         <Suspense
           fallback={
-            <Loader type="Oval" color="#6dbafc" height={32} width={32} />
+            <Loader type="Oval" color="#00A59A" height={32} width={32} />
           }
         >
           <SuspenseImg className={styles.mediaInner} src={image} />
@@ -803,12 +663,7 @@ const AccountDetails = () => {
       <div className={styles.tabLabel}>{label}</div>
       <div className={styles.tabCount}>
         {countLoading ? (
-          <Skeleton
-            className={styles.tabCountLoading}
-            width={40}
-            height={22}
-            style={{ background: 'var(--color-skel)' }}
-          />
+          <Skeleton className={styles.tabCountLoading} width={40} height={22} />
         ) : (
           count
         )}
@@ -818,18 +673,14 @@ const AccountDetails = () => {
 
   return (
     <div className={styles.container}>
-      <Header />
+      <Header border />
       <div className={styles.profile}>
         <div className={styles.banner}>
           {loading ? (
-            <Skeleton
-              width="100%"
-              height={200}
-              style={{ background: 'var(--color-skel)' }}
-            />
+            <Skeleton width="100%" height={200} />
           ) : bannerHash || user.bannerHash ? (
             <img
-              src={`https://cloudflare-ipfs.com/ipfs/${bannerHash ||
+              src={`https://openzoo.mypinata.cloud/ipfs/${bannerHash ||
                 user.bannerHash}`}
               className={styles.bannerImg}
             />
@@ -865,15 +716,10 @@ const AccountDetails = () => {
         <div className={styles.wrapper}>
           <div className={styles.avatarWrapper}>
             {loading ? (
-              <Skeleton
-                width={160}
-                height={160}
-                className={styles.avatar}
-                style={{ background: 'var(--color-skel)' }}
-              />
+              <Skeleton width={160} height={160} className={styles.avatar} />
             ) : user.imageHash ? (
               <img
-                src={`https://cloudflare-ipfs.com/ipfs/${user.imageHash}`}
+                src={`https://openzoo.mypinata.cloud/ipfs/${user.imageHash}`}
                 className={styles.avatar}
               />
             ) : (
@@ -882,20 +728,12 @@ const AccountDetails = () => {
           </div>
           <div className={styles.usernameWrapper}>
             {loading ? (
-              <Skeleton
-                width={120}
-                height={24}
-                style={{ background: 'var(--color-skel)' }}
-              />
+              <Skeleton width={120} height={24} />
             ) : (
               <div className={styles.username}>{user.alias || 'Unnamed'}</div>
             )}
             {isMe ? null : loading ? (
-              <Skeleton
-                width={80}
-                height={26}
-                style={{ background: 'var(--color-skel)', marginLeft: 16 }}
-              />
+              <Skeleton width={80} height={26} style={{ marginLeft: 16 }} />
             ) : (
               <div
                 className={cx(
@@ -918,11 +756,7 @@ const AccountDetails = () => {
           <div className={styles.bottomWrapper}>
             <div className={styles.addressWrapper}>
               {loading ? (
-                <Skeleton
-                  width={120}
-                  height={20}
-                  style={{ background: 'var(--color-skel)' }}
-                />
+                <Skeleton width={120} height={20} />
               ) : (
                 <Tooltip
                   title={copied ? 'Copied!' : 'Copy'}
@@ -939,18 +773,13 @@ const AccountDetails = () => {
                     src={iconCopy}
                     onMouseOver={handleMouseOver}
                     onMouseLeave={handleMouseLeave}
-                    style={{ filter: 'invert(var(--color-icon))' }}
                   />
                 </div>
               </CopyToClipboard>
             </div>
             <div className={styles.followers} onClick={showFollowers}>
               {loading ? (
-                <Skeleton
-                  width={100}
-                  height={24}
-                  style={{ background: 'var(--color-skel)' }}
-                />
+                <Skeleton width={100} height={24} />
               ) : (
                 <>
                   <b>{formatFollowers(user.followers || 0)}</b> Followers
@@ -959,11 +788,7 @@ const AccountDetails = () => {
             </div>
             <div className={styles.followers} onClick={showFollowings}>
               {loading ? (
-                <Skeleton
-                  width={100}
-                  height={24}
-                  style={{ background: 'var(--color-skel)' }}
-                />
+                <Skeleton width={100} height={24} />
               ) : (
                 <>
                   <b>{formatFollowers(user.followings || 0)}</b> Following
@@ -992,20 +817,6 @@ const AccountDetails = () => {
               bundleFetching || fguresFetching
             )} */}
             {renderTab(
-              'Collections',
-              IconList,
-              6,
-              createdCollectionsCount,
-              fetching || fguresFetching
-            )}
-            {renderTab(
-              'Staked',
-              IconStaking,
-              1,
-              stakedCount,
-              stakedFetching || fguresFetching
-            )}
-            {renderTab(
               'Favorited',
               IconHeart,
               2,
@@ -1027,13 +838,16 @@ const AccountDetails = () => {
               numPerRow={numPerRow}
               loading={fetching}
             />
-          ) : tab === 1 ? (
-            <NFTsGrid
-              items={staked.current}
-              numPerRow={numPerRow}
-              loading={stakedFetching}
-            />
-          ) : tab === 2 ? (
+          ) : // tab === 1 ? (
+          //   <NFTsGrid
+          //     items={bundles.current}
+          //     numPerRow={numPerRow}
+          //     loading={fetching}
+          //     showCreate={isMe}
+          //     onCreate={handleCreateBundle}
+          //   />
+          // ) :
+          tab === 2 ? (
             <NFTsGrid
               items={likes.current}
               numPerRow={numPerRow}
@@ -1054,23 +868,19 @@ const AccountDetails = () => {
                 <div className={styles.date}>Date</div>
               </div>
               <div className={styles.activityList}>
-                {(activityLoading ? new Array(5).fill(null) : activities).map(
+                {(activityLoading ? new Array(6).fill(null) : activities).map(
                   (activity, idx) => (
                     <div key={idx} className={styles.activity}>
                       <div className={styles.event}>
                         {activity ? (
                           activity.event
                         ) : (
-                          <Skeleton
-                            width={100}
-                            height={20}
-                            style={{ background: 'var(--color-skel)' }}
-                          />
+                          <Skeleton width={100} height={20} />
                         )}
                       </div>
                       {activity ? (
                         <Link
-                          to={`/explore/${activity.contractAddress}/${activity.tokenID}`}
+                          to={`/collection/${activity.contractAddress}/${activity.tokenID}`}
                           className={styles.name}
                         >
                           <div className={styles.media}>
@@ -1084,11 +894,7 @@ const AccountDetails = () => {
                         </Link>
                       ) : (
                         <div className={styles.name}>
-                          <Skeleton
-                            width={120}
-                            height={20}
-                            style={{ background: 'var(--color-skel)' }}
-                          />
+                          <Skeleton width={120} height={20} />
                         </div>
                       )}
                       <div className={styles.price}>
@@ -1100,22 +906,14 @@ const AccountDetails = () => {
                             {activity.price}
                           </>
                         ) : (
-                          <Skeleton
-                            width={100}
-                            height={20}
-                            style={{ background: 'var(--color-skel)' }}
-                          />
+                          <Skeleton width={100} height={20} />
                         )}
                       </div>
                       <div className={styles.quantity}>
                         {activity ? (
                           activity.quantity
                         ) : (
-                          <Skeleton
-                            width={80}
-                            height={20}
-                            style={{ background: 'var(--color-skel)' }}
-                          />
+                          <Skeleton width={80} height={20} />
                         )}
                       </div>
                       {activity ? (
@@ -1127,7 +925,7 @@ const AccountDetails = () => {
                             <div className={styles.ownerAvatarWrapper}>
                               {activity.image ? (
                                 <img
-                                  src={`https://cloudflare-ipfs.com/ipfs/${activity.image}`}
+                                  src={`https://openzoo.mypinata.cloud/ipfs/${activity.image}`}
                                   className={styles.ownerAvatar}
                                 />
                               ) : (
@@ -1145,24 +943,17 @@ const AccountDetails = () => {
                         )
                       ) : (
                         <div className={styles.owner}>
-                          <Skeleton
-                            width={130}
-                            height={20}
-                            style={{ background: 'var(--color-skel)' }}
-                          />
+                          <Skeleton width={130} height={20} />
                         </div>
                       )}
                       <div className={styles.date}>
                         {activity ? (
                           formatDate(activity.createdAt)
                         ) : (
-                          <Skeleton
-                            width={120}
-                            height={20}
-                            style={{ background: 'var(--color-skel)' }}
-                          />
+                          <Skeleton width={120} height={20} />
                         )}
                       </div>
+                      
                     </div>
                   )
                 )}
@@ -1187,7 +978,7 @@ const AccountDetails = () => {
                   <div key={idx} className={styles.activity}>
                     {offer ? (
                       <Link
-                        to={`/explore/${offer.contractAddress}/${offer.tokenID}`}
+                        to={`/collection/${offer.contractAddress}/${offer.tokenID}`}
                         className={styles.name}
                       >
                         <div className={styles.media}>
@@ -1201,11 +992,7 @@ const AccountDetails = () => {
                       </Link>
                     ) : (
                       <div className={styles.name}>
-                        <Skeleton
-                          width={120}
-                          height={20}
-                          style={{ background: 'var(--color-skel)' }}
-                        />
+                        <Skeleton width={120} height={20} />
                       </div>
                     )}
                     {offer ? (
@@ -1216,7 +1003,7 @@ const AccountDetails = () => {
                         <div className={styles.ownerAvatarWrapper}>
                           {offer.image ? (
                             <img
-                              src={`https://cloudflare-ipfs.com/ipfs/${offer.image}`}
+                              src={`https://openzoo.mypinata.cloud/ipfs/${offer.image}`}
                               className={styles.ownerAvatar}
                             />
                           ) : (
@@ -1231,11 +1018,7 @@ const AccountDetails = () => {
                       </Link>
                     ) : (
                       <div className={styles.owner}>
-                        <Skeleton
-                          width={130}
-                          height={20}
-                          style={{ background: 'var(--color-skel)' }}
-                        />
+                        <Skeleton width={130} height={20} />
                       </div>
                     )}
                     <div className={styles.price}>
@@ -1247,40 +1030,28 @@ const AccountDetails = () => {
                           {offer.pricePerItem}
                         </>
                       ) : (
-                        <Skeleton
-                          width={100}
-                          height={20}
-                          style={{ background: 'var(--color-skel)' }}
-                        />
+                        <Skeleton width={100} height={20} />
                       )}
                     </div>
                     <div className={styles.quantity}>
                       {offer ? (
                         offer.quantity
                       ) : (
-                        <Skeleton
-                          width={80}
-                          height={20}
-                          style={{ background: 'var(--color-skel)' }}
-                        />
+                        <Skeleton width={80} height={20} />
                       )}
                     </div>
                     <div className={styles.date}>
                       {offer ? (
                         formatDate(offer.createdAt)
                       ) : (
-                        <Skeleton
-                          width={120}
-                          height={20}
-                          style={{ background: 'var(--color-skel)' }}
-                        />
+                        <Skeleton width={120} height={20} />
                       )}
                     </div>
                   </div>
                 ))}
               </div>
             </>
-          ) : tab === 5 ? (
+          ) : (
             <>
               <div className={styles.activityHeader}>
                 <div className={styles.name}>Item</div>
@@ -1296,7 +1067,7 @@ const AccountDetails = () => {
                   <div key={idx} className={styles.activity}>
                     {bid ? (
                       <Link
-                        to={`/explore/${bid.contractAddress}/${bid.tokenID}`}
+                        to={`/collection/${bid.contractAddress}/${bid.tokenID}`}
                         className={styles.name}
                       >
                         <div className={styles.media}>
@@ -1310,11 +1081,7 @@ const AccountDetails = () => {
                       </Link>
                     ) : (
                       <div className={styles.name}>
-                        <Skeleton
-                          width={120}
-                          height={20}
-                          style={{ background: 'var(--color-skel)' }}
-                        />
+                        <Skeleton width={120} height={20} />
                       </div>
                     )}
                     <div className={styles.price}>
@@ -1326,64 +1093,23 @@ const AccountDetails = () => {
                           {bid.pricePerItem}
                         </>
                       ) : (
-                        <Skeleton
-                          width={100}
-                          height={20}
-                          style={{ background: 'var(--color-skel)' }}
-                        />
+                        <Skeleton width={100} height={20} />
                       )}
                     </div>
                     <div className={styles.quantity}>
-                      {bid ? (
-                        bid.quantity
-                      ) : (
-                        <Skeleton
-                          width={80}
-                          height={20}
-                          style={{ background: 'var(--color-skel)' }}
-                        />
-                      )}
+                      {bid ? bid.quantity : <Skeleton width={80} height={20} />}
                     </div>
                     <div className={styles.date}>
                       {bid ? (
                         formatDate(bid.createdAt)
                       ) : (
-                        <Skeleton
-                          width={120}
-                          height={20}
-                          style={{ background: 'var(--color-skel)' }}
-                        />
+                        <Skeleton width={120} height={20} />
                       )}
                     </div>
                   </div>
                 ))}
               </div>
             </>
-          ) : tab === 6 ? (
-            <div className={styles.collectionsList}>
-              {createdCollections?.current?.map((collection, idx) => (
-                <div
-                  key={idx}
-                  onClick={() => {
-                    history.replace(
-                      `/collection/${collection?.collectionName
-                        ?.toLowerCase()
-                        .replace(' ', '') ||
-                        collection?.name?.toLowerCase().replace(' ', '')}`
-                    );
-                  }}
-                  className={styles.collectionCard}
-                >
-                  <h3>{collection.collectionName}</h3>
-                  <img
-                    src={getRandomIPFS(`ipfs://${collection.logoImageHash}`)}
-                    alt="collection-img"
-                  />
-                </div>
-              ))}
-            </div>
-          ) : (
-            <></>
           )}
         </div>
       </div>
@@ -1405,10 +1131,7 @@ const AccountDetails = () => {
       >
         <CopyToClipboard text={window.location.href} onCopy={handleCopyLink}>
           <MenuItem classes={{ root: styles.menuItem }}>
-            <img
-              src={iconAgora}
-              style={{ filter: 'invert(var(--color-logo))' }}
-            />
+            <img src={iconArtion} />
             Copy Link
           </MenuItem>
         </CopyToClipboard>

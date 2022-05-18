@@ -6,24 +6,27 @@ import { useWeb3React } from '@web3-react/core';
 const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
 
 export default () => {
-  const { chainId, library } = useWeb3React();
+  const { chainId, connector } = useWeb3React();
 
   const getContract = useCallback(
     async (address, abi) => {
       if (chainId) {
-        // await window.ethereum.enable();
-        // const provider = new ethers.providers.Web3Provider(window.ethereum);
-        const signer = library.getSigner();
+        const web3provider = await connector.getProvider();
+        await web3provider.enable();
+        const provider = new ethers.providers.Web3Provider(web3provider);
+        provider.pollingInterval = 10 * 1000;
+        const signer = provider.getSigner();
 
         return new ethers.Contract(address, abi, signer);
       } else {
-        const provider = new ethers.providers.JsonRpcProvider(
+        const provider = new ethers.providers.StaticJsonRpcProvider(
           isMainnet
-            ? ' https://gateway.nebkas.ro'
-            : 'https://arb1.arbitrum.io/rpc',
-          isMainnet ? 25 : 42161
+            ? 'https://rpc.zookeeper.finance/'
+            : 'https://rpc.zookeeper.finance/testnet',
+          isMainnet ? 888 : 999
         );
-
+        provider.pollingInterval = 10 * 1000;
+        
         return new ethers.Contract(address, abi, provider);
       }
     },

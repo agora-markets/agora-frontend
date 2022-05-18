@@ -4,16 +4,11 @@
   margin-bottom: 20px;
   width: 320px;
   height: 48px;
-  border-radius: 50px;
+  border-radius: 8px;
   font-weight: 700;
   font-size: 18px;
-  background: rgb(109, 186, 252);
-  background: linear-gradient(
-    93deg,
-    rgba(109, 186, 252, 1) 0%,
-    rgba(255, 107, 199, 1) 100%
-  );
-  color: #fff;
+  background-color: #00a59a;
+  color: #FFF;
   box-shadow: none;
   display: flex;
   align-items: center;
@@ -22,7 +17,7 @@
 }
 
 .link {
-  color: rgb(109, 186, 252);
+  color: #00a59a;
   cursor: pointer;
   padding: 0 5px;
 }
@@ -35,7 +30,7 @@
 .grid {
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: repeat( auto-fill, minmax(220px, 1fr) );
   grid-gap: 24px;
   box-sizing: border-box;
   padding-bottom: 32px;

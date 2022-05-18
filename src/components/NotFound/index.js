@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import HeaderActions from 'actions/header.actions';
 import Header from 'components/header';
 
-import agora from 'assets/imgs/logoblack.png';
+import openzooicon from 'assets/svgs/openzoo_icon.svg';
 
 import styles from './styles.module.scss';
 
@@ -20,21 +20,16 @@ const NotFound = () => {
     <div className={styles.container}>
       <Header />
       <div className={styles.body}>
-        <img
-          src={agora}
-          alt="agora"
-          className={styles.man}
-          style={{ filter: 'invert(var(--color-logo))' }}
-        />
         <div className={styles.main}>
           <div className={styles.title}>404</div>
           <div className={styles.subtitle}>
-            We sadly couldn’t find the page you’re looking for :(
+            Oops! The page you&apos;re looking for doesn&apos;t exist.
           </div>
           <Link to="/" className={styles.button}>
             Back To Home
           </Link>
         </div>
+        <img src={openzooicon} alt="man" className={styles.man} />
       </div>
     </div>
   );

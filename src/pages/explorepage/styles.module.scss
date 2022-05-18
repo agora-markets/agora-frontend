@@ -1,19 +1,16 @@
-@import '../../style/global.scss';
-
 .container {
   padding-top: 80px;
   height: 100vh;
   box-sizing: border-box;
   display: flex;
   overflow-y: auto;
-  background-color: var(--color-page-background);
 }
 
 .sidebar {
   flex: 0 0 300px;
   display: flex;
   flex-direction: column;
-  border-right: 1px solid var(--color-text);
+  border-right: 1px solid #D9E1EE;
   box-sizing: border-box;
   overflow-y: auto;
   overflow-x: hidden;
@@ -29,8 +26,7 @@
   }
 
   .iconCollapse {
-    transform: rotateZ(0deg);
-    opacity: 0.7;
+    transform: rotateZ(180deg);
   }
 
   .filterList {
@@ -50,17 +46,13 @@
 .sidebarTitle {
   font-size: 20px;
   font-weight: 700;
-  color: var(--color-text);
-  font-family: Inter;
+  color: #3D3D3D;
 }
 
 .iconCollapse {
   cursor: pointer;
-  transform: rotateZ(180deg);
+  transform: rotateZ(0deg);
   transition: transform ease 300ms;
-  height: 20px;
-  width: 20px;
-  opacity: 0.7;
 }
 
 .profileWrapper {
@@ -134,7 +126,7 @@
   }
 
   .sidebar:not(.collapsed) {
-    flex: 0 0 260px;
+    /*flex: 0 0 260px;*/
   }
 }
 
@@ -179,5 +171,17 @@
   .exploreAll {
     padding-right: 0;
     overflow-y: visible;
+  }
+}
+
+:global
+{
+  .MuiMenuItem-root
+  {
+    min-height: 30px !important;
+  }
+  .menuItemSelected
+  {
+    color: #00A59A !important;
   }
 }

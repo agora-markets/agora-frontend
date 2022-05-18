@@ -11,14 +11,15 @@ import ModalActions from 'actions/modal.actions';
 import AuthActions from 'actions/auth.actions';
 import { useApi } from 'api';
 import toast from 'utils/toast';
-import { getSigner } from 'contracts';
 
+import useConnectionUtils from 'hooks/useConnectionUtils';
 import styles from './styles.module.scss';
 
 const AccountModal = () => {
   const { getNonce, updateAccountDetails } = useApi();
+  const {getSigner} = useConnectionUtils();
   const dispatch = useDispatch();
-  const { account, library } = useWeb3React();
+  const { account } = useWeb3React();
 
   const { fetching, user } = useSelector(state => state.Auth);
 
@@ -38,7 +39,7 @@ const AccountModal = () => {
   useEffect(() => {
     if (accountModalVisible) {
       if (user.imageHash) {
-        setAvatar(`https://cloudflare-ipfs.com/ipfs/${user.imageHash}`);
+        setAvatar(`https://openzoo.mypinata.cloud/ipfs/${user.imageHash}`);
       } else {
         setAvatar(null);
       }
@@ -111,17 +112,12 @@ const AccountModal = () => {
       let signature;
       let addr;
       try {
-        const signer = await getSigner(library);
-        console.log('SIGNING', signer, library);
-        let msg = `Approve Signature on Agoranft.io with nonce ${nonce}`;
-
-        signature = await library.send('personal_sign', [
-          ethers.utils.hexlify(ethers.utils.toUtf8Bytes(msg)),
-          account?.toLowerCase(),
-        ]);
+        const signer = await getSigner();
+        const msg = `Approve Signature on OpenZoo.io with nonce ${nonce}`;
+        signature = await signer.signMessage(msg);
         addr = ethers.utils.verifyMessage(msg, signature);
       } catch (err) {
-        console.error(err);
+        console.log('sign error',err)
         toast(
           'error',
           'You need to sign the message to be able to update account settings.'
@@ -242,14 +238,13 @@ const AccountModal = () => {
             <p className={styles.formLabel}>Bio</p>
             <textarea
               className={cx(styles.formInput, styles.longInput)}
-              maxLength={120}
+              maxLength={1000}
               placeholder="Bio"
               value={bio}
               onChange={e => setBio(e.target.value)}
               disabled={fetching}
-              style={{ paddingTop: '15px' }}
             />
-            <div className={styles.lengthIndicator}>{bio.length}/120</div>
+            <div className={styles.lengthIndicator}>{bio.length}/1000</div>
           </div>
 
           <div className={styles.footer}>
@@ -263,8 +258,13 @@ const AccountModal = () => {
             >
               {saving ? <ClipLoader color="#FFF" size={16} /> : 'Save'}
             </div>
+
             <div
-              className={cx(styles.cancel, saving && styles.disabled)}
+              className={cx(
+                styles.button,
+                styles.cancel,
+                saving && styles.disabled
+              )}
               onClick={!saving ? onCancel : null}
             >
               Cancel

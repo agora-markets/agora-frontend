@@ -35,14 +35,12 @@ const useStyles = makeStyles(() => ({
     '&:last-child': {
       marginBottom: 0,
     },
-    '&:hover': {
-      transform: 'translateY(-2px)',
-    },
   },
   logo: {
     width: 40,
     height: 40,
     borderRadius: '50%',
+    border: '1px solid #D9E1EE',
     marginRight: 14,
     display: 'flex',
     alignItems: 'center',
@@ -56,7 +54,7 @@ const useStyles = makeStyles(() => ({
   name: {
     fontWeight: 700,
     fontSize: 16,
-    color: 'var(--color-text)',
+    color: '#000',
     opacity: 0.6,
     marginRight: 4,
   },
