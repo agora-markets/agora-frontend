@@ -1,13 +1,10 @@
 import React from 'react';
 
-//import LogoSmallBlue from 'assets/svgs/openzoo_icon.svg';
-//import { Link } from 'react-router-dom';
+import LogoSmallBlue from 'assets/imgs/logoRound.png';
+import { Link } from 'react-router-dom';
 
 export function Footer() {
-  return (<></>);
-  /*
   return (
-
     <footer className="footer__1">
       <div className="container">
         <div className="row">
@@ -15,11 +12,11 @@ export function Footer() {
             <div className="footer__logo">
               <Link to="/" className="d-flex align-items-center space-x-10">
                 <img src={LogoSmallBlue} alt="logo" id="logo_js_f" />
-                <p className="color_black font-bold">OpenZoo</p>
+                <p className="color_black font-bold">Agora</p>
               </Link>
             </div>
             <p className="footer__text">
-              OpenZoo is a shared liquidity NFT market smart contract
+              Agora is Cronos No.1 Marketplace
             </p>
             <div>
               <ul className="footer__social space-x-10 mb-40">
@@ -47,7 +44,7 @@ export function Footer() {
             </div>
           </div>
           <div className="col-lg-2 col-6">
-            <h6 className="footer__title">OpenZoo</h6>
+            <h6 className="footer__title">Agora</h6>
             <ul className="footer__list">
               <li>
                 <Link to="/home"> Home </Link>
@@ -87,9 +84,8 @@ export function Footer() {
             </ul>
           </div>
         </div>
-        <p className="copyright text-center">OpenZoo is a ZooKeeper project</p>
+        <p className="copyright text-center">Agora is a ZooKeeper project</p>
       </div>
     </footer>
   );
-  */
 }

@@ -1872,7 +1872,7 @@ export function ArtworkDetailPage() {
       let addr;
       try {
         const signer = await getSigner();
-        const msg = `Approve Signature on OpenZoo.io with nonce ${nonce}`;
+        const msg = `Approve Signature on Agoranft.io with nonce ${nonce}`;
         signature = await signer.signMessage(msg);
         addr = ethers.utils.verifyMessage(msg, signature);
       } catch {
@@ -1979,16 +1979,16 @@ export function ArtworkDetailPage() {
           const toastId = showToast(
             'error',
             `Insufficient ${listing.token.symbol} Balance!`,
-            listing.token.symbol === 'WFTM' || listing.token.symbol === 'WWAN'
+            listing.token.symbol === 'WETH' || listing.token.symbol === 'WWAN'
               ? 'You can wrap WAN in the WWAN station.'
               : `You can exchange ${listing.token.symbol} on other exchange site.`,
             () => {
               toast.dismiss(toastId);
               if (
-                listing.token.symbol === 'WFTM' ||
+                listing.token.symbol === 'WETH' ||
                 listing.token.symbol === 'WWAN'
               ) {
-                dispatch(ModalActions.showWFTMModal());
+                dispatch(ModalActions.showWETHModal());
               }
             }
           );
@@ -2054,13 +2054,13 @@ export function ArtworkDetailPage() {
           const toastId = showToast(
             'error',
             `Insufficient ${token.symbol} Balance!`,
-            token.symbol === 'WFTM' || token.symbol === 'WWAN'
+            token.symbol === 'WETH' || token.symbol === 'WWAN'
               ? 'You can wrap WAN in the WWAN station.'
               : `You can exchange ${token.symbol} on other exchange site.`,
             () => {
               toast.dismiss(toastId);
-              if (token.symbol === 'WFTM' || token.symbol === 'WWAN') {
-                dispatch(ModalActions.showWFTMModal());
+              if (token.symbol === 'WETH' || token.symbol === 'WWAN') {
+                dispatch(ModalActions.showWETHModal());
               }
             }
           );
@@ -2105,14 +2105,14 @@ export function ArtworkDetailPage() {
         const toastId = showToast(
           'error',
           `Insufficient ${token.symbol} Balance!`,
-          token.symbol === 'WFTM' || token.symbol === 'WWAN'
+          token.symbol === 'WETH' || token.symbol === 'WWAN'
             ? 'You can wrap WAN in the WWAN station.'
             : `You can exchange ${token.symbol} on other exchange site.`,
           () => {
             toast.dismiss(toastId);
             setOfferModalVisible(false);
-            if (token.symbol === 'WFTM' || token.symbol === 'WWAN') {
-              dispatch(ModalActions.showWFTMModal());
+            if (token.symbol === 'WETH' || token.symbol === 'WWAN') {
+              dispatch(ModalActions.showWETHModal());
             }
           }
         );
@@ -2359,14 +2359,14 @@ export function ArtworkDetailPage() {
           const toastId = showToast(
             'error',
             `Insufficient ${token.symbol} Balance!`,
-            token.symbol === 'WFTM' || token.symbol === 'WWAN'
+            token.symbol === 'WETH' || token.symbol === 'WWAN'
               ? 'You can wrap WAN in the WWAN station.'
               : `You can exchange ${token.symbol} on other exchange site.`,
             () => {
               toast.dismiss(toastId);
               setBidModalVisible(false);
-              if (token.symbol === 'WFTM' || token.symbol === 'WWAN') {
-                dispatch(ModalActions.showWFTMModal());
+              if (token.symbol === 'WETH' || token.symbol === 'WWAN') {
+                dispatch(ModalActions.showWETHModal());
               }
             }
           );
@@ -2669,7 +2669,7 @@ export function ArtworkDetailPage() {
               <b>
                 <FontAwesomeIcon icon={faExclamationTriangle} /> Warning:
               </b>{' '}
-              This content has been flagged by the OpenZoo Team as suspicious.
+              This content has been flagged by the Agora Team as suspicious.
             </div>
           )}
           <div className="row md:space-y-20">
@@ -3130,7 +3130,7 @@ export function ArtworkDetailPage() {
                                   <Line
                                     type="monotone"
                                     dataKey="price"
-                                    stroke="#00a59a"
+                                    stroke="rgba(255, 107, 199, 1)"
                                   />
                                 </LineChart>
                               </div>

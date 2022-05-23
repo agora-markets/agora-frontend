@@ -2993,7 +2993,7 @@ export const ERC1155_CONTRACT_ABI = [
   },
 ];
 
-export const WFTM_ABI = [
+export const WETH_ABI = [
   {
     constant: true,
     inputs: [],
@@ -3385,6 +3385,6 @@ export default {
   AUCTION_CONTRACT_ABI,
   ERC721_CONTRACT_ABI,
   ERC1155_CONTRACT_ABI,
-  WFTM_ABI,
+  WETH_ABI,
   FACTORY_ABI,
 };

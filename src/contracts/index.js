@@ -6,7 +6,7 @@ export * from './auctions';
 export * from './sales';
 export * from './bundleSales';
 export * from './token';
-export * from './wftm';
+export * from './weth';
 export * from './factory';
 
 // export const getSigner = async () => {

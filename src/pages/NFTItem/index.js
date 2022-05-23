@@ -1688,7 +1688,7 @@ const NFTItem = () => {
       let addr;
       try {
         const signer = await getSigner();
-        const msg = `Approve Signature on OpenZoo.io with nonce ${nonce}`;
+        const msg = `Approve Signature on Agoranft.io with nonce ${nonce}`;
         signature = await signer.signMessage(msg);
         addr = ethers.utils.verifyMessage(msg, signature);
       } catch {
@@ -1794,16 +1794,16 @@ const NFTItem = () => {
           const toastId = showToast(
             'error',
             `Insufficient ${listing.token.symbol} Balance!`,
-            listing.token.symbol === 'WFTM' || listing.token.symbol === 'WWAN'
+            listing.token.symbol === 'WETH' || listing.token.symbol === 'WWAN'
               ? 'You can wrap WAN in the WWAN station.'
               : `You can exchange ${listing.token.symbol} on other exchange site.`,
             () => {
               toast.dismiss(toastId);
               if (
-                listing.token.symbol === 'WFTM' ||
+                listing.token.symbol === 'WETH' ||
                 listing.token.symbol === 'WWAN'
               ) {
-                dispatch(ModalActions.showWFTMModal());
+                dispatch(ModalActions.showWETHModal());
               }
             }
           );
@@ -1856,13 +1856,13 @@ const NFTItem = () => {
           const toastId = showToast(
             'error',
             `Insufficient ${token.symbol} Balance!`,
-            token.symbol === 'WFTM' || token.symbol === 'WWAN'
+            token.symbol === 'WETH' || token.symbol === 'WWAN'
               ? 'You can wrap WAN in the WWAN station.'
               : `You can exchange ${token.symbol} on other exchange site.`,
             () => {
               toast.dismiss(toastId);
-              if (token.symbol === 'WFTM' || token.symbol === 'WWAN') {
-                dispatch(ModalActions.showWFTMModal());
+              if (token.symbol === 'WETH' || token.symbol === 'WWAN') {
+                dispatch(ModalActions.showWETHModal());
               }
             }
           );
@@ -1907,14 +1907,14 @@ const NFTItem = () => {
         const toastId = showToast(
           'error',
           `Insufficient ${token.symbol} Balance!`,
-          token.symbol === 'WFTM' || token.symbol === 'WWAN'
+          token.symbol === 'WETH' || token.symbol === 'WWAN'
             ? 'You can wrap WAN in the WWAN station.'
             : `You can exchange ${token.symbol} on other exchange site.`,
           () => {
             toast.dismiss(toastId);
             setOfferModalVisible(false);
-            if (token.symbol === 'WFTM' || token.symbol === 'WWAN') {
-              dispatch(ModalActions.showWFTMModal());
+            if (token.symbol === 'WETH' || token.symbol === 'WWAN') {
+              dispatch(ModalActions.showWETHModal());
             }
           }
         );
@@ -2161,14 +2161,14 @@ const NFTItem = () => {
           const toastId = showToast(
             'error',
             `Insufficient ${token.symbol} Balance!`,
-            token.symbol === 'WFTM' || token.symbol === 'WWAN'
+            token.symbol === 'WETH' || token.symbol === 'WWAN'
               ? 'You can wrap WAN in the WWAN station.'
               : `You can exchange ${token.symbol} on other exchange site.`,
             () => {
               toast.dismiss(toastId);
               setBidModalVisible(false);
-              if (token.symbol === 'WFTM' || token.symbol === 'WWAN') {
-                dispatch(ModalActions.showWFTMModal());
+              if (token.symbol === 'WETH' || token.symbol === 'WWAN') {
+                dispatch(ModalActions.showWETHModal());
               }
             }
           );
@@ -3421,7 +3421,7 @@ const NFTItem = () => {
                               <Line
                                 type="monotone"
                                 dataKey="price"
-                                stroke="#00a59a"
+                                stroke="rgba(255, 107, 199, 1)"
                               />
                             </LineChart>
                           </div>

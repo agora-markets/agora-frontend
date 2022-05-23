@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/fef080cb-1f75-44d2-bd4e-2297a9192f08/deploy-status)](https://app.netlify.com/sites/agoramarkets/deploys)
+
 # Client for Agora Marketplace - Powered by Cronos
 
 A client side implementation of the Agora Marketplace for NFT trading on Cronos Chain.

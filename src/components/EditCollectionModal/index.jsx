@@ -261,7 +261,7 @@ const EditCollectionModal = ({ visible, onClose }) => {
 
     try {
       const signer = await getSigner();
-      const msg = `Approve Signature on OpenZoo.io with nonce ${nonce}`;
+      const msg = `Approve Signature on Agoranft.io with nonce ${nonce}`;
 
       signature = await signer.signMessage(msg);
       signatureAddress = ethers.utils.verifyMessage(msg, signature);

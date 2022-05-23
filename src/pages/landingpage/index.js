@@ -11,7 +11,7 @@ import FilterActions from 'actions/filter.actions';
 import Header from 'components/header';
 
 import umansExample from 'assets/imgs/exampleZooGenes.png';
-import logo from 'assets/svgs/OpenZoo_white.svg';
+import logo from 'assets/svgs/Agora_white.svg';
 import fantomLogo from 'assets/imgs/wanchain_logo.png';
 import card1 from 'assets/svgs/card1.svg';
 import card2 from 'assets/svgs/card2.svg';
@@ -33,7 +33,7 @@ const cards = [
     icon: card2,
     title: 'Super Fast',
     description:
-      'Since OpenZoo runs on the Wanchain Network, transactions are usually confirmed within 5 seconds.',
+      'Since Agora runs on the Wanchain Network, transactions are usually confirmed within 5 seconds.',
     path: '/',
   },
   {
@@ -95,9 +95,9 @@ const LandingPage = () => {
       <div className={styles.body}>
         <div className={styles.main}>
           <div className={styles.mainLeft}>
-            <div className={styles.title}>{`Fast NFT trading on OpenZoo`}</div>
+            <div className={styles.title}>{`Fast NFT trading on Agora`}</div>
             <div className={styles.subtitle}>
-              OpenZoo is an NFT marketplace built on Wanchain. Create and trade
+              Agora is an NFT marketplace built on Wanchain. Create and trade
               NFTs instantly with low network costs.
             </div>
             <div className={styles.subtitle}>
@@ -140,7 +140,7 @@ const LandingPage = () => {
         </div>
         <div className={styles.about}>
           <div className={styles.aboutInner}>
-            <div className={styles.aboutTitle}>Why OpenZoo</div>
+            <div className={styles.aboutTitle}>Why Agora</div>
             <div className={styles.aboutCards}>
               {cards.map((card, key) =>
                 renderAboutCard(

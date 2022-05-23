@@ -84,11 +84,11 @@ const ConnectWalletModal = ({ visible, onClose }) => {
         <div>
           <div className={styles.text}>
             Please connect to the{' '}
-            {isMainnet ? 'Wanchain Mainnet' : 'Wanchain Testnet'}.
+            {isMainnet ? 'Cronos Mainnet Beta' : 'Cronos Testnet'}.
           </div>
           <div
             className={styles.switchBtn}
-            style={{ backgroundColor: '#f9bb32' }}
+            style={{ backgroundColor: 'rgba(255, 107, 199, 1)' }}
             onClick={async () => {
               if (!window.ethereum) {
                 window.alert('please install MetaMask at: MetaMask.io');

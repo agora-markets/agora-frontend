@@ -36,7 +36,7 @@
   flex: 1;
   min-width: fit-content;
 }
-.nftmkt {
+.nethkt {
   font-size: 14px;
   color: #a4a4a4;
   font-weight: bold;
@@ -45,16 +45,16 @@
 .openzoo {
   font-weight: bold;
   font-size: 60px;
-  color: #ffc107 !important;
+  color: rgba(255, 107, 199, 1) !important;
   line-height: 55px;
   span {
-    color: #00a59a !important;
+    color: rgba(255, 107, 199, 1) !important;
   }
 }
 
 .subtitle {
   font-weight: bold;
-  font-size: 50px;
+  font-size: 40px;
   line-height: 40px;
   color: #000000;
   margin-bottom: 60px;
@@ -65,7 +65,7 @@
     margin-right: 10px;
   }
   .home-btn.btn-link {
-    color: #ffc107 !important;
+    color: rgba(255, 107, 199, 1) !important;
     font-weight: bold;
   }
   .disabled.home-btn {
@@ -85,9 +85,9 @@
   font-weight: bold;
   span {
     display: block;
-    color: #00a59a !important;
+    color: rgba(255, 107, 199, 1) !important;
     a {
-      color: #00a59a !important;
+      color: rgba(255, 107, 199, 1) !important;
     }
   }
 

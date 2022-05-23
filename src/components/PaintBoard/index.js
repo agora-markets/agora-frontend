@@ -102,7 +102,7 @@ const CustomCheckbox = withStyles({
       backgroundColor: 'transparent',
     },
     '&$checked': {
-      color: '#00a59a',
+      color: 'rgba(255, 107, 199, 1)',
     },
   },
   checked: {},
@@ -131,12 +131,12 @@ const PaintBoard = () => {
   const media_accept = ['.glb', '.mp4', '.mp3']; // '.gltf',
   const PurpleSwitch = withStyles({
     switchBase: {
-      color: '#00a59a',
+      color: 'rgba(255, 107, 199, 1)',
       '&$checked': {
-        color: '#00a59a',
+        color: 'rgba(255, 107, 199, 1)',
       },
       '&$checked + $track': {
-        backgroundColor: '#00a59aaa',
+        backgroundColor: 'rgba(255, 107, 199, 1)aa',
       },
     },
     checked: {},
@@ -484,7 +484,7 @@ const PaintBoard = () => {
       const { data: nonce } = await getNonce(account, authToken);
       try {
         const signer = await getSigner();
-        const msg = `Approve Signature on OpenZoo.io with nonce ${nonce}`;
+        const msg = `Approve Signature on Agoranft.io with nonce ${nonce}`;
         signature = await signer.signMessage(msg);
         addr = ethers.utils.verifyMessage(msg, signature);
       } catch (err) {
@@ -733,7 +733,7 @@ const PaintBoard = () => {
                   onChange={e => setIsAcceptTerms(event.target.checked)}
                 />
               }
-              label="I accept OpenZoo's Terms and Conditions. *"
+              label="I accept Agora's Terms and Conditions. *"
               className="align-items-start"
             />
           </FormGroup>

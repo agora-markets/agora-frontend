@@ -12,7 +12,7 @@ import ModalActions from 'actions/modal.actions';
 import { getRandomIPFS } from 'utils';
 import { useApi } from 'api';
 import { ADMIN_ADDRESS } from 'constants/index';
-import WFTMModal from 'components/WFTMModal';
+import WETHModal from 'components/WETHModal';
 import ModModal from 'components/ModModal';
 import VerifyCollectionModal from 'components/VerifyCollectionModal';
 import WarnCollectionModal from 'components/WarnCollectionModal';
@@ -23,7 +23,8 @@ import BoostCollectionModal from 'components/BoostCollectionModal';
 import ConnectWalletModal from 'components/ConnectWalletModal';
 import Identicon from 'components/Identicon';
 
-import logoSmallBlue from 'assets/svgs/openzoo_icon.svg';
+import logoSmallBlue from 'assets/imgs/logoRound.png';
+import verifiedLogo from 'assets/imgs/verify.png';
 
 import styles from './styles.module.scss';
 import FilterActions from '../../actions/filter.actions';
@@ -47,7 +48,7 @@ const Header = (props) => {
   const { user } = useSelector(state => state.Auth);
   let isSearchbarShown = useSelector(state => state.HeaderOptions.isShown);
   const { isModerator } = useSelector(state => state.ConnectWallet);
-  const { wftmModalVisible, connectWalletModalVisible } = useSelector(
+  const { wethModalVisible, connectWalletModalVisible } = useSelector(
     state => state.Modal
   );
 
@@ -345,7 +346,7 @@ const Header = (props) => {
         <div className={cx('header__search', styles.searchWrapper)}>
           <input
             type="text"
-            placeholder="Search on OpenZoo"
+            placeholder="Search on Agora"
             onChange={e => handleSearch(e.target.value)}
             onFocus={() => setSearchBarActive(true)}
             onBlur={() => setTimeout(() => setSearchBarActive(false), 200)}
@@ -400,7 +401,7 @@ const Header = (props) => {
                       }`}
                   />
                   <div className={styles.resulttitle}>
-                    {collection.collectionName} {collection?.isVerified && <img src="https://assets.openzoo.io/verified.svg" />}
+                    {collection.collectionName} {collection?.isVerified && <img src={verifiedLogo} />}
                   </div>
                 </Link>
               ))}
@@ -551,7 +552,7 @@ const Header = (props) => {
               <li>
                 <div className={styles.darkmodeToggle}>
                   <span style={{ marginLeft: 5, display: 'flex' }}>
-                    <img src="https://assets.openzoo.io/verified.svg" style={{
+                    <img src={verifiedLogo} style={{
                       width: 24,
                       height: 24,
 
@@ -698,7 +699,7 @@ const Header = (props) => {
                 <li>
                   <div className={styles.darkmodeToggle}>
                     <span style={{ marginLeft: 5, display: 'flex' }}>
-                      <img src="https://assets.openzoo.io/verified.svg" style={{
+                      <img src={verifiedLogo} style={{
                         width: 24,
                         height: 24,
 
@@ -790,9 +791,9 @@ const Header = (props) => {
             <div className="header__mobile__menu">{renderSearchResult()}</div>
           </div>
 
-          <WFTMModal
-            visible={wftmModalVisible}
-            onClose={() => dispatch(ModalActions.hideWFTMModal())}
+          <WETHModal
+            visible={wethModalVisible}
+            onClose={() => dispatch(ModalActions.hideWETHModal())}
           />
           <ModModal
             isAdding={isAdding}

@@ -46,6 +46,6 @@ export const walletconnect = new WalletConnectConnector({
 
 // export const walletlink = new WalletLinkConnector({
 //   url: 'https://rpc.zookeeper.finance',
-//   appName: 'OpenZoo',
+//   appName: 'Agora',
 //   appLogoUrl: ARTION_LOGO_URL,
 // });

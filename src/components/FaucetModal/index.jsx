@@ -92,7 +92,7 @@ const FaucetModal = ({ account, visible, onClose, setFaucetModalVisible }) => {
         <br />
         to begin your creative journey
         <br />
-        with OpenZoo
+        with Agora
       </p>
 
       <div className="faucetBalance">

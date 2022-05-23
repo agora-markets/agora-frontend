@@ -15,7 +15,7 @@ import { useWeb3React } from '@web3-react/core';
 
 import ProtectedRoute from './ProtectedRoute';
 import AccountModal from './AccountModal';
-import WFTMModal from './WFTMModal';
+import WETHModal from './WETHModal';
 import NotFound from './NotFound';
 import PaintBoard from './PaintBoard';
 //import ExplorePage from '../pages/explorepage';
@@ -140,7 +140,7 @@ const App = () => {
           </Route>
         </Switch>
         <AccountModal />
-        <WFTMModal />
+        <WETHModal />
         <Toaster position="bottom-right" reverseOrder={false} />
       </Router>
     </div>

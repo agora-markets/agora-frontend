@@ -131,7 +131,7 @@ const followerSettings = [
 const CustomCheckbox = withStyles({
   root: {
     '&$checked': {
-      color: '#00a59a',
+      color: 'rgba(255, 107, 199, 1)',
     },
   },
   checked: {},
@@ -208,7 +208,7 @@ const NotificationSetting = () => {
       try {
         const { data: nonce } = await getNonce(account, authToken);
         const signer = await getSigner();
-        const msg = `Approve Signature on OpenZoo.io with nonce ${nonce}`;
+        const msg = `Approve Signature on Agoranft.io with nonce ${nonce}`;
         signature = await signer.signMessage(msg);
         addr = ethers.utils.verifyMessage(msg, signature);
       } catch (err) {

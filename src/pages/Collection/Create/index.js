@@ -50,7 +50,7 @@ const CustomCheckbox = withStyles({
       backgroundColor: 'transparent',
     },
     '&$checked': {
-      color: '#00a59a',
+      color: 'rgba(255, 107, 199, 1)',
     },
   },
   checked: {},
@@ -59,7 +59,7 @@ const CustomCheckbox = withStyles({
 const CustomRadio = withStyles({
   root: {
     '&$checked': {
-      color: '#00a59a',
+      color: 'rgba(255, 107, 199, 1)',
     },
   },
   checked: {},
@@ -367,7 +367,7 @@ const CollectionCreate = ({ isRegister }) => {
 
           try {
             const signer = await getSigner();
-            const msg = `Approve Signature on OpenZoo.io with nonce ${nonce}`;
+            const msg = `Approve Signature on Agoranft.io with nonce ${nonce}`;
 
             signature = await signer.signMessage(msg);
             signatureAddress = ethers.utils.verifyMessage(msg, signature);
@@ -486,7 +486,7 @@ const CollectionCreate = ({ isRegister }) => {
                 try {
                   const signer = await getSigner();
                   signature = await signer.signMessage(
-                    `Approve Signature on OpenZoo.io with nonce ${nonce}`
+                    `Approve Signature on Agoranft.io with nonce ${nonce}`
                   );
                 } catch (err) {
                   toast(
@@ -706,7 +706,7 @@ const CollectionCreate = ({ isRegister }) => {
                   onChange={e => setIsAcceptTerms(e.target.checked)}
                 />
               }
-              label="I accept OpenZoo's Terms and Conditions. *"
+              label="I accept Agora's Terms and Conditions. *"
               className="align-items-start"
             />
           </FormGroup>
@@ -898,7 +898,7 @@ const CollectionCreate = ({ isRegister }) => {
               <div className={styles.inputTitle}>
                 Royalty *&nbsp;
                 <BootstrapTooltip
-                  title="Each NFT under this collection exchanged through OpenZoo will have a percentage of sale given to nominated wallet address."
+                  title="Each NFT under this collection exchanged through Agora will have a percentage of sale given to nominated wallet address."
                   placement="top"
                 >
                   <HelpOutlineIcon />

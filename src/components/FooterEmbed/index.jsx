@@ -1,11 +1,11 @@
 import React from 'react';
-import logoSmallBlue from 'assets/svgs/openzoo_icon.svg';
+import logoSmallBlue from 'assets/imgs/CRO.png';
 import styles from "./styles.module.scss";
 
 export function FooterEmbed() {
   return (
     <footer className={styles.footerEmbed}>
-      <span>Powered by OpenZoo</span>
+      <span>Powered by Agora</span>
       <img src={logoSmallBlue} alt='logo' style={{ width: "24px", height: "24px" }} />
     </footer>);
 }

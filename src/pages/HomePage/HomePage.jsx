@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Header from 'components/header';
+import { Footer } from 'components/Footer'; 
 
 import { Link } from 'react-router-dom';
 import TxButton from 'components/TxButton';
 import styles from './styles.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBook } from '@fortawesome/free-solid-svg-icons';
+import verifiedLogo from 'assets/imgs/verify.png';
 export function HomePage() {
   useEffect(() => {
     document.body.classList.add('homepage');
@@ -21,14 +23,14 @@ export function HomePage() {
         <div className={styles.body}>
           <div className={styles.main}>
             <div>
-              <div className={styles.nftmkt}>NFT MARKETPLACE</div>
+              <div className={styles.nethkt}>NFT MARKETPLACE</div>
               <div className={styles.openzoo}>
-                OPEN<span>ZOO</span>
+                AGORA <span>MARKET</span>
               </div>
               <div className={styles.subtitle}>
-                not so ordinary,
+                Create, Trade, Earn 
                 <br />
-                open to everyone
+                and Join the DAGO
               </div>
             </div>
             <div className={`${styles.btnGroup} d-flex flex-wrap space-y-10 homepage-center-btn`}>
@@ -66,7 +68,7 @@ export function HomePage() {
             <div className={styles.contact}>
               <div className={styles.become}>
                 <div>
-                  <img src="https://assets.openzoo.io/verified.svg" />
+                  <img src={verifiedLogo} />
                 </div>
                 <div>
                   Become<span>verified</span>
@@ -79,7 +81,7 @@ export function HomePage() {
                   <span>
                     <a
                       rel="noreferrer"
-                      href="https://t.me/openzoo_validation"
+                      href="https://t.me/AgoraMarketNFT"
                       target="_blank"
                     >
                       here
@@ -96,7 +98,7 @@ export function HomePage() {
                   <span>
                     <a
                       rel="noreferrer"
-                      href="https://discord.gg/tT4v8H6UBH"
+                      href="https://discord.gg/2JJ3fKnbgh"
                       target="_blank"
                     >
                       here
@@ -125,6 +127,7 @@ export function HomePage() {
             />
           )}
         </div>
+        <Footer/>
       </div>
     </div>
   );
