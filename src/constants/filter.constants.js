@@ -114,6 +114,14 @@ export const SortByOptions = [
     label: 'Lowest Price',
   },
   {
+    id: 'rarityAsc',
+    label: 'Most Rare',
+  },
+  {
+    id: 'rarityDesc',
+    label: 'Least Rare',
+  },
+  {
     id: 'lastSalePrice',
     label: 'Highest Last Sale',
   },

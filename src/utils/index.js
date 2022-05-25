@@ -29,6 +29,15 @@ export function shortenAddress(address, chars = 4) {
   return `${parsed.substring(0, chars + 2)}...${parsed.substring(42 - chars)}`;
 }
 
+export const getHigherGWEI = async library => {
+  // const { library } = useWeb3React();
+
+  // const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const price = (await library.getGasPrice()) * 2;
+
+  return price;
+};
+
 
 
 export const getRandomIPFS = (tokenURI, justURL = false, isFallback = false) => {

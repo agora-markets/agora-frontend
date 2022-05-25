@@ -16,10 +16,7 @@ import { useAuctionContract } from 'contracts';
 import useTokens from 'hooks/useTokens';
 import { ethers } from 'ethers';
 import axios from 'axios';
-import {
-  //useZooBoosterContract,
-  useZooElixirContract,
-} from 'contracts/zookeeper';
+
 const propTypes = {
   preset: PropTypes.oneOf(['two', 'three', 'four', 'five']),
   item: PropTypes.object.isRequired,
@@ -67,9 +64,6 @@ function AssetCardComponent(props) {
   const [isLike, setIsLike] = useState(false);
   const [info, setInfo] = useState(null);
   const [auction, setAuction] = useState(null);
-  const [zooGeneClass, setZooGeneClass] = useState(null);
-  const { getElixir } = useZooElixirContract();
-  const [zooElixir, setZooElixir] = useState(null);
   // TODO: delete faker code
   const _item = item && Object.keys(item).length > 0 ? item : []; ///fakerAsset();
 
@@ -105,18 +99,6 @@ function AssetCardComponent(props) {
           //console.log(item);
           getCurrentAuction();
         }
-
-        // Get Class for Collection ZooGene //
-        if (item.contractAddress === '0x992e4447f470ea47819d677b84d2459677bfdadf')
-        {
-          await getZooGeneClass(item.tokenURI);
-        }
-
-        // Get Class for Collection ZooElixir //
-        if (item.contractAddress === '0xa67213608db9d4bffac75bad01ca5b1f4ad0724c')
-        {
-          await getZooElixirClass(item.tokenID);
-        }
       }
     }
     fetchMyAPI();
@@ -151,42 +133,6 @@ function AssetCardComponent(props) {
     setFetching(false);
   };
 
-  const getZooGeneClass = async tokenURI => {
-    
-    try {
-      tokenURI = getRandomIPFS(tokenURI);
-
-      const { data } = await axios.get(tokenURI);
-
-      if (data.attributes) {
-        data.attributes.map((v) => {
-          if (v.trait_type === 'Class')
-            setZooGeneClass(v.value);
-        });
-      }
-
-    
-
-    } catch {
-     console.log('error')
-    }
-    
-  };
-
-  const getZooElixirClass = async tokenID => {
-    
-    try {
-      getElixir(tokenID).then(ret => {
-        setZooElixir(ret);
-        console.log('Elixir Info',ret);
-        //console.log('Elixir Info',zooElixir);
-      });
-
-    } catch {
-     console.log('error')
-    }
-    
-  };
 
   const getCurrentAuction = async () => {
     try {
@@ -249,8 +195,6 @@ function AssetCardComponent(props) {
         cardHeaderClassName={cardHeaderClassName}
         onLike={handleClickLike}
         authToken={authToken}
-        zooGeneClass={zooGeneClass}
-        zooElixir={zooElixir}
         {...rest}
       />
     );

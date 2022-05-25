@@ -1,19 +1,20 @@
-// import { ChainId } from '@sushiswap/sdk';
+import { ChainId } from '@sushiswap/sdk';
 
-import { calculateGasMargin } from 'utils';
-import useConnectionUtils from 'hooks/useConnectionUtils';
+import { calculateGasMargin, getHigherGWEI } from 'utils';
 import { Contracts } from 'constants/networks';
 import useContract from 'hooks/useContract';
 
 import { SALES_CONTRACT_ABI } from './abi';
+import { useWeb3React } from '@web3-react/core';
 
 // eslint-disable-next-line no-undef
 const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
-const CHAIN = isMainnet ? 888 : 999;
+const CHAIN = isMainnet ? 25 : ChainId.ARBITRUM;
 
 export const useSalesContract = () => {
   const { getContract } = useContract();
-  const {getHigherGWEI} = useConnectionUtils();
+  const { library } = useWeb3React();
+
   const getSalesContract = async () =>
     await getContract(Contracts[CHAIN].sales, SALES_CONTRACT_ABI);
 
@@ -24,7 +25,7 @@ export const useSalesContract = () => {
     const options = {
       value,
       from,
-      gasPrice: getHigherGWEI(),
+      gasPrice: getHigherGWEI(library),
     };
 
     const gasEstimate = await contract.estimateGas[
@@ -34,27 +35,10 @@ export const useSalesContract = () => {
     return await contract['buyItem(address,uint256,address)'](...args, options);
   };
 
-  const buyItemETHWithQuantity = async (nftAddress, tokenId, owner, value, from, quantity) => {
-    const contract = await getSalesContract();
-    const args = [nftAddress, tokenId, owner, quantity];
-
-    const options = {
-      value,
-      from,
-      gasPrice: getHigherGWEI(),
-    };
-
-    const gasEstimate = await contract.estimateGas[
-      'buyItemWithQuantity(address,uint256,address,uint256)'
-    ](...args, options);
-    options.gasLimit = calculateGasMargin(gasEstimate);
-    return await contract['buyItemWithQuantity(address,uint256,address,uint256)'](...args, options);
-  };
-
   const buyItemERC20 = async (nftAddress, tokenId, payToken, owner) => {
     const contract = await getSalesContract();
     const options = {
-      gasPrice: getHigherGWEI(),
+      gasPrice: getHigherGWEI(library),
     };
 
     return await contract['buyItem(address,uint256,address,address)'](
@@ -66,26 +50,10 @@ export const useSalesContract = () => {
     );
   };
 
-  const buyItemERC20WithQuantity = async (nftAddress, tokenId, payToken, owner, quantity) => {
-    const contract = await getSalesContract();
-    const options = {
-      gasPrice: getHigherGWEI(),
-    };
-    
-    return await contract['buyItemWithQuantity(address,uint256,address,address,uint256)'](
-      nftAddress,
-      tokenId,
-      payToken,
-      owner,
-      quantity,
-      options
-    );
-  };
-
   const cancelListing = async (nftAddress, tokenId) => {
     const contract = await getSalesContract();
     const options = {
-      gasPrice: getHigherGWEI(),
+      gasPrice: getHigherGWEI(library),
     };
 
     const tx = await contract.cancelListing(nftAddress, tokenId, options);
@@ -103,7 +71,7 @@ export const useSalesContract = () => {
     const contract = await getSalesContract();
 
     const options = {
-      gasPrice: getHigherGWEI(),
+      gasPrice: getHigherGWEI(library),
     };
 
     return await contract.listItem(
@@ -127,7 +95,7 @@ export const useSalesContract = () => {
     const contract = await getSalesContract();
 
     const options = {
-      gasPrice: getHigherGWEI(),
+      gasPrice: getHigherGWEI(library),
     };
 
     return await contract.updateListing(
@@ -150,7 +118,7 @@ export const useSalesContract = () => {
     const contract = await getSalesContract();
 
     const options = {
-      gasPrice: getHigherGWEI(),
+      gasPrice: getHigherGWEI(library),
     };
 
     return await contract.createOffer(
@@ -167,7 +135,7 @@ export const useSalesContract = () => {
   const cancelOffer = async (nftAddress, tokenId) => {
     const contract = await getSalesContract();
     const options = {
-      gasPrice: getHigherGWEI(),
+      gasPrice: getHigherGWEI(library),
     };
 
     return await contract.cancelOffer(nftAddress, tokenId, options);
@@ -176,7 +144,7 @@ export const useSalesContract = () => {
   const acceptOffer = async (nftAddress, tokenId, creator) => {
     const contract = await getSalesContract();
     const options = {
-      gasPrice: getHigherGWEI(),
+      gasPrice: getHigherGWEI(library),
     };
 
     return await contract.acceptOffer(nftAddress, tokenId, creator, options);
@@ -185,7 +153,7 @@ export const useSalesContract = () => {
   const registerRoyalty = async (nftAddress, tokenId, royalty) => {
     const contract = await getSalesContract();
     const options = {
-      gasPrice: getHigherGWEI(),
+      gasPrice: getHigherGWEI(library),
     };
 
     return await contract.registerRoyalty(
@@ -201,22 +169,10 @@ export const useSalesContract = () => {
     return await contract.collectionRoyalties(nftAddress);
   };
 
-  const getNFTRoyalty = async (nftAddress , tokenId) => {
-    const contract = await getSalesContract();
-    return await contract.royalties(nftAddress, tokenId);
-  };
-
-  const getPlatformFee  = async () => {
-    const contract = await getSalesContract();
-    return await contract.platformFee();
-  };
-
   return {
     getSalesContract,
     buyItemETH,
     buyItemERC20,
-    buyItemETHWithQuantity,
-    buyItemERC20WithQuantity,
     cancelListing,
     listItem,
     updateListing,
@@ -225,7 +181,5 @@ export const useSalesContract = () => {
     acceptOffer,
     registerRoyalty,
     getCollectionRoyalty,
-    getNFTRoyalty,
-    getPlatformFee
   };
 };

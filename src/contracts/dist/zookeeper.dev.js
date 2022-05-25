@@ -17,7 +17,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 
 // eslint-disable-next-line no-undef
 var isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
-var CHAIN = isMainnet ? 888 : 999;
+var CHAIN = isMainnet ? 25 : ChainId.ARBITRUM;
 
 var useZooBoosterContract = function useZooBoosterContract() {
   var _useContract = (0, _useContract3["default"])(),

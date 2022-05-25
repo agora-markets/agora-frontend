@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {
   BrowserRouter as Router,
@@ -10,8 +10,8 @@ import {
 import { Toaster } from 'react-hot-toast';
 import { ethers } from 'ethers';
 import { useWeb3React } from '@web3-react/core';
-// import { ChainId } from '@sushiswap/sdk';
-// import { Client } from '@bandprotocol/bandchain.js';
+import { ChainId } from '@sushiswap/sdk';
+import { axios } from 'axios';
 
 import ProtectedRoute from './ProtectedRoute';
 import AccountModal from './AccountModal';
@@ -31,66 +31,62 @@ import { ArtworkDetailPage } from 'pages/ArtworkDetailPage';
 import { AccountProfilePage } from 'pages/AccountProfilePage';
 import { CollectionsPage } from 'pages/CollectionsPage';
 import { CollectionList } from 'pages/CollectionList';
+import { useApi } from 'api';
+
 const App = () => {
   const dispatch = useDispatch();
-  const { chainId,connector } = useWeb3React();
+  const { chainId } = useWeb3React();
+
+  const [priceInterval, setPriceInterval] = useState(null);
+  const [globalStats, setGlobalStats] = useState();
+  const { getLatestStats } = useApi();
+
+  const getPrice = async () => {
+    try {
+      if (chainId === 25) {
+        const response = await axios.get(
+          'https://api.mm.finance/api/tokens/0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23'
+        );
+        const _price = response.data['data']['price'];
+        dispatch(PriceActions.updatePrice(_price));
+      } else if (chainId === ChainId.ARBITRUM) {
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const oracle = new ethers.Contract(
+          '0xe04676B9A9A2973BCb0D1478b5E1E9098BBB7f3D',
+          [
+            {
+              inputs: [],
+              name: 'latestAnswer',
+              outputs: [{ internalType: 'int256', name: '', type: 'int256' }],
+              stateMutability: 'view',
+              type: 'function',
+            },
+          ],
+          provider
+        );
+        const _price = await oracle.latestAnswer();
+        const price = parseFloat(_price.toString()) / 10 ** 8;
+        dispatch(PriceActions.updatePrice(price));
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   useEffect(() => {
-    const getPrice = async () => {
-      try {
-        if (chainId === 888) {
-          const web3provider = await connector.getProvider();
-          //await web3provider.enable();
-          const provider = new ethers.providers.Web3Provider(web3provider);
-          const oracle = new ethers.Contract(
-            '0xA34D0a3a38C385B8CAbF1d888c61ca0d2500B7cE',
-            [
-              {
-                inputs: [{ internalType: 'address', type: 'address', name: '_token' }],
-                name: 'getPrice',
-                outputs: [{ internalType: 'int256', name: '', type: 'int256' }],
-                stateMutability: 'view',
-                type: 'function',
-              },
-            ],
-            provider
-          );
-          const ZOO = '0x6e11655d6aB3781C6613db8CB1Bc3deE9a7e111F';
-          const _price = await oracle.getPrice(ZOO);
-          const price = parseFloat(_price.toString()) / 10 ** 18;
-          dispatch(PriceActions.updatePrice(price));
-        } else if (chainId === 999) {
-          const web3provider = await connector.getProvider();
-          //await web3provider.enable();
-          const provider = new ethers.providers.Web3Provider(web3provider);
-          const oracle = new ethers.Contract(
-            '0x2f5e32eC8d9A298063F7FFA14aF515Fa8fEb71Eb',
-            [
-              {
-                inputs: [{ internalType: 'address', type: 'address', name: '_token' }],
-                name: 'getPrice',
-                outputs: [{ internalType: 'int256', name: '', type: 'int256' }],
-                stateMutability: 'view',
-                type: 'function',
-              },
-            ],
-            provider
-          );
-          const ZOO = '0x890589dC8BD3F973dcAFcB02b6e1A133A76C8135';
-          const _price = await oracle.getPrice(ZOO);
-          const price = parseFloat(_price.toString()) / 10 ** 18;
-          dispatch(PriceActions.updatePrice(price));
-        }
-      } catch (err) {
-        console.log(err);
-      }
+    const fetchLatestStats = async () => {
+      const _stats = await getLatestStats();
+      setGlobalStats(_stats.data);
     };
 
-    getPrice();
-    const timer = setInterval(getPrice, 1000 * 10);
-    return () => {
-      clearInterval(timer);
+    if (priceInterval) {
+      clearInterval(priceInterval);
     }
+
+    getPrice();
+    setPriceInterval(setInterval(getPrice, 1000 * 10));
+
+    fetchLatestStats();
   }, [chainId]);
 
 
@@ -98,7 +94,7 @@ const App = () => {
     <div>
       <Router history={history}>
         <Switch>
-          <Route exact path="/" component={HomePage} />
+          <Route exact path="/" component={HomePage} globalStats={globalStats}/>
           <Route exact path="/home" component={HomePage} />
           {/*
           <Route exact path="/old-explore" component={ExplorePage} />

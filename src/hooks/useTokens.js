@@ -1,4 +1,4 @@
-// import { ChainId } from '@sushiswap/sdk';
+import { ChainId } from '@sushiswap/sdk';
 
 // import iconETH from 'assets/imgs/eth.png';
 //import iconWETH from 'assets/imgs/wwan.png';
@@ -17,7 +17,7 @@ import iconVZOO from 'assets/imgs/vZoo_ticker.svg';
 const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
 
 const Tokens = {
-  888: [
+  25: [
     // {
     //   address: '',
     //   name: 'Fantom',
@@ -35,14 +35,14 @@ const Tokens = {
     /*
     {
       address: '0xdabd997ae5e4799be47d6e69d9431615cba28f48',
-      name: 'Wrapped WAN',
-      symbol: 'WWAN',
+      name: 'Wrapped CRO',
+      symbol: 'WCRO',
       decimals: 18,
       icon: iconWETH,
     },
     */
   ],
-  999: [
+  [ChainId.ARBITRUM]: [
     // {
     //   address: '',
     //   name: 'Fantom',
@@ -66,8 +66,8 @@ const Tokens = {
     },
     // {
     //   address: '0x916283cc60fdaf05069796466af164876e35d21f',
-    //   name: 'Wrapped WAN',
-    //   symbol: 'WWAN',
+    //   name: 'Wrapped CRO',
+    //   symbol: 'WCRO',
     //   decimals: 18,
     //   icon: iconWETH,
     // },
@@ -83,7 +83,7 @@ const Tokens = {
 };
 
 export default function useTokens() {
-  const chain = isMainnet ? 888 : 999;
+  const chain = isMainnet ? 25 : ChainId.ARBITRUM;
 
   const tokens = Tokens[chain];
 

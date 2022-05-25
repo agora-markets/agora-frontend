@@ -9,7 +9,7 @@ import { useDetectOutsideRef } from 'hooks/useDetectOutsideRef';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Tooltip /*FormControlLabel, Checkbox*/ } from '@material-ui/core';
 //import { withStyles } from '@material-ui/core/styles';
-import WWAN_IMAGE from 'assets/imgs/wan.png';
+import WCRO_IMAGE from 'assets/imgs/wan.png';
 import { makeStyles } from '@material-ui/styles';
 import { Link } from 'react-router-dom';
 //import { useDispatch } from 'react-redux';
@@ -17,6 +17,7 @@ import { Link } from 'react-router-dom';
 //import ModalActions from 'actions/modal.actions';
 import { useWeb3React } from '@web3-react/core';
 import { ethers } from 'ethers';
+import { ChainId } from '@sushiswap/sdk';
 import { /*useWETHContract,*/ useNFTContract } from 'contracts';
 import { formatNumber } from 'utils';
 import FaucetModal from 'components/FaucetModal';
@@ -69,8 +70,8 @@ export function HeaderAvatarMenu(props) {
     const provider = new ethers.providers.Web3Provider(web3provider);
 
     const ZOO_ADDRESS = {
-      888: '0x6e11655d6aB3781C6613db8CB1Bc3deE9a7e111F',
-      999: '0x890589dC8BD3F973dcAFcB02b6e1A133A76C8135',
+      25: '0x6e11655d6aB3781C6613db8CB1Bc3deE9a7e111F',
+      [ChainId.ARBITRUM]: '0x890589dC8BD3F973dcAFcB02b6e1A133A76C8135',
     };
 
     const zooContract = await getERC20Contract(ZOO_ADDRESS[chainId]);
@@ -211,14 +212,14 @@ export function HeaderAvatarMenu(props) {
             <div className="d-flex align-items-center space-x-10">
               <img
                 className={cx('coin', styles.coinImage)}
-                src={WWAN_IMAGE}
+                src={WCRO_IMAGE}
                 alt="/"
               />
               <div className="info">
                 <p className="text-sm font-book text-gray-400">Balance</p>
                 <p className="w-full text-sm font-bold text-green-500">{`${parseBalance(
                   balance
-                )} WAN`}</p>
+                )} CRO`}</p>
               </div>
             </div>
           )}
@@ -231,7 +232,7 @@ export function HeaderAvatarMenu(props) {
             >
               <div></div>
               <div>FIRST TIME?</div>
-              <div>Claim Free WAN to Start</div>
+              <div>Claim Free CRO to Start</div>
             </div>
           )} */}
           {/*
@@ -277,7 +278,7 @@ export function HeaderAvatarMenu(props) {
 
             {/*
           <a onClick={handleOpenWrapStation}>
-            <i className="ri-refresh-fill"></i> <span> WAN / WWAN Station</span>
+            <i className="ri-refresh-fill"></i> <span> CRO / WCRO Station</span>
           </a>
           */}
 

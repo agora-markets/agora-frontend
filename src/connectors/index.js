@@ -1,51 +1,52 @@
-// import { ChainId } from '@sushiswap/sdk';
+import { ChainId } from '@sushiswap/sdk';
 import { InjectedConnector } from '@web3-react/injected-connector';
-//import { WalletLinkConnector } from '@web3-react/walletlink-connector';
+import { WalletLinkConnector } from '@web3-react/walletlink-connector';
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector';
-//import { Wallet } from 'ethers';
+import { DeFiWeb3Connector } from 'deficonnect';
+
 import { NetworkConnector } from './NetworkConnector';
 
-//import ARTION_LOGO_URL from '../assets/svgs/logo_blue.svg';
+import AGORA_LOGO_URL from '../assets/svgs/logo_blue.svg';
 
 // eslint-disable-next-line no-undef
 const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
 
 const RPC = isMainnet
   ? {
-    [888]: 'https://rpc.zookeeper.finance',
+    [25]: 'https://gateway.nebkas.ro',
   }
   : {
-    [999]: 'https://rpc.zookeeper.finance/testnet',
+    [ChainId.ARBITRUM]: 'https://arb1.arbitrum.io/rpc',
   };
 
 export const network = new NetworkConnector({
-  defaultChainId: 888,
+  defaultChainId: 25,
   urls: RPC,
 });
 
 export const injected = new InjectedConnector({
   supportedChainIds: isMainnet
     ? [
-      888, // fantom
+      25, // Cronos Mainnet Beta
     ]
     : [
-      999, // fantom testnet
+      ChainId.ARBITRUM, // Arbitrum
     ],
 });
 
-export const walletconnect = new WalletConnectConnector({
-  infuraId: '326fb0397704475abffcfa9ca9c0ee5a',
-  rpcUrl: 'https://rpc.zookeeper.finance',
-  chainId: 888,
-  networkId: 888,
-  rpc: {
-    888: 'https://rpc.zookeeper.finance',
-    999: 'https://rpc.zookeeper.finance/testnet',
-  }
+export const walletlink = new WalletLinkConnector({
+  url: 'https://gateway.nebkas.ro',
+  appName: 'Agora',
+  appLogoUrl: AGORA_LOGO_URL,
 });
 
-// export const walletlink = new WalletLinkConnector({
-//   url: 'https://rpc.zookeeper.finance',
-//   appName: 'Agora',
-//   appLogoUrl: ARTION_LOGO_URL,
-// });
+export const defiwallet = new DeFiWeb3Connector({
+  supportedChainIds: [25],
+  rpc: { [25]: 'https://gateway.nebkas.ro' },
+  pollingInterval: 15000,
+});
+
+export const walletconnect = new WalletConnectConnector({
+  rpc: 'https://gateway.nebkas.ro',
+  chainId: 25,
+});

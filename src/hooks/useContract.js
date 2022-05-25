@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 import { ethers } from 'ethers';
 import { useWeb3React } from '@web3-react/core';
+import { ChainId } from '@sushiswap/sdk';
 
 // eslint-disable-next-line no-undef
 const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
@@ -23,7 +24,7 @@ export default () => {
           isMainnet
             ? 'https://rpc.zookeeper.finance/'
             : 'https://rpc.zookeeper.finance/testnet',
-          isMainnet ? 888 : 999
+          isMainnet ? 25 : ChainId.ARBITRUM
         );
         provider.pollingInterval = 10 * 1000;
         

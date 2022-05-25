@@ -52,7 +52,7 @@ import {
   CartesianGrid,
   Line,
 } from 'recharts';
-// import { ChainId } from '@sushiswap/sdk';
+import { ChainId } from '@sushiswap/sdk';
 //import warned from 'constants/warned.collections';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -101,9 +101,8 @@ const ONE_MONTH = ONE_DAY * 30;
 
 // eslint-disable-next-line no-undef
 const ENV = process.env.REACT_APP_ENV;
-const CHAIN = ENV === 'MAINNET' ? 888 : 999;
+const CHAIN = ENV === 'MAINNET' ? 25 : ChainId.ARBITRUM;
 
-import { useZooElixirContract } from 'contracts/zookeeper';
 import { FooterEmbed } from 'components/FooterEmbed';
 
 export function ArtworkDetailPage() {
@@ -184,8 +183,6 @@ export function ArtworkDetailPage() {
     cancelBundleOffer,
     acceptBundleOffer,
   } = useBundleSalesContract();
-
-  const { getElixir } = useZooElixirContract();
 
   const { addr: address, id: tokenID, bundleID } = useParams();
 
@@ -304,7 +301,7 @@ export function ArtworkDetailPage() {
   const prevAuthToken = usePrevious(authToken);
 
   const isLoggedIn = () => {
-    return account && (ENV === 'MAINNET' ? chainId === 888 : chainId === 999);
+    return account && (ENV === 'MAINNET' ? chainId === 25 : chainId === ChainId.ARBITRUM);
   };
 
   useEffect(() => {
@@ -1315,18 +1312,6 @@ export function ArtworkDetailPage() {
 
       getItemDetails(); // TODO: Need to optimize
 
-      // Case for Elixir //
-      if (Contracts[CHAIN].zooElixir.toLowerCase() === address.toLowerCase()) {
-        try {
-          getElixir(tokenID).then(ret => {
-            setZooElixir(ret);
-            console.log('Elixir Info', ret);
-          });
-        } catch {
-          console.log('error');
-        }
-      }
-
       getAuctions().then(() => {
         getBid();
       });
@@ -1979,14 +1964,14 @@ export function ArtworkDetailPage() {
           const toastId = showToast(
             'error',
             `Insufficient ${listing.token.symbol} Balance!`,
-            listing.token.symbol === 'WETH' || listing.token.symbol === 'WWAN'
-              ? 'You can wrap WAN in the WWAN station.'
+            listing.token.symbol === 'WETH' || listing.token.symbol === 'WCRO'
+              ? 'You can wrap CRO in the WCRO station.'
               : `You can exchange ${listing.token.symbol} on other exchange site.`,
             () => {
               toast.dismiss(toastId);
               if (
                 listing.token.symbol === 'WETH' ||
-                listing.token.symbol === 'WWAN'
+                listing.token.symbol === 'WCRO'
               ) {
                 dispatch(ModalActions.showWETHModal());
               }
@@ -2054,12 +2039,12 @@ export function ArtworkDetailPage() {
           const toastId = showToast(
             'error',
             `Insufficient ${token.symbol} Balance!`,
-            token.symbol === 'WETH' || token.symbol === 'WWAN'
-              ? 'You can wrap WAN in the WWAN station.'
+            token.symbol === 'WETH' || token.symbol === 'WCRO'
+              ? 'You can wrap CRO in the WCRO station.'
               : `You can exchange ${token.symbol} on other exchange site.`,
             () => {
               toast.dismiss(toastId);
-              if (token.symbol === 'WETH' || token.symbol === 'WWAN') {
+              if (token.symbol === 'WETH' || token.symbol === 'WCRO') {
                 dispatch(ModalActions.showWETHModal());
               }
             }
@@ -2105,13 +2090,13 @@ export function ArtworkDetailPage() {
         const toastId = showToast(
           'error',
           `Insufficient ${token.symbol} Balance!`,
-          token.symbol === 'WETH' || token.symbol === 'WWAN'
-            ? 'You can wrap WAN in the WWAN station.'
+          token.symbol === 'WETH' || token.symbol === 'WCRO'
+            ? 'You can wrap CRO in the WCRO station.'
             : `You can exchange ${token.symbol} on other exchange site.`,
           () => {
             toast.dismiss(toastId);
             setOfferModalVisible(false);
-            if (token.symbol === 'WETH' || token.symbol === 'WWAN') {
+            if (token.symbol === 'WETH' || token.symbol === 'WCRO') {
               dispatch(ModalActions.showWETHModal());
             }
           }
@@ -2359,13 +2344,13 @@ export function ArtworkDetailPage() {
           const toastId = showToast(
             'error',
             `Insufficient ${token.symbol} Balance!`,
-            token.symbol === 'WETH' || token.symbol === 'WWAN'
-              ? 'You can wrap WAN in the WWAN station.'
+            token.symbol === 'WETH' || token.symbol === 'WCRO'
+              ? 'You can wrap CRO in the WCRO station.'
               : `You can exchange ${token.symbol} on other exchange site.`,
             () => {
               toast.dismiss(toastId);
               setBidModalVisible(false);
-              if (token.symbol === 'WETH' || token.symbol === 'WWAN') {
+              if (token.symbol === 'WETH' || token.symbol === 'WCRO') {
                 dispatch(ModalActions.showWETHModal());
               }
             }

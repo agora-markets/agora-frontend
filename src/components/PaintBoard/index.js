@@ -17,7 +17,7 @@ import { BigNumber, ethers } from 'ethers';
 import { useDropzone } from 'react-dropzone';
 import Dropzone from 'react-dropzone';
 import Skeleton from 'react-loading-skeleton';
-// import { ChainId } from '@sushiswap/sdk';
+import { ChainId } from '@sushiswap/sdk';
 import Select from 'react-dropdown-select';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
@@ -437,8 +437,8 @@ const PaintBoard = () => {
       showToast('info', 'Connect your wallet first');
       return;
     }
-    if (chainId !== 888 && chainId !== 999) {
-      showToast('info', 'You are not connected to Wanchain Network');
+    if (chainId !== 25 && chainId !== ChainId.ARBITRUM) {
+      showToast('info', 'You are not connected to Cronos Mainnet');
       return;
     }
     
@@ -447,7 +447,7 @@ const PaintBoard = () => {
     if (balance < fee) {
       showToast(
         'custom',
-        `Your balance should be at least ${fee} WAN to mint an NFT`
+        `Your balance should be at least ${fee} CRO to mint an NFT`
       );
       return;
     }
@@ -1154,7 +1154,7 @@ const PaintBoard = () => {
             {fee !== null && fee > 0 ? (
               <>
                 <InfoIcon />
-                &nbsp;{fee} WANs are charged to create a new NFT.
+                &nbsp;{fee} CROs are charged to create a new NFT.
               </>
             ) : (
               fee > 0 ? <Skeleton width={330} height={22} /> : ''
