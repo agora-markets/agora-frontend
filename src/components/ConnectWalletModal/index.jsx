@@ -83,8 +83,7 @@ const ConnectWalletModal = ({ visible, onClose }) => {
       return (
         <div>
           <div className={styles.text}>
-            Please connect to the{' '}
-            {isMainnet ? 'Cronos Mainnet Beta' : 'Cronos Testnet'}.
+            Please connect to the {isMainnet ? 'Cronos Mainnet Beta' : 'Arbitrum'}.
           </div>
           <div
             className={styles.switchBtn}
@@ -95,10 +94,10 @@ const ConnectWalletModal = ({ visible, onClose }) => {
               } else {
                 try {
                   const param = { 
-                    chainId: '0x378',
-                    chainName: 'Wanchain Mainnet',
-                    rpcUrls: ['https://gwan-ssl.wandevs.org:56891'],
-                    blockExplorerUrls: ['https://wanscan.org/'],
+                    chainId: '0x19',
+                    chainName: 'Cronos Mainnet Beta',
+                    rpcUrls: ['https://evm.cronos.org'],
+                    blockExplorerUrls: ['https://cronoscan.com/'],
                     nativeCurrency: {
                       name: 'CRO',
                       symbol: 'CRO', // 2-6 characters long
@@ -116,7 +115,7 @@ const ConnectWalletModal = ({ visible, onClose }) => {
               }
             }}
           >
-            Switch to Wanchain in MetaMask
+            Switch to Cronos in MetaMask
           </div>
           <div className={styles.switchBtn} onClick={deactivate}>
             Disconnect

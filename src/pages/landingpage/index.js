@@ -26,14 +26,14 @@ const cards = [
     icon: card1,
     title: 'Easy Connect',
     description:
-      'Using Metamask or CoinBase Wallet. Just click "Connect Wallet" on the top right to start.',
+      'Using Metamask or Defi Wallet. Just click "Connect Wallet" on the top right to start.',
     path: '/',
   },
   {
     icon: card2,
     title: 'Super Fast',
     description:
-      'Since Agora runs on the Wanchain Network, transactions are usually confirmed within 5 seconds.',
+      'Since Agora runs on the Cronos, transactions are usually confirmed within 6 seconds.',
     path: '/',
   },
   {
@@ -97,7 +97,7 @@ const LandingPage = () => {
           <div className={styles.mainLeft}>
             <div className={styles.title}>{`Fast NFT trading on Agora`}</div>
             <div className={styles.subtitle}>
-              Agora is an NFT marketplace built on Wanchain. Create and trade
+              Agora is an NFT marketplace built on Cronos. Create and trade
               NFTs instantly with low network costs.
             </div>
             <div className={styles.subtitle}>

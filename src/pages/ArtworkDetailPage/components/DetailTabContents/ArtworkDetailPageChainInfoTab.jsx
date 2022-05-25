@@ -20,7 +20,7 @@ export function ArtworkDetailPageChainInfoTab(props) {
       </div>
       <div className={styles.panelLine}>
         <div className={styles.panelLabel}>Network</div>
-        <div className={styles.panelValue}>Wanchain Mainnet</div>
+        <div className={styles.panelValue}>Cronos</div>
       </div>
       <div className={styles.panelLine}>
         <div className={styles.panelLabel}>Chain ID</div>

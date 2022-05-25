@@ -438,7 +438,7 @@ const PaintBoard = () => {
       return;
     }
     if (chainId !== 25 && chainId !== 42161) {
-      showToast('info', 'You are not connected to Wanchain Network');
+      showToast('info', 'You are not connected to Cronos Mainnet');
       return;
     }
     
