@@ -12,7 +12,6 @@ import { ethers } from 'ethers';
 import { useWeb3React } from '@web3-react/core';
 import { ChainId } from '@sushiswap/sdk';
 import { axios } from 'axios';
-import { useApi } from 'api';
 
 import ProtectedRoute from './ProtectedRoute';
 import AccountModal from './AccountModal';
@@ -32,6 +31,9 @@ import { ArtworkDetailPage } from 'pages/ArtworkDetailPage';
 import { AccountProfilePage } from 'pages/AccountProfilePage';
 import { CollectionsPage } from 'pages/CollectionsPage';
 import { CollectionList } from 'pages/CollectionList';
+import PriceActions from 'actions/price.actions';
+import { useApi } from 'api';
+
 const App = () => {
   const dispatch = useDispatch();
   const { chainId } = useWeb3React();
