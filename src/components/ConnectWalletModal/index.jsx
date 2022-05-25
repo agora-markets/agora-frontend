@@ -83,7 +83,7 @@ const ConnectWalletModal = ({ visible, onClose }) => {
       return (
         <div>
           <div className={styles.text}>
-            Please connect to the {isMainnet ? 'Cronos Mainnet Beta' : 'Arbitrum'}.
+            Please connect to {isMainnet ? 'Cronos Mainnet Beta' : 'Arbitrum'}.
           </div>
           <div
             className={styles.switchBtn}
