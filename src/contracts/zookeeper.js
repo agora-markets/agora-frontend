@@ -6,7 +6,7 @@ import { ZOOBOOSTER_ABI } from './abi';
 
 // eslint-disable-next-line no-undef
 const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
-const CHAIN = isMainnet ? 888 : 999;
+const CHAIN = isMainnet ? 25 : 42161;
 
 export const useZooBoosterContract = () => {
     const { getContract } = useContract();

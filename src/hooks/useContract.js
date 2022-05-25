@@ -23,7 +23,7 @@ export default () => {
           isMainnet
             ? 'https://rpc.zookeeper.finance/'
             : 'https://rpc.zookeeper.finance/testnet',
-          isMainnet ? 888 : 999
+          isMainnet ? 25 : 42161
         );
         provider.pollingInterval = 10 * 1000;
         

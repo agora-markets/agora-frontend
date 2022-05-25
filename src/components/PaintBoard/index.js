@@ -437,7 +437,7 @@ const PaintBoard = () => {
       showToast('info', 'Connect your wallet first');
       return;
     }
-    if (chainId !== 888 && chainId !== 999) {
+    if (chainId !== 25 && chainId !== 42161) {
       showToast('info', 'You are not connected to Wanchain Network');
       return;
     }

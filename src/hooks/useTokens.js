@@ -17,7 +17,7 @@ import iconVZOO from 'assets/imgs/vZoo_ticker.svg';
 const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
 
 const Tokens = {
-  888: [
+  25: [
     // {
     //   address: '',
     //   name: 'Fantom',
@@ -42,7 +42,7 @@ const Tokens = {
     },
     */
   ],
-  999: [
+  42161: [
     // {
     //   address: '',
     //   name: 'Fantom',
@@ -83,7 +83,7 @@ const Tokens = {
 };
 
 export default function useTokens() {
-  const chain = isMainnet ? 888 : 999;
+  const chain = isMainnet ? 25 : 42161;
 
   const tokens = Tokens[chain];
 

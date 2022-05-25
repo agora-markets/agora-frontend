@@ -101,7 +101,7 @@ const ONE_MONTH = ONE_DAY * 30;
 
 // eslint-disable-next-line no-undef
 const ENV = process.env.REACT_APP_ENV;
-const CHAIN = ENV === 'MAINNET' ? 888 : 999;
+const CHAIN = ENV === 'MAINNET' ? 25 : 42161;
 
 import { useZooElixirContract } from 'contracts/zookeeper';
 import { FooterEmbed } from 'components/FooterEmbed';
@@ -304,7 +304,7 @@ export function ArtworkDetailPage() {
   const prevAuthToken = usePrevious(authToken);
 
   const isLoggedIn = () => {
-    return account && (ENV === 'MAINNET' ? chainId === 888 : chainId === 999);
+    return account && (ENV === 'MAINNET' ? chainId === 25 : chainId === 42161);
   };
 
   useEffect(() => {

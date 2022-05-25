@@ -20,12 +20,12 @@ export const NETWORK_LABEL = {
   [ChainId.HECO_TESTNET]: 'HECO Testnet',
   [ChainId.HARMONY]: 'Harmony',
   [ChainId.HARMONY_TESTNET]: 'Harmony Testnet',
-  888: 'Wanchain',
-  999: 'Wanchain Testnet',
+  25: 'Cronos Mainnet Beta',
+  42161: 'Arbitrum',
 };
 
 export const Contracts = {
-  888: {
+  25: {
     auction: '0x8930F0CAFdA831181Fd3f5dCCCAEb0418b615b56',
     sales: '0xF6BFd75B6255B073AE36b66b099fF90DF0C57e22',
     bundleSales: '0xc1e06346D910067b2261e43FCd4FA523e9877670',
@@ -38,7 +38,7 @@ export const Contracts = {
     zooAlchemy: '0x23A9f34aa1e45f9E191A6615d24A781607a1bcb1',
     zooGenes: '0x992e4447f470ea47819d677b84d2459677bfdadf',
   },
-  999: {
+  42161: {
     auction: '0x7e408f989deD4ac3ce2AdddD96b8E518Cbdc9aa0',
     sales: '0x271b096921Fa5891D48CF2bF43F42fc32Fa69fDf',
     bundleSales: '0x23fcfcE2ec048f3e78d2c8EFfE598F81B0330C3c',
