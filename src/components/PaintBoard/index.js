@@ -447,7 +447,7 @@ const PaintBoard = () => {
     if (balance < fee) {
       showToast(
         'custom',
-        `Your balance should be at least ${fee} WAN to mint an NFT`
+        `Your balance should be at least ${fee} CRO to mint an NFT`
       );
       return;
     }
@@ -1154,7 +1154,7 @@ const PaintBoard = () => {
             {fee !== null && fee > 0 ? (
               <>
                 <InfoIcon />
-                &nbsp;{fee} WANs are charged to create a new NFT.
+                &nbsp;{fee} CROs are charged to create a new NFT.
               </>
             ) : (
               fee > 0 ? <Skeleton width={330} height={22} /> : ''

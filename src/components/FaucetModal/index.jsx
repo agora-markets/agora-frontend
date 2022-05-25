@@ -8,7 +8,7 @@ import ReCAPTCHA from 'react-google-recaptcha';
 import showToast from 'utils/toast';
 import { RaroinModal as Modal } from '../Modal/RaroinModal';
 import axios from 'axios';
-import WWAN_IMAGE from 'assets/imgs/wan.png';
+import WCRO_IMAGE from 'assets/imgs/wan.png';
 import { ethers } from 'ethers';
 import { useWeb3React } from '@web3-react/core';
 
@@ -65,7 +65,7 @@ const FaucetModal = ({ account, visible, onClose, setFaucetModalVisible }) => {
       );
       if (data.success == true) {
         setFaucetModalVisible(false);
-        showToast('success', '0.02 WAN transferred to your address!');
+        showToast('success', '0.02 CRO transferred to your address!');
       } else {
         setClaiming(false);
         setRecaptchaValue(null);
@@ -88,7 +88,7 @@ const FaucetModal = ({ account, visible, onClose, setFaucetModalVisible }) => {
       onSubmit={() => (!claiming && recaptchaValue ? handleMakeOffer() : null)}
     >
       <p className="faucetP">
-        <span className="color_brand">CLAIM YOUR FREE WAN</span>
+        <span className="color_brand">CLAIM YOUR FREE CRO</span>
         <br />
         to begin your creative journey
         <br />
@@ -104,10 +104,10 @@ const FaucetModal = ({ account, visible, onClose, setFaucetModalVisible }) => {
         <div className="faucentBalanceAmount">
           <div className="faucentBalanceAmountIcon"><img
               className="wanImage"
-              src={WWAN_IMAGE}
+              src={WCRO_IMAGE}
               alt=""
             />{faucetBalance}</div>
-          <span>0.02 WAN per address</span>
+          <span>0.02 CRO per address</span>
         </div>
       </div>
       {!claiming && (

@@ -100,8 +100,8 @@ const ConnectWalletModal = ({ visible, onClose }) => {
                     rpcUrls: ['https://gwan-ssl.wandevs.org:56891'],
                     blockExplorerUrls: ['https://wanscan.org/'],
                     nativeCurrency: {
-                      name: 'WAN',
-                      symbol: 'WAN', // 2-6 characters long
+                      name: 'CRO',
+                      symbol: 'CRO', // 2-6 characters long
                       decimals: 18,
                     },
                   };

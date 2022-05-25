@@ -72,7 +72,7 @@ export function AssetCardThree(props) {
             <p className="color_text txt_sm" style={{ width: 'auto' }}>
               Highest bid
             </p>
-            <span className="color_black txt_sm">0.0022 WAN</span>
+            <span className="color_black txt_sm">0.0022 CRO</span>
           </a>
         </div>
       </div>

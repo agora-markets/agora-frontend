@@ -35,8 +35,8 @@ const Tokens = {
     /*
     {
       address: '0xdabd997ae5e4799be47d6e69d9431615cba28f48',
-      name: 'Wrapped WAN',
-      symbol: 'WWAN',
+      name: 'Wrapped CRO',
+      symbol: 'WCRO',
       decimals: 18,
       icon: iconWETH,
     },
@@ -66,8 +66,8 @@ const Tokens = {
     },
     // {
     //   address: '0x916283cc60fdaf05069796466af164876e35d21f',
-    //   name: 'Wrapped WAN',
-    //   symbol: 'WWAN',
+    //   name: 'Wrapped CRO',
+    //   symbol: 'WCRO',
     //   decimals: 18,
     //   icon: iconWETH,
     // },

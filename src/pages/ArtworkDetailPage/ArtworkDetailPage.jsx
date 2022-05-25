@@ -1979,14 +1979,14 @@ export function ArtworkDetailPage() {
           const toastId = showToast(
             'error',
             `Insufficient ${listing.token.symbol} Balance!`,
-            listing.token.symbol === 'WETH' || listing.token.symbol === 'WWAN'
-              ? 'You can wrap WAN in the WWAN station.'
+            listing.token.symbol === 'WETH' || listing.token.symbol === 'WCRO'
+              ? 'You can wrap CRO in the WCRO station.'
               : `You can exchange ${listing.token.symbol} on other exchange site.`,
             () => {
               toast.dismiss(toastId);
               if (
                 listing.token.symbol === 'WETH' ||
-                listing.token.symbol === 'WWAN'
+                listing.token.symbol === 'WCRO'
               ) {
                 dispatch(ModalActions.showWETHModal());
               }
@@ -2054,12 +2054,12 @@ export function ArtworkDetailPage() {
           const toastId = showToast(
             'error',
             `Insufficient ${token.symbol} Balance!`,
-            token.symbol === 'WETH' || token.symbol === 'WWAN'
-              ? 'You can wrap WAN in the WWAN station.'
+            token.symbol === 'WETH' || token.symbol === 'WCRO'
+              ? 'You can wrap CRO in the WCRO station.'
               : `You can exchange ${token.symbol} on other exchange site.`,
             () => {
               toast.dismiss(toastId);
-              if (token.symbol === 'WETH' || token.symbol === 'WWAN') {
+              if (token.symbol === 'WETH' || token.symbol === 'WCRO') {
                 dispatch(ModalActions.showWETHModal());
               }
             }
@@ -2105,13 +2105,13 @@ export function ArtworkDetailPage() {
         const toastId = showToast(
           'error',
           `Insufficient ${token.symbol} Balance!`,
-          token.symbol === 'WETH' || token.symbol === 'WWAN'
-            ? 'You can wrap WAN in the WWAN station.'
+          token.symbol === 'WETH' || token.symbol === 'WCRO'
+            ? 'You can wrap CRO in the WCRO station.'
             : `You can exchange ${token.symbol} on other exchange site.`,
           () => {
             toast.dismiss(toastId);
             setOfferModalVisible(false);
-            if (token.symbol === 'WETH' || token.symbol === 'WWAN') {
+            if (token.symbol === 'WETH' || token.symbol === 'WCRO') {
               dispatch(ModalActions.showWETHModal());
             }
           }
@@ -2359,13 +2359,13 @@ export function ArtworkDetailPage() {
           const toastId = showToast(
             'error',
             `Insufficient ${token.symbol} Balance!`,
-            token.symbol === 'WETH' || token.symbol === 'WWAN'
-              ? 'You can wrap WAN in the WWAN station.'
+            token.symbol === 'WETH' || token.symbol === 'WCRO'
+              ? 'You can wrap CRO in the WCRO station.'
               : `You can exchange ${token.symbol} on other exchange site.`,
             () => {
               toast.dismiss(toastId);
               setBidModalVisible(false);
-              if (token.symbol === 'WETH' || token.symbol === 'WWAN') {
+              if (token.symbol === 'WETH' || token.symbol === 'WCRO') {
                 dispatch(ModalActions.showWETHModal());
               }
             }
