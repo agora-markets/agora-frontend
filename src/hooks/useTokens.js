@@ -1,4 +1,4 @@
-// import { ChainId } from '@sushiswap/sdk';
+import { ChainId } from '@sushiswap/sdk';
 
 // import iconETH from 'assets/imgs/eth.png';
 //import iconWETH from 'assets/imgs/wwan.png';
@@ -42,7 +42,7 @@ const Tokens = {
     },
     */
   ],
-  42161: [
+  [ChainId.ARBITRUM]: [
     // {
     //   address: '',
     //   name: 'Fantom',
@@ -83,7 +83,7 @@ const Tokens = {
 };
 
 export default function useTokens() {
-  const chain = isMainnet ? 25 : 42161;
+  const chain = isMainnet ? 25 : ChainId.ARBITRUM;
 
   const tokens = Tokens[chain];
 

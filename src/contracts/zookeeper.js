@@ -1,12 +1,13 @@
 import { Contracts } from 'constants/networks';
 import { ALCHEMY_ABI } from 'contracts';
 import useContract from 'hooks/useContract';
+import { ChainId } from '@sushiswap/sdk';
 
 import { ZOOBOOSTER_ABI } from './abi';
 
 // eslint-disable-next-line no-undef
 const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
-const CHAIN = isMainnet ? 25 : 42161;
+const CHAIN = isMainnet ? 25 : ChainId.ARBITRUM;
 
 export const useZooBoosterContract = () => {
     const { getContract } = useContract();

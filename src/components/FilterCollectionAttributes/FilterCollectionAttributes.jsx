@@ -16,8 +16,9 @@ import './FilterCollectionAttributes.css';
 import { useDispatch } from 'react-redux';
 import FilterActions from 'actions/filter.actions';
 import { Contracts } from 'constants/networks';
+import { ChainId } from '@sushiswap/sdk';
 const ENV = process.env.REACT_APP_ENV;
-const CHAIN = ENV === 'MAINNET' ? 25 : 42161;
+const CHAIN = ENV === 'MAINNET' ? 25 : ChainId.ARBITRUM;
 
 
 

@@ -110,7 +110,7 @@ const filters = ['Trade History', 'Transfer History'];
 
 // eslint-disable-next-line no-undef
 const ENV = process.env.REACT_APP_ENV;
-const CHAIN = ENV === 'MAINNET' ? 25 : 42161;
+const CHAIN = ENV === 'MAINNET' ? 25 : ChainId.ARBITRUM;
 
 const NFTItem = () => {
   const dispatch = useDispatch();
@@ -300,7 +300,7 @@ const NFTItem = () => {
   const prevAuthToken = usePrevious(authToken);
 
   const isLoggedIn = () => {
-    return account && (ENV === 'MAINNET' ? chainId === 25 : chainId === 42161);
+    return account && (ENV === 'MAINNET' ? chainId === 25 : chainId === ChainId.ARBITRUM);
   };
 
   useEffect(() => {

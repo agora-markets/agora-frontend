@@ -1,4 +1,4 @@
-// import { ChainId } from '@sushiswap/sdk';
+import { ChainId } from '@sushiswap/sdk';
 
 import { WETH_ABI } from './abi';
 import { calculateGasMargin } from 'utils';
@@ -8,12 +8,12 @@ import { ethers } from 'ethers';
 
 const WETH_ADDRESS = {
   25: '0xdabd997ae5e4799be47d6e69d9431615cba28f48',
-  42161: '0x916283cc60fdaf05069796466af164876e35d21f',
+  [ChainId.ARBITRUM]: '0x916283cc60fdaf05069796466af164876e35d21f',
 };
 
 // eslint-disable-next-line no-undef
 const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
-const CHAIN = isMainnet ? 25 : 42161;
+const CHAIN = isMainnet ? 25 : ChainId.ARBITRUM;
 export const useWETHContract = () => {
   const { getContract } = useContract();
   const {getHigherGWEI} = useConnectionUtils();

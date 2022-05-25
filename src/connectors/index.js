@@ -1,4 +1,4 @@
-// import { ChainId } from '@sushiswap/sdk';
+import { ChainId } from '@sushiswap/sdk';
 import { InjectedConnector } from '@web3-react/injected-connector';
 import { WalletLinkConnector } from '@web3-react/walletlink-connector';
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector';
@@ -16,7 +16,7 @@ const RPC = isMainnet
     [25]: 'https://gateway.nebkas.ro',
   }
   : {
-    [42161]: 'https://arb1.arbitrum.io/rpc',
+    [ChainId.ARBITRUM]: 'https://arb1.arbitrum.io/rpc',
   };
 
 export const network = new NetworkConnector({
@@ -30,7 +30,7 @@ export const injected = new InjectedConnector({
       25, // Cronos Mainnet Beta
     ]
     : [
-      42161, // Arbitrum
+      ChainId.ARBITRUM, // Arbitrum
     ],
 });
 

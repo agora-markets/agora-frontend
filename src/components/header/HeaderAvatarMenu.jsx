@@ -17,6 +17,7 @@ import { Link } from 'react-router-dom';
 //import ModalActions from 'actions/modal.actions';
 import { useWeb3React } from '@web3-react/core';
 import { ethers } from 'ethers';
+import { ChainId } from '@sushiswap/sdk';
 import { /*useWETHContract,*/ useNFTContract } from 'contracts';
 import { formatNumber } from 'utils';
 import FaucetModal from 'components/FaucetModal';
@@ -70,7 +71,7 @@ export function HeaderAvatarMenu(props) {
 
     const ZOO_ADDRESS = {
       25: '0x6e11655d6aB3781C6613db8CB1Bc3deE9a7e111F',
-      42161: '0x890589dC8BD3F973dcAFcB02b6e1A133A76C8135',
+      [ChainId.ARBITRUM]: '0x890589dC8BD3F973dcAFcB02b6e1A133A76C8135',
     };
 
     const zooContract = await getERC20Contract(ZOO_ADDRESS[chainId]);
