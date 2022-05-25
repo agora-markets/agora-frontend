@@ -600,7 +600,7 @@ const CollectionCreate = ({ isRegister }) => {
               <TokenChoiceCard
                 title="SINGLE TOKEN"
                 subtitle="STANDARD COLLECTION"
-                network="WRC721"
+                network="CRC721"
                 detail="Your collectible will be one of a kind"
                 selected={isSingle}
                 onClick={() => setIsSingle(true)}
@@ -608,7 +608,7 @@ const CollectionCreate = ({ isRegister }) => {
               <TokenChoiceCard
                 title="MULTI TOKEN"
                 subtitle="STANDARD COLLECTION"
-                network="WRC1155"
+                network="CRC1155"
                 detail="Your collectible will have multiple entities of one kind"
                 selected={!isSingle}
                 onClick={() => setIsSingle(false)}
