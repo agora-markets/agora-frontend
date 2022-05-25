@@ -84,7 +84,6 @@ export function Footer() {
             </ul>
           </div>
         </div>
-        <p className="copyright text-center">Agora is a ZooKeeper project</p>
       </div>
     </footer>
   );

@@ -207,7 +207,7 @@ export function HeaderAvatarMenu(props) {
               </button>
             </div>
           </CopyToClipboard>
-          {balance >= 0.02 && (
+          {balance  && (
             <div className="d-flex align-items-center space-x-10">
               <img
                 className={cx('coin', styles.coinImage)}
@@ -222,7 +222,7 @@ export function HeaderAvatarMenu(props) {
               </div>
             </div>
           )}
-          {balance < 0.02 && (
+          {/* {balance < 0.02 && (
             <div
               onClick={() => {
                 setFaucetModalVisible(true);
@@ -233,7 +233,7 @@ export function HeaderAvatarMenu(props) {
               <div>FIRST TIME?</div>
               <div>Claim Free WAN to Start</div>
             </div>
-          )}
+          )} */}
           {/*
         <div className="hr"></div>
         <FormControlLabel
