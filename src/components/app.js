@@ -31,7 +31,6 @@ import { ArtworkDetailPage } from 'pages/ArtworkDetailPage';
 import { AccountProfilePage } from 'pages/AccountProfilePage';
 import { CollectionsPage } from 'pages/CollectionsPage';
 import { CollectionList } from 'pages/CollectionList';
-import PriceActions from 'actions/price.actions';
 import { useApi } from 'api';
 
 const App = () => {
