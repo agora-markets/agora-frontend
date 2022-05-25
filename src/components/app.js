@@ -45,27 +45,6 @@ const App = () => {
   const getPrice = async () => {
     try {
       if (chainId === 25) {
-        // const endpoint = 'https://rpc.bandchain.org';
-        // const client = new Client(endpoint);
-        // const resp = await client.getReferenceData(['ETH/USD', 'BTC/USD']);
-        // console.log({ resp });
-        // dispatch(PriceActions.updatePrice(resp.rate));
-        // const provider = new ethers.providers.Web3Provider(window.ethereum);
-        // const oracle = new ethers.Contract(
-        //   '0xf4766552D15AE4d256Ad41B6cf2933482B0680dc',
-        //   [
-        //     {
-        //       inputs: [],
-        //       name: 'latestAnswer',
-        //       outputs: [{ internalType: 'int256', name: '', type: 'int256' }],
-        //       stateMutability: 'view',
-        //       type: 'function',
-        //     },
-        //   ],
-        //   provider
-        // );
-        // const _price = await oracle.latestAnswer();
-        // const price = parseFloat(_price.toString()) / 10 ** 8;
         const response = await axios.get(
           'https://api.mm.finance/api/tokens/0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23'
         );
