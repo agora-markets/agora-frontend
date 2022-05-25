@@ -1,11 +1,11 @@
 import { ChainId } from '@sushiswap/sdk';
 
-import { calculateGasMargin } from 'utils';
-import useConnectionUtils from 'hooks/useConnectionUtils';
+import { calculateGasMargin, getHigherGWEI } from 'utils';
 import { Contracts } from 'constants/networks';
 import useContract from 'hooks/useContract';
 
 import { FACTORY_ABI } from './abi';
+import { useWeb3React } from '@web3-react/core';
 
 // eslint-disable-next-line no-undef
 const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
@@ -13,7 +13,8 @@ const CHAIN = isMainnet ? 25 : ChainId.ARBITRUM;
 
 export const useFactoryContract = () => {
   const { getContract } = useContract();
-  const {getHigherGWEI} = useConnectionUtils();
+  const { library } = useWeb3React();
+
   const getFactoryContract = async () =>
     await getContract(Contracts[CHAIN].factory, FACTORY_ABI);
 
@@ -32,7 +33,7 @@ export const useFactoryContract = () => {
     const options = {
       value,
       from,
-      gasPrice: getHigherGWEI(),
+      gasPrice: getHigherGWEI(library),
     };
 
     const gasEstimate = await contract.estimateGas.createNFTContract(

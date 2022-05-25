@@ -1,14 +1,14 @@
 import { ChainId } from '@sushiswap/sdk';
 
 import { WETH_ABI } from './abi';
-import { calculateGasMargin } from 'utils';
-import useConnectionUtils from 'hooks/useConnectionUtils';
+import { calculateGasMargin, getHigherGWEI } from 'utils';
 import useContract from 'hooks/useContract';
 import { ethers } from 'ethers';
+import { useWeb3React } from '@web3-react/core';
 
 const WETH_ADDRESS = {
-  25: '0xdabd997ae5e4799be47d6e69d9431615cba28f48',
-  [ChainId.ARBITRUM]: '0x916283cc60fdaf05069796466af164876e35d21f',
+  [25]: '0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23',
+  [ChainId.ARBITRUM]: '0xf1277d1Ed8AD466beddF92ef448A132661956621',
 };
 
 // eslint-disable-next-line no-undef
@@ -16,7 +16,8 @@ const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
 const CHAIN = isMainnet ? 25 : ChainId.ARBITRUM;
 export const useWETHContract = () => {
   const { getContract } = useContract();
-  const {getHigherGWEI} = useConnectionUtils();
+  const { library } = useWeb3React();
+
   const wethAddress = WETH_ADDRESS[CHAIN];
 
   const getWETHContract = async () => await getContract(wethAddress, WETH_ABI);
@@ -32,7 +33,7 @@ export const useWETHContract = () => {
     const options = {
       value,
       from,
-      gasPrice: getHigherGWEI(),
+      gasPrice: getHigherGWEI(library),
     };
 
     const gasEstimate = await contract.estimateGas.deposit(options);
@@ -45,7 +46,7 @@ export const useWETHContract = () => {
     const contract = await getWETHContract();
 
     const options = {
-      gasPrice: getHigherGWEI(),
+      gasPrice: getHigherGWEI(library),
     };
 
     return await contract.withdraw(value, options);

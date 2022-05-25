@@ -5,14 +5,12 @@ import {
   useZooElixirContract,
 } from 'contracts/zookeeper';
 
-import { ChainId } from '@sushiswap/sdk';
-
 import styles from '../../styles.module.scss';
 import { useApi } from 'api';
 
 // eslint-disable-next-line no-undef
 const ENV = process.env.REACT_APP_ENV;
-const CHAIN = ENV === 'MAINNET' ? 25 : ChainId.ARBITRUM;
+const CHAIN = ENV === 'MAINNET' ? 25 : 42161;
 const ZOOGENES_EXCLUDED = [
   'Background Points',
   'Body Points',
