@@ -13,14 +13,14 @@ export function HomePageStartOwnCollectionSection() {
         >
           <div className="col-md-6">
             <div className="space-y-20">
-              <h1>Start your own collection today</h1>
+              <h1>Create your own collection today</h1>
               <p className="color_text section__text">
                 Creating a collection on Agora is very easy.
                 No need to know how to code, just provide the art and
                 we will turn them to NFTs for you.
               </p>
               <Link to="/" className="btn btn-primary">
-                Start Collecting
+                Create Collection
               </Link>
             </div>
           </div>
