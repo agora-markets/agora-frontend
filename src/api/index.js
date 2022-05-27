@@ -9,7 +9,7 @@ export const useApi = () => {
     : 'https://arbiscan.io';
 
   const apiUrl = isMainnet
-    ? 'https://agoramarket-api-mainnet.herokuapp.com/'
+    ? 'https://agoramarket-api-mainnet.herokuapp.com'
     : 'https://api.testnet.artion.io';
 
   // eslint-disable-next-line no-undef
@@ -1146,6 +1146,7 @@ export const useApi = () => {
     fetchProfileCollectionList,
     fetchAuctionBidParticipants,
     fetchPendingCollections,
+    fetchWarnedCollections,
     approveCollection,
     rejectCollection,
     fetchMintableCollections,

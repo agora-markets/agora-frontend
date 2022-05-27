@@ -39,7 +39,7 @@ const BanCollectionModal = ({ visible, isBan, onClose }) => {
       let addr;
       try {
         const signer = await getSigner();
-        const msg = `Approve Signature on Agoranft.io with nonce ${nonce}`;
+        const msg = `Approve Signature on Agoramarket.art with nonce ${nonce}`;
         signature = await signer.signMessage(msg);
         addr = ethers.utils.verifyMessage(msg, signature);
       } catch (err) {

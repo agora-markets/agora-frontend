@@ -62,9 +62,9 @@ export function HomePage() {
             </div>
             <div className={styles.heroContent}>
               <div>
-                <div className={styles.nethkt}>NFT MARKETPLACE</div>
+                {/*<div className={styles.nethkt}>NFT MARKETPLACE</div>*/}
                 <div className={styles.openzoo}>
-                  AGORAnd <span>MARKET</span>
+                  AGORA <span>MARKET</span>
                 </div>
                 <div className={styles.subtitle}>
                   Create, Trade, Earn

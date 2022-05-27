@@ -520,7 +520,7 @@ export function AccountProfilePage() {
   const handleShareToTwitter = () => {
     handleClose();
     window.open(
-      `https://twitter.com/intent/tweet?text=Check%20out%20this%20account%20on%20Artion&url=${window.location.href}`,
+      `https://twitter.com/intent/tweet?text=Check%20out%20this%20account%20on%20Agora&url=${window.location.href}`,
       '_blank'
     );
   };
