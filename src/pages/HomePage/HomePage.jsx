@@ -1,17 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Header from 'components/header';
 import { Footer } from 'components/Footer';
-
-// // import { Pagination } from 'swiper';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/react-splide/dist/css/splide.min.css';
-// import 'slick-carousel/slick/slick.css';
-// import 'slick-carousel/slick/slick-theme.css';
-// import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
-// import { Swiper, SwiperSlide } from 'swiper/react/swiper-react';
-
-// import 'swiper/swiper.min.css';
-// import 'swiper/modules/pagination/pagination.min.css';
 import { Link } from 'react-router-dom';
 import TxButton from 'components/TxButton';
 import styles from './styles.module.scss';
@@ -64,7 +55,7 @@ export function HomePage() {
               <div>
                 <div className={styles.nethkt}>NFT MARKETPLACE</div>
                 <div className={styles.openzoo}>
-                  AGORAnd <span>MARKET</span>
+                  AGORA <span>MARKET</span>
                 </div>
                 <div className={styles.subtitle}>
                   Create, Trade, Earn
