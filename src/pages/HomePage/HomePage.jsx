@@ -53,7 +53,7 @@ export function HomePage() {
             </div>
             <div className={styles.heroContent}>
               <div>
-                <div className={styles.nethkt}>NFT MARKETPLACE</div>
+                {/*<div className={styles.nethkt}>NFT MARKETPLACE</div>*/}
                 <div className={styles.openzoo}>
                   AGORA <span>MARKET</span>
                 </div>

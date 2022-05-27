@@ -33,7 +33,7 @@ const propTypes = {
 };
 
 export function HeaderAvatarMenu(props) {
-  //const coinCurrency = 'ZOO';
+  //const coinCurrency = 'AGO';
   const { getERC20Contract } = useNFTContract();
   //const dispatch = useDispatch();
   const { account, chainId, connector } = useWeb3React();
@@ -69,12 +69,12 @@ export function HeaderAvatarMenu(props) {
     await web3provider.enable();
     const provider = new ethers.providers.Web3Provider(web3provider);
 
-    const ZOO_ADDRESS = {
-      25: '0x6e11655d6aB3781C6613db8CB1Bc3deE9a7e111F',
+    const AGO_ADDRESS = {
+      25: '0x383627CaeC2CE3b36793c34B576B2e97BEDA0466',
       [ChainId.ARBITRUM]: '0x890589dC8BD3F973dcAFcB02b6e1A133A76C8135',
     };
 
-    const zooContract = await getERC20Contract(ZOO_ADDRESS[chainId]);
+    const zooContract = await getERC20Contract(AGO_ADDRESS[chainId]);
 
     let [ethBal, /*wethBal,*/ zooBal] = await Promise.all([
       await provider.getBalance(account),
