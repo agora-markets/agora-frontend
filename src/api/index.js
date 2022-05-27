@@ -9,7 +9,7 @@ export const useApi = () => {
     : 'https://arbiscan.io';
 
   const apiUrl = isMainnet
-    ? 'https://agoramarket-api.herokuapp.com'
+    ? 'https://agoramarket-api-mainnet.herokuapp.com/'
     : 'https://api.testnet.artion.io';
 
   // eslint-disable-next-line no-undef
@@ -105,7 +105,7 @@ export const useApi = () => {
     return res.data;
   };
 
-  /* const getUserAccountAlias = async address => {
+  const getUserAccountAlias = async address => {
     const data = { address };
     const res = await axios({
       method: 'post',
@@ -117,7 +117,7 @@ export const useApi = () => {
     });
 
     return res.data;
-  }; */
+  };
 
   const getUserFigures = async address => {
     const res = await axios({
@@ -215,10 +215,10 @@ export const useApi = () => {
     return data;
   };
 
-  /* const fetchWarnedCollections = async () => {
+  const fetchWarnedCollections = async () => {
     const res = await axios.get(`${apiUrl}/info/getWarnedCollections`);
     return res.data;
-  }; */
+  };
 
   const fetchCollections = async () => {
     const res = await axios.get(`${apiUrl}/info/getcollections`);
@@ -293,7 +293,7 @@ export const useApi = () => {
     return res.data;
   };
 
-  const fetchTokens = async (
+  /* const fetchTokens = async (
     from,
     count,
     type = 'all',
@@ -336,7 +336,7 @@ export const useApi = () => {
       cancelToken,
     });
     return res.data;
-  };
+  }; */
 
   const getItemsLiked = async (items, authToken, cancelToken) => {
     const data = { items: JSON.stringify(items) };
@@ -954,7 +954,7 @@ export const useApi = () => {
     return res.data;
   };
 
-  /* const fetchTokens = async (
+  const fetchTokens = async (
     from,
     count,
     type = 'all',
@@ -999,11 +999,11 @@ export const useApi = () => {
       cancelToken,
     });
     return res.data;
-  };  */
+  }; 
 
 
   // Warn / Unwarn //
-  /* const warnCollection = async (
+  const warnCollection = async (
     address,
     authToken,
     signature,
@@ -1077,9 +1077,9 @@ export const useApi = () => {
       },
     });
     return res.data;
-  }; */
+  }; 
 
-  /* const getAttributeFilterData = async contractAddress => {
+  const getAttributeFilterData = async contractAddress => {
     const res = await axios({
       method: 'get',
       url: `${apiUrl}/collection/${contractAddress}/attributeFilter`,
@@ -1121,7 +1121,7 @@ export const useApi = () => {
     });
 
     return res;
-  } */
+  }
 
   return {
     getAttributes,
@@ -1184,18 +1184,19 @@ export const useApi = () => {
     getItemLikeUsers,
     getBundleLikeUsers,
     getMyLikes,
+    getUserAccountAlias,
     getNotificationSettings,
     updateNotificationSettings,
     addUnlockableContent,
     retrieveUnlockableContent,
     refreshMetadata,
     updateCollectionBanner,
-    /* verifyCollection,
+    verifyCollection,
     unverifyCollection,
     getAttributeFilterData,
     isAttributeFilterAvailable,
     warnCollection,
     unwarnCollection,
-    updateCollection */
+    updateCollection
   };
 };
