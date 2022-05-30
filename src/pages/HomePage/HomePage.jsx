@@ -31,8 +31,17 @@ export function HomePage() {
   };
   return (
     <div className="overflow-hidden">
+
       <div className={`${styles.container} ${styles.homepage}`}>
+      <marquee
+      behavior='scroll'
+      scrollamount='15'
+      direction='right'
+      >This is a Beta version of the Agora Marketplace
+      
+      </marquee>
         <Header setDark={setDark} />
+
         <div className={styles.body}>
           <div className={styles.main}>
             <div className={styles.slider}>
@@ -51,7 +60,7 @@ export function HomePage() {
                 </SplideSlide>
               </Splide>
             </div>
-            <div className={styles.heroContent}>
+            <div className={dark ? styles.heroContentDark : styles.heroContent}>
               <div>
                 {/*<div className={styles.nethkt}>NFT MARKETPLACE</div>*/}
                 <div className={styles.openzoo}>

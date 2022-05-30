@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import LogoImage from 'assets/svgs/openzoo_icon.svg';
+import LogoImage from 'assets/imgs/coin.jpeg';
 
 export function HomePageStartOwnCollectionSection() {
   return (

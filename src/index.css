@@ -18,6 +18,10 @@ body {
   /* width: 360px !important; */
 }
 
+iframe {
+  pointer-events: none;
+}
+
 body * {
   /* font-family: 'proxima-nova' !important; */
 }
@@ -31,7 +35,8 @@ body * {
 }
 
 .footer__logo img {
-  width: 50px;
+  width: auto;
+  margin: 1rem 0;
   height: 50px;
 }
 
