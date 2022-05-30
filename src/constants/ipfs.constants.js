@@ -3,6 +3,7 @@ export const IPFSConstants = {
 };
 
 export const IPFSUris = [
-  'https://agora.mypinata.cloud/ipfs/',
-  'https://agora2.mypinata.cloud/ipfs/',
+  'https://agoramarket.mypinata.cloud/ipfs/',
+  'https://agoramarket2.mypinata.cloud/ipfs/',
+  'https://agoramarket3.mypinata.cloud/ipfs/',
 ];

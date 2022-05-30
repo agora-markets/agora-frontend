@@ -423,7 +423,7 @@ const Header = (props) => {
                   {account.imageHash ? (
                     <img
                       className={styles.resultimg}
-                      src={`https://openzoo.mypinata.cloud/ipfs/${account.imageHash}`}
+                      src={`https://agoramarket.mypinata.cloud/ipfs/${account.imageHash}`}
                     />
                   ) : (
                     <Identicon

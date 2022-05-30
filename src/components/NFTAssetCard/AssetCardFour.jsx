@@ -358,7 +358,7 @@ export function AssetCardFour(props) {
             >
               {collection?.collectionName || collection?.name}
               {collection?.isVerified && (
-                <img src="https://assets.openzoo.io/verified.svg" />
+                <img src="https://assets.agoramarket.io/verified.svg" />
               )}
               {warnedCollections &&
                 warnedCollections.includes(item?.contractAddress) ? (
