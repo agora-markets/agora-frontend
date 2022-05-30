@@ -9,7 +9,7 @@ import { useDetectOutsideRef } from 'hooks/useDetectOutsideRef';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Tooltip /*FormControlLabel, Checkbox*/ } from '@material-ui/core';
 //import { withStyles } from '@material-ui/core/styles';
-import WCRO_IMAGE from 'assets/imgs/wan.png';
+import WCRO_IMAGE from 'assets/imgs/CRO.png';
 import { makeStyles } from '@material-ui/styles';
 import { Link } from 'react-router-dom';
 //import { useDispatch } from 'react-redux';
@@ -42,7 +42,7 @@ export function HeaderAvatarMenu(props) {
   const styles = useStyle();
 
   const [balance, setBalance] = useState(0);
-  const [zooBalance, setZooBalance] = useState(0);
+  const [agoBalance, setAgoBalance] = useState(0);
   const [menuVisible, setMenuVisible] = useState(false);
   const [copied, setCopied] = useState(false);
   const [tooltipOpen, setTooltipOpen] = useState(false);
@@ -71,21 +71,21 @@ export function HeaderAvatarMenu(props) {
 
     const AGO_ADDRESS = {
       25: '0x383627CaeC2CE3b36793c34B576B2e97BEDA0466',
-      [ChainId.ARBITRUM]: '0x890589dC8BD3F973dcAFcB02b6e1A133A76C8135',
+      [ChainId.ARBITRUM]: '',
     };
 
-    const zooContract = await getERC20Contract(AGO_ADDRESS[chainId]);
+    const agoContract = await getERC20Contract(AGO_ADDRESS[chainId]);
 
-    let [ethBal, /*wethBal,*/ zooBal] = await Promise.all([
+    let [ethBal, /*wethBal,*/ agoBal] = await Promise.all([
       await provider.getBalance(account),
       // await getWETHBalance(account),
-      await zooContract.balanceOf(account),
+      await agoContract.balanceOf(account),
     ]);
 
     
 
     setBalance(parseFloat(ethBal.toString()) / 10 ** 18);
-    setZooBalance(parseFloat(zooBal.toString()) / 10 ** 18);
+    setAgoBalance(parseFloat(agoBal.toString()) / 10 ** 18);
 
     // setWrappedBalance(parseFloat(wethBal.toString()) / 10 ** 18);
 
@@ -169,7 +169,7 @@ export function HeaderAvatarMenu(props) {
         <div className="price">
           <span>
             <img src="/zoo32x32.png" />{' '}
-            {formatNumber(parseBalance(zooBalance), 2)}
+            {formatNumber(parseBalance(agoBalance), 2)}
           </span>
         </div>
         {props.loading ? (
