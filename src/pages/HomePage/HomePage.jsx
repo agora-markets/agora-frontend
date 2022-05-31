@@ -14,7 +14,72 @@ import { HomePageCommunitySection } from './HomePageCommunitySection';
 import { HomePageRecentlyListSection } from './HomePageRecentlyListSection';
 import { HomePageStartOwnCollectionSection } from './HomePageStartOwnCollectionSection';
 // import { HomePageTopArtworksSection } from './HomePageTopArtworksSection';
-export function HomePage() {
+export function HomePage({ globalStats }) {
+  const stats = () => (
+    <div className={styles.statsWrapper} style={{ marginTop: '70px' }}>
+      <div className={styles.statsCard}>
+        <div className={styles.cardIconWrapper}>
+          <img
+            src={verifiedLogo}
+            style={{
+              width: '30px',
+              height: '30px',
+              filter: 'invert(var(--color-icon))',
+            }}
+          />
+        </div>
+        <div className={styles.statsNumbers}>
+          {Math.round(globalStats?.totalVolume) || 0} $
+        </div>
+        <div className={styles.statsTitle} style={{ paddingBottom: '20px' }}>
+          Total <br /> Volume
+        </div>
+      </div>
+      <div className={styles.statsCard}>
+        <div className={styles.cardIconWrapper}>
+          <img src={verifiedLogo} style={{ width: '30px', height: '30px' }} />
+        </div>
+        <div className={styles.statsNumbers}>
+          {Math.round(globalStats?.totalSales) || 0}
+        </div>
+        <div className={styles.statsTitle} style={{ paddingBottom: '20px' }}>
+          Total <br /> Sales
+        </div>
+      </div>
+      <div className={styles.statsCard}>
+        <div className={styles.cardIconWrapper}>
+          <img
+            src={verifiedLogo}
+            style={{
+              width: '30px',
+              height: '30px',
+              filter: 'invert(var(--color-icon))',
+            }}
+          />
+        </div>
+        <div className={styles.statsNumbers}>
+          {Math.round(globalStats?.dailyVolume) || 0} $
+        </div>
+        <div className={styles.statsTitle} style={{ paddingBottom: '20px' }}>
+          Daily <br /> Volume
+        </div>
+      </div>
+      <div className={styles.statsCard}>
+        <div className={styles.cardIconWrapper}>
+          <img src={verifiedLogo} style={{ width: '30px', height: '30px' }} />
+        </div>
+        <div className={styles.statsNumbers}>
+          <div className="statsDesc">
+            {Math.round(globalStats?.dailySales) || 0}
+          </div>
+        </div>
+        <div className={styles.statsTitle} style={{ paddingBottom: '20px' }}>
+          Daily <br /> Sales
+        </div>
+      </div>
+    </div>
+  );
+
   useEffect(() => {
     document.body.classList.add('homepage');
     return () => {
@@ -104,6 +169,10 @@ export function HomePage() {
                 >
                   Create NFT &gt;
                 </TxButton>
+              </div>
+              <div>
+                <div>Stats</div>
+                {stats()}
               </div>
 
               <div className={styles.contact}>

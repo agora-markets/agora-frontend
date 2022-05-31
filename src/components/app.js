@@ -95,7 +95,6 @@ const App = () => {
       <Router history={history}>
         <Switch>
           <Route exact path="/" component={HomePage} globalStats={globalStats}/>
-          <Route exact path="/home" component={HomePage} />
           {/*
           <Route exact path="/old-explore" component={ExplorePage} />
           <Route path="/old-explore/:addr/:id" component={NFTItem} />
