@@ -24,7 +24,7 @@ import { StackAvatars } from 'components/Avatar';
 import { useState } from 'react';
 import moment from 'moment';
 import { useSelector } from 'react-redux';
-import VerifiedLogo from 'assets/imgs/verify.png';
+import VerifiedLogo from 'assets/imgs/verify-blue.png';
 import { getRandomIPFS } from 'utils';
 const propTypes = {
   item: PropTypes.object.isRequired,

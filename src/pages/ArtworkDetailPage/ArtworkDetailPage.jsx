@@ -43,7 +43,7 @@ import Skeleton from 'react-loading-skeleton';
 import ReactResizeDetector from 'react-resize-detector';
 import { ArtworkMediaView } from 'components/ArtworkMedia';
 import BootstrapTooltip from 'components/BootstrapTooltip';
-import VerifiedLogo from 'assets/imgs/verify.png';
+import VerifiedLogo from 'assets/imgs/verify-blue.png';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import {
   LineChart,

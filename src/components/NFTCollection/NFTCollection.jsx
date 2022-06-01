@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 import { shortenAddress, formatNumber, formatUSD } from 'utils';
 import { Categories } from 'constants/filter.constants';
-import VerifiedLogo from 'assets/imgs/verify.png';
+import VerifiedLogo from 'assets/imgs/verify-blue.png';
 export function NFTCollection(props) {
   const {
     isVerified,

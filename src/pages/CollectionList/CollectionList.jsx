@@ -11,7 +11,7 @@ import CollectionsActions from 'actions/collections.actions';
 import TokensActions from 'actions/tokens.actions';
 import { useApi } from 'api';
 import useWindowDimensions from 'hooks/useWindowDimensions';
-import VerifiedLogo from 'assets/imgs/verify.png';
+import VerifiedLogo from 'assets/imgs/verify-blue.png';
 import axios from 'axios';
 import { useWeb3React } from '@web3-react/core';
 import usePrevious from 'hooks/usePrevious';
