@@ -771,7 +771,7 @@ const PaintBoard = () => {
                   }}
                 >
                   <img
-                    src={`https://openzoo.mypinata.cloud/ipfs/${item.logoImageHash}`}
+                    src={`https://agoramarket.mypinata.cloud/ipfs/${item.logoImageHash}`}
                     className={styles.collectionLogo}
                   />
                   <div className={styles.collectionName}>
@@ -783,7 +783,7 @@ const PaintBoard = () => {
                 values.length > 0 ? (
                   <div className={styles.collection}>
                     {<img
-                      src={`https://openzoo.mypinata.cloud/ipfs/${values[0].logoImageHash}`}
+                      src={`https://agoramarket.mypinata.cloud/ipfs/${values[0].logoImageHash}`}
                       className={styles.collectionLogo}
                     />}
                     <div className={styles.collectionName}>

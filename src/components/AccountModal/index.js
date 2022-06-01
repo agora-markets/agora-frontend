@@ -39,7 +39,7 @@ const AccountModal = () => {
   useEffect(() => {
     if (accountModalVisible) {
       if (user.imageHash) {
-        setAvatar(`https://openzoo.mypinata.cloud/ipfs/${user.imageHash}`);
+        setAvatar(`https://agoramarket.mypinata.cloud/ipfs/${user.imageHash}`);
       } else {
         setAvatar(null);
       }

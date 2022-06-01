@@ -147,8 +147,8 @@ export function HomePage() {
           {!dark ? '' : ''}
         </div>
         {/* <HomePageArtistsSection /> */}
-        <HomePageCommunitySection />
         <HomePageRecentlyListSection />
+        <HomePageCommunitySection />
         <HomePageStartOwnCollectionSection />
         {/* <HomePageTopArtworksSection /> */}
         <Footer isDark = {dark}/>
