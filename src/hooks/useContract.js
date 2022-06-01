@@ -22,8 +22,8 @@ export default () => {
       } else {
         const provider = new ethers.providers.StaticJsonRpcProvider(
           isMainnet
-            ? 'https://rpc.zookeeper.finance/'
-            : 'https://rpc.zookeeper.finance/testnet',
+            ? 'https://gateway.nebkas.ro'
+            : 'https://arb1.arbitrum.io/rpc',
           isMainnet ? 25 : ChainId.ARBITRUM
         );
         provider.pollingInterval = 10 * 1000;

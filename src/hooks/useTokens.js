@@ -4,8 +4,9 @@ import { ChainId } from '@sushiswap/sdk';
 //import iconWETH from 'assets/imgs/wwan.png';
 import iconZOO from 'assets/imgs/Zoo_ticker.svg';
 import iconVZOO from 'assets/imgs/vZoo_ticker.svg';
+import iconWCRO from 'assets/imgs/CRO.png';
 // import iconUSDT from 'assets/imgs/usdt.png';
-// import iconUSDC from 'assets/imgs/usdc.png';
+import iconUSDC from 'assets/imgs/usdc.png';
 // import iconDAI from 'assets/imgs/dai.png';
 // import iconUSDT from 'assets/imgs/wanUSDT.png';
 // import iconUSDC from 'assets/imgs/wanUSDC.png';
@@ -20,27 +21,25 @@ const Tokens = {
   25: [
     // {
     //   address: '',
-    //   name: 'Fantom',
-    //   symbol: 'ETH',
+    //   name: 'Cronos',
+    //   symbol: 'CRO',
     //   decimals: 18,
-    //   icon: iconETH,
+    //   icon: iconWCRO,
     // },
     {
-      address: '0x6e11655d6aB3781C6613db8CB1Bc3deE9a7e111F',
-      name: 'ZOO',
-      symbol: 'ZOO',
-      decimals: 18,
-      icon: iconZOO,
-    },
-    /*
-    {
-      address: '0xdabd997ae5e4799be47d6e69d9431615cba28f48',
-      name: 'Wrapped CRO',
+      address: '0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23',
+      name: 'Wrapped Cro',
       symbol: 'WCRO',
       decimals: 18,
-      icon: iconWETH,
+      icon: iconWCRO,
     },
-    */
+    {
+      address: '0xc21223249CA28397B4B6541dfFaEcC539BfF0c59',
+      name: 'USDC',
+      symbol: 'USDC',
+      decimals: 6,
+      icon: iconUSDC,
+    },
   ],
   [ChainId.ARBITRUM]: [
     // {
