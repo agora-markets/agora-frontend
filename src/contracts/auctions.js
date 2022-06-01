@@ -1,11 +1,11 @@
 import { ChainId } from '@sushiswap/sdk';
 
-import { calculateGasMargin, getHigherGWEI } from 'utils';
+import { calculateGasMargin } from 'utils';
+import useConnectionUtils from 'hooks/useConnectionUtils';
 import { Contracts } from 'constants/networks';
 import useContract from 'hooks/useContract';
 
 import { AUCTION_CONTRACT_ABI } from './abi';
-import { useWeb3React } from '@web3-react/core';
 
 // eslint-disable-next-line no-undef
 const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
@@ -13,8 +13,7 @@ const CHAIN = isMainnet ? 25 : ChainId.ARBITRUM;
 
 export const useAuctionContract = () => {
   const { getContract } = useContract();
-  const { library } = useWeb3React();
-
+  const {getHigherGWEI} = useConnectionUtils();
   const getAuctionContract = async () =>
     await getContract(Contracts[CHAIN].auction, AUCTION_CONTRACT_ABI);
 
@@ -28,6 +27,8 @@ export const useAuctionContract = () => {
     const endTime = parseFloat(res[4].toString());
     const resulted = res[5];
     const minBid = res[6];
+    const res2 = await contract.getHighestBidder(nftAddress, tokenId);
+    const highestBid = res2[1];
     return {
       owner,
       payToken,
@@ -36,13 +37,14 @@ export const useAuctionContract = () => {
       endTime,
       resulted,
       minBid,
+      highestBid,
     };
   };
 
   const cancelAuction = async (nftAddress, tokenId) => {
     const contract = await getAuctionContract();
     const options = {
-      gasPrice: getHigherGWEI(library),
+      gasPrice: getHigherGWEI(),
     };
 
     return await contract.cancelAuction(nftAddress, tokenId, options);
@@ -59,7 +61,7 @@ export const useAuctionContract = () => {
   ) => {
     const contract = await getAuctionContract();
     const options = {
-      gasPrice: getHigherGWEI(library),
+      gasPrice: getHigherGWEI(),
     };
 
     return await contract.createAuction(
@@ -108,7 +110,7 @@ export const useAuctionContract = () => {
       const options = {
         value,
         from,
-        gasPrice: getHigherGWEI(library),
+        gasPrice: getHigherGWEI(),
       };
       const gasEstimate = await contract.estimateGas[
         'placeBid(address,uint256)'
@@ -117,7 +119,7 @@ export const useAuctionContract = () => {
       return await contract['placeBid(address,uint256)'](...args, options);
     } else {
       const options = {
-        gasPrice: getHigherGWEI(library),
+        gasPrice: getHigherGWEI(),
       };
 
       return await contract['placeBid(address,uint256,uint256)'](
@@ -132,7 +134,7 @@ export const useAuctionContract = () => {
   const resultAuction = async (nftAddress, tokenId) => {
     const contract = await getAuctionContract();
     const options = {
-      gasPrice: getHigherGWEI(library),
+      gasPrice: getHigherGWEI(),
     };
 
     const tx = await contract.resultAuction(nftAddress, tokenId, options);
@@ -142,7 +144,7 @@ export const useAuctionContract = () => {
   const updateAuctionStartTime = async (nftAddress, tokenId, startTime) => {
     const contract = await getAuctionContract();
     const options = {
-      gasPrice: getHigherGWEI(library),
+      gasPrice: getHigherGWEI(),
     };
 
     const tx = await contract.updateAuctionStartTime(
@@ -157,7 +159,7 @@ export const useAuctionContract = () => {
   const updateAuctionEndTime = async (nftAddress, tokenId, endTimestamp) => {
     const contract = await getAuctionContract();
     const options = {
-      gasPrice: getHigherGWEI(library),
+      gasPrice: getHigherGWEI(),
     };
 
     const tx = await contract.updateAuctionEndTime(
@@ -176,7 +178,7 @@ export const useAuctionContract = () => {
   ) => {
     const contract = await getAuctionContract();
     const options = {
-      gasPrice: getHigherGWEI(library),
+      gasPrice: getHigherGWEI(),
     };
 
     const tx = await contract.updateAuctionReservePrice(
@@ -191,7 +193,7 @@ export const useAuctionContract = () => {
   const withdrawBid = async (nftAddress, tokenId) => {
     const contract = await getAuctionContract();
     const options = {
-      gasPrice: getHigherGWEI(library),
+      gasPrice: getHigherGWEI(),
     };
 
     const tx = await contract.withdrawBid(nftAddress, tokenId, options);

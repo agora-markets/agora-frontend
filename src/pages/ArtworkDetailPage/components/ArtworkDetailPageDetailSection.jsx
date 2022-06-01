@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  // ArtworkDetailPageAttributesView,
+  ArtworkDetailPageAttributesView,
   ArtworkDetailPagePropertiesView,
   ArtworkDetailPageBundleInfoTab,
   ArtworkDetailPageAboutCollectionTab,
@@ -29,7 +29,7 @@ export function ArtworkDetailPageDetailSection(props) {
     info,
     bundleID,
     address,
-    // tokenID,
+    tokenID,
     creatorInfoLoading,
     creatorInfo,
     creator,
@@ -256,7 +256,7 @@ export function ArtworkDetailPageDetailSection(props) {
                 setOfferModalVisible={setOfferModalVisible}
               />
             </div>
-           {/* <div className={`tab-pane ${info?.attributes && 'active'} pb`} id="tabs-attributes" role="tabpanel">
+            <div className={`tab-pane ${info?.attributes && 'active'} pb`} id="tabs-attributes" role="tabpanel">
               {info?.attributes && (
                 <ArtworkDetailPageAttributesView
                   address={address}
@@ -264,7 +264,7 @@ export function ArtworkDetailPageDetailSection(props) {
                   attributes={info?.attributes}
                 />
               )}
-              </div> */}
+            </div>
             <div className="tab-pane" id="tabs-properties" role="tabpanel">
               {info?.properties && (
                 <ArtworkDetailPagePropertiesView

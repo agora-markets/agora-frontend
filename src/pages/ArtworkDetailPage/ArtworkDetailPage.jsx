@@ -103,6 +103,7 @@ const ONE_MONTH = ONE_DAY * 30;
 const ENV = process.env.REACT_APP_ENV;
 const CHAIN = ENV === 'MAINNET' ? 25 : ChainId.ARBITRUM;
 
+import { useZooElixirContract } from 'contracts/zookeeper';
 import { FooterEmbed } from 'components/FooterEmbed';
 
 export function ArtworkDetailPage() {
@@ -183,6 +184,8 @@ export function ArtworkDetailPage() {
     cancelBundleOffer,
     acceptBundleOffer,
   } = useBundleSalesContract();
+
+  const { getElixir } = useZooElixirContract();
 
   const { addr: address, id: tokenID, bundleID } = useParams();
 
@@ -1311,6 +1314,18 @@ export function ArtworkDetailPage() {
       console.log('!getItemDetails', bundleListing);
 
       getItemDetails(); // TODO: Need to optimize
+
+      // Case for Elixir //
+      if (Contracts[CHAIN].zooElixir.toLowerCase() === address.toLowerCase()) {
+        try {
+          getElixir(tokenID).then(ret => {
+            setZooElixir(ret);
+            console.log('Elixir Info', ret);
+          });
+        } catch {
+          console.log('error');
+        }
+      }
 
       getAuctions().then(() => {
         getBid();
