@@ -168,7 +168,7 @@ export function HeaderAvatarMenu(props) {
         <div className="price">
           <span>
             <img src={tokenicon} />{' '}
-            {formatNumber(parseBalance(zooBalance), 2)}
+            {formatNumber(parseBalance(agoBalance), 2)}
           </span>
         </div>
         {props.loading ? (
