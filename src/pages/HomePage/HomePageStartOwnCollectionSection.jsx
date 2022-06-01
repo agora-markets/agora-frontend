@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import LogoImage from 'assets/svgs/openzoo_icon.svg';
+import LogoImage from 'assets/imgs/coin-removebg2.png';
 
 export function HomePageStartOwnCollectionSection() {
   return (
@@ -15,7 +15,7 @@ export function HomePageStartOwnCollectionSection() {
             <div className="space-y-20">
               <h1>Start your own collection today</h1>
               <p className="color_text section__text">
-                raroin is a shared liquidity NFT market smart contract which is
+                Raroin is a shared liquidity NFT market smart contract which is
                 used by multiple websites to provide the users the best possible
                 experience.
               </p>
@@ -24,7 +24,7 @@ export function HomePageStartOwnCollectionSection() {
               </Link>
             </div>
           </div>
-          <div className="col-md-4">
+          <div className="col-md-4 token-logo">
             <img className="img-fluid img__logo" src={LogoImage} alt="..." />
           </div>
         </div>
