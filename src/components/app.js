@@ -11,7 +11,7 @@ import { Toaster } from 'react-hot-toast';
 import { ethers } from 'ethers';
 import { useWeb3React } from '@web3-react/core';
 import { ChainId } from '@sushiswap/sdk';
-import { axios } from 'axios';
+//import { axios } from 'axios';
 
 import ProtectedRoute from './ProtectedRoute';
 import AccountModal from './AccountModal';
@@ -44,11 +44,23 @@ const App = () => {
   const getPrice = async () => {
     try {
       if (chainId === 25) {
-        const response = await axios.get(
-          'https://api.mm.finance/api/tokens/0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23'
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const oracle = new ethers.Contract(
+          '0xF849C1ddd19f524c12A043556fAa5602a6B81F98',
+          [
+            {
+              inputs: [],
+              name: 'lastPrice',
+              outputs: [{ internalType: 'int256', name: '_lastPrice', type: 'int256' }],
+              stateMutability: 'view',
+              type: 'function',
+            },
+          ],
+          provider
         );
-        const _price = response.data['data']['price'];
-        dispatch(PriceActions.updatePrice(_price));
+        const _price = await oracle.lastprice();
+        const price = parseFloat(_price.toString()) / 10 ** 8;
+        dispatch(PriceActions.updatePrice(price));
       } else if (chainId === ChainId.ARBITRUM) {
         const provider = new ethers.providers.Web3Provider(window.ethereum);
         const oracle = new ethers.Contract(
