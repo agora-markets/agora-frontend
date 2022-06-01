@@ -3166,7 +3166,7 @@ export function ArtworkDetailPage() {
                                   <div className={styles.userAvatarWrapper}>
                                     {ownerInfo?.imageHash ? (
                                       <img
-                                        src={`https://openzoo.mypinata.cloud/ipfs/${ownerInfo.imageHash}`}
+                                        src={`https://agoramarket.mypinata.cloud/ipfs/${ownerInfo.imageHash}`}
                                         className={styles.userAvatar}
                                       />
                                     ) : (
@@ -3281,7 +3281,7 @@ export function ArtworkDetailPage() {
                                 <div className={styles.userAvatarWrapper}>
                                   {listing.image ? (
                                     <img
-                                      src={`https://openzoo.mypinata.cloud/ipfs/${listing.image}`}
+                                      src={`https://agoramarket.mypinata.cloud/ipfs/${listing.image}`}
                                       className={styles.userAvatar}
                                     />
                                   ) : (
@@ -3425,7 +3425,7 @@ export function ArtworkDetailPage() {
                                     <div className={styles.userAvatarWrapper}>
                                       {offer.image ? (
                                         <img
-                                          src={`https://openzoo.mypinata.cloud/ipfs/${offer.image}`}
+                                          src={`https://agoramarket.mypinata.cloud/ipfs/${offer.image}`}
                                           className={styles.userAvatar}
                                         />
                                       ) : (

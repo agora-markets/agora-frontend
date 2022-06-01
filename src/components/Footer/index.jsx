@@ -23,22 +23,22 @@ export function Footer(props) {
               <ul className="footer__social space-x-10 mb-40">
                 <li>
                   <Link to="/">
-                    <i className="ri-facebook-line"></i>
+                    <i className="ri-twitter-line"></i>
                   </Link>
                 </li>
                 <li>
                   <Link to="/">
-                    <i className="ri-messenger-line"></i>
+                    <i className="ri-discord-line"></i>
                   </Link>
                 </li>
                 <li>
                   <Link to="/">
-                    <i className="ri-whatsapp-line"></i>
+                    <i className="ri-telegram-line"></i>
                   </Link>
                 </li>
                 <li>
                   <Link to="/">
-                    <i className="ri-youtube-line"></i>
+                    <i className="ri-medium-line"></i>
                   </Link>
                 </li>
               </ul>
