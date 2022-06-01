@@ -77,7 +77,7 @@ const App = () => {
           provider
         );
         const _price = await oracle.latestAnswer();
-        const price = parseFloat(_price.toString()) / 10 ** 8;
+        const price = parseFloat(_price.toString()) / 10 ** 10;
         dispatch(PriceActions.updatePrice(price));
       }
     } catch (err) {
