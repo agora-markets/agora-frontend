@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 
 import { shortenAddress, formatNumber, formatUSD } from 'utils';
 import { Categories } from 'constants/filter.constants';
+import VerifiedLogo from 'assets/imgs/verify.png';
 export function NFTCollection(props) {
   const {
     isVerified,
@@ -62,7 +63,7 @@ export function NFTCollection(props) {
                 {collectionName || name}{' '}
                 {isVerified && (
                   <img
-                    src="https://assets.openzoo.io/verified.svg"
+                    src={VerifiedLogo}
                     className="verified"
                     alt="verified"
                   />

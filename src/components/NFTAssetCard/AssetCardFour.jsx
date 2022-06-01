@@ -24,6 +24,7 @@ import { StackAvatars } from 'components/Avatar';
 import { useState } from 'react';
 import moment from 'moment';
 import { useSelector } from 'react-redux';
+import VerifiedLogo from 'assets/imgs/verify.png';
 import { getRandomIPFS } from 'utils';
 const propTypes = {
   item: PropTypes.object.isRequired,
@@ -358,7 +359,7 @@ export function AssetCardFour(props) {
             >
               {collection?.collectionName || collection?.name}
               {collection?.isVerified && (
-                <img src="https://assets.openzoo.io/verified.svg" />
+                <img src={VerifiedLogo} />
               )}
               {warnedCollections &&
                 warnedCollections.includes(item?.contractAddress) ? (

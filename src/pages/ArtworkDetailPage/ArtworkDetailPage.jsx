@@ -43,6 +43,7 @@ import Skeleton from 'react-loading-skeleton';
 import ReactResizeDetector from 'react-resize-detector';
 import { ArtworkMediaView } from 'components/ArtworkMedia';
 import BootstrapTooltip from 'components/BootstrapTooltip';
+import VerifiedLogo from 'assets/imgs/verify.png';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import {
   LineChart,
@@ -2729,7 +2730,7 @@ export function ArtworkDetailPage() {
                       >
                         {collection?.collectionName || collection?.name || ''}
                         {collection?.isVerified ? (
-                          <img src="https://assets.openzoo.io/verified.svg" />
+                          <img src={VerifiedLogo} />
                         ) : (
                           ''
                         )}
