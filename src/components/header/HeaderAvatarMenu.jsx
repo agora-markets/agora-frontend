@@ -2,7 +2,7 @@ import React, { useState /*,useEffect*/ } from 'react';
 import PropTypes from 'prop-types';
 import Skeleton from 'react-loading-skeleton';
 import cx from 'classnames';
-
+import tokenicon from 'assets/imgs/coin-removebg2.png'
 import Identicon from 'components/Identicon';
 import { shortenAddress } from 'utils';
 import { useDetectOutsideRef } from 'hooks/useDetectOutsideRef';
@@ -12,9 +12,9 @@ import { Tooltip /*FormControlLabel, Checkbox*/ } from '@material-ui/core';
 import WCRO_IMAGE from 'assets/imgs/CRO.png';
 import { makeStyles } from '@material-ui/styles';
 import { Link } from 'react-router-dom';
-//import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 //import FilterActions from 'actions/filter.actions';
-//import ModalActions from 'actions/modal.actions';
+import ModalActions from 'actions/modal.actions';
 import { useWeb3React } from '@web3-react/core';
 import { ethers } from 'ethers';
 import { ChainId } from '@sushiswap/sdk';
@@ -35,7 +35,7 @@ const propTypes = {
 export function HeaderAvatarMenu(props) {
   //const coinCurrency = 'AGO';
   const { getERC20Contract } = useNFTContract();
-  //const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const { account, chainId, connector } = useWeb3React();
   //const { getWETHBalance } = useWETHContract();
 
@@ -128,11 +128,10 @@ export function HeaderAvatarMenu(props) {
     setTooltipOpen(on);
   };
 
-  /*
   const handleOpenWrapStation = () => {
     dispatch(ModalActions.showWETHModal());
   };
-  */
+  
   /*
   const [onlyVerified, setOnlyVerified] = React.useState(() => {
     const onlyVerifiedValue = window.localStorage.getItem('onlyVerified');
@@ -168,7 +167,7 @@ export function HeaderAvatarMenu(props) {
       >
         <div className="price">
           <span>
-            <img src="/zoo32x32.png" />{' '}
+            <img src={tokenicon} />{' '}
             {formatNumber(parseBalance(agoBalance), 2)}
           </span>
         </div>
@@ -275,12 +274,9 @@ export function HeaderAvatarMenu(props) {
               <i className="ri-add-line"></i>{' '}
               <span> Create New Collection</span>
             </Link>
-
-            {/*
-          <a onClick={handleOpenWrapStation}>
-            <i className="ri-refresh-fill"></i> <span> CRO / WCRO Station</span>
-          </a>
-          */}
+            <a onClick={handleOpenWrapStation}>
+              <i className="ri-refresh-fill"></i> <span> CRO / WCRO Station</span>
+            </a>
 
             {(props.isAdmin || props.isModerator) && (
               <div className="hr mt-2"></div>
@@ -324,7 +320,7 @@ export function HeaderAvatarMenu(props) {
                   className="cursor-pointer"
                   onClick={props.unverifyCollection}
                 >
-                  <span>Un-Verfiy Collection</span>
+                  <span>Un-Verify Collection</span>
                 </div>
 
                 <div className="cursor-pointer" onClick={props.warnCollection}>

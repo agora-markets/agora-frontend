@@ -8,7 +8,7 @@ import { useWeb3React } from '@web3-react/core';
 
 const WETH_ADDRESS = {
   [25]: '0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23',
-  [ChainId.ARBITRUM]: '0xf1277d1Ed8AD466beddF92ef448A132661956621',
+  [ChainId.ARBITRUM]: '',
 };
 
 // eslint-disable-next-line no-undef

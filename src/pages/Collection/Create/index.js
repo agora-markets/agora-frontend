@@ -427,7 +427,7 @@ const CollectionCreate = ({ isRegister }) => {
           toast(
             'success',
             'Application submitted!',
-            'Your collection registration application is successfully submitted for review.\nOnce approved, you will get an email notification.'
+            'Your collection registration application is successfully submitted for review.Once approved, you will get an email notification.'
           );
 
           setCreating(false);
@@ -628,7 +628,7 @@ const CollectionCreate = ({ isRegister }) => {
           </p>
           {!isRegister &&
             (isModerator ||
-              account?.toLowerCase() && ADMIN_ADDRESS.includes(account?.toLowerCase())) && (
+              account?.toLowerCase() === ADMIN_ADDRESS.toLowerCase()) && (
               <div className={styles.inputGroup}>
                 <RadioGroup
                   className={styles.inputWrapper}
