@@ -151,7 +151,7 @@ export function HomePage() {
         <HomePageRecentlyListSection />
         <HomePageStartOwnCollectionSection />
         {/* <HomePageTopArtworksSection /> */}
-        <Footer />
+        <Footer isDark = {dark}/>
       </div>
     </div>
   );
