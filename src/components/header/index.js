@@ -23,8 +23,7 @@ import BoostCollectionModal from 'components/BoostCollectionModal';
 import ConnectWalletModal from 'components/ConnectWalletModal';
 import Identicon from 'components/Identicon';
 
-import logoLight from 'assets/imgs/logos/logo_5.png';
-import logoDark from 'assets/imgs/logos/logo_2.png';
+import logoSmallBlue from 'assets/imgs/logoRound.png';
 import verifiedLogo from 'assets/imgs/verify.png';
 
 import styles from './styles.module.scss';
@@ -423,7 +422,7 @@ const Header = (props) => {
                   {account.imageHash ? (
                     <img
                       className={styles.resultimg}
-                      src={`https://agoramarket.mypinata.cloud/ipfs/${account.imageHash}`}
+                      src={`https://openzoo.mypinata.cloud/ipfs/${account.imageHash}`}
                     />
                   ) : (
                     <Identicon
@@ -509,7 +508,7 @@ const Header = (props) => {
         <div className={'wrapper js-header-wrapper'}>
           <div className="header__logo">
             <Link to="/" className={'header__logo'}>
-              <img src={DarkMode ? logoDark : logoLight} alt="logo" />
+              <img src={logoSmallBlue} alt="logo" />
             </Link>
           </div>
           <div className={cx('header__menu', styles.left)}>

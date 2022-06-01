@@ -91,7 +91,7 @@ export function ArtworkDetailPageDirectOfferTab(props) {
                     <div className={styles.userAvatarWrapper}>
                       {offer.image ? (
                         <img
-                          src={`https://agoramarket.mypinata.cloud/ipfs/${offer.image}`}
+                          src={`https://openzoo.mypinata.cloud/ipfs/${offer.image}`}
                           className={styles.userAvatar}
                         />
                       ) : (

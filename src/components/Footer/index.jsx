@@ -1,20 +1,18 @@
 import React from 'react';
 
-import logoDark from 'assets/imgs/logos/logo_2.png';
-import logoLight from 'assets/imgs/logos/logo_5.png';
+import LogoSmallBlue from 'assets/imgs/logoRound.png';
 import { Link } from 'react-router-dom';
 
-export function Footer(props) {
-
+export function Footer() {
   return (
     <footer className="footer__1">
       <div className="container">
         <div className="row">
-          <div className="col-lg-6 ">
+          <div className="col-lg-6 space-y-20">
             <div className="footer__logo">
-              <Link to="/" className="d-flex align-items-center ">
-                <img src={props.isDark ? logoDark : logoLight} alt="logo" id="logo_js_f" />
-                
+              <Link to="/" className="d-flex align-items-center space-x-10">
+                <img src={LogoSmallBlue} alt="logo" id="logo_js_f" />
+                <p className="color_black font-bold">Agora</p>
               </Link>
             </div>
             <p className="footer__text">
@@ -24,24 +22,24 @@ export function Footer(props) {
               <ul className="footer__social space-x-10 mb-40">
                 <li>
                   <Link to="/">
-                    <i className="ri-twitter-line"></i>
+                    <i className="ri-facebook-line"></i>
                   </Link>
                 </li>
                 <li>
                   <Link to="/">
-                    <i className="ri-discord-line"></i>
+                    <i className="ri-messenger-line"></i>
                   </Link>
                 </li>
                 <li>
                   <Link to="/">
-                    <i className="ri-telegram-line"></i>
+                    <i className="ri-whatsapp-line"></i>
                   </Link>
                 </li>
-                {/* <li>
+                <li>
                   <Link to="/">
                     <i className="ri-youtube-line"></i>
                   </Link>
-  </li> */}
+                </li>
               </ul>
             </div>
           </div>
@@ -54,12 +52,10 @@ export function Footer(props) {
               <li>
                 <Link to="/explore">Explore</Link>
               </li>
-              <li>
-                <a href="https://docs.agoramarket.art">Docs</a>
-              </li>
+              <li></li>
             </ul>
           </div>
-          {/* <div className="col-lg-2 col-6">
+          <div className="col-lg-2 col-6">
             <h6 className="footer__title">Assets</h6>
             <ul className="footer__list">
               <li>
@@ -86,7 +82,7 @@ export function Footer(props) {
                 <Link to="/"> Item details </Link>
               </li>
             </ul>
-  </div> */}
+          </div>
         </div>
       </div>
     </footer>

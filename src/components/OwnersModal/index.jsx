@@ -26,7 +26,7 @@ const OwnersModal = ({ visible, onClose, holders }) => {
             <div className={styles.avatarWrapper}>
               {holder.imageHash ? (
                 <img
-                  src={`https://agoramarket.mypinata.cloud/ipfs/${holder.imageHash}`}
+                  src={`https://openzoo.mypinata.cloud/ipfs/${holder.imageHash}`}
                   width={40}
                   height={40}
                 />

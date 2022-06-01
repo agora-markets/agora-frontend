@@ -129,7 +129,7 @@ const CollectionCreate = () => {
               onClick={() => setIndex(idx)}
             >
               <img
-                src={`https://agoramarket.mypinata.cloud/ipfs/${collection.logoImageHash}`}
+                src={`https://openzoo.mypinata.cloud/ipfs/${collection.logoImageHash}`}
                 className={styles.collectionLogo}
               />
               <div className={styles.collectionName}>
@@ -147,7 +147,7 @@ const CollectionCreate = () => {
             <div className={styles.inputWrapper}>
               <div className={styles.logoUploadBox}>
                 <img
-                  src={`https://agoramarket.mypinata.cloud/ipfs/${collections[index].logoImageHash}`}
+                  src={`https://openzoo.mypinata.cloud/ipfs/${collections[index].logoImageHash}`}
                 />
               </div>
             </div>

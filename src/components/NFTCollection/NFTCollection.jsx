@@ -62,7 +62,7 @@ export function NFTCollection(props) {
                 {collectionName || name}{' '}
                 {isVerified && (
                   <img
-                    src="https://assets.agoramarket.io/verified.svg"
+                    src="https://assets.openzoo.io/verified.svg"
                     className="verified"
                     alt="verified"
                   />

@@ -2662,7 +2662,7 @@ const NFTItem = () => {
                 <div className={styles.ownerAvatar}>
                   {ownerInfo?.imageHash ? (
                     <img
-                      src={`https://agoramarket.mypinata.cloud/ipfs/${ownerInfo.imageHash}`}
+                      src={`https://openzoo.mypinata.cloud/ipfs/${ownerInfo.imageHash}`}
                       className={styles.avatar}
                     />
                   ) : (
@@ -2871,7 +2871,7 @@ const NFTItem = () => {
             <div className={styles.ownerAvatar}>
               {creatorInfo?.imageHash ? (
                 <img
-                  src={`https://agoramarket.mypinata.cloud/ipfs/${creatorInfo.imageHash}`}
+                  src={`https://openzoo.mypinata.cloud/ipfs/${creatorInfo.imageHash}`}
                   className={styles.avatar}
                 />
               ) : (
@@ -3457,7 +3457,7 @@ const NFTItem = () => {
                               <div className={styles.userAvatarWrapper}>
                                 {ownerInfo?.imageHash ? (
                                   <img
-                                    src={`https://agoramarket.mypinata.cloud/ipfs/${ownerInfo.imageHash}`}
+                                    src={`https://openzoo.mypinata.cloud/ipfs/${ownerInfo.imageHash}`}
                                     className={styles.userAvatar}
                                   />
                                 ) : (
@@ -3513,7 +3513,7 @@ const NFTItem = () => {
                             <div className={styles.userAvatarWrapper}>
                               {listing.image ? (
                                 <img
-                                  src={`https://agoramarket.mypinata.cloud/ipfs/${listing.image}`}
+                                  src={`https://openzoo.mypinata.cloud/ipfs/${listing.image}`}
                                   className={styles.userAvatar}
                                 />
                               ) : (
@@ -3596,7 +3596,7 @@ const NFTItem = () => {
                                 <div className={styles.userAvatarWrapper}>
                                   {offer.image ? (
                                     <img
-                                      src={`https://agoramarket.mypinata.cloud/ipfs/${offer.image}`}
+                                      src={`https://openzoo.mypinata.cloud/ipfs/${offer.image}`}
                                       className={styles.userAvatar}
                                     />
                                   ) : (
@@ -3791,7 +3791,7 @@ const NFTItem = () => {
                         <div className={styles.userAvatarWrapper}>
                           {history.fromImage ? (
                             <img
-                              src={`https://agoramarket.mypinata.cloud/ipfs/${history.fromImage}`}
+                              src={`https://openzoo.mypinata.cloud/ipfs/${history.fromImage}`}
                               className={styles.userAvatar}
                             />
                           ) : (
@@ -3814,7 +3814,7 @@ const NFTItem = () => {
                         <div className={styles.userAvatarWrapper}>
                           {history.toImage ? (
                             <img
-                              src={`https://agoramarket.mypinata.cloud/ipfs/${history.toImage}`}
+                              src={`https://openzoo.mypinata.cloud/ipfs/${history.toImage}`}
                               className={styles.userAvatar}
                             />
                           ) : (

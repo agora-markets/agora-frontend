@@ -1,8 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import Header from 'components/header';
 import { Footer } from 'components/Footer';
+
+// // import { Pagination } from 'swiper';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/react-splide/dist/css/splide.min.css';
+// import 'slick-carousel/slick/slick.css';
+// import 'slick-carousel/slick/slick-theme.css';
+// import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
+// import { Swiper, SwiperSlide } from 'swiper/react/swiper-react';
+
+// import 'swiper/swiper.min.css';
+// import 'swiper/modules/pagination/pagination.min.css';
 import { Link } from 'react-router-dom';
 import TxButton from 'components/TxButton';
 import styles from './styles.module.scss';
@@ -14,72 +23,7 @@ import { HomePageCommunitySection } from './HomePageCommunitySection';
 import { HomePageRecentlyListSection } from './HomePageRecentlyListSection';
 import { HomePageStartOwnCollectionSection } from './HomePageStartOwnCollectionSection';
 // import { HomePageTopArtworksSection } from './HomePageTopArtworksSection';
-export function HomePage({ globalStats }) {
-  const stats = () => (
-    <div className={styles.statsWrapper} style={{ marginTop: '70px' }}>
-      <div className={styles.statsCard}>
-        <div className={styles.cardIconWrapper}>
-          <img
-            src={verifiedLogo}
-            style={{
-              width: '30px',
-              height: '30px',
-              filter: 'invert(var(--color-icon))',
-            }}
-          />
-        </div>
-        <div className={styles.statsNumbers}>
-          {Math.round(globalStats?.totalVolume) || 0} $
-        </div>
-        <div className={styles.statsTitle} style={{ paddingBottom: '20px' }}>
-          Total <br /> Volume
-        </div>
-      </div>
-      <div className={styles.statsCard}>
-        <div className={styles.cardIconWrapper}>
-          <img src={verifiedLogo} style={{ width: '30px', height: '30px' }} />
-        </div>
-        <div className={styles.statsNumbers}>
-          {Math.round(globalStats?.totalSales) || 0}
-        </div>
-        <div className={styles.statsTitle} style={{ paddingBottom: '20px' }}>
-          Total <br /> Sales
-        </div>
-      </div>
-      <div className={styles.statsCard}>
-        <div className={styles.cardIconWrapper}>
-          <img
-            src={verifiedLogo}
-            style={{
-              width: '30px',
-              height: '30px',
-              filter: 'invert(var(--color-icon))',
-            }}
-          />
-        </div>
-        <div className={styles.statsNumbers}>
-          {Math.round(globalStats?.dailyVolume) || 0} $
-        </div>
-        <div className={styles.statsTitle} style={{ paddingBottom: '20px' }}>
-          Daily <br /> Volume
-        </div>
-      </div>
-      <div className={styles.statsCard}>
-        <div className={styles.cardIconWrapper}>
-          <img src={verifiedLogo} style={{ width: '30px', height: '30px' }} />
-        </div>
-        <div className={styles.statsNumbers}>
-          <div className="statsDesc">
-            {Math.round(globalStats?.dailySales) || 0}
-          </div>
-        </div>
-        <div className={styles.statsTitle} style={{ paddingBottom: '20px' }}>
-          Daily <br /> Sales
-        </div>
-      </div>
-    </div>
-  );
-
+export function HomePage() {
   useEffect(() => {
     document.body.classList.add('homepage');
     return () => {
@@ -96,17 +40,8 @@ export function HomePage({ globalStats }) {
   };
   return (
     <div className="overflow-hidden">
-
       <div className={`${styles.container} ${styles.homepage}`}>
-      <marquee
-      behavior='scroll'
-      scrollamount='15'
-      direction='right'
-      >This is a Beta version of the Agora Marketplace
-      
-      </marquee>
         <Header setDark={setDark} />
-
         <div className={styles.body}>
           <div className={styles.main}>
             <div className={styles.slider}>
@@ -125,7 +60,7 @@ export function HomePage({ globalStats }) {
                 </SplideSlide>
               </Splide>
             </div>
-            <div className={dark ? styles.heroContentDark : styles.heroContent}>
+            <div className={styles.heroContent}>
               <div>
                 {/*<div className={styles.nethkt}>NFT MARKETPLACE</div>*/}
                 <div className={styles.openzoo}>
@@ -169,10 +104,6 @@ export function HomePage({ globalStats }) {
                 >
                   Create NFT &gt;
                 </TxButton>
-              </div>
-              <div>
-                <div>Stats</div>
-                {stats()}
               </div>
 
               <div className={styles.contact}>
@@ -223,11 +154,11 @@ export function HomePage({ globalStats }) {
           {!dark ? '' : ''}
         </div>
         {/* <HomePageArtistsSection /> */}
-        <HomePageRecentlyListSection />
         <HomePageCommunitySection />
+        <HomePageRecentlyListSection />
         <HomePageStartOwnCollectionSection />
         {/* <HomePageTopArtworksSection /> */}
-        <Footer isDark = {dark}/>
+        <Footer />
       </div>
     </div>
   );

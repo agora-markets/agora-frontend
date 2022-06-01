@@ -9,7 +9,7 @@ export const useApi = () => {
     : 'https://arbiscan.io';
 
   const apiUrl = isMainnet
-    ? 'http://localhost:5001'
+    ? 'https://agoramarket-api-mainnet.herokuapp.com'
     : 'https://api.testnet.artion.io';
 
   // eslint-disable-next-line no-undef

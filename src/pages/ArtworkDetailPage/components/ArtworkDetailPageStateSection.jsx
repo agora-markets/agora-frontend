@@ -66,7 +66,7 @@ export function ArtworkDetailPageStateSection(props) {
                 <div className={styles.ownerAvatar}>
                   {ownerInfo?.imageHash ? (
                     <img
-                      src={`https://agoramarket.mypinata.cloud/ipfs/${ownerInfo.imageHash}`}
+                      src={`https://openzoo.mypinata.cloud/ipfs/${ownerInfo.imageHash}`}
                       className={styles.avatar}
                     />
                   ) : (
@@ -121,7 +121,7 @@ export function ArtworkDetailPageStateSection(props) {
                 <div className={styles.ownerAvatar}>
                   {creatorInfo?.imageHash ? (
                     <img
-                      src={`https://agoramarket.mypinata.cloud/ipfs/${creatorInfo.imageHash}`}
+                      src={`https://openzoo.mypinata.cloud/ipfs/${creatorInfo.imageHash}`}
                       className={styles.avatar}
                     />
                   ) : (

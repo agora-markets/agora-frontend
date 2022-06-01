@@ -36,34 +36,19 @@
   flex: 1;
   min-width: fit-content;
   position: relative;
-}.heroContent  {
-  position: absolute;
+}
+.heroContent{
+  position:absolute;
   padding: 4rem 0 0 4rem;
-
-  background-color: rgba(243, 241, 241, 0.199);
+  background-color: #0e0e0ea6;
   width: 100%;
   height: 100%;
 }
-
-marquee{
-  padding: 0.5rem;
-  font-size: 18px;
-  white-space: nowrap;
-  background-color: #0e0e0ea6;
-  color: #fff;
-}
-.heroContentDark {
-  position: absolute;
-  padding: 4rem 0 0 4rem;
-  width: 100%;
-  height: 100%;
-  background-color: #0e0e0ea6;
-}
-.slider {
-  img {
+.slider{
+   img {
     vertical-align: bottom;
     width: 100%;
-    height: 70vh;
+    height: 65vh;
     object-fit: cover;
     object-position: top;
   }
@@ -88,7 +73,7 @@ marquee{
   font-weight: bold;
   font-size: 30px;
   line-height: 40px;
-  color: #000;
+  color: #000000;
   margin-bottom: 60px;
 }
 
@@ -106,7 +91,7 @@ marquee{
 }
 
 .btnGroup {
-  margin-bottom: 10px;
+  margin-bottom:10px;
 }
 
 .contact {
@@ -126,7 +111,6 @@ marquee{
   .become {
     display: flex;
     align-items: center;
-    color: #000;
     img {
       height: 40px;
       width: 40px;
@@ -138,7 +122,6 @@ marquee{
     display: flex;
     align-items: center;
     margin-right: 15px;
-    color: #000;
   }
 
   .seperator {

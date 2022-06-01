@@ -87,7 +87,7 @@ export function AccountProfilePageHeader(props) {
             <Skeleton width="100%" height="100%" />
           ) : bannerHash || user.bannerHash ? (
             <img
-              src={`https://agoramarket.mypinata.cloud/ipfs/${bannerHash ||
+              src={`https://openzoo.mypinata.cloud/ipfs/${bannerHash ||
                 user.bannerHash}`}
               alt=""
             />
