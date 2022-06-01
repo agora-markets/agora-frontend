@@ -2,7 +2,7 @@ import React, { useState /*,useEffect*/ } from 'react';
 import PropTypes from 'prop-types';
 import Skeleton from 'react-loading-skeleton';
 import cx from 'classnames';
-
+import tokenicon from 'assets/imgs/coin-removebg2.png'
 import Identicon from 'components/Identicon';
 import { shortenAddress } from 'utils';
 import { useDetectOutsideRef } from 'hooks/useDetectOutsideRef';
@@ -167,7 +167,7 @@ export function HeaderAvatarMenu(props) {
       >
         <div className="price">
           <span>
-            <img src="/zoo32x32.png" />{' '}
+            <img src={tokenicon} />{' '}
             {formatNumber(parseBalance(agoBalance), 2)}
           </span>
         </div>
