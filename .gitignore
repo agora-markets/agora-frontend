@@ -26,3 +26,5 @@ yarn-error.log*
 .env
 dist/.eslintrc.dev.js
 .node-version
+
+.history
