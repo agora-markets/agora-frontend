@@ -58,7 +58,7 @@ const App = () => {
           ],
           provider
         );
-        const _price = await oracle.lastprice();
+        const _price = await oracle.lastPrice();
         const price = parseFloat(_price.toString()) / 10 ** 8;
         dispatch(PriceActions.updatePrice(price));
       } else if (chainId === ChainId.ARBITRUM) {
