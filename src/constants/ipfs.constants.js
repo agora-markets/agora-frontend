@@ -1,9 +1,9 @@
 export const IPFSConstants = {
-  HashURI: 'https://cloudflare-ipfs.com/ipfs/',
+  HashURI: 'https://agoramarket.mypinata.cloud/ipfs/',
 };
 
 export const IPFSUris = [
-  'https://agora.mypinata.cloud/ipfs/',
-  'https://agora2.mypinata.cloud/ipfs/',
-  'https://agora2.mypinata.cloud/ipfs/',
+  'https://agoramarket.mypinata.cloud/ipfs/',
+  'https://agoramarket2.mypinata.cloud/ipfs/',
+  'https://agoramarket3.mypinata.cloud/ipfs/',
 ];

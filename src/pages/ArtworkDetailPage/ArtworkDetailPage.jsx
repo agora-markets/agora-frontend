@@ -1333,38 +1333,6 @@ export function ArtworkDetailPage() {
       return;
     }
 
-    getNFTRoyalty(address, tokenID)
-      .then(res => {
-        //alert(res);
-
-        if (resultAuction) {
-          setNftRoyalty({
-            royalty: res / 100,
-          });
-        } else {
-          setNftRoyalty({
-            royalty: 0,
-          });
-        }
-      })
-      .catch(console.log);
-
-    getPlatformFee()
-      .then(res => {
-        //alert(res);
-
-        if (resultAuction) {
-          setPlatformFee({
-            royalty: res / 10,
-          });
-        } else {
-          setPlatformFee({
-            royalty: 0,
-          });
-        }
-      })
-      .catch(console.log);
-
     getCollectionRoyalty(address)
       .then(res => {
         if (res.royalty) {

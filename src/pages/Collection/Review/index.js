@@ -49,7 +49,7 @@ const CollectionCreate = () => {
 
   useEffect(() => {
     if (account && authToken) {
-      if (ADMIN_ADDRESS.includes(account?.toLowerCase())) {
+      if (ADMIN_ADDRESS.toLowerCase()) {
         fetchCollections();
       } else {
         history.replace('/');

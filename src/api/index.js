@@ -11,6 +11,8 @@ export const useApi = () => {
   const apiUrl = isMainnet
     ? 'https://agoramarket-api-mainnet.herokuapp.com'
     : 'https://api.testnet.artion.io';
+    // ? 'http://localhost:5001'
+    // : 'https://api.testnet.artion.io';
 
   // eslint-disable-next-line no-undef
   // const apiUrl = process.env.REACT_APP_API_URI;
