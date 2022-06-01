@@ -177,6 +177,7 @@ input[type='number'] {
 	animation: float 6s ease-in-out infinite;
   text-align: center;
 }
+
 @keyframes float {
 	0% {
 		transform: translatey(0px);
@@ -384,6 +385,9 @@ input[type='number'] {
   }
   .call2action.is__light{
     padding-bottom: 0;
+  }
+  .token-logo{
+    padding-top: 1.25rem;
   }
 }
 input:read-only,

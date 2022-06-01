@@ -52,6 +52,17 @@
   height: 100%;
   background-color: #0e0e0ea6;
 }
+
+.stats {
+  font-size: 30px;
+  padding-top: 10px;
+}
+
+.stats_logo {
+  height: 64px;
+  width: 64px;
+}
+
 .slider{
    img {
     vertical-align: bottom;
@@ -78,7 +89,7 @@ marquee{
   color:#F806CC !important;
   line-height: 55px;
   span {
-    color: rgba(255, 107, 199, 1) !important;
+    color: #F806CC  !important;
   }
 }
 
