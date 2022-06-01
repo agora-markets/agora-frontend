@@ -9,12 +9,12 @@ import { useDetectOutsideRef } from 'hooks/useDetectOutsideRef';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Tooltip /*FormControlLabel, Checkbox*/ } from '@material-ui/core';
 //import { withStyles } from '@material-ui/core/styles';
-import WCRO_IMAGE from 'assets/imgs/wan.png';
+import WCRO_IMAGE from 'assets/imgs/CRO.png';
 import { makeStyles } from '@material-ui/styles';
 import { Link } from 'react-router-dom';
-//import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 //import FilterActions from 'actions/filter.actions';
-//import ModalActions from 'actions/modal.actions';
+import ModalActions from 'actions/modal.actions';
 import { useWeb3React } from '@web3-react/core';
 import { ethers } from 'ethers';
 import { ChainId } from '@sushiswap/sdk';
@@ -35,14 +35,14 @@ const propTypes = {
 export function HeaderAvatarMenu(props) {
   //const coinCurrency = 'AGO';
   const { getERC20Contract } = useNFTContract();
-  //const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const { account, chainId, connector } = useWeb3React();
   //const { getWETHBalance } = useWETHContract();
 
   const styles = useStyle();
 
   const [balance, setBalance] = useState(0);
-  const [zooBalance, setZooBalance] = useState(0);
+  const [agoBalance, setAgoBalance] = useState(0);
   const [menuVisible, setMenuVisible] = useState(false);
   const [copied, setCopied] = useState(false);
   const [tooltipOpen, setTooltipOpen] = useState(false);
@@ -71,21 +71,21 @@ export function HeaderAvatarMenu(props) {
 
     const AGO_ADDRESS = {
       25: '0x383627CaeC2CE3b36793c34B576B2e97BEDA0466',
-      [ChainId.ARBITRUM]: '0x890589dC8BD3F973dcAFcB02b6e1A133A76C8135',
+      [ChainId.ARBITRUM]: '',
     };
 
-    const zooContract = await getERC20Contract(AGO_ADDRESS[chainId]);
+    const agoContract = await getERC20Contract(AGO_ADDRESS[chainId]);
 
-    let [ethBal, /*wethBal,*/ zooBal] = await Promise.all([
+    let [ethBal, /*wethBal,*/ agoBal] = await Promise.all([
       await provider.getBalance(account),
       // await getWETHBalance(account),
-      await zooContract.balanceOf(account),
+      await agoContract.balanceOf(account),
     ]);
 
     
 
     setBalance(parseFloat(ethBal.toString()) / 10 ** 18);
-    setZooBalance(parseFloat(zooBal.toString()) / 10 ** 18);
+    setAgoBalance(parseFloat(agoBal.toString()) / 10 ** 18);
 
     // setWrappedBalance(parseFloat(wethBal.toString()) / 10 ** 18);
 
@@ -128,11 +128,10 @@ export function HeaderAvatarMenu(props) {
     setTooltipOpen(on);
   };
 
-  /*
   const handleOpenWrapStation = () => {
     dispatch(ModalActions.showWETHModal());
   };
-  */
+  
   /*
   const [onlyVerified, setOnlyVerified] = React.useState(() => {
     const onlyVerifiedValue = window.localStorage.getItem('onlyVerified');
@@ -275,12 +274,9 @@ export function HeaderAvatarMenu(props) {
               <i className="ri-add-line"></i>{' '}
               <span> Create New Collection</span>
             </Link>
-
-            {/*
-          <a onClick={handleOpenWrapStation}>
-            <i className="ri-refresh-fill"></i> <span> CRO / WCRO Station</span>
-          </a>
-          */}
+            <a onClick={handleOpenWrapStation}>
+              <i className="ri-refresh-fill"></i> <span> CRO / WCRO Station</span>
+            </a>
 
             {(props.isAdmin || props.isModerator) && (
               <div className="hr mt-2"></div>
@@ -324,7 +320,7 @@ export function HeaderAvatarMenu(props) {
                   className="cursor-pointer"
                   onClick={props.unverifyCollection}
                 >
-                  <span>Un-Verfiy Collection</span>
+                  <span>Un-Verify Collection</span>
                 </div>
 
                 <div className="cursor-pointer" onClick={props.warnCollection}>

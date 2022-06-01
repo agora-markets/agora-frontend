@@ -626,7 +626,7 @@ const Header = (props) => {
                   user={user}
                   loading={loading}
                   isAdmin={
-                    account?.toLowerCase() && ADMIN_ADDRESS.includes(account?.toLowerCase())
+                    account?.toLowerCase() === ADMIN_ADDRESS.toLowerCase()
                   }
                   isModerator={isModerator}
                   onClickSignOut={handleSignOut}
