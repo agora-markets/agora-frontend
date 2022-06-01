@@ -27,7 +27,7 @@
   justify-content: space-between;
   padding-top: 40px;
   z-index: 1;
-  margin-bottom: 60px;
+  margin-bottom: 4rem;
 }
 .main {
   display: flex;
@@ -40,9 +40,17 @@
 .heroContent{
   position:absolute;
   padding: 4rem 0 0 4rem;
-  background-color: #0e0e0ea6;
   width: 100%;
   height: 100%;
+  background-color:  #e2e2e277;
+  // #e4e5f154;
+}
+.heroContentDark {
+  position:absolute;
+  padding: 4rem 0 0 4rem;
+  width: 100%;
+  height: 100%;
+  background-color: #0e0e0ea6;
 }
 .slider{
    img {
@@ -52,6 +60,11 @@
     object-fit: cover;
     object-position: top;
   }
+}
+
+marquee{
+  padding: 0.5rem;
+  border-bottom: 1px solid #eeeeee25;
 }
 .nethkt {
   font-size: 14px;
@@ -73,7 +86,7 @@
   font-weight: bold;
   font-size: 30px;
   line-height: 40px;
-  color: #fff;
+  // color: #fff;
   margin-bottom: 60px;
 }
 
@@ -111,7 +124,7 @@
   .become {
     display: flex;
     align-items: center;
-    color: #fff;
+    // color: #fff;
     img {
       height: 40px;
       width: 40px;
@@ -123,7 +136,7 @@
     display: flex;
     align-items: center;
     margin-right: 15px;
-    color: #fff;
+    // color: #fff;
   }
 
   .seperator {
@@ -146,7 +159,7 @@
   }
 
   .main {
-    margin: 0;
+    margin: 0 0 2rem 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -175,3 +188,73 @@
     margin-bottom: 40px;
   }
 }
+
+@media only screen and (min-width: 768px) and (max-width: 1200px){
+  .openzoo{
+    font-size: 2.5rem;
+  }
+}
+
+@media only screen and (min-width: 1023px) and (max-width: 1200px){
+  .slider img{
+    height: 70vh;
+  }
+  .openzoo{
+    margin-bottom: 0.5rem;
+  }
+  .contact{
+    margin-top: 2rem;
+  }
+}
+
+@media only screen and (max-width: 770px) {
+  .body{
+    padding: 2rem 15px;
+  }
+  .main{
+    margin-bottom: 6rem;
+  }
+  .heroContent, .heroContentDark{
+    padding: 1rem;
+  }
+
+  .subtitle{
+    margin-bottom: 2rem;
+  }
+  .btnGroup{
+    height: 75px;
+    a{
+      height: 32px;
+    }
+  }
+
+  .btnGroup:nth-of-type(3){
+    height: 40px;
+    margin-top: 4rem;
+  }
+  .slider img{
+    height: 300px;
+  }
+
+  .openzoo{
+    font-size: 2rem;
+    text-align: center;
+    margin-top: 2rem;
+  }
+
+  .btnGroup{
+    text-align: center;
+    margin: 1rem 0;
+  }
+  .contact{
+    
+    max-width: 450px;
+    margin: 2rem auto;
+    justify-content: space-between;
+
+    .become img{
+      width: 30px;
+      height: 30px;
+    }
+  }
+} 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import LogoImage from 'assets/svgs/openzoo_icon.svg';
+import LogoImage from 'assets/imgs/coin-removebg2.png';
 
 export function HomePageStartOwnCollectionSection() {
   return (
@@ -24,7 +24,7 @@ export function HomePageStartOwnCollectionSection() {
               </Link>
             </div>
           </div>
-          <div className="col-md-4">
+          <div className="col-md-4 token-logo">
             <img className="img-fluid img__logo" src={LogoImage} alt="..." />
           </div>
         </div>

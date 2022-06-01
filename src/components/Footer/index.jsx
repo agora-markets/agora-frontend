@@ -1,7 +1,7 @@
 import React from 'react';
 
-import logoDark from 'assets/imgs/logos/logo_9.png';
-import logoLight from 'assets/imgs/logos/logo_4.png';
+import logoDark from 'assets/imgs/logos/logo_2.png';
+import logoLight from 'assets/imgs/logos/logo_5.png';
 import { Link } from 'react-router-dom';
 
 export function Footer(props) {
@@ -13,7 +13,7 @@ export function Footer(props) {
             <div className="footer__logo">
               <Link to="/" className="d-flex align-items-center space-x-10">
                 <img src={props.isDark ? logoDark : logoLight} alt="logo" id="logo_js_f" />
-                <p className="color_black font-bold">Agora</p>
+                
               </Link>
             </div>
             <p className="footer__text">
