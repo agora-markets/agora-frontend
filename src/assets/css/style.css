@@ -10712,7 +10712,7 @@ body {
   font-family: "circular", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 17px;
   letter-spacing: 0.3px;
-  color: #4b4b4b;
+  color: #141E27;
   background: #fbfbfb;
 }
 
@@ -10875,7 +10875,7 @@ h6 {
   font-weight: bold;
   text-align: inherit;
   position: relative;
-  color: #4b4b4b;
+  color: #141E27;
   letter-spacing: -0.01em;
 }
 
@@ -14611,7 +14611,7 @@ label:active:after {
 }
 
 .header__1 .wrapper {
-  padding: 20px 0;
+  padding: 0px 0 20px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -14930,6 +14930,11 @@ label:active:after {
 .header__1 .header__avatar .price {
   padding: 0 10px 0 20px;
 }
+
+.header__1 .header__avatar .price img{
+    height: 32px;
+    width: 32px;
+  }
 
 .header__1 .header__avatar .avatar_popup {
   position: absolute;
@@ -15835,7 +15840,7 @@ label:active:after {
 
 .footer__1 {
   padding: 100px 0 50px;
-  margin-top: 100px;
+  margin-top: 0;
   border-top: 1px solid #e2eef1;
   background-color: #ffffff;
 }

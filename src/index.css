@@ -11,6 +11,7 @@ body {
   margin: 0 !important;
   overflow: auto;
   padding-bottom: 100px;
+  color: #141E27;
 }
 
 iframe{
@@ -174,7 +175,7 @@ input[type='number'] {
 .token-logo{
 	transform: translatey(0px);
 	animation: float 6s ease-in-out infinite;
-
+  text-align: center;
 }
 @keyframes float {
 	0% {
@@ -380,6 +381,9 @@ input[type='number'] {
   .homepage-center-btn {
     margin-left: 10px;
     justify-content: center;
+  }
+  .call2action.is__light{
+    padding-bottom: 0;
   }
 }
 input:read-only,
