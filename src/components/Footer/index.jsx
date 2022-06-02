@@ -22,25 +22,25 @@ export function Footer(props) {
             <div>
               <ul className="footer__social space-x-10 mb-40">
                 <li>
-                  <Link to="/">
+                <a href="https://twitter.com/AgoramarketNFT?t=apGMF4wizF_pCw-R0IQ04g&s=09" target="_blank" rel="noopener noreferrer">
                     <i className="ri-twitter-line"></i>
-                  </Link>
+                  </a>
                 </li>
                 <li>
-                  <Link to="/">
+                <a href="https://discord.gg/XybunZQ3Cv " target="_blank" rel="noopener noreferrer">
                     <i className="ri-discord-line"></i>
-                  </Link>
+                  </a>
                 </li>
                 <li>
-                  <Link to="/">
+                  <a href="https://t.me/AgoraMarketNFT" target="_blank" rel="noopener noreferrer">
                     <i className="ri-telegram-line"></i>
-                  </Link>
+                  </a>
                 </li>
-                <li>
-                  <Link to="/">
+                {/* <li>
+                <a href="http://" target="_blank" rel="noopener noreferrer">
                     <i className="ri-medium-line"></i>
-                  </Link>
-                </li>
+                  </a>
+                </li> */}
               </ul>
             </div>
           </div>
