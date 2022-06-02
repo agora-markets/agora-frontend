@@ -456,7 +456,7 @@ const CollectionCreate = ({ isRegister }) => {
             : await getArtFactoryContract(),
         name,
         symbol,
-        ethers.utils.parseEther('0'),
+        ethers.utils.parseEther('50'),
         account
       );
       const res = await tx.wait();

@@ -13,7 +13,7 @@ import { faBook } from '@fortawesome/free-solid-svg-icons';
 import verifiedLogo from 'assets/imgs/verify.png';
 import { HomePageCommunitySection } from './HomePageCommunitySection';
 // import { HomePageArtistsSection } from './HomePageArtistsSection';
-import { HomePageRecentlyListSection } from './HomePageRecentlyListSection';
+// import { HomePageRecentlyListSection } from './HomePageRecentlyListSection';
 import { HomePageStartOwnCollectionSection } from './HomePageStartOwnCollectionSection';
 // import { HomePageTopArtworksSection } from './HomePageTopArtworksSection';
 export function HomePage() {
@@ -82,7 +82,7 @@ export function HomePage() {
                 <a
                   target="_blank"
                   rel="noreferrer"
-                  href="https://docs.openzoo.io"
+                  href="https://docs.agoramarket.art"
                   className="btn btn-dark btn-sm home-btn"
                 >
                   <FontAwesomeIcon icon={faBook} /> Docs
@@ -148,7 +148,7 @@ export function HomePage() {
           {!dark ? '' : ''}
         </div>
         {/* <HomePageArtistsSection /> */}
-        <HomePageRecentlyListSection />
+        {/* <HomePageRecentlyListSection /> */}
         <HomePageCommunitySection />
         <HomePageStartOwnCollectionSection />
         {/* <HomePageTopArtworksSection /> */}

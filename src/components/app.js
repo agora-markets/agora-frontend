@@ -58,8 +58,8 @@ const App = () => {
           ],
           provider
         );
-        const _price = await oracle.lastprice();
-        const price = parseFloat(_price.toString()) / 10 ** 8;
+        const _price = await oracle.lastPrice();
+        const price = parseFloat(_price.toString()) / 10 ** 6;
         dispatch(PriceActions.updatePrice(price));
       } else if (chainId === ChainId.ARBITRUM) {
         const provider = new ethers.providers.Web3Provider(window.ethereum);

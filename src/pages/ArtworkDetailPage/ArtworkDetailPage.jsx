@@ -43,6 +43,7 @@ import Skeleton from 'react-loading-skeleton';
 import ReactResizeDetector from 'react-resize-detector';
 import { ArtworkMediaView } from 'components/ArtworkMedia';
 import BootstrapTooltip from 'components/BootstrapTooltip';
+import VerifiedLogo from 'assets/imgs/verify-blue.png';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import {
   LineChart,
@@ -1332,38 +1333,6 @@ export function ArtworkDetailPage() {
       setCollectionRoyalty(null);
       return;
     }
-
-    getNFTRoyalty(address, tokenID)
-      .then(res => {
-        //alert(res);
-
-        if (resultAuction) {
-          setNftRoyalty({
-            royalty: res / 100,
-          });
-        } else {
-          setNftRoyalty({
-            royalty: 0,
-          });
-        }
-      })
-      .catch(console.log);
-
-    getPlatformFee()
-      .then(res => {
-        //alert(res);
-
-        if (resultAuction) {
-          setPlatformFee({
-            royalty: res / 10,
-          });
-        } else {
-          setPlatformFee({
-            royalty: 0,
-          });
-        }
-      })
-      .catch(console.log);
 
     getCollectionRoyalty(address)
       .then(res => {
@@ -2761,7 +2730,7 @@ export function ArtworkDetailPage() {
                       >
                         {collection?.collectionName || collection?.name || ''}
                         {collection?.isVerified ? (
-                          <img src="https://assets.openzoo.io/verified.svg" />
+                          <img src={VerifiedLogo} />
                         ) : (
                           ''
                         )}

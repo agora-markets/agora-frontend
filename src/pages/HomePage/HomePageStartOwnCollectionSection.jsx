@@ -19,7 +19,7 @@ export function HomePageStartOwnCollectionSection() {
                 No need to know how to code, just provide the art and
                 we will turn them to NFTs for you.
               </p>
-              <Link to="/" className="btn btn-primary">
+              <Link to="/collection/create" className="btn btn-primary">
                 Create Collection
               </Link>
             </div>
