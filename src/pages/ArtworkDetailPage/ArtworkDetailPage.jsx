@@ -314,18 +314,22 @@ export function ArtworkDetailPage() {
 
   const getPrices = async () => {
     try {
-      // const salesContract = await getSalesContract();
-      const data = await Promise.all(
-        tokens.map(async token => {
-          const response = await axios.get(
-            'https://api.mm.finance/api/tokens/0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23'
-          );
-          const _price = response.data['data']['price'];
-          return [token.address, _price];
-        })
-      );
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const oracle = new ethers.Contract(
+        '0xF849C1ddd19f524c12A043556fAa5602a6B81F98',
+			[
+				{
+				  inputs: [],
+				  name: 'lastPrice',
+				  outputs: [{ internalType: 'int256', name: '_lastPrice', type: 'int256' }],
+				  stateMutability: 'view',
+				  type: 'function',
+				},
+			],
+			provider
+		  );
 
-      const _prices = {};
+      const _prices = await oracle.lastPrice();
       data.map(([addr, price]) => {
         _prices[addr] = price;
       });
