@@ -314,22 +314,29 @@ export function ArtworkDetailPage() {
 
   const getPrices = async () => {
     try {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const oracle = new ethers.Contract(
-        '0xF849C1ddd19f524c12A043556fAa5602a6B81F98',
-			[
-				{
-				  inputs: [],
-				  name: 'lastPrice',
-				  outputs: [{ internalType: 'int256', name: '_lastPrice', type: 'int256' }],
-				  stateMutability: 'view',
-				  type: 'function',
-				},
-			],
-			provider
-		  );
+      const data = await Promise.all(
+        tokens.map(async token => {
+          const provider = new ethers.providers.Web3Provider(window.ethereum);
+          const oracle = new ethers.Contract(
+            '0xF849C1ddd19f524c12A043556fAa5602a6B81F98',
+			      [
+				      {
+				      inputs: [],
+				      name: 'lastPrice',
+				      outputs: [{ internalType: 'int256', name: '_lastPrice', type: 'int256' }],
+				      stateMutability: 'view',
+				      type: 'function',
+				    },
+			    ],
+			    provider
+		      );
+          const _priceraw = await oracle.lastPrice();
+          let _price = parseFloat(_priceraw.toString()) / 10 ** 6;
+          return [token.address, _price];
+        })
+      );
 
-      const _prices = await oracle.lastPrice();
+      const _prices = {};
       data.map(([addr, price]) => {
         _prices[addr] = price;
       });
