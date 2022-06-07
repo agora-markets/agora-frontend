@@ -149,6 +149,7 @@ export function ArtworkDetailPage() {
     getSalesContract,
     buyItemETH,
     buyItemERC20,
+    buyItemERC20WithQuantity,
     cancelListing,
     listItem,
     updateListing,
@@ -1951,10 +1952,12 @@ export function ArtworkDetailPage() {
             `Insufficient ${listing.token.symbol} Balance!`,
             listing.token.symbol === 'WCRO'
               ? 'You can wrap CRO in the WCRO station.'
-              : `You can exchange ${listing.token.symbol} on CRO/WCRO station (top-right corner).`,
+              : `You can exchange ${listing.token.symbol} on other exchange site.`,
             () => {
               toast.dismiss(toastId);
-              if (listing.token.symbol === 'WCRO') {
+              if (
+                listing.token.symbol === 'WCRO'
+              ) {
                 dispatch(ModalActions.showWETHModal());
               }
             }
@@ -1968,21 +1971,34 @@ export function ArtworkDetailPage() {
           const tx = await erc20.approve(salesContract.address, price);
           await tx.wait();
         }
-        const tx = await buyItemERC20(
-          address,
-          ethers.BigNumber.from(tokenID),
-          listing.token.address,
-          listing.owner
-        );
-        await tx.wait();
+        if (listing.quantity > 1) {
+          // for 1155
+          const tx = await buyItemERC20WithQuantity(
+            address,
+            ethers.BigNumber.from(tokenID),
+            listing.token.address,
+            listing.owner,
+            1
+          );
+          await tx.wait();
+        } // for 721
+        else {
+          const tx = await buyItemERC20(
+            address,
+            ethers.BigNumber.from(tokenID),
+            listing.token.address,
+            listing.owner
+          );
+          await tx.wait();
+          listings.current = listings.current.filter(
+            _listing => _listing.owner !== listing.owner
+          );
+        }
       }
 
       setOwner(account);
-
-      listings.current = listings.current.filter(
-        _listing => _listing.owner !== listing.owner
-      );
     } catch (error) {
+      console.log(error);
       showToast('error', formatError(error));
       setBuyingItem(false);
     }
