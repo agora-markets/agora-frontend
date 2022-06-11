@@ -73,10 +73,6 @@
   }
 }
 
-marquee{
-  padding: 0.5rem;
-  border-bottom: 1px solid #eeeeee25;
-}
 .nethkt {
   font-size: 14px;
   color: #a4a4a4;
@@ -104,9 +100,25 @@ marquee{
 :global {
   .home-btn {
     margin-right: 10px;
+    font-weight: 700;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  }
+  .btn-primary.home-btn{
+    background: linear-gradient(180deg, #FF00D6 0%, #8E13EE 100%) !important
+    ;
+  }
+  .home-btn.dark-btn{
+    color: #fff;
+    border: 2px solid #fff;
+    background: transparent;
+    color: #fff !important;
+  }
+  .home-btn.light-btn{
+    color: #F806CC;
   }
   .home-btn.btn-link {
-    color: rgba(255, 107, 199, 1) !important;
+    color: rgba(255,255,255);
     font-weight: bold;
   }
   .disabled.home-btn {
@@ -114,9 +126,7 @@ marquee{
   }
 }
 
-.btnGroup {
-  margin-bottom:10px;
-}
+
 
 .contact {
   margin-top: 140px;
@@ -237,6 +247,7 @@ marquee{
     a{
       height: 32px;
     }
+    
   }
 
   .btnGroup:nth-of-type(3){
@@ -256,6 +267,7 @@ marquee{
   .btnGroup{
     text-align: center;
     margin: 1rem 0;
+    align-items: center;
   }
   .contact{
     

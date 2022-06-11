@@ -504,6 +504,7 @@ const Header = (props) => {
 
   return (
     <header className={cx('header__1', 'js-header', styles.header)}>
+      <marquee direction= "right" scrollamount="15">This is a beta version of the Agora marketplace</marquee>
       <div onClick={scrollToTop} className="scroll-to-top"><FontAwesomeIcon icon={faAngleUp} /></div>
       <div className={'container'}>
         <div className={'wrapper js-header-wrapper'}>
