@@ -14,7 +14,7 @@ export function LaunchpadPage() {
         <div className={styles.body}>
           <div className={styles.main}>
             <div className={styles.selectPool}>
-              <a href="/">Apply to Launchpad</a>
+              <a href="https://forms.gle/EUkxuCETSerjHTXN7" >Apply to Launchpad</a>
             </div>
             <div className={styles.poolSection}>
               <h2>Ongoing Pools</h2>
