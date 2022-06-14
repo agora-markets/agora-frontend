@@ -34,7 +34,6 @@ export function HomePage() {
   return (
     <div className="overflow-hidden">
       <div className={`${styles.container} ${styles.homepage}`}>
-        <marquee direction= "right" scrollAmount="15">This is a beta version of the Agora marketplace</marquee>
         <Header setDark={setDark} />
         <div className={styles.body}>
           <div className={styles.main}>

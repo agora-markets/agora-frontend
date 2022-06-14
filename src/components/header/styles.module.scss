@@ -1,6 +1,10 @@
 .header {
   z-index: 100;
 }
+marquee{
+  padding: 0.5rem;
+  border-bottom: 1px solid #eeeeee25;
+}
 .active
 {
   color:rgba(255, 107, 199, 1);
