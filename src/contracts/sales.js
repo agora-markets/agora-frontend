@@ -4,6 +4,7 @@ import { calculateGasMargin, getHigherGWEI } from 'utils';
 import { Contracts } from 'constants/networks';
 import useContract from 'hooks/useContract';
 
+
 import { SALES_CONTRACT_ABI } from './abi';
 import { useWeb3React } from '@web3-react/core';
 

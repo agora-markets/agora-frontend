@@ -136,6 +136,7 @@ export function ArtworkDetailPage() {
     getItemsLiked,
     getNonce,
     retrieveUnlockableContent,
+    refreshMetadata,
     fetchAuctionBidParticipants,
     fetchWarnedCollections,
   } = useApi();
@@ -156,8 +157,6 @@ export function ArtworkDetailPage() {
     cancelOffer,
     acceptOffer,
     getCollectionRoyalty,
-    getNFTRoyalty,
-    getPlatformFee,
   } = useSalesContract();
   const {
     getAuctionContract,
@@ -189,7 +188,7 @@ export function ArtworkDetailPage() {
 
   const { getTokenByAddress, tokens } = useTokens();
 
-  const { account, chainId } = useWeb3React();
+  const { account, chainId, library } = useWeb3React();
 
   const [salesContractApproved, setSalesContractApproved] = useState(false);
   const [salesContractApproving, setSalesContractApproving] = useState(false);
@@ -235,6 +234,8 @@ export function ArtworkDetailPage() {
   const [ownersModalVisible, setOwnersModalVisible] = useState(false);
   const [likesModalVisible, setLikesModalVisible] = useState(false);
   const [warnedCollections, setWarnedCollections] = useState([]);
+  // eslint-disable-next-line no-unused-vars
+  const [refreshingMetadata, setRefreshingMetadata] = useState(false);
 
   const [transferring, setTransferring] = useState(false);
   const [burning, setBurning] = useState(false);
@@ -265,6 +266,8 @@ export function ArtworkDetailPage() {
   const [isLiking, setIsLiking] = useState(false);
   const [isLike, setIsLike] = useState(false);
   const [liked, setLiked] = useState();
+  // eslint-disable-next-line no-unused-vars
+  const [rank, setRank] = useState();
   const [hasUnlockable, setHasUnlockable] = useState(false);
   const [revealing, setRevealing] = useState(false);
   const [unlockableContent, setUnlockableContent] = useState('');
@@ -311,18 +314,31 @@ export function ArtworkDetailPage() {
 
   const getPrices = async () => {
     try {
-      const salesContract = await getSalesContract();
       const data = await Promise.all(
-        tokens.map(async token => [
-          token.address,
-          await salesContract.getPrice(
-            token.address || ethers.constants.AddressZero
-          ),
-        ])
+        tokens.map(async token => {
+          const provider = new ethers.providers.Web3Provider(window.ethereum);
+          const oracle = new ethers.Contract(
+            '0xF849C1ddd19f524c12A043556fAa5602a6B81F98',
+			      [
+				      {
+				      inputs: [],
+				      name: 'lastPrice',
+				      outputs: [{ internalType: 'int256', name: '_lastPrice', type: 'int256' }],
+				      stateMutability: 'view',
+				      type: 'function',
+				    },
+			    ],
+			    provider
+		      );
+          const _priceraw = await oracle.lastPrice();
+          let _price = parseFloat(_priceraw.toString()) / 10 ** 6;
+          return [token.address, _price];
+        })
       );
+
       const _prices = {};
       data.map(([addr, price]) => {
-        _prices[addr] = parseFloat(ethers.utils.formatUnits(price, 18));
+        _prices[addr] = price;
       });
       setPrices(_prices);
     } catch (err) {
@@ -409,6 +425,7 @@ export function ArtworkDetailPage() {
           tokenType: type,
           uri,
           hasUnlockable: _hasUnlockable,
+          rank,
           thumbnailPath,
           owner,
         },
@@ -423,6 +440,7 @@ export function ArtworkDetailPage() {
           token: getTokenByAddress(history.paymentToken),
         }));
       setLiked(likes);
+      setRank(rank);
       setHasUnlockable(_hasUnlockable);
       listings.current = _listings.map(listing => ({
         ...listing,
@@ -1909,8 +1927,7 @@ export function ArtworkDetailPage() {
 
     try {
       setBuyingItem(true);
-      const _price = listing.price; //TODO: later * listing.quantity; real quantity
-
+      const _price = listing.price * listing.quantity;
       if (listing.token.address === '') {
         const price = ethers.utils.parseEther(_price.toString());
 
@@ -1933,13 +1950,12 @@ export function ArtworkDetailPage() {
           const toastId = showToast(
             'error',
             `Insufficient ${listing.token.symbol} Balance!`,
-            listing.token.symbol === 'WETH' || listing.token.symbol === 'WCRO'
+            listing.token.symbol === 'WCRO'
               ? 'You can wrap CRO in the WCRO station.'
               : `You can exchange ${listing.token.symbol} on other exchange site.`,
             () => {
               toast.dismiss(toastId);
               if (
-                listing.token.symbol === 'WETH' ||
                 listing.token.symbol === 'WCRO'
               ) {
                 dispatch(ModalActions.showWETHModal());
@@ -2059,13 +2075,13 @@ export function ArtworkDetailPage() {
         const toastId = showToast(
           'error',
           `Insufficient ${token.symbol} Balance!`,
-          token.symbol === 'WETH' || token.symbol === 'WCRO'
+          token.symbol === 'WCRO'
             ? 'You can wrap CRO in the WCRO station.'
             : `You can exchange ${token.symbol} on other exchange site.`,
           () => {
             toast.dismiss(toastId);
             setOfferModalVisible(false);
-            if (token.symbol === 'WETH' || token.symbol === 'WCRO') {
+            if (token.symbol === 'WCRO') {
               dispatch(ModalActions.showWETHModal());
             }
           }
@@ -2499,6 +2515,12 @@ export function ArtworkDetailPage() {
     setBurnModalVisible(true);
   };
 
+  const onRefreshMetadata = async () => {
+    setRefreshingMetadata(true);
+    await refreshMetadata(address, tokenID);
+    setRefreshingMetadata(false);
+  };
+
   const handleMenuOpen = e => {
     setAnchorEl(e.currentTarget);
   };
@@ -2544,40 +2566,6 @@ export function ArtworkDetailPage() {
     } else if (social === 'twitter') {
       handleShareToTwitter();
     }
-  };
-
-  // Elixir Images //
-  const numberToColor = (number, diff = 0) => {
-    return '#' + ((number % 16777215) + diff).toString(16).padStart(6, '0');
-  };
-  const elixirIMG = (bottle_type_id, filled_drop, drop_color) => {
-    bottle_type_id = parseInt(bottle_type_id) + 1;
-    filled_drop = Number(filled_drop);
-
-    if (filled_drop > 100) filled_drop = 100;
-
-    return (
-      <div className="elixir">
-        <img className="bottle" src={`/elixir_sets/${bottle_type_id}e.png`} />
-        <div
-          className="fill"
-          style={{
-            background:
-              'linear-gradient(0deg, ' +
-              drop_color +
-              ' ' +
-              ((filled_drop * 75) / 100).toFixed(2) +
-              '%, rgba(255, 255, 255, 0) 0%)',
-            WebkitMaskImage: `url(/elixir_sets/${bottle_type_id}bg.png)`,
-            MaskImage: `url(/elixir_sets/${bottle_type_id}bg.png)`,
-          }}
-        ></div>
-        <img
-          className="bottle_bg"
-          src={`/elixir_sets/${bottle_type_id}bg.png`}
-        />
-      </div>
-    );
   };
 
   if (loading) {
@@ -2639,15 +2627,6 @@ export function ArtworkDetailPage() {
                       coverImage={info?.image}
                       alt=""
                     />
-                  )}
-                  {zooElixir && (
-                    <div className="item_elixir">
-                      {elixirIMG(
-                        zooElixir.shape,
-                        Number(zooElixir.drops) / 1e18,
-                        numberToColor(zooElixir.color)
-                      )}
-                    </div>
                   )}
                 </div>
                 <ArtworkDetailPageDetailSection
@@ -2839,18 +2818,15 @@ export function ArtworkDetailPage() {
                   <div className="space-x-10 d-flex align-items-center">
                     <div className={styles.royaltyFee}>
                       Total trading fee is{' '}
-                      {collectionRoyalty?.royalty +
-                        nftRoyalty?.royalty +
-                        platformFee?.royalty}
+                      {collectionRoyalty?.royalty + 2.5}
                       %
                       <BootstrapTooltip
                         title={
                           <>
-                            NFT Royalty: {nftRoyalty?.royalty}%
                             <br />
                             Collection Royalty: {collectionRoyalty?.royalty}%
                             <br />
-                            Platform Fee: {platformFee?.royalty}%
+                            Platform Fee: 2.5%
                           </>
                         }
                         placement="top"
