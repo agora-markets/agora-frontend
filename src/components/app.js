@@ -31,7 +31,9 @@ import { ArtworkDetailPage } from 'pages/ArtworkDetailPage';
 import { AccountProfilePage } from 'pages/AccountProfilePage';
 import { CollectionsPage } from 'pages/CollectionsPage';
 import { CollectionList } from 'pages/CollectionList';
+import { LaunchpadPage } from 'pages/Launchpad';
 import { useApi } from 'api';
+import LaunchpadCollection from 'pages/LaunchpadCollection';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -51,7 +53,9 @@ const App = () => {
             {
               inputs: [],
               name: 'lastPrice',
-              outputs: [{ internalType: 'int256', name: '_lastPrice', type: 'int256' }],
+              outputs: [
+                { internalType: 'int256', name: '_lastPrice', type: 'int256' },
+              ],
               stateMutability: 'view',
               type: 'function',
             },
@@ -101,12 +105,16 @@ const App = () => {
     fetchLatestStats();
   }, [chainId]);
 
-
   return (
     <div>
       <Router history={history}>
         <Switch>
-          <Route exact path="/" component={HomePage} globalStats={globalStats}/>
+          <Route
+            exact
+            path="/"
+            component={HomePage}
+            globalStats={globalStats}
+          />
           <Route exact path="/home" component={HomePage} />
           {/*
           <Route exact path="/old-explore" component={ExplorePage} />
@@ -114,14 +122,20 @@ const App = () => {
            */}
           <Route exact path="/explore" component={NewExplorePage} />
           <Route exact path="/explore/:addr" component={NewExplorePage} />
-          <Route exact path="/collection/:addr/:id" component={ArtworkDetailPage} />
+          <Route
+            exact
+            path="/collection/:addr/:id"
+            component={ArtworkDetailPage}
+          />
           <ProtectedRoute exact path="/create" component={PaintBoard} />
           {/* <Route path="/bundle/:bundleID" component={NFTItem} /> */}
           <Route path="/account/:uid" component={AccountProfilePage} />
           <Route path="/old-account/:uid" component={AccountDetails} />
           <Route path="/collections" component={CollectionsPage} />
 
+          <Route exact path="/launchpad" component={LaunchpadPage} />
 
+          <Route exact path="/launchpad/:addr" component={LaunchpadCollection} />
 
           <ProtectedRoute
             path="/collection/create"

@@ -152,7 +152,7 @@ export function HeaderAvatarMenu(props) {
   }, [onlyVerified])
 */
   return (
-    <>
+    <>  
       <FaucetModal
         account={account}
         visible={faucetModalVisible}

@@ -8,9 +8,9 @@ import '@splidejs/react-splide/dist/css/splide.min.css';
 import { Link } from 'react-router-dom';
 import TxButton from 'components/TxButton';
 import styles from './styles.module.scss';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBook } from '@fortawesome/free-solid-svg-icons';
-import verifiedLogo from 'assets/imgs/verify.png';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faBook } from '@fortawesome/free-solid-svg-icons';
+// import verifiedLogo from 'assets/imgs/verify.png';
 import { HomePageCommunitySection } from './HomePageCommunitySection';
 // import { HomePageArtistsSection } from './HomePageArtistsSection';
 // import { HomePageRecentlyListSection } from './HomePageRecentlyListSection';
@@ -25,10 +25,10 @@ export function HomePage() {
   }, []);
   const [dark, setDark] = useState(false);
   const options = {
-    type         : 'loop',
-    gap          : '1rem',
-    autoplay     : true,
-    pauseOnHover : false,
+    type: 'loop',
+    gap: '1rem',
+    autoplay: true,
+    pauseOnHover: false,
     resetProgress: false,
   };
   return (
@@ -38,10 +38,7 @@ export function HomePage() {
         <div className={styles.body}>
           <div className={styles.main}>
             <div className={styles.slider}>
-              <Splide 
-              aria-label="My Favorite Images"
-              options={options}
-              >
+              <Splide aria-label="My Favorite Images" options={options}>
                 <SplideSlide>
                   <img src="/01.jpg" alt="Image 1" />
                 </SplideSlide>
@@ -69,36 +66,26 @@ export function HomePage() {
                 className={`${styles.btnGroup} d-flex flex-wrap space-y-10 homepage-center-btn`}
               >
                 <a></a>
-                <Link to="/explore" className="btn btn-warning btn-sm home-btn">
-                  EXPLORE
+                <Link to="/explore" className="btn btn-primary btn-sm home-btn">
+                  Explore
                 </Link>
                 <Link
-                  to="/collections"
+                  to="/launchpad"
                   className="btn btn-primary btn-sm  home-btn"
                 >
-                  COLLECTIONS
+                  Go To Launchpad
                 </Link>
-                <a
-                  target="_blank"
-                  rel="noreferrer"
-                  href="https://docs.agoramarket.art"
-                  className="btn btn-dark btn-sm home-btn"
-                >
-                  <FontAwesomeIcon icon={faBook} /> Docs
-                </a>
-              </div>
-              <div className={styles.btnGroup}>
                 <TxButton
-                  className="btn btn-link btn-sm  home-btn"
-                  style={{ marginLeft: -15 }}
+                  className={dark ? "dark-btn btn btn-link btn-dark btn-sm  home-btn" : `light-btn btn btn-link btn-dark btn-sm  home-btn`}
                   onClick={() => {
                     window.location.href = '/create';
                   }}
                 >
-                  Create NFT &gt;
+                  Create NFT
                 </TxButton>
               </div>
 
+              {/* 
               <div className={styles.contact}>
                 <div className={styles.become}>
                   <div>
@@ -140,18 +127,16 @@ export function HomePage() {
                     </span>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
-
-          {!dark ? '' : ''}
         </div>
         {/* <HomePageArtistsSection /> */}
         {/* <HomePageRecentlyListSection /> */}
         <HomePageCommunitySection />
         <HomePageStartOwnCollectionSection />
         {/* <HomePageTopArtworksSection /> */}
-        <Footer isDark = {dark}/>
+        <Footer isDark={dark} />
       </div>
     </div>
   );
