@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import styles from './styles.module.scss';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
@@ -17,38 +18,6 @@ import { ethers } from 'ethers';
 import { formatError } from 'utils';
 
 
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`wrapped-tabpanel-${index}`}
-      aria-labelledby={`wrapped-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box p={3}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired,
-};
-
-function a11yProps(index) {
-  return {
-    id: `wrapped-tab-${index}`,
-    'aria-controls': `wrapped-tabpanel-${index}`,
-  };
-}
 
 const LaunchpadDetails = ({ collection }) => {
   const [dark] = useState(false);
@@ -60,7 +29,7 @@ const LaunchpadDetails = ({ collection }) => {
   const [totalSupply, setTotalSupply] = useState(0);
   const [mintError, setMintError] = useState(null);
   // const [items, setItems] = useState([]);
-  const [setNow] = useState(new Date());
+  // const [now, setNow] = useState(new Date());
 
   const { mintNFT, getERC721Contract } = useNFTContract();
   const { account } = useWeb3React();
@@ -82,7 +51,7 @@ const LaunchpadDetails = ({ collection }) => {
     };
 
     setInterval(() => {
-      setNow(new Date());
+      // setNow(new Date());
       updateTotalSupply();
     }, 1000);
 
@@ -109,6 +78,40 @@ const LaunchpadDetails = ({ collection }) => {
       setMinting(false);
     }
   };
+
+  function TabPanel(props) {
+    const { children, value, index, ...other } = props;
+  
+    return (
+      <div
+        role="tabpanel"
+        hidden={value !== index}
+        id={`wrapped-tabpanel-${index}`}
+        aria-labelledby={`wrapped-tab-${index}`}
+        {...other}
+      >
+        {value === index && (
+          <Box p={3}>
+            <Typography>{children}</Typography>
+          </Box>
+        )}
+      </div>
+    );
+  }
+  
+  TabPanel.propTypes = {
+    children: PropTypes.node,
+    index: PropTypes.any.isRequired,
+    value: PropTypes.any.isRequired,
+  };
+  
+  function a11yProps(index) {
+    return {
+      id: `wrapped-tab-${index}`,
+      'aria-controls': `wrapped-tabpanel-${index}`,
+    };
+  }
+  
 
   const MintProgress = () => {
     const percent = Math.round((totalSupply / collection.maxSupply) * 100);
@@ -182,18 +185,19 @@ const LaunchpadDetails = ({ collection }) => {
                 <p>
                   {collection.description}
                 </p>
-                <div className={dark ? `${styles.collectionbtn} btn btn-primary`: `${styles.collectionbtnLight} btn btn-primary`}>
-                  <Link to={`/collection/${collection.address}`}>Go To Collection</Link>
+                  {/* <div className={dark ? `${styles.collectionbtn} btn btn-primary`: `${styles.collectionbtnLight} btn btn-primary`}>
+                    <Link to={`/collection/${collection.address}`}>Go To Collection</Link>
+                    </div> */}
                   {account ? (
                     <button
-                      className={styles.mintButton}
+                      className={dark ? `${styles.collectionbtn} btn btn-primary`: `${styles.collectionbtnLight} btn btn-primary`}
                       onClick={handleMint}
                       disabled={minting || mintError}
                     >
                     {minting ? 'Minting...' : 'Mint'}
                     </button>
                     ) : (
-                    <button className={styles.mintButton}>Connect Wallet</button>
+                    <button className={dark ? `${styles.collectionbtn} btn btn-primary`: `${styles.collectionbtnLight} btn btn-primary`}>Connect Wallet</button>
                    )}
                   <input
                     type="number"
@@ -205,7 +209,6 @@ const LaunchpadDetails = ({ collection }) => {
                     onChange={e => setMintAmount(e.target.value)}
                     onBlur={validateMintAmount}
                   />
-                </div>
               </div>
               <div className={styles.collectionImgContainer}>
                 <div className={styles.collectionImg}>
