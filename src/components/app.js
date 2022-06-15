@@ -135,7 +135,7 @@ const App = () => {
 
           <Route exact path="/launchpad" component={LaunchpadPage} />
 
-          <Route exact path="/launchpad/collection" component={LaunchpadCollection} />
+          <Route exact path="/launchpad/:addr" component={LaunchpadCollection} />
 
           <ProtectedRoute
             path="/collection/create"

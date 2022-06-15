@@ -3,19 +3,21 @@ import { Link } from 'react-router-dom';
 import LaunchpadCountdown from './LaunchpadCountdown';
 import styles from './styles.module.scss';
 
-const LaunchCard = ({ dark, soldOut, upcoming }) => {
+
+const LaunchCard = ({ dark, soldOut, upcoming, collection }) => {
+  
   let launchDate = "06/16/2022"
   // const diff = launchDate - new Date().getTime();
   const [sale, setSale] = useState(false)
   return (
     <div className={dark ? styles.cardContainerDark : styles.cardContainer}>
-      <Link to ="/launchpad/collection">
+      <Link to ={`/launchpad/${collection.address}`}>
       <div className={styles.cardImg}>
-        <img src="/01.jpg" alt="" />
+        <img src={collection.image} alt="" />
       </div>
       <div className={styles.cardDesc}>
         <div className={styles.cardHeading}>
-          <h3 className={styles.cardTitle}>share the love</h3>
+          <h3 className={styles.cardTitle}>{collection.nameCollection}</h3>
           {
               sale ? (
                 <div className={styles.cardStatus}>
@@ -25,9 +27,7 @@ const LaunchCard = ({ dark, soldOut, upcoming }) => {
           }
         </div>
         <div className={styles.cardContent}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam iusto
-          fugit alias dolorem odit qui!
-        </div>
+          {collection.description}</div>
       </div>
       {
         (upcoming && !sale) ? (
@@ -45,11 +45,11 @@ const LaunchCard = ({ dark, soldOut, upcoming }) => {
           <div className={dark ? styles.cardBtnsDark : styles.cardBtns}>
             <div className="supply">
               <label>Items:</label>
-              <span> 300,000</span>
+              <span>{collection.maxSupply}</span>
             </div>
             <div className={styles.price}>
               <label>Price:</label>
-              <span> 65 CRO</span>
+              <span>{collection.price} CRO</span>
             </div>
           </div>
         )}
