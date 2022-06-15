@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import HeaderActions from 'actions/header.actions';
 import Header from 'components/header';
 
-import openzooicon from 'assets/svgs/openzoo_icon.svg';
+import agoraLogo from 'assets/imgs/logos/logo_8.png';
 
 import styles from './styles.module.scss';
 
@@ -29,7 +29,7 @@ const NotFound = () => {
             Back To Home
           </Link>
         </div>
-        <img src={openzooicon} alt="man" className={styles.man} />
+        <img src={agoraLogo} alt="man" className={styles.man} />
       </div>
     </div>
   );
