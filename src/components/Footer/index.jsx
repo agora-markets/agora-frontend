@@ -16,9 +16,9 @@ export function Footer(props) {
                 
               </Link>
             </div>
-            <p className="footer__text">
-              Agora is Cronos No.1 Marketplace
-            </p>
+            {/*<p className="footer__text">
+              Agora is Cronos First NFT Marketplace
+            </p>*/}
             <div>
               <ul className="footer__social space-x-10 mb-40">
                 <li>
