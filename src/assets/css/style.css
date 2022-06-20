@@ -14828,7 +14828,7 @@ label:active:after {
   visibility: hidden;
   position: absolute;
   overflow: hidden;
-  top: 4.9rem;
+  top: 5.2rem;
   left: 0;
   right: 0;
   border-radius: 10px;
@@ -15848,7 +15848,8 @@ label:active:after {
 @media screen and (max-width: 991px) {
   .footer__1 {
     padding: 70px 0 30px;
-    margin-top: 70px;
+    margin-top: 2rem;
+    padding-top: 1rem;
   }
 }
 
@@ -20723,9 +20724,11 @@ label:active:after {
 }
 
 /*.is__dark label,*/
-.is__dark .btn-dark,
-.is__dark .header__1 .header__mobile {
+.is__dark .btn-dark{
   background: #4d4d4d;
+}
+.is__dark .header__1 .header__mobile {
+  background: #0a0a0a;
 }
 
 .is__dark .rdtPicker

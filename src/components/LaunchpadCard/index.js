@@ -31,9 +31,16 @@ const LaunchpadCard = ({ dark, collection }) => {
               <label>Items:</label>
               <span>{collection.maxSupply}</span>
             </div>
-            <div className={styles.price}>
-              <label>Price:</label>
-              <span>{collection.price} CRO</span>
+          ) : (
+            <div className={dark ? styles.cardBtnsDark : styles.cardBtns}>
+              <div className="supply">
+                <label>Items:</label>
+                <span> {collection.maxSupply}</span>
+              </div>
+              <div className={styles.price}>
+                <label>Price:</label>
+                <span> {collection.price} CRO</span>
+              </div>
             </div>
           </div>
       </div>

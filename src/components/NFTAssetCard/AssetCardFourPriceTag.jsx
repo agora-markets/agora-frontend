@@ -58,9 +58,9 @@ export function AssetCardFourPriceTag(props) {
               alt={auction?.token?.symbol}
               className={styles.tokenIcon}
             />
-              {formatNumber(
+              {/* {formatNumber(
                 (parseFloat(auction.highestBid.toString()) / 1e18).toFixed(2).replace(/[.,]00$/, "") 
-              )}{' '}
+              )}{' '} */}
               {auction?.token?.symbol}
             </strong>
             <div className={styles.dollar}>
