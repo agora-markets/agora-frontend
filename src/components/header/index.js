@@ -103,17 +103,12 @@ const Header = props => {
     }
   }, [DarkMode]);
 
-  const [onlyVerified, setOnlyVerified] = React.useState(() => {
-    const onlyVerifiedValue = window.localStorage.getItem('onlyVerified');
-
-    if (onlyVerifiedValue === null) return true;
-    return onlyVerifiedValue !== null ? JSON.parse(onlyVerifiedValue) : false;
-  });
+  const onlyVerified = false
 
   useEffect(() => {
-    if (onlyVerified === true) {
-      dispatch(FilterActions.updateStatusFilter('onlyVerified', true));
-      window.localStorage.setItem('onlyVerified', true);
+    if (onlyVerified === false) {
+      dispatch(FilterActions.updateStatusFilter('onlyVerified', false));
+      window.localStorage.setItem('onlyVerified', false);
     } else {
       dispatch(FilterActions.updateStatusFilter('onlyVerified', false));
       window.localStorage.setItem('onlyVerified', false);
@@ -248,7 +243,7 @@ const Header = props => {
     deactivate();
     dispatch(WalletConnectActions.disconnectWallet());
     dispatch(AuthActions.signOut());
-    dispatch(FilterActions.updateStatusFilter('onlyVerified', true));
+    dispatch(FilterActions.updateStatusFilter('onlyVerified', false));
   };
 
   const handleClickBurgerMenu = () => {
@@ -532,7 +527,7 @@ const Header = props => {
             </ul>
           </div>
           {renderSearchBox()}
-          <div className={cx('header__menu')}>
+          {/* <div className={cx('header__menu')}>
             <ul className="d-flex space-x-20">
               <li>
                 <div className={styles.darkmodeToggle}>
@@ -542,7 +537,6 @@ const Header = props => {
                       style={{
                         width: 24,
                         height: 24,
-
                         filter: 'drop-shadow(1px 1px 0px rgba(0, 0, 0, 0.2))',
                       }}
                     />
@@ -550,7 +544,7 @@ const Header = props => {
                   <input
                     id="onlyVerified-toggle"
                     type="checkbox"
-                    checked={!onlyVerified}
+                    checked={onlyVerified}
                     onChange={() => {
                       // Delete //
                       window.localStorage.removeItem('explore_tokens');
@@ -558,7 +552,7 @@ const Header = props => {
                       window.localStorage.removeItem('explore_from');
                       window.localStorage.removeItem('explore_to');
                       window.localStorage.removeItem('fromTop');
-                      setOnlyVerified(!onlyVerified);
+                      // setOnlyVerified(!onlyVerified);
                     }}
                   />
                   <label
@@ -582,7 +576,7 @@ const Header = props => {
                     Collections
                   </span>
                 </div>
-              </li>
+              </li> */}
               {/* <li>
                 <div className={styles.darkmodeToggle}>
                   <span style={{ marginRight: 5, display: 'flex' }}>
@@ -608,8 +602,8 @@ const Header = props => {
                   </span>
                 </div>
               </li> */}
-            </ul>
-          </div>
+            {/* </ul>
+          </div> */}
 
           <div className="d-flex align-items-center space-x-20 sm:space-x-10">
             {account ? (
@@ -691,7 +685,7 @@ const Header = props => {
                   </li>
                 }
 
-                <li>
+                {/* <li>
                   <div className={styles.darkmodeToggle}>
                     <span style={{ marginLeft: 5, display: 'flex' }}>
                       <img
@@ -733,7 +727,7 @@ const Header = props => {
                       Collections
                     </span>
                   </div>
-                </li>
+                </li> */}
                
               </ul>
               {account ? (
