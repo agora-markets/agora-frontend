@@ -1,14 +1,14 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
-// import LaunchpadCountdown from './LaunchpadCountdown';
+import LaunchpadCountdown from './LaunchpadCountdown';
 import styles from './styles.module.scss';
 
 
-const LaunchpadCard = ({ dark, collection }) => {
+const FinishedCard = ({ dark, soldOut, upcoming, collection }) => {
   
-  // let launchDate = "06/16/2022"
+  let launchDate = "06/16/2022"
   // const diff = launchDate - new Date().getTime();
-  // const [sale, setSale] = useState(false)
+  const [sale, setSale] = useState(false)
   return (
     <div className={dark ? styles.cardContainerDark : styles.cardContainer}>
       <Link to ={`/launchpad/${collection.address}`}>
@@ -18,14 +18,30 @@ const LaunchpadCard = ({ dark, collection }) => {
       <div className={styles.cardDesc}>
         <div className={styles.cardHeading}>
           <h3 className={styles.cardTitle}>{collection.nameCollection}</h3>
+          {
+              sale ? (
                 <div className={styles.cardStatus}>
                 <span>Live</span>
               </div>
+              ): ''
+          }
         </div>
         <div className={styles.cardContent}>
           {collection.description}</div>
       </div>
+      {
+        (upcoming && !sale) ? (
+          <div className="countdown-timer">
+            <LaunchpadCountdown date={launchDate} setSale={setSale}/>
+          </div>
+        ): ''
+      }
       <div >
+        {soldOut ? (
+          <div className={styles.soldoutBtn}>
+            <button disabled="disabled">Sold Out</button>
+          </div>
+        ) : (
           <div className={dark ? styles.cardBtnsDark : styles.cardBtns}>
             <div className="supply">
               <label>Items:</label>
@@ -36,10 +52,11 @@ const LaunchpadCard = ({ dark, collection }) => {
               <span>{collection.price} CRO</span>
             </div>
           </div>
+        )}
       </div>
       </Link>
     </div>
   );
 };
 
-export default LaunchpadCard;
+export default FinishedCard;
