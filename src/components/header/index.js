@@ -32,8 +32,8 @@ import FilterActions from '../../actions/filter.actions';
 import { HeaderAvatarMenu } from './HeaderAvatarMenu';
 //import { HeaderNotificationMenu } from './HeaderNotificationMenu';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSun, faMoon, faAngleUp } from '@fortawesome/free-solid-svg-icons';
-const Header = (props) => {
+import { faAngleUp } from '@fortawesome/free-solid-svg-icons';
+const Header = props => {
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -53,7 +53,6 @@ const Header = (props) => {
     state => state.Modal
   );
 
-
   const [loading, setLoading] = useState(false);
   const [searchBarActive, setSearchBarActive] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
@@ -63,9 +62,10 @@ const Header = (props) => {
     false
   );
   const [isVerify, setIsVerfiy] = useState(false);
-  const [verifyCollectionModalVisible, setVerifyCollectionModalVisible] = useState(
-    false
-  );
+  const [
+    verifyCollectionModalVisible,
+    setVerifyCollectionModalVisible,
+  ] = useState(false);
   const [isWarn, setIsWarn] = useState(false);
   const [warnCollectionModalVisible, setWarnCollectionModalVisible] = useState(
     false
@@ -88,25 +88,20 @@ const Header = (props) => {
   const [tokenDetailsLoading, setTokenDetailsLoading] = useState(false);
   const timer = useRef(null);
 
-  const [DarkMode, setDarkMode] = React.useState(() => {
-    const DarkValue = window.localStorage.getItem('darkmode');
-    return DarkValue !== null
-      ? JSON.parse(DarkValue)
-      : false;
-  });
+  const DarkMode = true
+
 
   useEffect(() => {
     if (DarkMode === true) {
       document.body.classList.add('is__dark');
       window.localStorage.setItem('darkmode', true);
-      props?.setDark && props.setDark(true)
-    }
-    else {
+      props?.setDark && props.setDark(true);
+    } else {
       document.body.classList.remove('is__dark');
       window.localStorage.setItem('darkmode', false);
-      props?.setDark && props.setDark(false)
+      props?.setDark && props.setDark(false);
     }
-  }, [DarkMode])
+  }, [DarkMode]);
 
   const [onlyVerified, setOnlyVerified] = React.useState(() => {
     const onlyVerifiedValue = window.localStorage.getItem('onlyVerified');
@@ -116,16 +111,14 @@ const Header = (props) => {
   });
 
   useEffect(() => {
-
     if (onlyVerified === true) {
       dispatch(FilterActions.updateStatusFilter('onlyVerified', true));
       window.localStorage.setItem('onlyVerified', true);
-    }
-    else {
+    } else {
       dispatch(FilterActions.updateStatusFilter('onlyVerified', false));
       window.localStorage.setItem('onlyVerified', false);
     }
-  }, [onlyVerified])
+  }, [onlyVerified]);
 
   const login = async () => {
     try {
@@ -258,88 +251,69 @@ const Header = (props) => {
     dispatch(FilterActions.updateStatusFilter('onlyVerified', true));
   };
 
-
-
   const handleClickBurgerMenu = () => {
     setBurgerActive(previousValue => !previousValue);
   };
 
-
-
   const addMod = () => {
     setIsAdding(true);
     setModModalVisible(true);
-
   };
 
   const removeMod = () => {
     setIsAdding(false);
     setModModalVisible(true);
-
   };
 
   const reviewCollections = () => {
     history.push('/collection/review');
-
   };
 
   const banCollection = () => {
     setIsBan(true);
     setBanCollectionModalVisible(true);
-
   };
 
   const unbanCollection = () => {
     setIsBan(false);
     setBanCollectionModalVisible(true);
-
   };
 
   const verifyCollection = () => {
     setIsVerfiy(true);
     setVerifyCollectionModalVisible(true);
-
   };
 
   const unverifyCollection = () => {
     setIsVerfiy(false);
     setVerifyCollectionModalVisible(true);
-
   };
 
   const warnCollection = () => {
     setIsWarn(true);
     setWarnCollectionModalVisible(true);
-
   };
 
   const unwarnCollection = () => {
     setIsWarn(false);
     setWarnCollectionModalVisible(true);
-
   };
 
   const banItems = () => {
     setBanItemModalVisible(true);
-
   };
 
   const banUser = () => {
     setBanUserModalVisible(true);
-
   };
 
   const unbanUser = () => {
     setUnbanUserModalVisible(true);
-
   };
 
   const boostCollection = () => {
     setBoostCollectionModalVisible(true);
-
   };
-
-
 
   const renderSearchBox = () => (
     <div className={cx(styles.searchcont)}>
@@ -393,16 +367,17 @@ const Header = (props) => {
                     window.localStorage.removeItem('collection_from');
                     window.localStorage.removeItem('collection_to');
                     window.localStorage.removeItem('collection_fromTop');
-
                   }}
                 >
                   <img
                     className={styles.resultimg}
-                    src={`${getRandomIPFS('', true)}${collection.logoImageHash
-                      }`}
+                    src={`${getRandomIPFS('', true)}${
+                      collection.logoImageHash
+                    }`}
                   />
                   <div className={styles.resulttitle}>
-                    {collection.collectionName} {collection?.isVerified && <img src={verifiedLogo} />}
+                    {collection.collectionName}{' '}
+                    {collection?.isVerified && <img src={verifiedLogo} />}
                   </div>
                 </Link>
               ))}
@@ -452,15 +427,11 @@ const Header = (props) => {
                   <div className={styles.resultimg}>
                     {tokenDetailsLoading ? (
                       <Skeleton width={40} height={40} />
-                    ) : (
-                      (tk.thumbnailPath.length > 10 ? (
-                        <img src={`${apiUrl}/image/${tk.thumbnailPath}`} />
-                      ) : tk.thumbnailPath === '.' ? (
-                        <img src={tk.imageURL} />
-                      ) : null)
-
-                    )}
-
+                    ) : tk.thumbnailPath.length > 10 ? (
+                      <img src={`${apiUrl}/image/${tk.thumbnailPath}`} />
+                    ) : tk.thumbnailPath === '.' ? (
+                      <img src={tk.imageURL} />
+                    ) : null}
                   </div>
                   <div className={styles.resulttitle}>{tk.name}</div>
                 </Link>
@@ -493,19 +464,22 @@ const Header = (props) => {
           bundles.length === 0 && (
             <div className={styles.noResults}>No Results</div>
           )}
-
       </div>
     );
   };
 
   const scrollToTop = () => {
     window.scrollTo(0, 0);
-  }
+  };
 
   return (
     <header className={cx('header__1', 'js-header', styles.header)}>
-          <marquee direction= "right" scrollamount="15">This is a beta version of the Agora marketplace</marquee>
-      <div onClick={scrollToTop} className="scroll-to-top"><FontAwesomeIcon icon={faAngleUp} /></div>
+      <marquee direction="right" scrollamount="12">
+        This is a beta version of the Agora marketplace
+      </marquee>
+      <div onClick={scrollToTop} className="scroll-to-top">
+        <FontAwesomeIcon icon={faAngleUp} />
+      </div>
       <div className={'container'}>
         <div className={'wrapper js-header-wrapper'}>
           <div className="header__logo">
@@ -535,6 +509,15 @@ const Header = (props) => {
                   Explore
                 </NavLink>
               </li>
+              <li>
+                <NavLink
+                  to="/launchpad"
+                  className={'color_black'}
+                  activeClassName={styles.active}
+                >
+                  Launchpad
+                </NavLink>
+              </li>
               {
                 <li>
                   <NavLink
@@ -554,12 +537,15 @@ const Header = (props) => {
               <li>
                 <div className={styles.darkmodeToggle}>
                   <span style={{ marginLeft: 5, display: 'flex' }}>
-                    <img src={verifiedLogo} style={{
-                      width: 24,
-                      height: 24,
+                    <img
+                      src={verifiedLogo}
+                      style={{
+                        width: 24,
+                        height: 24,
 
-                      filter: 'drop-shadow(1px 1px 0px rgba(0, 0, 0, 0.2))',
-                    }} />
+                        filter: 'drop-shadow(1px 1px 0px rgba(0, 0, 0, 0.2))',
+                      }}
+                    />
                   </span>
                   <input
                     id="onlyVerified-toggle"
@@ -582,13 +568,22 @@ const Header = (props) => {
                   >
                     Toggle
                   </label>
-                  <span style={{ marginRight: 5, display: 'flex', fontSize: 11, textAlign: 'left', lineHeight: '11px' }}>
-                    All<br />Collections
+                  <span
+                    style={{
+                      marginRight: 5,
+                      display: 'flex',
+                      fontSize: 11,
+                      textAlign: 'left',
+                      lineHeight: '11px',
+                    }}
+                  >
+                    All
+                    <br />
+                    Collections
                   </span>
-
                 </div>
               </li>
-              <li>
+              {/* <li>
                 <div className={styles.darkmodeToggle}>
                   <span style={{ marginRight: 5, display: 'flex' }}>
                     <FontAwesomeIcon icon={faSun} />
@@ -612,18 +607,15 @@ const Header = (props) => {
                     <FontAwesomeIcon icon={faMoon} />
                   </span>
                 </div>
-              </li>
-
+              </li> */}
             </ul>
           </div>
 
           <div className="d-flex align-items-center space-x-20 sm:space-x-10">
-
             {account ? (
               <>
                 {/*<HeaderNotificationMenu />*/}
                 <HeaderAvatarMenu
-
                   user={user}
                   loading={loading}
                   isAdmin={
@@ -646,11 +638,7 @@ const Header = (props) => {
                   boostCollection={boostCollection}
                 />
                 <div className="header__btns">
-                  <NavLink
-                    to="/create"
-                    className={'btn btn-warning btn-sm'}
-
-                  >
+                  <NavLink to="/create" className={'btn btn-warning btn-sm'}>
                     Create
                   </NavLink>
                 </div>
@@ -690,6 +678,11 @@ const Header = (props) => {
                     Explore
                   </NavLink>
                 </li>
+                <li>
+                  <NavLink to="/launchpad" className={'color_black'}>
+                    Launchpad
+                  </NavLink>
+                </li>
                 {
                   <li>
                     <NavLink className="color_black" to="/collections">
@@ -701,12 +694,15 @@ const Header = (props) => {
                 <li>
                   <div className={styles.darkmodeToggle}>
                     <span style={{ marginLeft: 5, display: 'flex' }}>
-                      <img src={verifiedLogo} style={{
-                        width: 24,
-                        height: 24,
+                      <img
+                        src={verifiedLogo}
+                        style={{
+                          width: 24,
+                          height: 24,
 
-                        filter: 'drop-shadow(1px 1px 0px rgba(0, 0, 0, 0.2))',
-                      }} />
+                          filter: 'drop-shadow(1px 1px 0px rgba(0, 0, 0, 0.2))',
+                        }}
+                      />
                     </span>
                     <input
                       id="onlyVerified-toggle"
@@ -723,37 +719,22 @@ const Header = (props) => {
                     >
                       Toggle
                     </label>
-                    <span style={{ marginRight: 5, display: 'flex', fontSize: 11, textAlign: 'left', lineHeight: '11px' }}>
-                      All<br />Collections
-                    </span>
-
-                  </div>
-                </li>
-                <li>
-                  <div className={styles.darkmodeToggle}>
-                    <span style={{ marginRight: 5, display: 'flex' }}>
-                      <FontAwesomeIcon icon={faSun} />
-                    </span>
-                    <input
-                      id="darkmode-toggle"
-                      type="checkbox"
-                      checked={DarkMode}
-                      onChange={() => {
-                        setDarkMode(!DarkMode);
+                    <span
+                      style={{
+                        marginRight: 5,
+                        display: 'flex',
+                        fontSize: 11,
+                        textAlign: 'left',
+                        lineHeight: '11px',
                       }}
-                    />
-                    <label
-                      style={{ marginBottom: 0 }}
-                      className="toggle"
-                      htmlFor={`darkmode-toggle`}
                     >
-                      Toggle
-                    </label>
-                    <span style={{ marginLeft: 5, display: 'flex' }}>
-                      <FontAwesomeIcon icon={faMoon} />
+                      All
+                      <br />
+                      Collections
                     </span>
                   </div>
                 </li>
+               
               </ul>
               {account ? (
                 <div className="col-md-12 col-sm-12">
