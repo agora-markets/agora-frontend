@@ -1,10 +1,9 @@
 import React from 'react';
 
 import logoDark from 'assets/imgs/logos/logo_2.png';
-import logoLight from 'assets/imgs/logos/logo_5.png';
 import { Link } from 'react-router-dom';
 
-export function Footer(props) {
+export function Footer() {
   return (
     <footer className="footer__1">
       <div className="container">
@@ -12,7 +11,7 @@ export function Footer(props) {
           <div className="col-lg-6 space-y-20">
             <div className="footer__logo">
               <Link to="/" className="d-flex align-items-center space-x-10">
-                <img src={props.isDark ? logoDark : logoLight} alt="logo" id="logo_js_f" />
+                <img src={logoDark} alt="logo" id="logo_js_f" />
                 
               </Link>
             </div>

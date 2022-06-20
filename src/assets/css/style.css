@@ -15848,6 +15848,7 @@ label:active:after {
 @media screen and (max-width: 991px) {
   .footer__1 {
     padding: 70px 0 30px;
+    margin-top: 2rem;
     padding-top: 1rem;
   }
 }
