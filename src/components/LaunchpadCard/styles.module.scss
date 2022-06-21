@@ -28,18 +28,31 @@
       align-items: center;
       margin: 1rem 0;
 
+      h3{
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        width: 70%;
+      }
+
       .cardStatus {
         border: 1px solid #ff00d6;
         border-radius: 8px;
         color: #ff00d6;
         font-size: 14px;
         padding: 0.25rem 0.75rem;
+        width: 25%;
+        text-align: center;
       }
     }
 
     .cardContent {
       color: #b2b2b2;
       text-overflow: ellipsis;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;  
       overflow: hidden;
     }
   }
