@@ -26,12 +26,6 @@ const LaunchpadCard = ({ dark, collection }) => {
           {collection.description}</div>
       </div>
       <div >
-          <div className={dark ? styles.cardBtnsDark : styles.cardBtns}>
-            <div className="supply">
-              <label>Items:</label>
-              <span>{collection.maxSupply}</span>
-            </div>
-          ) : (
             <div className={dark ? styles.cardBtnsDark : styles.cardBtns}>
               <div className="supply">
                 <label>Items:</label>
@@ -43,7 +37,6 @@ const LaunchpadCard = ({ dark, collection }) => {
               </div>
             </div>
           </div>
-      </div>
       </Link>
     </div>
   );
