@@ -477,7 +477,8 @@ const Header = props => {
       </div>
       <div className={'container'}>
         <div className={'wrapper js-header-wrapper'}>
-          <div className="header__logo">
+         <div className={cx(styles.wrapperlist)}>
+         <div className="header__logo">
             <Link to="/" className={'header__logo'}>
               <img src={DarkMode ? logoDark : logoLight} alt="logo" />
             </Link>
@@ -527,6 +528,7 @@ const Header = props => {
             </ul>
           </div>
           {renderSearchBox()}
+         </div>
           {/* <div className={cx('header__menu')}>
             <ul className="d-flex space-x-20">
               <li>
