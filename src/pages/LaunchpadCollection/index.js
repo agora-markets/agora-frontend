@@ -14,6 +14,7 @@ const LaunchpadCollection = () => {
       id: 0,
       nameCollection: 'CronoGlyphs',
       sale: 'Public Sale',
+      status: 'Live',
       description:
         'The very first generative art collection on Cronos. Cronoglyphs are 1111 unique 32x32 generative glyph-art compositions based on 6 different glyph sets. #CRO',
       maxSupply: 1111,
@@ -36,6 +37,7 @@ const LaunchpadCollection = () => {
       id: 1,
       nameCollection: 'Share The Love',
       sale: 'Public Sale',
+      status: 'Live',
       description:
         'This project will become something not done in this space yet. All holders will get a special surprise to share their love.',
       maxSupply: 2000,
