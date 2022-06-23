@@ -11,7 +11,7 @@ import styles from './styles.module.scss';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faBook } from '@fortawesome/free-solid-svg-icons';
 // import verifiedLogo from 'assets/imgs/verify.png';
-import { HomePageCommunitySection } from './HomePageCommunitySection';
+// import { HomePageCommunitySection } from './HomePageCommunitySection';
 // import { HomePageArtistsSection } from './HomePageArtistsSection';
 // import { HomePageRecentlyListSection } from './HomePageRecentlyListSection';
 import { HomePageStartOwnCollectionSection } from './HomePageStartOwnCollectionSection';
@@ -133,7 +133,7 @@ export function HomePage() {
         </div>
         {/* <HomePageArtistsSection /> */}
         {/* <HomePageRecentlyListSection /> */}
-        <HomePageCommunitySection />
+        {/* <HomePageCommunitySection /> */}
         <HomePageStartOwnCollectionSection />
         {/* <HomePageTopArtworksSection /> */}
         <Footer />
