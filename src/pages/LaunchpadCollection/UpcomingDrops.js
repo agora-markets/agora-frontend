@@ -41,7 +41,7 @@ const LaunchpadCollection = () => {
       image: '/csg.png',
       maxMintAmount: 10,
       address: '0x6D2da5AE4ef3766c5E327Fe3aF32c07Ef3Facd4b',
-      discord: 'https://discord.gg/xXsVphhtQQ',
+      discord: 'https://discord.gg/5yRc4MptnW',
       twitter: 'https://twitter.com/shaggy_dao',
       website: 'https://shaggygalaxy.club/',
       roadmap: <div><h2>Minting and DAO</h2>
@@ -58,7 +58,7 @@ const LaunchpadCollection = () => {
       teamMemberDetails1: <p>Founder, Web3 Dev</p>,
       teamMemberDetails2: <p>Graphic Designer</p>,
       teamMemberDetails3: <p>Dev, Animator</p>,
-      launchDate: '07/01/22'
+      launchDate: '2022-07-01T20:00'
     },
   ];
   
