@@ -58,7 +58,7 @@ const LaunchpadCollection = () => {
       teamMemberDetails1: <p>Founder, Web3 Dev</p>,
       teamMemberDetails2: <p>Graphic Designer</p>,
       teamMemberDetails3: <p>Dev, Animator</p>,
-      launchDate: '2022-07-01T20:00'
+      launchDate: '2022-07-01T22:00'
     },
   ];
   

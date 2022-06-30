@@ -72,7 +72,7 @@ export function LaunchpadPage() {
         contractAddress: '0x6D2da5AE4ef3766c5E327Fe3aF32c07Ef3Facd4b',
         price: '150',
         maxSupply: '10000',
-        launchDate: '07/01/22',
+        launchDate: '2022-07-01T22:00',
         },
         
       ];
