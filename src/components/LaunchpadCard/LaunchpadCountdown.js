@@ -59,15 +59,12 @@ const ShowCounter = ({ days, hours, minutes, seconds }) => {
   );
 };
 
-const LaunchpadCountdown = ({ date, setSale }) => {
+const LaunchpadCountdown = ({ date }) => {
   const [days, hours, minutes, seconds] = useCountdown(date);
 
   if (days + hours + minutes + seconds <= 0) {
-   setSale(true);
-   return(
-       <>
-       </>
-   )
+    //  setSale(true);
+    return <></>;
   } else {
     return (
       <ShowCounter
