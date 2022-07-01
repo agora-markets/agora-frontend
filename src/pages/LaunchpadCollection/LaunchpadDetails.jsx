@@ -17,8 +17,6 @@ import showToast from 'utils/toast';
 import { ethers } from 'ethers';
 import { formatError } from 'utils';
 
-
-
 const LaunchpadDetails = ({ collection }) => {
   const [dark] = useState(false);
   const [value, setValue] = useState('one');
@@ -81,7 +79,7 @@ const LaunchpadDetails = ({ collection }) => {
 
   function TabPanel(props) {
     const { children, value, index, ...other } = props;
-  
+
     return (
       <div
         role="tabpanel"
@@ -98,20 +96,19 @@ const LaunchpadDetails = ({ collection }) => {
       </div>
     );
   }
-  
+
   TabPanel.propTypes = {
     children: PropTypes.node,
     index: PropTypes.any.isRequired,
     value: PropTypes.any.isRequired,
   };
-  
+
   function a11yProps(index) {
     return {
       id: `wrapped-tab-${index}`,
       'aria-controls': `wrapped-tabpanel-${index}`,
     };
   }
-  
 
   const MintProgress = () => {
     const percent = Math.round((totalSupply / collection.maxSupply) * 100);
@@ -130,203 +127,199 @@ const LaunchpadDetails = ({ collection }) => {
         </Box>
       </Box>
     );
-  }
-  
+  };
+
   MintProgress.propTypes = {
     value: PropTypes.number.isRequired,
   };
-
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
   return (
-        <div className={styles.body}>
-          <div className={styles.main}>
-            <div className={styles.topSection}>
-              <div className={styles.collectionInfo}>
-                <h1>{collection.nameCollection}</h1>
-                <div className={styles.linksRow}>
-                  <div className="items">
-                    <p>
-                      Total Items <strong>{collection.maxSupply}</strong>
-                    </p>
-                  </div>
-                  <div className="price">
-                    <p>
-                      Price <strong >{collection.price} CRO</strong>
-                    </p>
-                  </div>
-                  <div className="webIcons">
-                    <a
-                      href={collection.discord}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <i className="ri-discord-line"></i>
-                    </a>
-                    <a
-                      href={collection.twitter}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <i className="ri-twitter-line"></i>
-                    </a>
-                    <a
-                      href={collection.website}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <i className="ri-global-line"></i>
-                    </a>
-                  </div>
-                </div>
+    <div className={styles.body}>
+      <div className={styles.main}>
+        <div className={styles.topSection}>
+          <div className={styles.collectionInfo}>
+            <h1>{collection.nameCollection}</h1>
+            <div className={styles.linksRow}>
+              <div className="items">
                 <p>
-                  {collection.description}
+                  Total Items <strong>{collection.maxSupply}</strong>
                 </p>
-                  {/* <div className={dark ? `${styles.collectionbtn} btn btn-primary`: `${styles.collectionbtnLight} btn btn-primary`}>
-                    <Link to={`/collection/${collection.address}`}>Go To Collection</Link>
-                    </div> */}
-                  {account ? (
-                    <button
-                      className={dark ? `${styles.collectionbtn} btn btn-primary`: `${styles.collectionbtnLight} btn btn-primary`}
-                      onClick={handleMint}
-                      disabled={minting || mintError}
-                    >
-                    {minting ? 'Minting...' : 'Mint'}
-                    </button>
-                    ) : (
-                    <button className={dark ? `${styles.collectionbtn} btn btn-primary`: `${styles.collectionbtnLight} btn btn-primary`}>Connect Wallet</button>
-                   )}
-                  <input
-                    type="number"
-                    max={collection.maxMintAmount}
-                    step={1}
-                    min={1}
-                    className={styles.formInput}
-                    value={mintAmount}
-                    onChange={e => setMintAmount(e.target.value)}
-                    onBlur={validateMintAmount}
-                  />
               </div>
-              <div className={styles.collectionImgContainer}>
-                <div className={styles.collectionImg}>
-                  <img src={collection.image} alt="" />
-                </div>
-                <div className={styles.progressRow}>
-                  <MintProgress supply={collection.maxSupply} />
-                </div>
+              <div className="price">
+                <p>
+                  Price <strong>{collection.price} CRO</strong>
+                </p>
+              </div>
+              <div className="webIcons">
+                <a
+                  href={collection.discord}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <i className="ri-discord-line"></i>
+                </a>
+                <a
+                  href={collection.twitter}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <i className="ri-twitter-line"></i>
+                </a>
+                <a
+                  href={collection.website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <i className="ri-global-line"></i>
+                </a>
               </div>
             </div>
-            <hr />
-            <div className={styles.bottomSection}>
-              <div className={styles.description}>
-                <h1>{collection.nameCollection}</h1>
-                <div className={styles.linksRow}>
-                  <div className="d-flex align-items-center">
-                    Discord{' '}
-                    <a
-                      href={collection.discord}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <i className="ri-discord-line"></i>
-                    </a>
-                  </div>
-                  <div className="d-flex align-items-center">
-                    Twitter
-                    <a
-                      href={collection.discord}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <i className="ri-twitter-line"></i>
-                    </a>
-                  </div>
-                  <div className="d-flex align-items-center">
-                    Website
-                    <a
-                      href={collection.website}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <i className="ri-global-line"></i>
-                    </a>
-                  </div>
-                  <div className="d-flex align-items-center">
-                    Contract
-                    <a
-                      href={`https://cronoscan.com/address/${collection.address}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <i className="ri-newspaper-line"></i>
-                    </a>
-                  </div>
-                </div>
-                <div className="project-description">
-                  <p>
-                  {collection.description}
-                  </p>
-                </div>
-              </div>
-              <div className={` ${styles.tabs}`}>
-                <AppBar position="static">
-                  <Tabs
-                    value={value}
-                    onChange={handleChange}
-                    aria-label="wrapped label tabs example"
-                  >
-                    <Tab
-                      value="one"
-                      label="Roadmap"
-                      wrapped
-                      {...a11yProps('one')}
-                    />
-                    <Tab
-                      value="two"
-                      label="Team"
-                      wrapped
-                      {...a11yProps('two')}
-                    />
-                  </Tabs>
-                </AppBar>
-                <TabPanel value={value} index="one">
-                  {collection.roadmap}
-                </TabPanel>
-                <TabPanel value={value} index="two">
-                  <ul>
-                    <li>
-                      <div>
-                        <h3 className="text-primary">{collection.teamMember1}</h3>
-                        <p>
-                          {collection.teamMemberDetails1}
-                        </p>
-                      </div>
-                    </li>
-                    <li>
-                      <div>
-                        <h3 className="text-primary">{collection.teamMember2}</h3>
-                        <p>
-                          {collection.teamMemberDetails2}
-                        </p>
-                      </div>
-                    </li>
-                    <li>
-                      <div>
-                        <h3 className="text-primary">{collection.teamMember3}</h3>
-                        <p>
-                          {collection.teamMemberDetails3}
-                        </p>
-                      </div>
-                    </li>
-                  </ul>
-                </TabPanel>
-              </div>
+            <p>{collection.description}</p>
+            {/* <div className={dark ? `${styles.collectionbtn} btn btn-primary`: `${styles.collectionbtnLight} btn btn-primary`}>
+                    <Link to={`/collection/${collection.address}`}>Go To Collection</Link>
+                    </div> */}
+            {account ? (
+              <button
+                className={
+                  dark
+                    ? `${styles.collectionbtn} btn btn-primary`
+                    : `${styles.collectionbtnLight} btn btn-primary`
+                }
+                onClick={handleMint}
+                disabled={minting || mintError}
+              >
+                {minting ? 'Minting...' : 'Mint'}
+              </button>
+            ) : (
+              <button
+                className={
+                  dark
+                    ? `${styles.collectionbtn} btn btn-primary`
+                    : `${styles.collectionbtnLight} btn btn-primary`
+                }
+              >
+                Connect Wallet
+              </button>
+            )}
+            <input
+              type="number"
+              max={collection.maxMintAmount}
+              step={1}
+              min={1}
+              className={styles.formInput}
+              value={mintAmount}
+              onChange={e => setMintAmount(e.target.value)}
+              onBlur={validateMintAmount}
+            />
+          </div>
+          <div className={styles.collectionImgContainer}>
+            <div className={styles.collectionImg}>
+              <img src={collection.image} alt="" />
+            </div>
+            <div className={styles.progressRow}>
+              <MintProgress supply={collection.maxSupply} />
             </div>
           </div>
         </div>
+        <hr />
+        <div className={styles.bottomSection}>
+          <div className={styles.description}>
+            <h1>{collection.nameCollection}</h1>
+            <div className={styles.linksRow}>
+              <div className="d-flex align-items-center">
+                Discord{' '}
+                <a
+                  href={collection.discord}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <i className="ri-discord-line"></i>
+                </a>
+              </div>
+              <div className="d-flex align-items-center">
+                Twitter
+                <a
+                  href={collection.discord}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <i className="ri-twitter-line"></i>
+                </a>
+              </div>
+              <div className="d-flex align-items-center">
+                Website
+                <a
+                  href={collection.website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <i className="ri-global-line"></i>
+                </a>
+              </div>
+              <div className="d-flex align-items-center">
+                Contract
+                <a
+                  href={`https://cronoscan.com/address/${collection.address}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <i className="ri-newspaper-line"></i>
+                </a>
+              </div>
+            </div>
+            <div className="project-description">
+              <p>{collection.description}</p>
+            </div>
+          </div>
+          <div className={` ${styles.tabs}`}>
+            <AppBar position="static">
+              <Tabs
+                value={value}
+                onChange={handleChange}
+                aria-label="wrapped label tabs example"
+              >
+                <Tab
+                  value="one"
+                  label="Roadmap"
+                  wrapped
+                  {...a11yProps('one')}
+                />
+                <Tab value="two" label="Team" wrapped {...a11yProps('two')} />
+              </Tabs>
+            </AppBar>
+            <TabPanel value={value} index="one">
+              {collection.roadmap}
+            </TabPanel>
+            <TabPanel value={value} index="two">
+              <ul>
+                <li>
+                  <div>
+                    <h3 className="text-primary">{collection.teamMember1}</h3>
+                    <p>{collection.teamMemberDetails1}</p>
+                  </div>
+                </li>
+                <li>
+                  <div>
+                    <h3 className="text-primary">{collection.teamMember2}</h3>
+                    <p>{collection.teamMemberDetails2}</p>
+                  </div>
+                </li>
+                <li>
+                  <div>
+                    <h3 className="text-primary">{collection.teamMember3}</h3>
+                    <p>{collection.teamMemberDetails3}</p>
+                  </div>
+                </li>
+              </ul>
+            </TabPanel>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 

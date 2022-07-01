@@ -35,6 +35,7 @@ import { LaunchpadPage } from 'pages/Launchpad';
 import { useApi } from 'api';
 import LaunchpadCollection from 'pages/LaunchpadCollection';
 import UpcomingDrops from 'pages/LaunchpadCollection/UpcomingDrops';
+import NFTStaking from 'pages/Staking';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -138,6 +139,7 @@ const App = () => {
 
           <Route exact path="/launchpad/:addr" component={LaunchpadCollection} />
           <Route exact path="/launchpad/upcoming/:addr" component={UpcomingDrops} />
+          <Route exact path="/staking" component={NFTStaking} />
 
           <ProtectedRoute
             path="/collection/create"

@@ -6,7 +6,6 @@ import styles from './styles.module.scss';
 import LaunchpadCard from 'components/LaunchpadCard';
 import UpcomingCard from 'components/LaunchpadCard/Upcoming';
 
-
 export function LaunchpadPage() {
   const [dark, setDark] = useState(false);
 
@@ -61,47 +60,48 @@ export function LaunchpadPage() {
 
   const upcoming = [
     {
-        image: '/csg.png',
-        title: 'Cronos Shaggy Galaxy',
-        description:
+      image: '/csg.png',
+      title: 'Cronos Shaggy Galaxy',
+      description:
         'CSG is a collection of 10,000 unique, cute and shaggy creatures living on the Cronos chain. Owning a shaggy grants you access to the ShaggyDAO',
-        twitter: 'twitter.com/shaggy_dao',
-        discord: 'discord.gg/xXsVphhtQQ',
-        telegram: '',
-        website: 'https://shaggygalaxy.club/',
-        contractAddress: '0x6D2da5AE4ef3766c5E327Fe3aF32c07Ef3Facd4b',
-        price: '150',
-        maxSupply: '10000',
-        launchDate: '07/01/22',
-        },
-        
-      ];
+      twitter: 'twitter.com/shaggy_dao',
+      discord: 'discord.gg/xXsVphhtQQ',
+      telegram: '',
+      website: 'https://shaggygalaxy.club/',
+      contractAddress: '0x6D2da5AE4ef3766c5E327Fe3aF32c07Ef3Facd4b',
+      price: '150',
+      maxSupply: '10000',
+      launchDate: '07/01/22',
+    },
+  ];
 
   return (
     <div className="overflow-hidden">
-      <div className={`${styles.container} ${styles.homepage}`}>
+      <div className={`${styles.container}`}>
         <Header setDark={setDark} />
         <div className={styles.body}>
           <div className={styles.main}>
             <div className={styles.selectPool}>
-              <a href="https://forms.gle/EUkxuCETSerjHTXN7" >Apply to Launchpad</a>
+              <a href="https://forms.gle/EUkxuCETSerjHTXN7">
+                Apply to Launchpad
+              </a>
             </div>
             <div className={styles.poolSection}>
               <h2>Ongoing Drops</h2>
               <div className={styles.cardRow}>
-               {collectionsLaunchpad.map((collec, key) => (
-               <LaunchpadCard key={key} collection={collec} dark={dark}/>
+                {collectionsLaunchpad.map((collec, key) => (
+                  <LaunchpadCard key={key} collection={collec} dark={dark} />
                 ))}
               </div>
             </div>
             <div className={styles.poolSection}>
               <h2>Upcoming Drops</h2>
               <div className={styles.cardRow}>
-              {upcoming.map((upcoming, key) =>
-              <UpcomingCard key={key} upcoming={upcoming} dark={dark} />
-              )}
-            </div>
-            {/* <div className={styles.poolSection}>
+                {upcoming.map((upcoming, key) => (
+                  <UpcomingCard key={key} upcoming={upcoming} dark={dark} />
+                ))}
+              </div>
+              {/* <div className={styles.poolSection}>
               <h2>Finished Drops</h2>
               <div className={styles.cardRow}>
                 <LaunchCard dark={dark} soldOut={true} />
@@ -109,8 +109,8 @@ export function LaunchpadPage() {
                 <LaunchCard dark={dark} soldOut={true} />
               </div>
                </div> */}
+            </div>
           </div>
-        </div>
         </div>
         <Footer isDark={dark} />
       </div>

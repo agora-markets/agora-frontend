@@ -88,8 +88,7 @@ const Header = props => {
   const [tokenDetailsLoading, setTokenDetailsLoading] = useState(false);
   const timer = useRef(null);
 
-  const DarkMode = true
-
+  const DarkMode = true;
 
   useEffect(() => {
     if (DarkMode === true) {
@@ -103,7 +102,7 @@ const Header = props => {
     }
   }, [DarkMode]);
 
-  const onlyVerified = false
+  const onlyVerified = false;
 
   useEffect(() => {
     if (onlyVerified === false) {
@@ -477,15 +476,15 @@ const Header = props => {
       </div>
       <div className={'container'}>
         <div className={'wrapper js-header-wrapper'}>
-         <div className={cx(styles.wrapperlist)}>
-         <div className="header__logo">
-            <Link to="/" className={'header__logo'}>
-              <img src={DarkMode ? logoDark : logoLight} alt="logo" />
-            </Link>
-          </div>
-          <div className={cx('header__menu', styles.left)}>
-            <ul className="d-flex space-x-20">
-              {/*
+          <div className={cx(styles.wrapperlist)}>
+            <div className="header__logo">
+              <Link to="/" className={'header__logo'}>
+                <img src={DarkMode ? logoDark : logoLight} alt="logo" />
+              </Link>
+            </div>
+            <div className={cx('header__menu', styles.left)}>
+              <ul className="d-flex space-x-20">
+                {/*
               <li>
                 <NavLink
                   to="/home"
@@ -496,39 +495,48 @@ const Header = props => {
                 </NavLink>
               </li>
               */}
-              <li>
-                <NavLink
-                  to="/explore"
-                  className={'color_black'}
-                  activeClassName={styles.active}
-                >
-                  Explore
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/launchpad"
-                  className={'color_black'}
-                  activeClassName={styles.active}
-                >
-                  Launchpad
-                </NavLink>
-              </li>
-              {
                 <li>
                   <NavLink
-                    to="/collections"
+                    to="/explore"
                     className={'color_black'}
                     activeClassName={styles.active}
                   >
-                    Collections
+                    Explore
                   </NavLink>
                 </li>
-              }
-            </ul>
+                <li>
+                  <NavLink
+                    to="/launchpad"
+                    className={'color_black'}
+                    activeClassName={styles.active}
+                  >
+                    Launchpad
+                  </NavLink>
+                </li>
+                {/* <li>
+                  <NavLink
+                    to="/staking"
+                    className={'color_black'}
+                    activeClassName={styles.active}
+                  >
+                    Staking
+                  </NavLink>
+                </li> */}
+                {
+                  <li>
+                    <NavLink
+                      to="/collections"
+                      className={'color_black'}
+                      activeClassName={styles.active}
+                    >
+                      Collections
+                    </NavLink>
+                  </li>
+                }
+              </ul>
+            </div>
+            {renderSearchBox()}
           </div>
-          {renderSearchBox()}
-         </div>
           {/* <div className={cx('header__menu')}>
             <ul className="d-flex space-x-20">
               <li>
@@ -579,7 +587,7 @@ const Header = props => {
                   </span>
                 </div>
               </li> */}
-              {/* <li>
+          {/* <li>
                 <div className={styles.darkmodeToggle}>
                   <span style={{ marginRight: 5, display: 'flex' }}>
                     <FontAwesomeIcon icon={faSun} />
@@ -604,7 +612,7 @@ const Header = props => {
                   </span>
                 </div>
               </li> */}
-            {/* </ul>
+          {/* </ul>
           </div> */}
 
           <div className="d-flex align-items-center space-x-20 sm:space-x-10">
@@ -679,6 +687,11 @@ const Header = props => {
                     Launchpad
                   </NavLink>
                 </li>
+                {/* <li>
+                  <NavLink to="/staking" className={'color_black'}>
+                    Staking
+                  </NavLink>
+                </li> */}
                 {
                   <li>
                     <NavLink className="color_black" to="/collections">
@@ -730,7 +743,6 @@ const Header = props => {
                     </span>
                   </div>
                 </li> */}
-               
               </ul>
               {account ? (
                 <div className="col-md-12 col-sm-12">
