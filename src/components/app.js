@@ -34,7 +34,6 @@ import { CollectionList } from 'pages/CollectionList';
 import { LaunchpadPage } from 'pages/Launchpad';
 import { useApi } from 'api';
 import LaunchpadCollection from 'pages/LaunchpadCollection';
-import UpcomingDrops from 'pages/LaunchpadCollection/UpcomingDrops';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -137,7 +136,6 @@ const App = () => {
           <Route exact path="/launchpad" component={LaunchpadPage} />
 
           <Route exact path="/launchpad/:addr" component={LaunchpadCollection} />
-          <Route exact path="/launchpad/upcoming/:addr" component={UpcomingDrops} />
 
           <ProtectedRoute
             path="/collection/create"
