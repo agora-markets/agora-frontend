@@ -29,9 +29,9 @@ const LaunchpadDetails = ({ collection }) => {
   const [totalSupply, setTotalSupply] = useState(0);
   const [mintError, setMintError] = useState(null);
   // const [items, setItems] = useState([]);
-  // const [now, setNow] = useState(new Date());
+  // const [setNow] = useState(new Date());
 
-  const { getERC721Contract } = useNFTContract();
+  const { mintNFT, getERC721Contract } = useNFTContract();
   const { account } = useWeb3React();
 
   const validateMintAmount = () => {
@@ -62,8 +62,8 @@ const LaunchpadDetails = ({ collection }) => {
     setMinting(true);
 
     try {
-      const contract = await getERC721Contract(collection.address)
-      const tx = await contract.mintToken(
+      const tx = await mintNFT(
+        collection.address,
         mintAmount,
         ethers.utils.parseEther((collection.price * mintAmount).toString()),
         account
