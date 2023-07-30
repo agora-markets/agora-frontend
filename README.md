@@ -1,16 +1,14 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/fef080cb-1f75-44d2-bd4e-2297a9192f08/deploy-status)](https://app.netlify.com/sites/agoramarkets/deploys)
+# Client for Tenart Marketplace - Powered by Tenet
 
-# Client for Agora Marketplace - Powered by Cronos
+A client side implementation of the Tenart Marketplace for NFT trading on Tenet Chain.
 
-A client side implementation of the Agora Marketplace for NFT trading on Cronos Chain.
-
-Agora allows users: 
-- to explore existing NFTs on Cronos.
+Tenart allows users: 
+- to explore existing NFTs on Tenet.
 - to create a new collection of a new NFT
 - to register a collection of already deployed NFT.
 - to buy / sell / collect rare NFTs.
 
-See [Guide](https://docs.agoracro.com)
+See [Guide](https://docs.Tenartcro.com)
 
 ## Project Setup
 ```
