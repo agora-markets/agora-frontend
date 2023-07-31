@@ -45,7 +45,7 @@ import {
   VerticalSplit as VerticalSplitIcon,
   Subject as SubjectIcon,
   Redeem as RedeemIcon,
-  DynamicFeed as DynamicFeedIcon
+  DynamicFeed as DynamicFeedIcon,
 } from '@material-ui/icons';
 import toast from 'react-hot-toast';
 
@@ -57,7 +57,6 @@ import {
   useSalesContract,
   useAuctionContract,
   useBundleSalesContract,
-
 } from 'contracts';
 import useConnectionUtils from 'hooks/useConnectionUtils';
 import {
@@ -99,7 +98,10 @@ import iconTwitter from 'assets/svgs/twitter_blue.svg';
 
 import styles from './styles.module.scss';
 import FilterActions from '../../actions/filter.actions';
-import { useZooBoosterContract, useZooElixirContract } from 'contracts/zookeeper';
+import {
+  useZooBoosterContract,
+  useZooElixirContract,
+} from 'contracts/zookeeper';
 
 const ONE_MIN = 60;
 const ONE_HOUR = ONE_MIN * 60;
@@ -110,12 +112,12 @@ const filters = ['Trade History', 'Transfer History'];
 
 // eslint-disable-next-line no-undef
 const ENV = process.env.REACT_APP_ENV;
-const CHAIN = ENV === 'MAINNET' ? 25 : ChainId.ARBITRUM;
+const CHAIN = ENV === 'MAINNET' ? 1559 : 155;
 
 const NFTItem = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const {getSigner} = useConnectionUtils();
+  const { getSigner } = useConnectionUtils();
   const {
     explorerUrl,
     storageUrl,
@@ -184,13 +186,8 @@ const NFTItem = () => {
     cancelBundleOffer,
     acceptBundleOffer,
   } = useBundleSalesContract();
-  const {
-    getBoosting,
-    getLockTimeReduce
-  } = useZooBoosterContract();
-  const {
-    getElixir
-  } = useZooElixirContract();
+  const { getBoosting, getLockTimeReduce } = useZooBoosterContract();
+  const { getElixir } = useZooElixirContract();
 
   const { addr: address, id: tokenID, bundleID } = useParams();
   const { getTokenByAddress, tokens } = useTokens();
@@ -300,7 +297,7 @@ const NFTItem = () => {
   const prevAuthToken = usePrevious(authToken);
 
   const isLoggedIn = () => {
-    return account && (ENV === 'MAINNET' ? chainId === 25 : chainId === ChainId.ARBITRUM);
+    return account && (ENV === 'MAINNET' ? chainId === 1559 : chainId === 155);
   };
 
   useEffect(() => {
@@ -1233,8 +1230,6 @@ const NFTItem = () => {
       .catch(console.log);
   }, [address]);
 
-
-
   useEffect(() => {
     if (address && tokenID && tokenType.current && filter === 1) {
       getItemTransferHistory();
@@ -1261,16 +1256,16 @@ const NFTItem = () => {
       let missingTokens = moreItems.current.map((tk, index) =>
         tk.items
           ? {
-            index,
-            isLiked: tk.isLiked,
-            bundleID: tk._id,
-          }
+              index,
+              isLiked: tk.isLiked,
+              bundleID: tk._id,
+            }
           : {
-            index,
-            isLiked: tk.isLiked,
-            contractAddress: tk.contractAddress,
-            tokenID: tk.tokenID,
-          }
+              index,
+              isLiked: tk.isLiked,
+              contractAddress: tk.contractAddress,
+              tokenID: tk.tokenID,
+            }
       );
       if (prevAuthToken) {
         missingTokens = missingTokens.filter(tk => tk.isLiked === undefined);
@@ -2430,46 +2425,39 @@ const NFTItem = () => {
     }
   };
 
-  
   const [zooBoosterBoosting, setzooBoosterBoosting] = useState(0);
   const [zooBoosterLockTimeReduce, setzooBoosterLockTimeReduce] = useState(0);
   const [zooElixir, setzooElixir] = useState({});
   useEffect(() => {
-    
     // ZooBooster //
     if (Contracts[CHAIN].zooBooster.toLowerCase() === address.toLowerCase()) {
       getBoosting(tokenID).then(ret => {
         setzooBoosterBoosting(100 * (Number(ret.toString()) / 1e12 - 1));
       });
       getLockTimeReduce(tokenID).then(ret => {
-        setzooBoosterLockTimeReduce(100 * (1 - (Number(ret.toString()) / 1e12)));
+        setzooBoosterLockTimeReduce(100 * (1 - Number(ret.toString()) / 1e12));
       });
     }
 
     // ZooElixir //
     if (Contracts[CHAIN].zooElixir.toLowerCase() === address.toLowerCase()) {
       getElixir(tokenID).then(ret => {
-        
         setzooElixir(ret);
         //console.log('Elixir Info',ret);
         //console.log('Elixir Info',zooElixir);
       });
     }
-
-
   }, [tokenID]);
 
-  const numberToColor = (number, diff=0) =>
-  {
-    return '#'+((number%16777215)+diff).toString(16).padStart(6,'0');
-  }
+  const numberToColor = (number, diff = 0) => {
+    return '#' + ((number % 16777215) + diff).toString(16).padStart(6, '0');
+  };
 
   const renderAttributes = attributes => {
     //console.log(attributes);
     const res = [];
     // ZooBooster //
     if (Contracts[CHAIN].zooBooster.toLowerCase() === address.toLowerCase()) {
-
       res.push(
         <>
           <div key={'zooBooster_boosting'} className={styles.attribute}>
@@ -2486,97 +2474,160 @@ const NFTItem = () => {
           </div>
         </>
       );
-
     }
 
     // ZooElixir //
     if (Contracts[CHAIN].zooElixir.toLowerCase() === address.toLowerCase()) {
       let levelImg = '';
-      switch(zooElixir?.level.toString())
-      {
-        case '1':levelImg=<img src="/ZooBooster/class/N.png" />; break;
-        case '2':levelImg=<img src="/ZooBooster/class/R.png" />; break;
-        case '3':levelImg=<img src="/ZooBooster/class/SR.png" />; break;
-        case '4':levelImg=<img src="/ZooBooster/class/SSR.png" />; break;
-        case '5':levelImg=<img src="/ZooBooster/class/UR.png" />; break;
+      switch (zooElixir?.level.toString()) {
+        case '1':
+          levelImg = <img src="/ZooBooster/class/N.png" />;
+          break;
+        case '2':
+          levelImg = <img src="/ZooBooster/class/R.png" />;
+          break;
+        case '3':
+          levelImg = <img src="/ZooBooster/class/SR.png" />;
+          break;
+        case '4':
+          levelImg = <img src="/ZooBooster/class/SSR.png" />;
+          break;
+        case '5':
+          levelImg = <img src="/ZooBooster/class/UR.png" />;
+          break;
       }
       res.push(
         <>
           <div key={'zooElixir_name'} className={styles.attribute}>
             <div className={styles.attributeLabel}>Name</div>
-            <div className={styles.attributeValue}>
-              {zooElixir?.name}
-            </div>
+            <div className={styles.attributeValue}>{zooElixir?.name}</div>
           </div>
           <div key={'zooElixir_drops'} className={styles.attribute}>
             <div className={styles.attributeLabel}>Drops</div>
             <div className={styles.attributeValue}>
-              {Number(zooElixir?.drops.toString())/1e18}%
+              {Number(zooElixir?.drops.toString()) / 1e18}%
             </div>
           </div>
           <div key={'zooElixir_level'} className={styles.attribute}>
             <div className={styles.attributeLabel}>Level</div>
-            <div className={styles.attributeValue}>
-              {levelImg}
-            </div>
+            <div className={styles.attributeValue}>{levelImg}</div>
           </div>
           <div key={'zooElixir_color'} className={styles.attribute}>
             <div className={styles.attributeLabel}>Color</div>
             <div className={styles.attributeValue}>
-              <div style={{width:20,height:20,borderRadius:'50%',background:numberToColor(Number(zooElixir?.color.toString()))}}>
-              </div>
+              <div
+                style={{
+                  width: 20,
+                  height: 20,
+                  borderRadius: '50%',
+                  background: numberToColor(
+                    Number(zooElixir?.color.toString())
+                  ),
+                }}
+              ></div>
             </div>
           </div>
         </>
       );
-
     }
 
     Object.keys(attributes).map((key, idx) => {
       // ZooBooster //
       if (Contracts[CHAIN].zooBooster.toLowerCase() === address.toLowerCase()) {
-
         if (attributes[key].trait_type === 'category') {
           switch (attributes[key].value) {
-            case '1': attributes[key].value = <img src="/ZooBooster/category/fruits.png" />; break;
-            case '2': attributes[key].value = <img src="/ZooBooster/category/foods.png" />; break;
-            case '3': attributes[key].value = <img src="/ZooBooster/category/sweets.png" />; break;
-            case '4': attributes[key].value = <img src="/ZooBooster/category/potions.png" />; break;
-            case '5': attributes[key].value = <img src="/ZooBooster/category/spices.png" />; break;
-            case '6': attributes[key].value = <img src="/ZooBooster/category/magic.png" />; break;
+            case '1':
+              attributes[key].value = (
+                <img src="/ZooBooster/category/fruits.png" />
+              );
+              break;
+            case '2':
+              attributes[key].value = (
+                <img src="/ZooBooster/category/foods.png" />
+              );
+              break;
+            case '3':
+              attributes[key].value = (
+                <img src="/ZooBooster/category/sweets.png" />
+              );
+              break;
+            case '4':
+              attributes[key].value = (
+                <img src="/ZooBooster/category/potions.png" />
+              );
+              break;
+            case '5':
+              attributes[key].value = (
+                <img src="/ZooBooster/category/spices.png" />
+              );
+              break;
+            case '6':
+              attributes[key].value = (
+                <img src="/ZooBooster/category/magic.png" />
+              );
+              break;
           }
         }
         if (attributes[key].trait_type === 'level') {
           switch (attributes[key].value) {
-            case '1': attributes[key].value = <img src="/ZooBooster/star.png" />; break;
-            case '2': attributes[key].value = <><img src="/ZooBooster/star.png" /><img src="/ZooBooster/star.png" /></>; break;
-            case '3': attributes[key].value = <><img src="/ZooBooster/star.png" /><img src="/ZooBooster/star.png" /><img src="/ZooBooster/star.png" /></>; break;
-            case '4': attributes[key].value = <img src="/ZooBooster/max.png" />; break;
+            case '1':
+              attributes[key].value = <img src="/ZooBooster/star.png" />;
+              break;
+            case '2':
+              attributes[key].value = (
+                <>
+                  <img src="/ZooBooster/star.png" />
+                  <img src="/ZooBooster/star.png" />
+                </>
+              );
+              break;
+            case '3':
+              attributes[key].value = (
+                <>
+                  <img src="/ZooBooster/star.png" />
+                  <img src="/ZooBooster/star.png" />
+                  <img src="/ZooBooster/star.png" />
+                </>
+              );
+              break;
+            case '4':
+              attributes[key].value = <img src="/ZooBooster/max.png" />;
+              break;
           }
         }
         if (attributes[key].trait_type === 'item') {
           attributes[key].trait_type = 'Class';
           switch (attributes[key].value) {
-            case '1': attributes[key].value = <img src="/ZooBooster/class/N.png" />; break;
-            case '2': attributes[key].value = <img src="/ZooBooster/class/R.png" />; break;
-            case '3': attributes[key].value = <img src="/ZooBooster/class/SR.png" />; break;
-            case '4': attributes[key].value = <img src="/ZooBooster/class/SSR.png" />; break;
-            case '5': attributes[key].value = <img src="/ZooBooster/class/UR.png" />; break;
+            case '1':
+              attributes[key].value = <img src="/ZooBooster/class/N.png" />;
+              break;
+            case '2':
+              attributes[key].value = <img src="/ZooBooster/class/R.png" />;
+              break;
+            case '3':
+              attributes[key].value = <img src="/ZooBooster/class/SR.png" />;
+              break;
+            case '4':
+              attributes[key].value = <img src="/ZooBooster/class/SSR.png" />;
+              break;
+            case '5':
+              attributes[key].value = <img src="/ZooBooster/class/UR.png" />;
+              break;
           }
         }
       }
 
       res.push(
         <div key={idx} className={styles.attribute}>
-          <div className={styles.attributeLabel}>{attributes[key].trait_type}</div>
-          <div className={styles.attributeValue}>
-            {attributes[key].value}
+          <div className={styles.attributeLabel}>
+            {attributes[key].trait_type}
           </div>
+          <div className={styles.attributeValue}>{attributes[key].value}</div>
         </div>
       );
     });
     return res;
-  }
+  };
 
   const renderProperties = properties => {
     const res = [];
@@ -2739,8 +2790,9 @@ const NFTItem = () => {
         <div className={styles.bestBuy}>
           <div
             className={styles.unlockableLabel}
-          >{`This item has unlockable content.${!isMine ? ' Only owners can see the content.' : ''
-            }`}</div>
+          >{`This item has unlockable content.${
+            !isMine ? ' Only owners can see the content.' : ''
+          }`}</div>
           {isMine ? (
             unlockableContent ? (
               <textarea
@@ -2790,15 +2842,15 @@ const NFTItem = () => {
           </div>
           {bestListing.owner.toLocaleLowerCase() !==
             account?.toLocaleLowerCase() && (
-              <TxButton
-                className={cx(styles.buyNow, buyingItem && styles.disabled)}
-                onClick={
-                  bundleID ? handleBuyBundle : () => handleBuyItem(bestListing)
-                }
-              >
-                {buyingItem ? <ClipLoader color="#FFF" size={16} /> : 'Buy Now'}
-              </TxButton>
-            )}
+            <TxButton
+              className={cx(styles.buyNow, buyingItem && styles.disabled)}
+              onClick={
+                bundleID ? handleBuyBundle : () => handleBuyItem(bestListing)
+              }
+            >
+              {buyingItem ? <ClipLoader color="#FFF" size={16} /> : 'Buy Now'}
+            </TxButton>
+          )}
         </div>
       )}
     </>
@@ -3045,7 +3097,7 @@ const NFTItem = () => {
                     className={cx(
                       styles.headerButton,
                       (auctionStarting || auctionUpdating || auctionEnded) &&
-                      styles.disabled
+                        styles.disabled
                     )}
                     onClick={() => {
                       !auctionEnded && setAuctionModalVisible(true);
@@ -3235,7 +3287,6 @@ const NFTItem = () => {
               </div>
             )}
 
-
             {bundleID && (
               <div className={cx(styles.panelWrapper, styles.infoPanel)}>
                 {renderBundleInfoPanel()}
@@ -3264,13 +3315,13 @@ const NFTItem = () => {
                       ? auctionEnded
                         ? 'Sale ended'
                         : `Sale ends in ${formatDuration(
-                          auction.current.endTime
-                        )} (${new Date(
-                          auction.current.endTime * 1000
-                        ).toLocaleString()})`
+                            auction.current.endTime
+                          )} (${new Date(
+                            auction.current.endTime * 1000
+                          ).toLocaleString()})`
                       : `Sale starts in ${formatDuration(
-                        auction.current.startTime
-                      )}`
+                          auction.current.startTime
+                        )}`
                   }
                   fixed
                 >
@@ -3338,36 +3389,36 @@ const NFTItem = () => {
                     )}
                     {!isMine &&
                       (!auctionActive() &&
-                        bid?.bidder?.toLowerCase() === account?.toLowerCase()
+                      bid?.bidder?.toLowerCase() === account?.toLowerCase()
                         ? now.getTime() / 1000 >=
-                        auction?.current?.endTime + 43200 && (
-                          <div
-                            className={cx(
-                              styles.withdrawBid,
-                              bidWithdrawing && styles.disabled
-                            )}
-                            onClick={() => handleWithdrawBid()}
-                          >
-                            {bidWithdrawing
-                              ? 'Withdrawing Bid...'
-                              : 'Withdraw Bid'}
-                          </div>
-                        )
+                            auction?.current?.endTime + 43200 && (
+                            <div
+                              className={cx(
+                                styles.withdrawBid,
+                                bidWithdrawing && styles.disabled
+                              )}
+                              onClick={() => handleWithdrawBid()}
+                            >
+                              {bidWithdrawing
+                                ? 'Withdrawing Bid...'
+                                : 'Withdraw Bid'}
+                            </div>
+                          )
                         : // )
-                        !isMine &&
-                        bid?.bidder?.toLowerCase() !==
-                        account?.toLowerCase() &&
-                        auctionActive() && (
-                          <div
-                            className={cx(
-                              styles.placeBid,
-                              bidPlacing && styles.disabled
-                            )}
-                            onClick={() => setBidModalVisible(true)}
-                          >
-                            Place Bid
-                          </div>
-                        ))}
+                          !isMine &&
+                          bid?.bidder?.toLowerCase() !==
+                            account?.toLowerCase() &&
+                          auctionActive() && (
+                            <div
+                              className={cx(
+                                styles.placeBid,
+                                bidPlacing && styles.disabled
+                              )}
+                              onClick={() => setBidModalVisible(true)}
+                            >
+                              Place Bid
+                            </div>
+                          ))}
                     {isMine && auctionEnded && !auction.current.resulted && (
                       <div
                         className={cx(
@@ -3376,7 +3427,7 @@ const NFTItem = () => {
                         )}
                         onClick={
                           bid === null ||
-                            bid?.bid < auction.current?.reservePrice
+                          bid?.bid < auction.current?.reservePrice
                             ? cancelCurrentAuction
                             : handleResultAuction
                         }
@@ -3448,108 +3499,108 @@ const NFTItem = () => {
                   {console.log('!listings', listings)}
                   {bundleID
                     ? bundleListing.current && (
-                      <div className={styles.listing}>
-                        <div className={styles.owner}>
-                          {loading ? (
-                            <Skeleton width={100} height={20} />
-                          ) : (
-                            <Link to={`/account/${owner}`}>
+                        <div className={styles.listing}>
+                          <div className={styles.owner}>
+                            {loading ? (
+                              <Skeleton width={100} height={20} />
+                            ) : (
+                              <Link to={`/account/${owner}`}>
+                                <div className={styles.userAvatarWrapper}>
+                                  {ownerInfo?.imageHash ? (
+                                    <img
+                                      src={`https://agoramarket.mypinata.cloud/ipfs/${ownerInfo.imageHash}`}
+                                      className={styles.userAvatar}
+                                    />
+                                  ) : (
+                                    <Identicon
+                                      account={owner}
+                                      size={24}
+                                      className={styles.userAvatar}
+                                    />
+                                  )}
+                                </div>
+                                {isMine
+                                  ? 'Me'
+                                  : ownerInfo?.alias || shortenAddress(owner)}
+                              </Link>
+                            )}
+                          </div>
+                          <div className={styles.price}>
+                            {loading ? (
+                              <Skeleton width={100} height={20} />
+                            ) : (
+                              <>
+                                <img
+                                  src={bundleListing.current.token?.icon}
+                                  className={styles.tokenIcon}
+                                />
+                                {formatNumber(bundleListing.current.price)}
+                              </>
+                            )}
+                          </div>
+                          <div className={styles.buy}>
+                            {!isMine && (
+                              <TxButton
+                                className={cx(
+                                  styles.buyButton,
+                                  buyingItem && styles.disabled
+                                )}
+                                onClick={handleBuyBundle}
+                              >
+                                {buyingItem ? (
+                                  <ClipLoader color="#FFF" size={16} />
+                                ) : (
+                                  'Buy'
+                                )}
+                              </TxButton>
+                            )}
+                          </div>
+                        </div>
+                      )
+                    : listings.current.map((listing, idx) => (
+                        <div className={styles.listing} key={idx}>
+                          <div className={styles.owner}>
+                            <Link to={`/account/${listing.owner}`}>
                               <div className={styles.userAvatarWrapper}>
-                                {ownerInfo?.imageHash ? (
+                                {listing.image ? (
                                   <img
-                                    src={`https://agoramarket.mypinata.cloud/ipfs/${ownerInfo.imageHash}`}
+                                    src={`https://agoramarket.mypinata.cloud/ipfs/${listing.image}`}
                                     className={styles.userAvatar}
                                   />
                                 ) : (
                                   <Identicon
-                                    account={owner}
+                                    account={listing.owner}
                                     size={24}
                                     className={styles.userAvatar}
                                   />
                                 )}
                               </div>
-                              {isMine
-                                ? 'Me'
-                                : ownerInfo?.alias || shortenAddress(owner)}
+                              {listing.alias || listing.owner?.substr(0, 6)}
                             </Link>
-                          )}
-                        </div>
-                        <div className={styles.price}>
-                          {loading ? (
-                            <Skeleton width={100} height={20} />
-                          ) : (
-                            <>
-                              <img
-                                src={bundleListing.current.token?.icon}
-                                className={styles.tokenIcon}
-                              />
-                              {formatNumber(bundleListing.current.price)}
-                            </>
-                          )}
-                        </div>
-                        <div className={styles.buy}>
-                          {!isMine && (
-                            <TxButton
-                              className={cx(
-                                styles.buyButton,
-                                buyingItem && styles.disabled
-                              )}
-                              onClick={handleBuyBundle}
-                            >
-                              {buyingItem ? (
-                                <ClipLoader color="#FFF" size={16} />
-                              ) : (
-                                'Buy'
-                              )}
-                            </TxButton>
-                          )}
-                        </div>
-                      </div>
-                    )
-                    : listings.current.map((listing, idx) => (
-                      <div className={styles.listing} key={idx}>
-                        <div className={styles.owner}>
-                          <Link to={`/account/${listing.owner}`}>
-                            <div className={styles.userAvatarWrapper}>
-                              {listing.image ? (
-                                <img
-                                  src={`https://agoramarket.mypinata.cloud/ipfs/${listing.image}`}
-                                  className={styles.userAvatar}
-                                />
-                              ) : (
-                                <Identicon
-                                  account={listing.owner}
-                                  size={24}
-                                  className={styles.userAvatar}
-                                />
-                              )}
-                            </div>
-                            {listing.alias || listing.owner?.substr(0, 6)}
-                          </Link>
-                        </div>
-                        <div className={styles.price}>
-                          <img
-                            src={listing.token?.icon}
-                            className={styles.tokenIcon}
-                          />
-                          {formatNumber(listing.price)}&nbsp;(
-                          {prices[listing.token?.address] !== undefined ? (
-                            `$${(
-                              listing.price * prices[listing.token?.address]
-                            ).toFixed(3)}`
-                          ) : (
-                            <Skeleton width={60} height={24} />
-                          )}
-                          )
-                        </div>
-                        {tokenInfo?.totalSupply > 1 && (
-                          <div className={styles.quantity}>
-                            {formatNumber(listing.quantity)}
                           </div>
-                        )}
-                        <div className={styles.buy}>
-                          {listing.owner.toLowerCase() !==
-                            account?.toLowerCase() && (
+                          <div className={styles.price}>
+                            <img
+                              src={listing.token?.icon}
+                              className={styles.tokenIcon}
+                            />
+                            {formatNumber(listing.price)}&nbsp;(
+                            {prices[listing.token?.address] !== undefined ? (
+                              `$${(
+                                listing.price * prices[listing.token?.address]
+                              ).toFixed(3)}`
+                            ) : (
+                              <Skeleton width={60} height={24} />
+                            )}
+                            )
+                          </div>
+                          {tokenInfo?.totalSupply > 1 && (
+                            <div className={styles.quantity}>
+                              {formatNumber(listing.quantity)}
+                            </div>
+                          )}
+                          <div className={styles.buy}>
+                            {listing.owner.toLowerCase() !==
+                              account?.toLowerCase() && (
                               <TxButton
                                 className={cx(
                                   styles.buyButton,
@@ -3564,9 +3615,9 @@ const NFTItem = () => {
                                 )}
                               </TxButton>
                             )}
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      ))}
                 </div>
               </Panel>
             </div>
@@ -3640,13 +3691,13 @@ const NFTItem = () => {
                                 (myHolding &&
                                   myHolding.supply >= offer.quantity)) &&
                                 offer.creator?.toLowerCase() !==
-                                account?.toLowerCase() && (
+                                  account?.toLowerCase() && (
                                   <div
                                     className={cx(
                                       styles.buyButton,
                                       (salesContractApproving ||
                                         offerAccepting) &&
-                                      styles.disabled
+                                        styles.disabled
                                     )}
                                     onClick={
                                       bundleID
@@ -3654,8 +3705,8 @@ const NFTItem = () => {
                                           ? () => handleAcceptOffer(offer)
                                           : handleApproveBundleSalesContract
                                         : salesContractApproved
-                                          ? () => handleAcceptOffer(offer)
-                                          : handleApproveSalesContract
+                                        ? () => handleAcceptOffer(offer)
+                                        : handleApproveSalesContract
                                     }
                                   >
                                     {!(bundleID
@@ -3675,20 +3726,20 @@ const NFTItem = () => {
                                 )}
                               {offer.creator?.toLowerCase() ===
                                 account?.toLowerCase() && (
-                                  <div
-                                    className={cx(
-                                      styles.buyButton,
-                                      offerCanceling && styles.disabled
-                                    )}
-                                    onClick={() => handleCancelOffer()}
-                                  >
-                                    {offerCanceling ? (
-                                      <ClipLoader color="#FFF" size={16} />
-                                    ) : (
-                                      'Withdraw'
-                                    )}
-                                  </div>
-                                )}
+                                <div
+                                  className={cx(
+                                    styles.buyButton,
+                                    offerCanceling && styles.disabled
+                                  )}
+                                  onClick={() => handleCancelOffer()}
+                                >
+                                  {offerCanceling ? (
+                                    <ClipLoader color="#FFF" size={16} />
+                                  ) : (
+                                    'Withdraw'
+                                  )}
+                                </div>
+                              )}
                             </div>
                           </div>
                         ))}
@@ -3751,8 +3802,8 @@ const NFTItem = () => {
             {(historyLoading
               ? [null, null, null]
               : filter === 0
-                ? tradeHistory.current
-                : transferHistory.current
+              ? tradeHistory.current
+              : transferHistory.current
             ).map((history, idx) => {
               const saleDate = history ? new Date(history.createdAt) : null;
               return (

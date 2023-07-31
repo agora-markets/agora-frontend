@@ -22,7 +22,7 @@ export default () => {
       } else {
         const provider = new ethers.providers.StaticJsonRpcProvider(
           isMainnet
-            ? 'https://gateway.nebkas.ro'
+            ? 'https://rpc.tenet.org'
             : 'https://arb1.arbitrum.io/rpc',
           isMainnet ? 25 : ChainId.ARBITRUM
         );

@@ -10,7 +10,7 @@ import { useApi } from 'api';
 
 // eslint-disable-next-line no-undef
 const ENV = process.env.REACT_APP_ENV;
-const CHAIN = ENV === 'MAINNET' ? 25 : 42161;
+const CHAIN = ENV === 'MAINNET' ? 1559 : 155;
 const ZOOGENES_EXCLUDED = [
   'Background Points',
   'Body Points',
@@ -49,10 +49,6 @@ export function ArtworkDetailPageAttributesView(props) {
         //console.log('Elixir Info',zooElixir);
       });
     }
-
-
-    
-
   }, [tokenID]);
 
   const { getAttributeFilterData } = useApi();
@@ -67,20 +63,19 @@ export function ArtworkDetailPageAttributesView(props) {
     }
   };
 
-  useMemo(()=>{
+  useMemo(() => {
     fetchFilterData();
-  },[])
+  }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
     if (!filterData) return;
     let parsedData = [];
-    filterData.map((v)=>{
-      if (v.isNumeric === false)
-      {
+    filterData.map(v => {
+      if (v.isNumeric === false) {
         let total_value = 0;
-        v.value.map(v2=>{
-          total_value +=  v2.count;
-        })
+        v.value.map(v2 => {
+          total_value += v2.count;
+        });
 
         let tmp = v;
         tmp.total_value = total_value;
@@ -91,18 +86,15 @@ export function ArtworkDetailPageAttributesView(props) {
 
     // parse to array //
     let result = [];
-    parsedData.map((v)=>{
+    parsedData.map(v => {
       result[v._id] = v;
-      v.value.map((v2)=>{
+      v.value.map(v2 => {
         result[v._id][v2.value] = v2;
       });
-    })
-    console.log('parsedData',result)
+    });
+    console.log('parsedData', result);
     setParsedFilterData(result);
-
-  },[filterData])
-
-
+  }, [filterData]);
 
   const numberToColor = (number, diff = 0) => {
     return '#' + ((number % 16777215) + diff).toString(16).padStart(6, '0');
@@ -297,13 +289,32 @@ export function ArtworkDetailPageAttributesView(props) {
 
             <div className={styles.attributeValue}>
               {attributes[key].value2 || attributes[key].value}
-              
-              {
-              parsedFilterData && parsedFilterData[attributes[key].trait_type] && attributes[key].value && parsedFilterData[attributes[key].trait_type][attributes[key].value].count && <span className={styles.percent}> ({
-                Number(Number(parsedFilterData[attributes[key].trait_type][attributes[key].value].count) * 100 / Number(parsedFilterData[attributes[key].trait_type].total_value)).toFixed(2)
-                }%)</span>
-            }
-              </div>
+
+              {parsedFilterData &&
+                parsedFilterData[attributes[key].trait_type] &&
+                attributes[key].value &&
+                parsedFilterData[attributes[key].trait_type][
+                  attributes[key].value
+                ].count && (
+                  <span className={styles.percent}>
+                    {' '}
+                    (
+                    {Number(
+                      (Number(
+                        parsedFilterData[attributes[key].trait_type][
+                          attributes[key].value
+                        ].count
+                      ) *
+                        100) /
+                        Number(
+                          parsedFilterData[attributes[key].trait_type]
+                            .total_value
+                        )
+                    ).toFixed(2)}
+                    %)
+                  </span>
+                )}
+            </div>
           </>
         );
         return;
@@ -322,15 +333,38 @@ export function ArtworkDetailPageAttributesView(props) {
         )}
         {attributes[key].display_type !== 'date' && (
           <div className={styles.attributeValue}>
-            {attributes[key].display_type === 'boost_number' && Number(attributes[key].value) > 0 ?'+':''}
+            {attributes[key].display_type === 'boost_number' &&
+            Number(attributes[key].value) > 0
+              ? '+'
+              : ''}
             {attributes[key].value2 || attributes[key].value}
-            
-            {
-              parsedFilterData && parsedFilterData[attributes[key].trait_type] && parsedFilterData[attributes[key].trait_type][attributes[key].value] && parsedFilterData[attributes[key].trait_type][attributes[key].value].count !== undefined && <span className={styles.percent}> ({
-                Number(Number(parsedFilterData[attributes[key].trait_type][attributes[key].value].count) * 100 / Number(parsedFilterData[attributes[key].trait_type].total_value)).toFixed(2)
-                }%)</span>
-            }
-            {attributes[key].display_type === 'boost_percentage'?'%':''}
+
+            {parsedFilterData &&
+              parsedFilterData[attributes[key].trait_type] &&
+              parsedFilterData[attributes[key].trait_type][
+                attributes[key].value
+              ] &&
+              parsedFilterData[attributes[key].trait_type][
+                attributes[key].value
+              ].count !== undefined && (
+                <span className={styles.percent}>
+                  {' '}
+                  (
+                  {Number(
+                    (Number(
+                      parsedFilterData[attributes[key].trait_type][
+                        attributes[key].value
+                      ].count
+                    ) *
+                      100) /
+                      Number(
+                        parsedFilterData[attributes[key].trait_type].total_value
+                      )
+                  ).toFixed(2)}
+                  %)
+                </span>
+              )}
+            {attributes[key].display_type === 'boost_percentage' ? '%' : ''}
           </div>
         )}
       </>

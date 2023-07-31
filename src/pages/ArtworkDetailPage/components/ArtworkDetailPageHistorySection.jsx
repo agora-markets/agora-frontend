@@ -225,6 +225,7 @@ export function ArtworkDetailPageHistorySection(props) {
                     history?.txHash && (
                       <a
                         rel="noreferrer"
+                        // eslint-disable-next-line react/jsx-no-target-blank
                         target="_blank"
                         href={explorerUrl + '/tx/' + history?.txHash}
                       >

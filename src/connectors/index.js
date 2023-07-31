@@ -1,4 +1,3 @@
-import { ChainId } from '@sushiswap/sdk';
 import { InjectedConnector } from '@web3-react/injected-connector';
 import { WalletLinkConnector } from '@web3-react/walletlink-connector';
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector';
@@ -13,40 +12,40 @@ const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
 
 const RPC = isMainnet
   ? {
-    [25]: 'https://gateway.nebkas.ro',
-  }
+      [1559]: 'https://rpc.tenet.org',
+    }
   : {
-    [ChainId.ARBITRUM]: 'https://arb1.arbitrum.io/rpc',
-  };
+      [155]: 'https://rpc.testnet.tenet.org',
+    };
 
 export const network = new NetworkConnector({
-  defaultChainId: 25,
+  defaultChainId: 155,
   urls: RPC,
 });
 
 export const injected = new InjectedConnector({
   supportedChainIds: isMainnet
     ? [
-      25, // Cronos Mainnet Beta
-    ]
+        1559, // TENET Mainnet
+      ]
     : [
-      ChainId.ARBITRUM, // Arbitrum
-    ],
+        155, // TENET Testnet
+      ],
 });
 
 export const walletlink = new WalletLinkConnector({
-  url: 'https://gateway.nebkas.ro',
-  appName: 'Agora',
+  url: 'https://rpc.testnet.tenet.org',
+  appName: 'tenart',
   appLogoUrl: AGORA_LOGO_URL,
 });
 
 export const defiwallet = new DeFiWeb3Connector({
-  supportedChainIds: [25],
-  rpc: { [25]: 'https://gateway.nebkas.ro' },
+  supportedChainIds: [155],
+  rpc: { [155]: 'https://rpc.testnet.tenet.org' },
   pollingInterval: 15000,
 });
 
 export const walletconnect = new WalletConnectConnector({
-  rpc: 'https://gateway.nebkas.ro',
-  chainId: 25,
+  rpc: 'https://rpc.testnet.tenet.org',
+  chainId: 155,
 });

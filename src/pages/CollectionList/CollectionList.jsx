@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-target-blank */
 import React, { useEffect, useRef, useState } from 'react';
 import * as Scroll from 'react-scroll';
 import {
@@ -81,7 +82,9 @@ export function CollectionList() {
   const [warnedCollections, setWarnedCollections] = useState([]);
   const [showEmbedModal, setShowEmbedModal] = useState(false);
   const [showEditCollectionModal, setShowEditCollectionModal] = useState(false);
-  const [showEditCollectionButton, setShowEditCollectionButton] = useState(false);
+  const [showEditCollectionButton, setShowEditCollectionButton] = useState(
+    false
+  );
 
   const { authToken } = useSelector(state => state.ConnectWallet);
   let { upFetching, downFetching, tokens, count, from, to } = useSelector(
@@ -111,19 +114,17 @@ export function CollectionList() {
     window.localStorage.removeItem('explore_from');
     window.localStorage.removeItem('explore_to');
     window.localStorage.removeItem('fromTop');
-    window.addEventListener("unload", function () {
+    window.addEventListener('unload', function() {
       // Delete //
       window.localStorage.removeItem('collection_tokens');
       window.localStorage.removeItem('collection_count');
       window.localStorage.removeItem('collection_from');
       window.localStorage.removeItem('collection_to');
       window.localStorage.removeItem('collection_fromTop');
-    })
+    });
   }, []);
 
-
   useEffect(() => {
-
     // Filter by Address //
     dispatch(FilterActions.updateCollectionsFilter([addr]));
 
@@ -161,12 +162,18 @@ export function CollectionList() {
   };
 
   useEffect(() => {
-    setShowEditCollectionButton(ownerInfo && user && ownerInfo.address && user.address && ownerInfo.address.toLowerCase() === user.address.toLowerCase());
+    setShowEditCollectionButton(
+      ownerInfo &&
+        user &&
+        ownerInfo.address &&
+        user.address &&
+        ownerInfo.address.toLowerCase() === user.address.toLowerCase()
+    );
   }, [ownerInfo, user]);
 
   const FilterType = {
-    Attribute: 'attributes'
-  }
+    Attribute: 'attributes',
+  };
 
   useEffect(() => {
     if (collectionData?.owner) {
@@ -175,14 +182,12 @@ export function CollectionList() {
   }, [collectionData?.owner]);
 
   useEffect(() => {
-
     if (!attributes || Object.keys(attributes).length === 0) return;
     //alert('what');
     setPrevNumPerRow(numPerRow);
     if (isNaN(numPerRow) || (prevNumPerRow && prevNumPerRow !== numPerRow))
       return;
     fetchNFTs(0, FilterType.Attribute);
-
   }, [attributes]);
 
   useEffect(() => {
@@ -190,11 +195,11 @@ export function CollectionList() {
     if (isNaN(numPerRow) || (prevNumPerRow && prevNumPerRow !== numPerRow))
       return;
 
-
-    let tmpTokens = JSON.parse(window.localStorage.getItem('collection_tokens'));
+    let tmpTokens = JSON.parse(
+      window.localStorage.getItem('collection_tokens')
+    );
 
     if (tmpTokens && tmpTokens.contractAddress === addr) {
-
       tokens = tmpTokens;
       //console.log('tmpTokens', tokens);
       count = Number(window.localStorage.getItem('collection_count'));
@@ -203,10 +208,12 @@ export function CollectionList() {
       //console.log(tokens);
       dispatch(TokensActions.fetchingSuccess(count, tokens, from, to));
 
-
       if (window.localStorage.getItem('collection_fromTop')) {
         let scroll = Scroll.animateScroll;
-        scroll.scrollTo(window.localStorage.getItem('collection_fromTop'), { duration: 0, delay: 0 });
+        scroll.scrollTo(window.localStorage.getItem('collection_fromTop'), {
+          duration: 0,
+          delay: 0,
+        });
       }
 
       // Delete //
@@ -221,7 +228,6 @@ export function CollectionList() {
       fetchNFTs(0, FilterType.Attribute);
     }
   }, [
-
     collections,
     groupType,
     category,
@@ -327,15 +333,15 @@ export function CollectionList() {
         dir > 0
           ? [...tokens, ...data.tokens]
           : dir < 0
-            ? [...data.tokens, ...tokens]
-            : data.tokens;
+          ? [...data.tokens, ...tokens]
+          : data.tokens;
       newTokens = newTokens.filter(
         (tk, idx) =>
           newTokens.findIndex(_tk =>
             tk.items
               ? tk._id === _tk._id
               : tk.contractAddress === _tk.contractAddress &&
-              tk.tokenID === _tk.tokenID
+                tk.tokenID === _tk.tokenID
           ) === idx
       );
       let _from = from;
@@ -362,13 +368,14 @@ export function CollectionList() {
         TokensActions.fetchingSuccess(data.total, newTokens, _from, _to)
       );
 
-
       // Save to LocalStorage
-      window.localStorage.setItem('collection_tokens', JSON.stringify(newTokens));
+      window.localStorage.setItem(
+        'collection_tokens',
+        JSON.stringify(newTokens)
+      );
       window.localStorage.setItem('collection_count', Number(data.total));
       window.localStorage.setItem('collection_from', Number(_from));
       window.localStorage.setItem('collection_to', Number(_to));
-
 
       if (dir === 0 && from) {
         // move scrollbar to middle
@@ -420,16 +427,16 @@ export function CollectionList() {
       let missingTokens = tokens.map((tk, index) =>
         tk.items
           ? {
-            index,
-            isLiked: tk.isLiked,
-            bundleID: tk._id,
-          }
+              index,
+              isLiked: tk.isLiked,
+              bundleID: tk._id,
+            }
           : {
-            index,
-            isLiked: tk.isLiked,
-            contractAddress: tk.contractAddress,
-            tokenID: tk.tokenID,
-          }
+              index,
+              isLiked: tk.isLiked,
+              contractAddress: tk.contractAddress,
+              tokenID: tk.tokenID,
+            }
       );
       if (prevAuthToken) {
         missingTokens = missingTokens.filter(tk => tk.isLiked === undefined);
@@ -477,9 +484,15 @@ export function CollectionList() {
           <>
             <div className="hero_marketplace bg_white">
               <div className="container">
-                {
-                  warnedCollections && warnedCollections.includes(addr) && <div className="alert alert-danger"><b><FontAwesomeIcon icon={faExclamationTriangle} /> Warning:</b> This content has been flagged by the Agora Team as suspicious.</div>
-                }
+                {warnedCollections && warnedCollections.includes(addr) && (
+                  <div className="alert alert-danger">
+                    <b>
+                      <FontAwesomeIcon icon={faExclamationTriangle} /> Warning:
+                    </b>{' '}
+                    This content has been flagged by the Agora Team as
+                    suspicious.
+                  </div>
+                )}
                 <div className="col-lg-6">
                   <div className={styles.collectionDescription}>
                     <div className={styles.logo}>
@@ -492,7 +505,7 @@ export function CollectionList() {
                       <h1>
                         {collectionData?.collectionName}{' '}
                         {collectionData?.isVerified && (
-                          <img src={VerifiedLogo}/>
+                          <img src={VerifiedLogo} />
                         )}
                       </h1>
                       <div className={styles.ownedby}>
@@ -500,7 +513,7 @@ export function CollectionList() {
                         <Link
                           to={`/account/${collectionData?.owner}`}
                           className="creators space-x-10"
-                          target={getEmbedParams().isEmbed ? "_blank" : "_self"}
+                          target={getEmbedParams().isEmbed ? '_blank' : '_self'}
                         >
                           {ownerInfo?.alias ||
                             shortenAddress(collectionData?.owner)}
@@ -601,7 +614,15 @@ export function CollectionList() {
                       </div>
                     </div>
                   </div>
-                  <div className={styles.collectionDescription} style={{ flexWrap: 'wrap', gap: 10, marginTop: 10, marginBottom: 10 }}>
+                  <div
+                    className={styles.collectionDescription}
+                    style={{
+                      flexWrap: 'wrap',
+                      gap: 10,
+                      marginTop: 10,
+                      marginBottom: 10,
+                    }}
+                  >
                     <div className="box">
                       <span>
                         {collectionStatisticData.countNFT
@@ -641,32 +662,55 @@ export function CollectionList() {
                   <div className={styles.collectionDescription}>
                     <p>{collectionData?.description}</p>
                   </div>
-                  <div style={{ display: "flex", flexDirection: "row", gap: 5, margin: "10px 0" }}>
-                    {
-                      getEmbedParams().isEmbed ?
-                        <>
-                        </> :
-                        (
-                          <div className='share-container'>
-                            <button className="btn btn-sm btn-white" onClick={() => setShowEmbedModal(true)}>
-                              <i className="ri-code-line" style={{ marginRight: "5px" }}></i>Embed
-                            </button>
-                            <EmbedModal visible={showEmbedModal} onClose={() => setShowEmbedModal(false)} embedTitle={collectionData?.collectionName} />
-                          </div>
-                        )
-                    }
-                    {
-                      showEditCollectionButton ?
-                        <div>
-                          <button className="btn btn-sm btn-white" onClick={() => setShowEditCollectionModal(true)}>
-                            <i className="ri-pencil-line" style={{ marginRight: "5px" }}></i>Edit Collection
-                          </button>
-                          <EditCollectionModal visible={showEditCollectionModal} onClose={() => setShowEditCollectionModal(false)}></EditCollectionModal>
-                        </div>
-                        :
-                        <></>
-                    }
-
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                      gap: 5,
+                      margin: '10px 0',
+                    }}
+                  >
+                    {getEmbedParams().isEmbed ? (
+                      <></>
+                    ) : (
+                      <div className="share-container">
+                        <button
+                          className="btn btn-sm btn-white"
+                          onClick={() => setShowEmbedModal(true)}
+                        >
+                          <i
+                            className="ri-code-line"
+                            style={{ marginRight: '5px' }}
+                          ></i>
+                          Embed
+                        </button>
+                        <EmbedModal
+                          visible={showEmbedModal}
+                          onClose={() => setShowEmbedModal(false)}
+                          embedTitle={collectionData?.collectionName}
+                        />
+                      </div>
+                    )}
+                    {showEditCollectionButton ? (
+                      <div>
+                        <button
+                          className="btn btn-sm btn-white"
+                          onClick={() => setShowEditCollectionModal(true)}
+                        >
+                          <i
+                            className="ri-pencil-line"
+                            style={{ marginRight: '5px' }}
+                          ></i>
+                          Edit Collection
+                        </button>
+                        <EditCollectionModal
+                          visible={showEditCollectionModal}
+                          onClose={() => setShowEditCollectionModal(false)}
+                        ></EditCollectionModal>
+                      </div>
+                    ) : (
+                      <></>
+                    )}
                   </div>
                 </div>
               </div>
