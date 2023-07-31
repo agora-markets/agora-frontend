@@ -1,5 +1,3 @@
-import { ChainId } from '@sushiswap/sdk';
-
 // import iconETH from 'assets/imgs/eth.png';
 //import iconWETH from 'assets/imgs/wwan.png';
 import iconZOO from 'assets/imgs/Zoo_ticker.svg';
@@ -13,19 +11,11 @@ import iconUSDC from 'assets/imgs/usdc.png';
 // import iconETH from 'assets/imgs/wanETH.png';
 // import iconWASP from 'assets/imgs/wasp.png';
 
-
 // eslint-disable-next-line no-undef
 const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
 
 const Tokens = {
-  25: [
-    // {
-    //   address: '',
-    //   name: 'Cronos',
-    //   symbol: 'CRO',
-    //   decimals: 18,
-    //   icon: iconWCRO,
-    // },
+  1559: [
     {
       address: '0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23',
       name: 'Wrapped Cro',
@@ -41,7 +31,7 @@ const Tokens = {
       icon: iconUSDC,
     },
   ],
-  [ChainId.ARBITRUM]: [
+  155: [
     // {
     //   address: '',
     //   name: 'Fantom',
@@ -70,7 +60,6 @@ const Tokens = {
     //   decimals: 18,
     //   icon: iconWETH,
     // },
-    
     // {
     //   address: '0x3D5950287b45F361774E5fB6e50d70eEA06Bc167',
     //   name: 'wanUSDT',
@@ -82,7 +71,7 @@ const Tokens = {
 };
 
 export default function useTokens() {
-  const chain = isMainnet ? 25 : ChainId.ARBITRUM;
+  const chain = isMainnet ? 1559 : 155;
 
   const tokens = Tokens[chain];
 

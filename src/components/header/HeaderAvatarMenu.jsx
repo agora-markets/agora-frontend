@@ -2,7 +2,7 @@ import React, { useState /*,useEffect*/ } from 'react';
 import PropTypes from 'prop-types';
 import Skeleton from 'react-loading-skeleton';
 import cx from 'classnames';
-import tokenicon from 'assets/imgs/coin-removebg2.png'
+import tokenicon from 'assets/imgs/coin-removebg2.png';
 import Identicon from 'components/Identicon';
 import { shortenAddress } from 'utils';
 import { useDetectOutsideRef } from 'hooks/useDetectOutsideRef';
@@ -17,7 +17,6 @@ import { useDispatch } from 'react-redux';
 import ModalActions from 'actions/modal.actions';
 import { useWeb3React } from '@web3-react/core';
 import { ethers } from 'ethers';
-import { ChainId } from '@sushiswap/sdk';
 import { /*useWETHContract,*/ useNFTContract } from 'contracts';
 import { formatNumber } from 'utils';
 import FaucetModal from 'components/FaucetModal';
@@ -70,8 +69,8 @@ export function HeaderAvatarMenu(props) {
     const provider = new ethers.providers.Web3Provider(web3provider);
 
     const AGO_ADDRESS = {
-      25: '0x383627CaeC2CE3b36793c34B576B2e97BEDA0466',
-      [ChainId.ARBITRUM]: '',
+      1559: '0x383627CaeC2CE3b36793c34B576B2e97BEDA0466',
+      155: '',
     };
 
     const agoContract = await getERC20Contract(AGO_ADDRESS[chainId]);
@@ -81,8 +80,6 @@ export function HeaderAvatarMenu(props) {
       // await getWETHBalance(account),
       await agoContract.balanceOf(account),
     ]);
-
-    
 
     setBalance(parseFloat(ethBal.toString()) / 10 ** 18);
     setAgoBalance(parseFloat(agoBal.toString()) / 10 ** 18);
@@ -131,7 +128,7 @@ export function HeaderAvatarMenu(props) {
   const handleOpenWrapStation = () => {
     dispatch(ModalActions.showWETHModal());
   };
-  
+
   /*
   const [onlyVerified, setOnlyVerified] = React.useState(() => {
     const onlyVerifiedValue = window.localStorage.getItem('onlyVerified');
@@ -152,7 +149,7 @@ export function HeaderAvatarMenu(props) {
   }, [onlyVerified])
 */
   return (
-    <>  
+    <>
       <FaucetModal
         account={account}
         visible={faucetModalVisible}
@@ -167,8 +164,7 @@ export function HeaderAvatarMenu(props) {
       >
         <div className="price">
           <span>
-            <img src={tokenicon} />{' '}
-            {formatNumber(parseBalance(agoBalance), 2)}
+            <img src={tokenicon} /> {formatNumber(parseBalance(agoBalance), 2)}
           </span>
         </div>
         {props.loading ? (
@@ -207,7 +203,7 @@ export function HeaderAvatarMenu(props) {
               </button>
             </div>
           </CopyToClipboard>
-          {balance  && (
+          {balance && (
             <div className="d-flex align-items-center space-x-10">
               <img
                 className={cx('coin', styles.coinImage)}
@@ -275,7 +271,8 @@ export function HeaderAvatarMenu(props) {
               <span> Create New Collection</span>
             </Link>
             <a onClick={handleOpenWrapStation}>
-              <i className="ri-refresh-fill"></i> <span> CRO / WCRO Station</span>
+              <i className="ri-refresh-fill"></i>{' '}
+              <span> CRO / WCRO Station</span>
             </a>
 
             {(props.isAdmin || props.isModerator) && (

@@ -83,7 +83,7 @@ const ConnectWalletModal = ({ visible, onClose }) => {
       return (
         <div>
           <div className={styles.text}>
-            Please connect to {isMainnet ? 'Cronos Mainnet Beta' : 'Arbitrum'}.
+            Please connect to {isMainnet ? 'Tenet Mainnet' : 'Tenet Testnet'}.
           </div>
           <div
             className={styles.switchBtn}
@@ -93,14 +93,14 @@ const ConnectWalletModal = ({ visible, onClose }) => {
                 window.alert('please install MetaMask at: MetaMask.io');
               } else {
                 try {
-                  const param = { 
-                    chainId: '0x19',
-                    chainName: 'Cronos Mainnet Beta',
-                    rpcUrls: ['https://evm.cronos.org'],
-                    blockExplorerUrls: ['https://cronoscan.com/'],
+                  const param = {
+                    chainId: '0x9b',
+                    chainName: 'Tenet Testnet',
+                    rpcUrls: ['https://rpc.testnet.tenet.org'],
+                    blockExplorerUrls: ['https://testnet.tenetscan.io/'],
                     nativeCurrency: {
-                      name: 'CRO',
-                      symbol: 'CRO', // 2-6 characters long
+                      name: 'TENET',
+                      symbol: 'TENET', // 2-6 characters long
                       decimals: 18,
                     },
                   };
@@ -115,7 +115,7 @@ const ConnectWalletModal = ({ visible, onClose }) => {
               }
             }}
           >
-            Switch to Cronos in MetaMask
+            Switch to Tenet Testnet in MetaMask
           </div>
           <div className={styles.switchBtn} onClick={deactivate}>
             Disconnect

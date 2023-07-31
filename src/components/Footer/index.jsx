@@ -12,26 +12,37 @@ export function Footer() {
             <div className="footer__logo">
               <Link to="/" className="d-flex align-items-center space-x-10">
                 <img src={logoDark} alt="logo" id="logo_js_f" />
-                
               </Link>
             </div>
             {/*<p className="footer__text">
-              Agora is Cronos First NFT Marketplace
+              Agora is Tenet First NFT Marketplace
             </p>*/}
             <div>
               <ul className="footer__social space-x-10 mb-40">
                 <li>
-                <a href="https://twitter.com/AgoramarketNFT?t=apGMF4wizF_pCw-R0IQ04g&s=09" target="_blank" rel="noopener noreferrer">
+                  <a
+                    href="https://twitter.com/AgoramarketNFT?t=apGMF4wizF_pCw-R0IQ04g&s=09"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <i className="ri-twitter-line"></i>
                   </a>
                 </li>
                 <li>
-                <a href="https://discord.gg/XybunZQ3Cv " target="_blank" rel="noopener noreferrer">
+                  <a
+                    href="https://discord.gg/XybunZQ3Cv "
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <i className="ri-discord-line"></i>
                   </a>
                 </li>
                 <li>
-                  <a href="https://t.me/AgoraMarketNFT" target="_blank" rel="noopener noreferrer">
+                  <a
+                    href="https://t.me/AgoraMarketNFT"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <i className="ri-telegram-line"></i>
                   </a>
                 </li>

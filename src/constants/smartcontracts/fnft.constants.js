@@ -1,9 +1,7 @@
-import { ChainId } from '@sushiswap/sdk';
-
 export const CronosNFTConstants = {
   ADDRESS: {
-    [25]: '0x4878Be5Aefb2d7Ec4E3f0Cd6aD3EFc79051dC4dD',
-    [ChainId.ARBITRUM]: '0xe8d29976368Fc2d8699797faA7cD3684dFf41810',
+    [1559]: '0x4878Be5Aefb2d7Ec4E3f0Cd6aD3EFc79051dC4dD',
+    [155]: '0xe8d29976368Fc2d8699797faA7cD3684dFf41810',
   },
   ABI: [
     {

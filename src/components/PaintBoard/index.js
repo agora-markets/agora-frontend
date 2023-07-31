@@ -5,7 +5,7 @@ import React, {
   useState,
   useCallback,
   Suspense,
-  Fragment
+  Fragment,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
@@ -17,7 +17,6 @@ import { BigNumber, ethers } from 'ethers';
 import { useDropzone } from 'react-dropzone';
 import Dropzone from 'react-dropzone';
 import Skeleton from 'react-loading-skeleton';
-import { ChainId } from '@sushiswap/sdk';
 import Select from 'react-dropdown-select';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
@@ -38,7 +37,7 @@ import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import HeaderActions from 'actions/header.actions';
 import BootstrapTooltip from 'components/BootstrapTooltip';
 import PriceInput from 'components/PriceInput';
-import { calculateGasMargin, formatError} from 'utils';
+import { calculateGasMargin, formatError } from 'utils';
 import useConnectionUtils from 'hooks/useConnectionUtils';
 import showToast from 'utils/toast';
 import useContract from 'utils/sc.interaction';
@@ -50,7 +49,12 @@ import { PageLayout } from 'components/Layouts';
 import Datetime from 'react-datetime';
 import ReactPlayer from 'react-player';
 import { Canvas } from 'react-three-fiber';
-import { OrbitControls, Stage, useAnimations, Environment } from '@react-three/drei';
+import {
+  OrbitControls,
+  Stage,
+  useAnimations,
+  Environment,
+} from '@react-three/drei';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 const mintSteps = [
@@ -125,7 +129,7 @@ function Model({ scene, animations }) {
 const PaintBoard = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const {getSigner, getHigherGWEI, checkBalance} = useConnectionUtils();
+  const { getSigner, getHigherGWEI, checkBalance } = useConnectionUtils();
 
   const accept = ['.jpg', '.jpeg', '.png', '.gif'];
   const media_accept = ['.glb', '.mp4', '.mp3']; // '.gltf',
@@ -286,26 +290,26 @@ const PaintBoard = () => {
     });
   };
 
-
   // Attributes //
   const [attributeFields, setAttributeFields] = useState([
-    { trait_type: '', trait_value: '', display_type: '' }
+    { trait_type: '', trait_value: '', display_type: '' },
   ]);
 
-
-
-  const handleCreatePresetAttributes = (template) => {
+  const handleCreatePresetAttributes = template => {
     if (template.length === 0) {
       setAttributeFields([{ trait_type: '', trait_value: '' }]);
-    }
-    else {
+    } else {
       let result = [];
-      template.map((v) => {
-        result.push({ trait_type: v.trait_type, trait_value: '', display_type: v.display_type });
+      template.map(v => {
+        result.push({
+          trait_type: v.trait_type,
+          trait_value: '',
+          display_type: v.display_type,
+        });
       });
       setAttributeFields(result);
     }
-  }
+  };
 
   const handleAddFields = () => {
     const values = [...attributeFields];
@@ -324,8 +328,7 @@ const PaintBoard = () => {
 
     if (event.target.type === 'text') {
       event.target.value = event.target.value.replace(/[^a-zA-Z0-9_ -]/g, '');
-    }
-    else {
+    } else {
       event.target.value = event.target.value.replace(/[^0-9.-]/g, '');
     }
 
@@ -333,10 +336,10 @@ const PaintBoard = () => {
       values[index].trait_type = event.target.value;
     }
     if (event.target.name === 'trait_value') {
-    values[index].trait_value = event.target.value;
+      values[index].trait_value = event.target.value;
     }
     // if (event.target.name === 'trait_value') {
-      
+
     //   // if (event.target.min && Number(event.target.value) < Number(event.target.min)) {
     //   //   event.target.value = event.target.min;
     //   // }
@@ -362,19 +365,20 @@ const PaintBoard = () => {
 
     if (event.target.type === 'text') {
       values[index].trait_value = event.target.value;
-    }
-    else {
-      event.target.value = values[index].trait_value = Number(event.target.value);
+    } else {
+      event.target.value = values[index].trait_value = Number(
+        event.target.value
+      );
     }
 
     setAttributeFields(values);
-  }
+  };
   const handleDateChange = (index, date) => {
     const values = [...attributeFields];
     values[index].trait_value = Date.parse(date) / 1000;
-  }
+  };
   const [startTime, setStartTime] = useState('');
-  const getValueTypeDisplay = (display_type) => {
+  const getValueTypeDisplay = display_type => {
     if (display_type === '' || display_type === 'text') {
       return 'Text';
     }
@@ -392,29 +396,32 @@ const PaintBoard = () => {
     }
     return 'Text';
   };
-  const getAttributeValueType = (display_type) => {
+  const getAttributeValueType = display_type => {
     if (display_type === '' || display_type === 'text') {
       return 'text';
     }
-    if (display_type === 'number' || display_type === 'boost_number' || display_type === 'boost_percentage') {
+    if (
+      display_type === 'number' ||
+      display_type === 'boost_number' ||
+      display_type === 'boost_percentage'
+    ) {
       return 'number';
     }
 
     return 'text';
-  }
-
-
+  };
 
   const validateMetadata = () => {
-
     // Attributes //
     if (attributeFields.length > 1) {
       let checkAttribute = true;
       attributeFields.filter(v => {
-        if (v.trait_type.trim() === '' || v.trait_value.toString().trim() === '') {
+        if (
+          v.trait_type.trim() === '' ||
+          v.trait_value.toString().trim() === ''
+        ) {
           checkAttribute = false;
         }
-
       });
 
       if (!checkAttribute) {
@@ -422,7 +429,16 @@ const PaintBoard = () => {
       }
     }
 
-    return name !== '' && account !== '' && image && isAcceptUploadRight !== false && isAcceptTerms !== false && supply !== '0' && description.trim() !== '' && nft;
+    return (
+      name !== '' &&
+      account !== '' &&
+      image &&
+      isAcceptUploadRight !== false &&
+      isAcceptTerms !== false &&
+      supply !== '0' &&
+      description.trim() !== '' &&
+      nft
+    );
   };
 
   const resetMintingStatus = () => {
@@ -437,11 +453,11 @@ const PaintBoard = () => {
       showToast('info', 'Connect your wallet first');
       return;
     }
-    if (chainId !== 25 && chainId !== ChainId.ARBITRUM) {
-      showToast('info', 'You are not connected to Cronos Mainnet');
+    if (chainId !== 1559 && chainId !== 155) {
+      showToast('info', 'You are not connected to Tenet');
       return;
     }
-    
+
     const balance = await checkBalance(account);
 
     if (balance < fee) {
@@ -525,9 +541,6 @@ const PaintBoard = () => {
         animation_url = result.data.data;
         console.log('Media result', result.data.data);
         // Popup Preview first //
-
-
-
       }
 
       let formData = new FormData();
@@ -542,9 +555,17 @@ const PaintBoard = () => {
       formData.append('xtra', xtra);
 
       formData.append('royalty', isNaN(_royalty) ? 0 : _royalty.toFixed(0));
-      formData.append('attributes', JSON.stringify(attributeFields.filter((item) => { return item.trait_type.trim() !== '' && item.trait_value.toString().trim() !== '' })));
-
-
+      formData.append(
+        'attributes',
+        JSON.stringify(
+          attributeFields.filter(item => {
+            return (
+              item.trait_type.trim() !== '' &&
+              item.trait_value.toString().trim() !== ''
+            );
+          })
+        )
+      );
 
       let result = await axios({
         method: 'post',
@@ -565,7 +586,6 @@ const PaintBoard = () => {
         type === 721 ? SINGLE_NFT_ABI : MULTI_NFT_ABI
       );
       try {
-       
         const args =
           type === 721 ? [account, jsonHash] : [account, supply, jsonHash];
 
@@ -573,9 +593,7 @@ const PaintBoard = () => {
 
         if (!fee) {
           tx = await contract.mint(...args);
-          
         } else {
-        
           const options = {
             value: ethers.utils.parseEther(fee.toString()),
             gasPrice: getHigherGWEI(),
@@ -648,11 +666,11 @@ const PaintBoard = () => {
     const reader = new FileReader();
     reader.addEventListener(
       'load',
-      function (event) {
+      function(event) {
         const contents = event.target.result;
 
         const loader = new GLTFLoader();
-        loader.parse(contents, '', function (gltf) {
+        loader.parse(contents, '', function(gltf) {
           const scene = gltf.scene;
 
           const animations = gltf.animations;
@@ -669,16 +687,15 @@ const PaintBoard = () => {
     reader.readAsArrayBuffer(file);
   };
 
-
   return (
     <PageLayout containerClassName="form-container-page box">
       <div className={cx('row', 'justify-content-center')}>
         <div className={'col-lg-4 col-md-8 md:mb-20'}>
           <h4 className="mb-2">NFT CREATOR</h4>
           <p className="mb-40">
-            NFTs can represent essentially any type of digital file, with artists
-            creating NFTs featuring images, videos, gifs, audio files, or a
-            combination of each.
+            NFTs can represent essentially any type of digital file, with
+            artists creating NFTs featuring images, videos, gifs, audio files,
+            or a combination of each.
           </p>
           <div
             {...getRootProps({
@@ -782,10 +799,12 @@ const PaintBoard = () => {
               contentRenderer={({ props: { values } }) =>
                 values.length > 0 ? (
                   <div className={styles.collection}>
-                    {<img
-                      src={`https://agoramarket.mypinata.cloud/ipfs/${values[0].logoImageHash}`}
-                      className={styles.collectionLogo}
-                    />}
+                    {
+                      <img
+                        src={`https://agoramarket.mypinata.cloud/ipfs/${values[0].logoImageHash}`}
+                        className={styles.collectionLogo}
+                      />
+                    }
                     <div className={styles.collectionName}>
                       <strong>{values[0].collectionName}</strong>
                     </div>
@@ -841,7 +860,10 @@ const PaintBoard = () => {
 
             {attributeFields.map((attributeField, index) => (
               <Fragment key={`${attributeField}~${index}`}>
-                <div className="form-row space-x-10" style={{ display: 'flex' }}>
+                <div
+                  className="form-row space-x-10"
+                  style={{ display: 'flex' }}
+                >
                   <div className="form-group col-sm-5">
                     <label htmlFor="trait_type">Title</label>
                     <input
@@ -853,16 +875,19 @@ const PaintBoard = () => {
                       value={attributeField.trait_type}
                       readOnly={attributeField.display_type}
                       onChange={event => handleInputChange(index, event)}
-                      
                     />
                   </div>
                   <div className="form-group col-sm-5">
-                    <label htmlFor="trait_value">{getValueTypeDisplay(attributeField.display_type)}</label>
-                    {
-                      attributeField.display_type !== 'date' && <input
-                        type={getAttributeValueType(attributeField.display_type)}
+                    <label htmlFor="trait_value">
+                      {getValueTypeDisplay(attributeField.display_type)}
+                    </label>
+                    {attributeField.display_type !== 'date' && (
+                      <input
+                        type={getAttributeValueType(
+                          attributeField.display_type
+                        )}
                         {
-                        ...{}//...(attributeField.display_type === 'boost_percentage' ? { min: 0, max: 100 } : {})
+                          ...{} //...(attributeField.display_type === 'boost_percentage' ? { min: 0, max: 100 } : {})
                         }
                         className="form-control"
                         id="trait_value"
@@ -872,28 +897,25 @@ const PaintBoard = () => {
                         onChange={event => handleInputChange(index, event)}
                         onBlur={event => handleFinalInputChange(index, event)}
                       />
-                    }
-                    {
-                      attributeField.display_type === 'date' &&
+                    )}
+                    {attributeField.display_type === 'date' && (
                       <Datetime
                         style={{ height: 50 }}
                         value={startTime}
-                        onChange={
-                          val => {
-                            setStartTime(val.toDate())
-                            handleDateChange(index, val.toDate())
-                          }
-                        }
+                        onChange={val => {
+                          setStartTime(val.toDate());
+                          handleDateChange(index, val.toDate());
+                        }}
                         inputProps={{
                           className: styles.formInput,
                           onKeyDown: e => e.preventDefault(),
                         }}
                         closeOnSelect
-                      // isValidDate={cur =>
-                      //   cur.valueOf() > new Date().getTime()
-                      // }
+                        // isValidDate={cur =>
+                        //   cur.valueOf() > new Date().getTime()
+                        // }
                       />
-                    }
+                    )}
                   </div>
                   <div className="form-group col-sm-2">
                     <button
@@ -907,7 +929,6 @@ const PaintBoard = () => {
                     <button
                       className="btn btn-link"
                       type="button"
-
                       onClick={() => handleAddFields()}
                     >
                       <FontAwesomeIcon icon={faPlus} />
@@ -1033,12 +1054,15 @@ const PaintBoard = () => {
                   >
                     <Suspense fallback={null}>
                       <Stage
-
                         environment={false}
                         contactShadow={{ opacity: 0.2, blur: 4 }}
                       >
-
-                        <Environment files={'sunrise.hdr'} path={'/'} preset={null} background={false} />
+                        <Environment
+                          files={'sunrise.hdr'}
+                          path={'/'}
+                          preset={null}
+                          background={false}
+                        />
                         <Model
                           scene={threeScence}
                           animations={threeAnimations}
@@ -1049,10 +1073,7 @@ const PaintBoard = () => {
                   </Canvas>
                 )}
                 <div className={styles.cornerClose}>
-                  <CloseIcon
-                    className={styles.remove}
-                    onClick={removeMedia}
-                  />
+                  <CloseIcon className={styles.remove} onClick={removeMedia} />
                 </div>
               </div>
             )}
@@ -1120,7 +1141,8 @@ const PaintBoard = () => {
           <div className="mb-25">
             <strong>Note</strong>
             <p>
-              The process of minting NFT is an irreversible process. Please make sure all of the above details are correct.
+              The process of minting NFT is an irreversible process. Please make
+              sure all of the above details are correct.
             </p>
           </div>
 
@@ -1156,8 +1178,10 @@ const PaintBoard = () => {
                 <InfoIcon />
                 &nbsp;{fee} CROs are charged to create a new NFT.
               </>
+            ) : fee > 0 ? (
+              <Skeleton width={330} height={22} />
             ) : (
-              fee > 0 ? <Skeleton width={330} height={22} /> : ''
+              ''
             )}
           </div>
           <div className={styles.mintStatusContainer}>
@@ -1174,7 +1198,6 @@ const PaintBoard = () => {
           </div>
         </div>
       </div>
-
     </PageLayout>
   );
 };

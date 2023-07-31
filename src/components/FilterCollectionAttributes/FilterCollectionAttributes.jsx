@@ -16,17 +16,17 @@ import './FilterCollectionAttributes.css';
 import { useDispatch } from 'react-redux';
 import FilterActions from 'actions/filter.actions';
 import { Contracts } from 'constants/networks';
-import { ChainId } from '@sushiswap/sdk';
+
+// eslint-disable-next-line no-undef
 const ENV = process.env.REACT_APP_ENV;
-const CHAIN = ENV === 'MAINNET' ? 25 : ChainId.ARBITRUM;
 
-
+const CHAIN = ENV === 'MAINNET' ? 1559 : 155;
 
 export function FilterCollectionAttributes({
   hidden = true,
   hideFunction,
   toggleAttributeButton,
-  attributes
+  attributes,
 }) {
   const { getAttributeFilterData } = useApi();
   const params = useParams();
@@ -59,7 +59,6 @@ export function FilterCollectionAttributes({
   useEffect(() => {
     setIsApplyButtonDisabled(Object.keys(formData).length === 0);
     setIsResetButtonDisabled(Object.keys(formData).length === 0);
-    
   }, [formData]);
 
   useEffect(() => {

@@ -1,17 +1,60 @@
-"use strict";
+/*'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
+Object.defineProperty(exports, '__esModule', {
+  value: true,
 });
 exports.Contracts = exports.NETWORK_LABEL = void 0;
 
-var _sdk = require("@sushiswap/sdk");
+var _sdk = require('@sushiswap/sdk');
 
 var _NETWORK_LABEL;
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true,
+    });
+  } else {
+    obj[key] = value;
+  }
+  return obj;
+}
 
-var NETWORK_LABEL = (_NETWORK_LABEL = {}, _defineProperty(_NETWORK_LABEL, _sdk.ChainId.MAINNET, 'Ethereum'), _defineProperty(_NETWORK_LABEL, _sdk.ChainId.RINKEBY, 'Rinkeby'), _defineProperty(_NETWORK_LABEL, _sdk.ChainId.ROPSTEN, 'Ropsten'), _defineProperty(_NETWORK_LABEL, _sdk.ChainId.GÖRLI, 'Görli'), _defineProperty(_NETWORK_LABEL, _sdk.ChainId.KOVAN, 'Kovan'), _defineProperty(_NETWORK_LABEL, _sdk.ChainId.FANTOM, 'Fantom'), _defineProperty(_NETWORK_LABEL, _sdk.ChainId.FANTOM_TESTNET, 'Fantom Testnet'), _defineProperty(_NETWORK_LABEL, _sdk.ChainId.MATIC, 'Matic'), _defineProperty(_NETWORK_LABEL, _sdk.ChainId.MATIC_TESTNET, 'Matic Testnet'), _defineProperty(_NETWORK_LABEL, _sdk.ChainId.XDAI, 'xDai'), _defineProperty(_NETWORK_LABEL, _sdk.ChainId.BSC, 'BSC'), _defineProperty(_NETWORK_LABEL, _sdk.ChainId.BSC_TESTNET, 'BSC Testnet'), _defineProperty(_NETWORK_LABEL, _sdk.ChainId.MOONBASE, 'Moonbase'), _defineProperty(_NETWORK_LABEL, _sdk.ChainId.AVALANCHE, 'Avalanche'), _defineProperty(_NETWORK_LABEL, _sdk.ChainId.FUJI, 'Fuji'), _defineProperty(_NETWORK_LABEL, _sdk.ChainId.HECO, 'HECO'), _defineProperty(_NETWORK_LABEL, _sdk.ChainId.HECO_TESTNET, 'HECO Testnet'), _defineProperty(_NETWORK_LABEL, _sdk.ChainId.HARMONY, 'Harmony'), _defineProperty(_NETWORK_LABEL, _sdk.ChainId.HARMONY_TESTNET, 'Harmony Testnet'), _defineProperty(_NETWORK_LABEL, 25, 'Cronos Mainnet Beta'), _defineProperty(_NETWORK_LABEL, ChainId.ARBITRUM, 'Arbitrum'), _NETWORK_LABEL);
+var NETWORK_LABEL =
+  ((_NETWORK_LABEL = {}),
+  _defineProperty(_NETWORK_LABEL, _sdk.ChainId.MAINNET, 'Ethereum'),
+  _defineProperty(_NETWORK_LABEL, _sdk.ChainId.RINKEBY, 'Rinkeby'),
+  _defineProperty(_NETWORK_LABEL, _sdk.ChainId.ROPSTEN, 'Ropsten'),
+  _defineProperty(_NETWORK_LABEL, _sdk.ChainId.GÖRLI, 'Görli'),
+  _defineProperty(_NETWORK_LABEL, _sdk.ChainId.KOVAN, 'Kovan'),
+  _defineProperty(_NETWORK_LABEL, _sdk.ChainId.FANTOM, 'Fantom'),
+  _defineProperty(
+    _NETWORK_LABEL,
+    _sdk.ChainId.FANTOM_TESTNET,
+    'Fantom Testnet'
+  ),
+  _defineProperty(_NETWORK_LABEL, _sdk.ChainId.MATIC, 'Matic'),
+  _defineProperty(_NETWORK_LABEL, _sdk.ChainId.MATIC_TESTNET, 'Matic Testnet'),
+  _defineProperty(_NETWORK_LABEL, _sdk.ChainId.XDAI, 'xDai'),
+  _defineProperty(_NETWORK_LABEL, _sdk.ChainId.BSC, 'BSC'),
+  _defineProperty(_NETWORK_LABEL, _sdk.ChainId.BSC_TESTNET, 'BSC Testnet'),
+  _defineProperty(_NETWORK_LABEL, _sdk.ChainId.MOONBASE, 'Moonbase'),
+  _defineProperty(_NETWORK_LABEL, _sdk.ChainId.AVALANCHE, 'Avalanche'),
+  _defineProperty(_NETWORK_LABEL, _sdk.ChainId.FUJI, 'Fuji'),
+  _defineProperty(_NETWORK_LABEL, _sdk.ChainId.HECO, 'HECO'),
+  _defineProperty(_NETWORK_LABEL, _sdk.ChainId.HECO_TESTNET, 'HECO Testnet'),
+  _defineProperty(_NETWORK_LABEL, _sdk.ChainId.HARMONY, 'Harmony'),
+  _defineProperty(
+    _NETWORK_LABEL,
+    _sdk.ChainId.HARMONY_TESTNET,
+    'Harmony Testnet'
+  ),
+  _defineProperty(_NETWORK_LABEL, 25, 'Cronos Mainnet Beta'),
+  _defineProperty(_NETWORK_LABEL, ChainId.ARBITRUM, 'Arbitrum'),
+  _NETWORK_LABEL);
 exports.NETWORK_LABEL = NETWORK_LABEL;
 var Contracts = {
   25: {
@@ -32,6 +75,6 @@ var Contracts = {
     privateFactory: '0x7d3bb8dD1f3b123C6DFEf882709Fadc007ee4532', //AgoraNFTFactoryPrivate
     artFactory: '0x980A2fAC219CD4e26033E82A44D6798F7488aDb2', //AgoraArtFactory
     privateArtFactory: '0x0106fe87F41BAa91D6fe52c508723e8cf5082c49', //AgoraArtFactoryPrivate
-  }
+  },
 };
-exports.Contracts = Contracts;
+exports.Contracts = Contracts;*/

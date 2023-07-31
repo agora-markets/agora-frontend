@@ -1,31 +1,10 @@
-import { ChainId } from '@sushiswap/sdk';
-
 export const NETWORK_LABEL = {
-  [ChainId.MAINNET]: 'Ethereum',
-  [ChainId.RINKEBY]: 'Rinkeby',
-  [ChainId.ROPSTEN]: 'Ropsten',
-  [ChainId.GÖRLI]: 'Görli',
-  [ChainId.KOVAN]: 'Kovan',
-  [ChainId.FANTOM]: 'Fantom',
-  [ChainId.FANTOM_TESTNET]: 'Fantom Testnet',
-  [ChainId.MATIC]: 'Matic',
-  [ChainId.MATIC_TESTNET]: 'Matic Testnet',
-  [ChainId.XDAI]: 'xDai',
-  [ChainId.BSC]: 'BSC',
-  [ChainId.BSC_TESTNET]: 'BSC Testnet',
-  [ChainId.MOONBASE]: 'Moonbase',
-  [ChainId.AVALANCHE]: 'Avalanche',
-  [ChainId.FUJI]: 'Fuji',
-  [ChainId.HECO]: 'HECO',
-  [ChainId.HECO_TESTNET]: 'HECO Testnet',
-  [ChainId.HARMONY]: 'Harmony',
-  [ChainId.HARMONY_TESTNET]: 'Harmony Testnet',
-  25: 'Cronos Mainnet Beta',
-  [ChainId.ARBITRUM]: 'Arbitrum',
+  1559: 'Mainnet',
+  155: 'Testnet',
 };
 
 export const Contracts = {
-  25: {
+  1559: {
     auction: '0xA84bf88521479A7c4565a0fa2Ca48c7Ce8Ffb404',
     sales: '0xa974469C8e1b339e54Ffc42e9e128b929707A10A',
     bundleSales: '0xe9391A3253625d0a06973e4Be11D9932ba4F788D',
@@ -36,7 +15,7 @@ export const Contracts = {
     token: '0x383627CaeC2CE3b36793c34B576B2e97BEDA0466',
   },
 
-  [ChainId.ARBITRUM]: {
+  155: {
     auction: '0xDC8e329b0bA326f7Fcdbb5d42B437FfC7EA7C7a8',
     sales: '0x35123486C0a742da0aA320d037e5226bA4F9bf21',
     bundleSales: '0x52352D4a5fB2a79722a875bBdF2a6D00A152a3C5',

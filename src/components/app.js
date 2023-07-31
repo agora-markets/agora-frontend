@@ -10,7 +10,6 @@ import {
 import { Toaster } from 'react-hot-toast';
 import { ethers } from 'ethers';
 import { useWeb3React } from '@web3-react/core';
-import { ChainId } from '@sushiswap/sdk';
 //import { axios } from 'axios';
 
 import ProtectedRoute from './ProtectedRoute';
@@ -45,7 +44,7 @@ const App = () => {
 
   const getPrice = async () => {
     try {
-      if (chainId === 25) {
+      if (chainId === 1559) {
         const provider = new ethers.providers.Web3Provider(window.ethereum);
         const oracle = new ethers.Contract(
           '0xF849C1ddd19f524c12A043556fAa5602a6B81F98',
@@ -65,7 +64,7 @@ const App = () => {
         const _price = await oracle.lastPrice();
         const price = parseFloat(_price.toString()) / 10 ** 6;
         dispatch(PriceActions.updatePrice(price));
-      } else if (chainId === ChainId.ARBITRUM) {
+      } else if (chainId === 155) {
         const provider = new ethers.providers.Web3Provider(window.ethereum);
         const oracle = new ethers.Contract(
           '0xe04676B9A9A2973BCb0D1478b5E1E9098BBB7f3D',
@@ -135,7 +134,11 @@ const App = () => {
 
           <Route exact path="/launchpad" component={LaunchpadPage} />
 
-          <Route exact path="/launchpad/:addr" component={LaunchpadCollection} />
+          <Route
+            exact
+            path="/launchpad/:addr"
+            component={LaunchpadCollection}
+          />
 
           <ProtectedRoute
             path="/collection/create"
