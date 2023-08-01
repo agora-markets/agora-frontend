@@ -489,7 +489,7 @@ export function CollectionList() {
                     <b>
                       <FontAwesomeIcon icon={faExclamationTriangle} /> Warning:
                     </b>{' '}
-                    This content has been flagged by the Agora Team as
+                    This content has been flagged by the Pixelly Team as
                     suspicious.
                   </div>
                 )}

@@ -11,9 +11,9 @@ export function HomePageCommunitySection({ globalStats }) {
         <div className="section__head space-y-20">
           <h3 className="section__title text-center">Global Stats</h3>
           <p className="section__text text-center">
-            {/* Learn more about Agora, chat with the team, other people in the
+            {/* Learn more about Pixelly, chat with the team, other people in the
             community, and express your opinion on the future development of
-            Agora. */}
+            Pixelly. */}
           </p>
         </div>
 

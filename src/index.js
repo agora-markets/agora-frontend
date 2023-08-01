@@ -20,7 +20,7 @@ ReactDOM.render(
     <Web3ReactProvider getLibrary={getLibrary}>
       <Web3ProviderNetwork getLibrary={getLibrary}>
         {/* <Web3ReactManager> */}
-          <App fullScreen />
+        <App fullScreen />
         {/* </Web3ReactManager> */}
       </Web3ProviderNetwork>
     </Web3ReactProvider>

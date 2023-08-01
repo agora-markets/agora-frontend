@@ -23,8 +23,8 @@ import BoostCollectionModal from 'components/BoostCollectionModal';
 import ConnectWalletModal from 'components/ConnectWalletModal';
 import Identicon from 'components/Identicon';
 
-import logoLight from 'assets/imgs/logos/logo_5.png';
-import logoDark from 'assets/imgs/logos/logo_2.png';
+import logoLight from 'assets/imgs/logos/pixelly.png';
+import logoDark from 'assets/imgs/logos/pixelly.png';
 import verifiedLogo from 'assets/imgs/verify.png';
 
 import styles from './styles.module.scss';
@@ -88,8 +88,7 @@ const Header = props => {
   const [tokenDetailsLoading, setTokenDetailsLoading] = useState(false);
   const timer = useRef(null);
 
-  const DarkMode = true
-
+  const DarkMode = true;
 
   useEffect(() => {
     if (DarkMode === true) {
@@ -103,7 +102,7 @@ const Header = props => {
     }
   }, [DarkMode]);
 
-  const onlyVerified = false
+  const onlyVerified = false;
 
   useEffect(() => {
     if (onlyVerified === false) {
@@ -316,7 +315,7 @@ const Header = props => {
         <div className={cx('header__search', styles.searchWrapper)}>
           <input
             type="text"
-            placeholder="Search on Agora"
+            placeholder="Search on Pixelly"
             onChange={e => handleSearch(e.target.value)}
             onFocus={() => setSearchBarActive(true)}
             onBlur={() => setTimeout(() => setSearchBarActive(false), 200)}
@@ -470,22 +469,22 @@ const Header = props => {
   return (
     <header className={cx('header__1', 'js-header', styles.header)}>
       <marquee direction="right" scrollamount="12">
-        This is a beta version of the Agora marketplace
+        This is a beta version of the Pixelly marketplace
       </marquee>
       <div onClick={scrollToTop} className="scroll-to-top">
         <FontAwesomeIcon icon={faAngleUp} />
       </div>
       <div className={'container'}>
         <div className={'wrapper js-header-wrapper'}>
-         <div className={cx(styles.wrapperlist)}>
-         <div className="header__logo">
-            <Link to="/" className={'header__logo'}>
-              <img src={DarkMode ? logoDark : logoLight} alt="logo" />
-            </Link>
-          </div>
-          <div className={cx('header__menu', styles.left)}>
-            <ul className="d-flex space-x-20">
-              {/*
+          <div className={cx(styles.wrapperlist)}>
+            <div className="header__logo">
+              <Link to="/" className={'header__logo'}>
+                <img src={DarkMode ? logoDark : logoLight} alt="logo" />
+              </Link>
+            </div>
+            <div className={cx('header__menu', styles.left)}>
+              <ul className="d-flex space-x-20">
+                {/*
               <li>
                 <NavLink
                   to="/home"
@@ -496,39 +495,39 @@ const Header = props => {
                 </NavLink>
               </li>
               */}
-              <li>
-                <NavLink
-                  to="/explore"
-                  className={'color_black'}
-                  activeClassName={styles.active}
-                >
-                  Explore
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/launchpad"
-                  className={'color_black'}
-                  activeClassName={styles.active}
-                >
-                  Launchpad
-                </NavLink>
-              </li>
-              {
                 <li>
                   <NavLink
-                    to="/collections"
+                    to="/explore"
                     className={'color_black'}
                     activeClassName={styles.active}
                   >
-                    Collections
+                    Explore
                   </NavLink>
                 </li>
-              }
-            </ul>
+                <li>
+                  <NavLink
+                    to="/launchpad"
+                    className={'color_black'}
+                    activeClassName={styles.active}
+                  >
+                    Launchpad
+                  </NavLink>
+                </li>
+                {
+                  <li>
+                    <NavLink
+                      to="/collections"
+                      className={'color_black'}
+                      activeClassName={styles.active}
+                    >
+                      Collections
+                    </NavLink>
+                  </li>
+                }
+              </ul>
+            </div>
+            {renderSearchBox()}
           </div>
-          {renderSearchBox()}
-         </div>
           {/* <div className={cx('header__menu')}>
             <ul className="d-flex space-x-20">
               <li>
@@ -579,7 +578,7 @@ const Header = props => {
                   </span>
                 </div>
               </li> */}
-              {/* <li>
+          {/* <li>
                 <div className={styles.darkmodeToggle}>
                   <span style={{ marginRight: 5, display: 'flex' }}>
                     <FontAwesomeIcon icon={faSun} />
@@ -604,7 +603,7 @@ const Header = props => {
                   </span>
                 </div>
               </li> */}
-            {/* </ul>
+          {/* </ul>
           </div> */}
 
           <div className="d-flex align-items-center space-x-20 sm:space-x-10">
@@ -730,7 +729,6 @@ const Header = props => {
                     </span>
                   </div>
                 </li> */}
-               
               </ul>
               {account ? (
                 <div className="col-md-12 col-sm-12">

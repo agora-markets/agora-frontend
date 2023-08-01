@@ -106,7 +106,7 @@ const CustomCheckbox = withStyles({
       backgroundColor: 'transparent',
     },
     '&$checked': {
-      color: 'rgba(255, 107, 199, 1)',
+      color: '#05DE9D',
     },
   },
   checked: {},
@@ -135,12 +135,12 @@ const PaintBoard = () => {
   const media_accept = ['.glb', '.mp4', '.mp3']; // '.gltf',
   const PurpleSwitch = withStyles({
     switchBase: {
-      color: 'rgba(255, 107, 199, 1)',
+      color: '#05DE9D',
       '&$checked': {
-        color: 'rgba(255, 107, 199, 1)',
+        color: '#05DE9D',
       },
       '&$checked + $track': {
-        backgroundColor: 'rgba(255, 107, 199, 1)aa',
+        backgroundColor: '#05DE9Daa',
       },
     },
     checked: {},
@@ -500,7 +500,7 @@ const PaintBoard = () => {
       const { data: nonce } = await getNonce(account, authToken);
       try {
         const signer = await getSigner();
-        const msg = `Approve Signature on Agoramarket.art with nonce ${nonce}`;
+        const msg = `Approve Signature on Pixelly.gg with nonce ${nonce}`;
         signature = await signer.signMessage(msg);
         addr = ethers.utils.verifyMessage(msg, signature);
       } catch (err) {
@@ -750,7 +750,7 @@ const PaintBoard = () => {
                   onChange={e => setIsAcceptTerms(event.target.checked)}
                 />
               }
-              label="I accept Agora's Terms and Conditions. *"
+              label="I accept Pixelly's Terms and Conditions. *"
               className="align-items-start"
             />
           </FormGroup>

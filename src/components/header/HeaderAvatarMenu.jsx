@@ -69,8 +69,8 @@ export function HeaderAvatarMenu(props) {
     const provider = new ethers.providers.Web3Provider(web3provider);
 
     const AGO_ADDRESS = {
-      1559: '0x383627CaeC2CE3b36793c34B576B2e97BEDA0466',
-      155: '',
+      1559: '',
+      155: '0xc31D02f9CD7315A674107AB82258448bCb386d6F',
     };
 
     const agoContract = await getERC20Contract(AGO_ADDRESS[chainId]);
@@ -101,7 +101,7 @@ export function HeaderAvatarMenu(props) {
         backgroundColor: 'transparent',
       },
       '&$checked': {
-        color: 'rgba(255, 107, 199, 1)',
+        color: '#05DE9D',
       },
     },
     checked: {},

@@ -35,7 +35,7 @@ export function ArtworkDetailPagePriceHistoryTab(props) {
                 <YAxis />
                 <ChartTooltip />
                 <CartesianGrid stroke="#eee" />
-                <Line type="monotone" dataKey="price" stroke="rgba(255, 107, 199, 1)" />
+                <Line type="monotone" dataKey="price" stroke="#05DE9D" />
               </LineChart>
             </div>
           </div>

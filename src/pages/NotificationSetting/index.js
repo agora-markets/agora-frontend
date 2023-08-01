@@ -131,7 +131,7 @@ const followerSettings = [
 const CustomCheckbox = withStyles({
   root: {
     '&$checked': {
-      color: 'rgba(255, 107, 199, 1)',
+      color: '#05DE9D',
     },
   },
   checked: {},
@@ -208,7 +208,7 @@ const NotificationSetting = () => {
       try {
         const { data: nonce } = await getNonce(account, authToken);
         const signer = await getSigner();
-        const msg = `Approve Signature on Agoramarket.art with nonce ${nonce}`;
+        const msg = `Approve Signature on Pixelly.gg with nonce ${nonce}`;
         signature = await signer.signMessage(msg);
         addr = ethers.utils.verifyMessage(msg, signature);
       } catch (err) {

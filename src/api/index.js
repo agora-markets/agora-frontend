@@ -5,23 +5,18 @@ const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
 
 export const useApi = () => {
   const explorerUrl = isMainnet
-    ? 'https://cronoscan.com'
-    : 'https://arbiscan.io';
+    ? 'https://tenetscan.io'
+    : 'https://testnet.tenetscan.io';
 
   const apiUrl = isMainnet
     ? 'https://agora-old-api.herokuapp.com'
     : 'https://api.testnet.artion.io';
-    // ? 'http://localhost:5001'
-    // : 'https://api.testnet.artion.io';
 
   // eslint-disable-next-line no-undef
   // const apiUrl = process.env.REACT_APP_API_URI;
   const storageUrl = isMainnet
     ? 'https://storage.artion.io'
     : 'https://storage.testnet.artion.io';
-
-  // const tokenURL = 'https://fetch-tokens.vercel.app/api';
-  // const tokenURL = 'https://api.artion.io/nftitems/fetchTokens';
 
   const getNonce = async (address, authToken) => {
     const res = await axios({
@@ -968,7 +963,7 @@ export const useApi = () => {
     cancelToken,
     isProfile = false,
     mediaType = null,
-    attributes = {},
+    attributes = {}
   ) => {
     const data = { from, count, type, isProfile };
     if (collections.length > 0) {
@@ -1001,8 +996,7 @@ export const useApi = () => {
       cancelToken,
     });
     return res.data;
-  }; 
-
+  };
 
   // Warn / Unwarn //
   const warnCollection = async (
@@ -1079,7 +1073,7 @@ export const useApi = () => {
       },
     });
     return res.data;
-  }; 
+  };
 
   const getAttributeFilterData = async contractAddress => {
     const res = await axios({
@@ -1107,23 +1101,28 @@ export const useApi = () => {
     return res;
   };
 
-  const updateCollection = async (collection, signature, signatureAddress, authToken) => {
+  const updateCollection = async (
+    collection,
+    signature,
+    signatureAddress,
+    authToken
+  ) => {
     const res = await axios({
       method: 'post',
       url: `${apiUrl}/collection/update`,
       data: JSON.stringify({
         signature,
         signatureAddress,
-        collection
+        collection,
       }),
       headers: {
         'content-type': 'application/json',
         Authorization: `Bearer ${authToken}`,
-      }
+      },
     });
 
     return res;
-  }
+  };
 
   return {
     getAttributes,
@@ -1200,6 +1199,6 @@ export const useApi = () => {
     isAttributeFilterAvailable,
     warnCollection,
     unwarnCollection,
-    updateCollection
+    updateCollection,
   };
 };

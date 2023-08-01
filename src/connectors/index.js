@@ -5,7 +5,7 @@ import { DeFiWeb3Connector } from 'deficonnect';
 
 import { NetworkConnector } from './NetworkConnector';
 
-import AGORA_LOGO_URL from '../assets/svgs/logo_blue.svg';
+import PIXELLY_LOGO_URL from '../assets/svgs/logo_blue.svg';
 
 // eslint-disable-next-line no-undef
 const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
@@ -36,7 +36,7 @@ export const injected = new InjectedConnector({
 export const walletlink = new WalletLinkConnector({
   url: 'https://rpc.testnet.tenet.org',
   appName: 'tenart',
-  appLogoUrl: AGORA_LOGO_URL,
+  appLogoUrl: PIXELLY_LOGO_URL,
 });
 
 export const defiwallet = new DeFiWeb3Connector({

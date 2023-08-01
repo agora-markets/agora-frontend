@@ -17,14 +17,14 @@ const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
 const Tokens = {
   1559: [
     {
-      address: '0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23',
-      name: 'Wrapped Cro',
-      symbol: 'WCRO',
+      address: '',
+      name: 'Wrapped Tenet',
+      symbol: 'WTENET',
       decimals: 18,
       icon: iconWCRO,
     },
     {
-      address: '0xc21223249CA28397B4B6541dfFaEcC539BfF0c59',
+      address: '',
       name: 'USDC',
       symbol: 'USDC',
       decimals: 6,
@@ -53,20 +53,13 @@ const Tokens = {
       decimals: 18,
       icon: iconVZOO,
     },
-    // {
-    //   address: '0x916283cc60fdaf05069796466af164876e35d21f',
-    //   name: 'Wrapped CRO',
-    //   symbol: 'WCRO',
-    //   decimals: 18,
-    //   icon: iconWETH,
-    // },
-    // {
-    //   address: '0x3D5950287b45F361774E5fB6e50d70eEA06Bc167',
-    //   name: 'wanUSDT',
-    //   symbol: 'wanUSDT',
-    //   decimals: 6,
-    //   icon: iconUSDT,
-    // },
+    {
+      address: '0x821A1C06F2C9aAF9Eb4b80A2A7881ae69595Cb10',
+      name: 'Wrapped Tenet',
+      symbol: 'WTENET',
+      decimals: 18,
+      icon: iconWCRO,
+    },
   ],
 };
 

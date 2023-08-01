@@ -87,7 +87,7 @@ const ConnectWalletModal = ({ visible, onClose }) => {
           </div>
           <div
             className={styles.switchBtn}
-            style={{ backgroundColor: 'rgba(255, 107, 199, 1)' }}
+            style={{ backgroundColor: '#05DE9D' }}
             onClick={async () => {
               if (!window.ethereum) {
                 window.alert('please install MetaMask at: MetaMask.io');

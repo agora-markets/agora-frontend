@@ -89,7 +89,7 @@ const AuctionModal = ({
         backgroundColor: 'transparent',
       },
       '&$checked': {
-        color: 'rgba(255, 107, 199, 1)',
+        color: '#05DE9D',
       },
     },
     checked: {},

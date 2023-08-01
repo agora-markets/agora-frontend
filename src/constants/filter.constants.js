@@ -38,10 +38,9 @@ export const MediaTypes = [
     id: 'model',
     label: '3D Model',
   },
-]
+];
 
 export const Categories = [
-  
   {
     id: 0,
     icon: iconArt,
@@ -139,7 +138,7 @@ const FilterConstants = {
   UPDATE_GROUP_TYPE_FILTER: 'UPDATE_GROUP_TYPE_FILTER',
   UPDATE_SORT_BY_FILTER: 'UPDATE_SORT_BY_FILTER',
   UPDATE_VERIFIED_FILTER: 'UPDATE_VERIFIED_FILTER',
-  UPDATE_ATTRIBUTE_FILTER: 'UPDATE_ATTRIBUTE_FILTER'
+  UPDATE_ATTRIBUTE_FILTER: 'UPDATE_ATTRIBUTE_FILTER',
 };
 
 export default FilterConstants;

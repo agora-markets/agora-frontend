@@ -18,12 +18,11 @@ const FaucetModal = ({ account, visible, onClose, setFaucetModalVisible }) => {
   const [recaptchaValue, setRecaptchaValue] = useState(null);
   const [claiming, setClaiming] = useState(false);
   const [faucetBalance, setFaucetBalance] = useState(0);
-  const {connector} = useWeb3React();
-  
+  const { connector } = useWeb3React();
+
   useEffect(() => {}, [tokens]);
 
   const getBalance = async () => {
-
     const web3provider = await connector.getProvider();
     await web3provider.enable();
     let provider = new ethers.providers.Web3Provider(web3provider);
@@ -32,12 +31,10 @@ const FaucetModal = ({ account, visible, onClose, setFaucetModalVisible }) => {
     ]);
 
     setFaucetBalance(parseFloat(wan.toString()) / 10 ** 18);
-  }
+  };
 
   useEffect(() => {
-
-    if (visible)
-    {
+    if (visible) {
       getBalance();
     }
 
@@ -88,11 +85,11 @@ const FaucetModal = ({ account, visible, onClose, setFaucetModalVisible }) => {
       onSubmit={() => (!claiming && recaptchaValue ? handleMakeOffer() : null)}
     >
       <p className="faucetP">
-        <span className="color_brand">CLAIM YOUR FREE CRO</span>
+        <span className="color_brand">CLAIM YOUR FREE TENET</span>
         <br />
         to begin your creative journey
         <br />
-        with Agora
+        with Pixelly
       </p>
 
       <div className="faucetBalance">
@@ -102,22 +99,21 @@ const FaucetModal = ({ account, visible, onClose, setFaucetModalVisible }) => {
           Balance
         </div>
         <div className="faucentBalanceAmount">
-          <div className="faucentBalanceAmountIcon"><img
-              className="wanImage"
-              src={WCRO_IMAGE}
-              alt=""
-            />{faucetBalance}</div>
+          <div className="faucentBalanceAmountIcon">
+            <img className="wanImage" src={WCRO_IMAGE} alt="" />
+            {faucetBalance}
+          </div>
           <span>0.02 CRO per address</span>
         </div>
       </div>
       {!claiming && (
         <center>
-        <ReCAPTCHA
-          sitekey="6Le8yuUdAAAAAJfotzhCSA7_iT7-RAOPrkAz3dZv"
-          onChange={onRecaptchaSuccess}
-          onErrored={onRecaptchaError}
-          size="normal"
-        />
+          <ReCAPTCHA
+            sitekey="6Le8yuUdAAAAAJfotzhCSA7_iT7-RAOPrkAz3dZv"
+            onChange={onRecaptchaSuccess}
+            onErrored={onRecaptchaError}
+            size="normal"
+          />
         </center>
       )}
     </Modal>

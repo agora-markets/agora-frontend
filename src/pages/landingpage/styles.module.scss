@@ -72,7 +72,7 @@
   cursor: pointer;
   text-decoration: none;
   margin-top: 24px;
-  background-color: rgba(255, 107, 199, 1);
+  background-color: #05DE9D;
 
   &:hover {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
@@ -258,7 +258,7 @@
   justify-content: space-between;
 
   &.extraCard {
-    background-color: rgba(255, 107, 199, 1);
+    background-color: #05DE9D;
 
     .cardLabel {
       color: #FFF;
@@ -269,7 +269,7 @@
     }
 
     .browseBtnIcon {
-      color: rgba(255, 107, 199, 1);
+      color: #05DE9D;
     }
   }
 }
@@ -285,7 +285,7 @@
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background-color: rgba(255, 107, 199, 1);
+  background-color: #05DE9D;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -305,7 +305,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: rgba(255, 107, 199, 1);
+  background-color: #05DE9D;
 }
 
 .logo {

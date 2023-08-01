@@ -1,7 +1,7 @@
-export const CronosNFTConstants = {
+export const TenetNFTConstants = {
   ADDRESS: {
-    [1559]: '0x4878Be5Aefb2d7Ec4E3f0Cd6aD3EFc79051dC4dD',
-    [155]: '0xe8d29976368Fc2d8699797faA7cD3684dFf41810',
+    [1559]: '',
+    [155]: '0xd86B1105D09Ee93DCAb68D279C658e46c5b74904',
   },
   ABI: [
     {

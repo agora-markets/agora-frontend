@@ -1683,7 +1683,7 @@ const NFTItem = () => {
       let addr;
       try {
         const signer = await getSigner();
-        const msg = `Approve Signature on Agoramarket.art with nonce ${nonce}`;
+        const msg = `Approve Signature on Pixelly.gg with nonce ${nonce}`;
         signature = await signer.signMessage(msg);
         addr = ethers.utils.verifyMessage(msg, signature);
       } catch {
@@ -3472,7 +3472,7 @@ const NFTItem = () => {
                               <Line
                                 type="monotone"
                                 dataKey="price"
-                                stroke="rgba(255, 107, 199, 1)"
+                                stroke="#05DE9D"
                               />
                             </LineChart>
                           </div>

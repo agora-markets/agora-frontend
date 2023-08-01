@@ -15,13 +15,13 @@ export function Footer() {
               </Link>
             </div>
             {/*<p className="footer__text">
-              Agora is Tenet First NFT Marketplace
+              Pixelly is Tenet First NFT Marketplace
             </p>*/}
             <div>
               <ul className="footer__social space-x-10 mb-40">
                 <li>
                   <a
-                    href="https://twitter.com/AgoramarketNFT?t=apGMF4wizF_pCw-R0IQ04g&s=09"
+                    href="https://twitter.com/pixelly_gg"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -39,7 +39,7 @@ export function Footer() {
                 </li>
                 <li>
                   <a
-                    href="https://t.me/AgoraMarketNFT"
+                    href="https://t.me/Pixelly_gg"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -55,7 +55,7 @@ export function Footer() {
             </div>
           </div>
           <div className="col-lg-2 col-6">
-            <h6 className="footer__title">Agora</h6>
+            <h6 className="footer__title">Pixelly</h6>
             <ul className="footer__list">
               <li>
                 <Link to="/home"> Home </Link>

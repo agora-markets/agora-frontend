@@ -82,10 +82,10 @@
 .openzoo {
   font-weight: bold;
   font-size: 60px;
-  color:#F806CC !important;
+  color:#05DE9D !important;
   line-height: 55px;
   span {
-    color: #F806CC  !important;
+    color: #05DE9D  !important;
   }
 }
 
@@ -105,7 +105,7 @@
   padding: 0.5rem 1rem;
   }
   .btn-primary.home-btn{
-    background: linear-gradient(180deg, #FF00D6 0%, #8E13EE 100%) !important
+    background: linear-gradient(180deg, #05DE9D 100%, #0C2FA9 70%) !important
     ;
   }
   .home-btn.dark-btn{
@@ -115,7 +115,7 @@
     color: #fff !important;
   }
   .home-btn.light-btn{
-    color: #F806CC;
+    color: #05DE9D;
   }
   .home-btn.btn-link {
     color: rgba(255,255,255);
@@ -136,9 +136,9 @@
   font-weight: bold;
   span {
     display: block;
-    color: rgba(255, 107, 199, 1) !important;
+    color: #05DE9D !important;
     a {
-      color: rgba(255, 107, 199, 1) !important;
+      color: #05DE9D !important;
     }
   }
 

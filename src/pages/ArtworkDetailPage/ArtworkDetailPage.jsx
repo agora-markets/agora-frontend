@@ -1848,7 +1848,7 @@ export function ArtworkDetailPage() {
       let addr;
       try {
         const signer = await getSigner();
-        const msg = `Approve Signature on Agoramarket.art with nonce ${nonce}`;
+        const msg = `Approve Signature on Pixelly.gg with nonce ${nonce}`;
         signature = await signer.signMessage(msg);
         addr = ethers.utils.verifyMessage(msg, signature);
       } catch {
@@ -2609,7 +2609,7 @@ export function ArtworkDetailPage() {
               <b>
                 <FontAwesomeIcon icon={faExclamationTriangle} /> Warning:
               </b>{' '}
-              This content has been flagged by the Agora Team as suspicious.
+              This content has been flagged by the Pixelly Team as suspicious.
             </div>
           )}
           <div className="row md:space-y-20">
@@ -3059,7 +3059,7 @@ export function ArtworkDetailPage() {
                                   <Line
                                     type="monotone"
                                     dataKey="price"
-                                    stroke="rgba(255, 107, 199, 1)"
+                                    stroke="#05DE9D"
                                   />
                                 </LineChart>
                               </div>

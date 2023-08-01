@@ -130,7 +130,7 @@
   width: 80px;
   height: 26px;
   border-radius: 4px;
-  background-color: rgba(255, 107, 199, 1);
+  background-color: #05DE9D;
   color: #fff;
   font-size: 14px;
   display: flex;
@@ -161,14 +161,14 @@
 .address {
   font-size: 14px;
   font-weight: 700;
-  color: rgba(255, 107, 199, 1);
+  color: #05DE9D;
 }
 
 .copyIcon {
   width: 32px;
   height: 32px;
   border-radius: 16px;
-  background-color: rgba(255, 107, 199, 1);
+  background-color: #05DE9D;
   margin-left: 20px;
   cursor: pointer;
   display: flex;
@@ -341,7 +341,7 @@
   }
   .name,
   .owner {
-    color: rgba(255, 107, 199, 1);
+    color: #05DE9D;
     text-decoration: none;
     display: flex;
     div {

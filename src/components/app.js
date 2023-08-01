@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 import {
   BrowserRouter as Router,
   Switch,
@@ -8,7 +8,7 @@ import {
 } from 'react-router-dom';
 
 import { Toaster } from 'react-hot-toast';
-import { ethers } from 'ethers';
+// import { ethers } from 'ethers';
 import { useWeb3React } from '@web3-react/core';
 //import { axios } from 'axios';
 
@@ -23,7 +23,7 @@ import AccountDetails from '../pages/AccountDetails';
 import CollectionCreate from '../pages/Collection/Create';
 import CollectionReview from '../pages/Collection/Review';
 import NotificationSetting from '../pages/NotificationSetting';
-import PriceActions from 'actions/price.actions';
+// import PriceActions from 'actions/price.actions';
 import { HomePage } from 'pages/HomePage';
 import { NewExplorePage } from 'pages/NewExplorePage';
 import { ArtworkDetailPage } from 'pages/ArtworkDetailPage';
@@ -35,14 +35,14 @@ import { useApi } from 'api';
 import LaunchpadCollection from 'pages/LaunchpadCollection';
 
 const App = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const { chainId } = useWeb3React();
 
-  const [priceInterval, setPriceInterval] = useState(null);
+  // const [priceInterval, setPriceInterval] = useState(null);
   const [globalStats, setGlobalStats] = useState();
   const { getLatestStats } = useApi();
 
-  const getPrice = async () => {
+  /*const getPrice = async () => {
     try {
       if (chainId === 1559) {
         const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -86,7 +86,7 @@ const App = () => {
     } catch (err) {
       console.log(err);
     }
-  };
+  };*/
 
   useEffect(() => {
     const fetchLatestStats = async () => {
@@ -94,12 +94,12 @@ const App = () => {
       setGlobalStats(_stats.data);
     };
 
-    if (priceInterval) {
+    /*if (priceInterval) {
       clearInterval(priceInterval);
-    }
+    }*/
 
-    getPrice();
-    setPriceInterval(setInterval(getPrice, 1000 * 10));
+    // getPrice();
+    // setPriceInterval(setInterval(getPrice, 1000 * 10));
 
     fetchLatestStats();
   }, [chainId]);

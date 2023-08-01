@@ -41,7 +41,7 @@ function Model({ url }) {
 function Loader3D() {
   const { progress } = useProgress();
   return (
-    <Html center style={{ color: 'rgba(255, 107, 199, 1)' }}>
+    <Html center style={{ color: '#05DE9D' }}>
       {progress.toFixed(2)}%
     </Html>
   );
@@ -130,7 +130,7 @@ export function ArtworkMediaView(props) {
 
           <OrbitControls makeDefault autoRotate={true} />
         </Canvas>
-        <Loader3d dataStyles={{color:'rgba(255, 107, 199, 1)'}} barStyles={{background:'rgba(255, 107, 199, 1)'}} dataInterpolation={(p) => `Loading ${p.toFixed(2)}%`}/>
+        <Loader3d dataStyles={{color:'#05DE9D'}} barStyles={{background:'#05DE9D'}} dataInterpolation={(p) => `Loading ${p.toFixed(2)}%`}/>
       </div>
     );
   } else {

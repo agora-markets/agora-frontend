@@ -40,9 +40,6 @@ export function HomePage() {
             <div className={styles.slider}>
               <Splide aria-label="My Favorite Images" options={options}>
                 <SplideSlide>
-                  <img src="/01.jpg" alt="Image 1" />
-                </SplideSlide>
-                <SplideSlide>
                   <img src="/02.jpg" alt="Image 2" />
                 </SplideSlide>
                 <SplideSlide>
@@ -54,12 +51,13 @@ export function HomePage() {
               <div>
                 {/*<div className={styles.nethkt}>NFT MARKETPLACE</div>*/}
                 <div className={styles.openzoo}>
-                  AGORA <span>MARKET</span>
+                  Discover <span>Pixelly</span>
                 </div>
+                <br />
                 <div className={styles.subtitle}>
-                  Create, Trade, Earn
+                  Create, Collect, and
                   <br />
-                  and Join the DAGO
+                  trade rare NFTs on Tenet
                 </div>
               </div>
               <div
@@ -76,7 +74,11 @@ export function HomePage() {
                   Go To Launchpad
                 </Link>
                 <TxButton
-                  className={dark ? "dark-btn btn btn-link btn-dark btn-sm  home-btn" : `light-btn btn btn-link btn-dark btn-sm  home-btn`}
+                  className={
+                    dark
+                      ? 'dark-btn btn btn-link btn-dark btn-sm  home-btn'
+                      : `light-btn btn btn-link btn-dark btn-sm  home-btn`
+                  }
                   onClick={() => {
                     window.location.href = '/create';
                   }}
@@ -102,7 +104,7 @@ export function HomePage() {
                     <span>
                       <a
                         rel="noreferrer"
-                        href="https://t.me/AgoraMarketNFT"
+                        href="https://t.me/pixelly"
                         target="_blank"
                       >
                         here

@@ -1,5 +1,3 @@
-import { ChainId } from '@sushiswap/sdk';
-
 import { WETH_ABI } from './abi';
 import { calculateGasMargin, getHigherGWEI } from 'utils';
 import useContract from 'hooks/useContract';
@@ -8,12 +6,12 @@ import { useWeb3React } from '@web3-react/core';
 
 const WETH_ADDRESS = {
   [25]: '0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23',
-  [ChainId.ARBITRUM]: '',
+  155: '0x821A1C06F2C9aAF9Eb4b80A2A7881ae69595Cb10',
 };
 
 // eslint-disable-next-line no-undef
 const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
-const CHAIN = isMainnet ? 25 : ChainId.ARBITRUM;
+const CHAIN = isMainnet ? 1559 : 155;
 export const useWETHContract = () => {
   const { getContract } = useContract();
   const { library } = useWeb3React();

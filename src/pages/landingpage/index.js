@@ -33,7 +33,7 @@ const cards = [
     icon: card2,
     title: 'Super Fast',
     description:
-      'Since Agora runs on the Tenet, transactions are usually confirmed within 6 seconds.',
+      'Since Pixelly runs on the Tenet, transactions are usually confirmed within 6 seconds.',
     path: '/',
   },
   {
@@ -95,10 +95,10 @@ const LandingPage = () => {
       <div className={styles.body}>
         <div className={styles.main}>
           <div className={styles.mainLeft}>
-            <div className={styles.title}>{`Fast NFT trading on Agora`}</div>
+            <div className={styles.title}>{`Fast NFT trading on Pixelly`}</div>
             <div className={styles.subtitle}>
-              Agora is an NFT marketplace built on Tenet. Create and trade NFTs
-              instantly with low network costs.
+              Pixelly is an NFT marketplace built on Tenet. Create and trade
+              NFTs instantly with low network costs.
             </div>
             <div className={styles.subtitle}>
               <strong>
@@ -140,7 +140,7 @@ const LandingPage = () => {
         </div>
         <div className={styles.about}>
           <div className={styles.aboutInner}>
-            <div className={styles.aboutTitle}>Why Agora</div>
+            <div className={styles.aboutTitle}>Why Pixelly</div>
             <div className={styles.aboutCards}>
               {cards.map((card, key) =>
                 renderAboutCard(
