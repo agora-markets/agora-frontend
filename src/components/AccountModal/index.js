@@ -17,7 +17,7 @@ import styles from './styles.module.scss';
 
 const AccountModal = () => {
   const { getNonce, updateAccountDetails } = useApi();
-  const {getSigner} = useConnectionUtils();
+  const { getSigner } = useConnectionUtils();
   const dispatch = useDispatch();
   const { account } = useWeb3React();
 
@@ -39,7 +39,7 @@ const AccountModal = () => {
   useEffect(() => {
     if (accountModalVisible) {
       if (user.imageHash) {
-        setAvatar(`https://agoramarket.mypinata.cloud/ipfs/${user.imageHash}`);
+        setAvatar(`https://pixelly.mypinata.cloud/ipfs/${user.imageHash}`);
       } else {
         setAvatar(null);
       }
@@ -117,7 +117,7 @@ const AccountModal = () => {
         signature = await signer.signMessage(msg);
         addr = ethers.utils.verifyMessage(msg, signature);
       } catch (err) {
-        console.log('sign error',err)
+        console.log('sign error', err);
         toast(
           'error',
           'You need to sign the message to be able to update account settings.'

@@ -1,14 +1,14 @@
-# Client for Tenart Marketplace - Powered by Tenet
+# Client for Pixelly Marketplace - Powered by Tenet
 
-A client side implementation of the Tenart Marketplace for NFT trading on Tenet Chain.
+A client side implementation of the Pixelly Marketplace for NFT trading on Tenet Chain.
 
-Tenart allows users: 
+Pixelly allows users: 
 - to explore existing NFTs on Tenet.
 - to create a new collection of a new NFT
 - to register a collection of already deployed NFT.
 - to buy / sell / collect rare NFTs.
 
-See [Guide](https://docs.Tenartcro.com)
+See [Guide](https://docs.pixelly.gg)
 
 ## Project Setup
 ```

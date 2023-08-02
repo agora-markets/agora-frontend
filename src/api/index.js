@@ -9,7 +9,7 @@ export const useApi = () => {
     : 'https://testnet.tenetscan.io';
 
   const apiUrl = isMainnet
-    ? 'https://agora-old-api.herokuapp.com'
+    ? 'https://pixelly-api.herokuapp.com'
     : 'https://api.testnet.artion.io';
 
   // eslint-disable-next-line no-undef

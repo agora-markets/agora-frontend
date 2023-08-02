@@ -16,12 +16,12 @@ export const Contracts = {
   },
 
   155: {
-    auction: '0x7da3Bd3A36b78972447469f9E88D7aE77285A1cf',
-    sales: '0x2F0639a5Eb4baf991EF75deBCc67672fc33686ab',
-    bundleSales: '0x0d906Ded54F9d76Ed2056d306565bcD19BbB48e9',
-    factory: '0x98f4dBC9a5b5CeB8a8c75d71F8a86886323fE1C3', //PixellyNFTFactory
-    privateFactory: '0x255821508Bdb3afd90C54918486f4f6d6064CDFB', //PixellyNFTFactoryPrivate
-    artFactory: '0xeF61fb1E75a35Bc38eF9fB8dB96a7d00bcCd806C', //PixellyArtFactory
-    privateArtFactory: '0xBe3c4B95aF825e96bffe01Cd7898BE9fD7C88b39', //PixellyArtFactoryPrivate
+    auction: '0x3Af673049BCA89D878078Ce655E37695C34f020d',
+    sales: '0xF9C72B3B38b4f223C1e58f2444Ad9Ff4ceE1B009',
+    bundleSales: '0x52808dAe2E0b2233A4831b14186F32a4C38f4932',
+    factory: '0xCab2C6D3CD2b6c2De284A620eFE35e97d611081a', //PixellyNFTFactory
+    privateFactory: '0x8E4200d93F9f03c71f5dE357Fbab4d7E2cAF1771', //PixellyNFTFactoryPrivate
+    artFactory: '0xdEcc53941b798aba4De01ec54713D9B66561105D', //PixellyArtFactory
+    privateArtFactory: '0xac8192d8f599E92fc376b0166aF9a3ECD93de3AE', //PixellyArtFactoryPrivate
   },
 };

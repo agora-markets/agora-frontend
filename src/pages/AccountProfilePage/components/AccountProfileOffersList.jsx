@@ -77,7 +77,7 @@ export function AccountProfileOffersList(props) {
                 <div className={styles.ownerAvatarWrapper}>
                   {offer.image ? (
                     <img
-                      src={`https://agoramarket.mypinata.cloud/ipfs/${offer.image}`}
+                      src={`https://pixelly.mypinata.cloud/ipfs/${offer.image}`}
                       className={styles.ownerAvatar}
                     />
                   ) : (

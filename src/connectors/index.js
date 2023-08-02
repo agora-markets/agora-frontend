@@ -35,7 +35,7 @@ export const injected = new InjectedConnector({
 
 export const walletlink = new WalletLinkConnector({
   url: 'https://rpc.testnet.tenet.org',
-  appName: 'tenart',
+  appName: 'pixelly',
   appLogoUrl: PIXELLY_LOGO_URL,
 });
 

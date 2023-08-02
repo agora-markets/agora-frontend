@@ -48,7 +48,7 @@ export const getRandomIPFS = (tokenURI, justURL = false, isFallback = false) => 
   }
   if (isFallback) {
     if (tokenURI.includes('ipfs://')) {
-      return `https://agoramarket.mypinata.cloud/ipfs/${tokenURI.split('ipfs://')[1].replace(/([^:]\/)\/+/g, "$1")}`;
+      return `https://pixelly.mypinata.cloud/ipfs/${tokenURI.split('ipfs://')[1].replace(/([^:]\/)\/+/g, "$1")}`;
     }
     else {
       return `https://agortamarket.mypinata.cloud/ipfs/${tokenURI.split('ipfs/')[1]}`;

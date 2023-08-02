@@ -18,7 +18,7 @@ export function ArtworkDetailPageBundleInfoTab(props) {
           <div className={styles.ownerAvatar}>
             {creatorInfo?.imageHash ? (
               <img
-                src={`https://agoramarket.mypinata.cloud/ipfs/${creatorInfo.imageHash}`}
+                src={`https://pixelly.mypinata.cloud/ipfs/${creatorInfo.imageHash}`}
                 className={styles.avatar}
               />
             ) : (

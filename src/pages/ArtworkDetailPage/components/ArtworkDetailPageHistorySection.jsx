@@ -173,7 +173,7 @@ export function ArtworkDetailPageHistorySection(props) {
                       <div className={styles.userAvatarWrapper}>
                         {history.fromImage ? (
                           <img
-                            src={`https://agoramarket.mypinata.cloud/ipfs/${history.fromImage}`}
+                            src={`https://pixelly.mypinata.cloud/ipfs/${history.fromImage}`}
                             className={styles.userAvatar}
                           />
                         ) : (
@@ -196,7 +196,7 @@ export function ArtworkDetailPageHistorySection(props) {
                       <div className={styles.userAvatarWrapper}>
                         {history.toImage ? (
                           <img
-                            src={`https://agoramarket.mypinata.cloud/ipfs/${history.toImage}`}
+                            src={`https://pixelly.mypinata.cloud/ipfs/${history.toImage}`}
                             className={styles.userAvatar}
                           />
                         ) : (

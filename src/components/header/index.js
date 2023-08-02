@@ -392,7 +392,7 @@ const Header = props => {
                   {account.imageHash ? (
                     <img
                       className={styles.resultimg}
-                      src={`https://agoramarket.mypinata.cloud/ipfs/${account.imageHash}`}
+                      src={`https://pixelly.mypinata.cloud/ipfs/${account.imageHash}`}
                     />
                   ) : (
                     <Identicon

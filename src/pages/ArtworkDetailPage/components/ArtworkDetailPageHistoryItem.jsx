@@ -15,7 +15,7 @@ const propTypes = {
 export function ArtworkDetailPageHistoryItem(props) {
   const { listing, prices } = props;
   const userUrl = listing.owner ? `/account/${listing.owner}` : '#';
-  const accountImage = `https://agoramarket.mypinata.cloud/ipfs/${listing.image}`;
+  const accountImage = `https://pixelly.mypinata.cloud/ipfs/${listing.image}`;
 
   return (
     <div className="creator_item creator_card space-x-10">
