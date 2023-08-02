@@ -33,7 +33,7 @@ const LaunchpadCard = ({ dark, collection }) => {
               </div>
               <div className={styles.price}>
                 <label>Price:</label>
-                <span> {collection.price} CRO</span>
+                <span> {collection.price} TENET</span>
               </div>
             </div>
           </div>

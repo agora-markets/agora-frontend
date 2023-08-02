@@ -2,7 +2,7 @@
 //import iconWETH from 'assets/imgs/wwan.png';
 import iconZOO from 'assets/imgs/Zoo_ticker.svg';
 import iconVZOO from 'assets/imgs/vZoo_ticker.svg';
-import iconWCRO from 'assets/imgs/CRO.png';
+import iconWTENET from 'assets/imgs/tenet.png';
 // import iconUSDT from 'assets/imgs/usdt.png';
 import iconUSDC from 'assets/imgs/usdc.png';
 // import iconDAI from 'assets/imgs/dai.png';
@@ -21,7 +21,7 @@ const Tokens = {
       name: 'Wrapped Tenet',
       symbol: 'WTENET',
       decimals: 18,
-      icon: iconWCRO,
+      icon: iconWTENET,
     },
     {
       address: '',
@@ -58,7 +58,7 @@ const Tokens = {
       name: 'Wrapped Tenet',
       symbol: 'WTENET',
       decimals: 18,
-      icon: iconWCRO,
+      icon: iconWTENET,
     },
   ],
 };

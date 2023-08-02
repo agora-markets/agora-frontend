@@ -1,6 +1,7 @@
+/* eslint-disable react/no-unescaped-entities */
 import React from 'react';
 
-import logoDark from 'assets/imgs/logos/logo_2.png';
+import logoDark from 'assets/imgs/logos/pixelly.png';
 import { Link } from 'react-router-dom';
 
 export function Footer() {
@@ -14,9 +15,9 @@ export function Footer() {
                 <img src={logoDark} alt="logo" id="logo_js_f" />
               </Link>
             </div>
-            {/*<p className="footer__text">
-              Pixelly is Tenet First NFT Marketplace
-            </p>*/}
+            <p className="footer__text">
+              Pixelly is Tenet's First NFT Marketplace
+            </p>
             <div>
               <ul className="footer__social space-x-10 mb-40">
                 <li>
@@ -46,11 +47,11 @@ export function Footer() {
                     <i className="ri-telegram-line"></i>
                   </a>
                 </li>
-                {/* <li>
-                <a href="http://" target="_blank" rel="noopener noreferrer">
+                <li>
+                  <a href="http://" target="_blank" rel="noopener noreferrer">
                     <i className="ri-medium-line"></i>
                   </a>
-                </li> */}
+                </li>
               </ul>
             </div>
           </div>
@@ -66,7 +67,7 @@ export function Footer() {
               <li></li>
             </ul>
           </div>
-          {/* <div className="col-lg-2 col-6">
+          <div className="col-lg-2 col-6">
             <h6 className="footer__title">Assets</h6>
             <ul className="footer__list">
               <li>
@@ -80,7 +81,7 @@ export function Footer() {
               </li>
               <li></li>
             </ul>
-          </div> */}
+          </div>
           {/* <div className="col-lg-2 col-6">
             <h6 className="footer__title">Company</h6>
             <ul className="footer__list">

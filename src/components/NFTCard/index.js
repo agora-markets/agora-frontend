@@ -23,7 +23,7 @@ import { useAuctionContract } from 'contracts';
 import useTokens from 'hooks/useTokens';
 
 import iconPlus from 'assets/svgs/plus.svg';
-import wETHLogo from 'assets/imgs/CRO.png';
+import wETHLogo from 'assets/imgs/tenet.png';
 
 import styles from './styles.module.scss';
 

@@ -146,7 +146,7 @@ const UpcomingDetails = ({ collection }) => {
               </div>
               <div className="price">
                 <p>
-                  Price <strong>{collection.price} CRO</strong>
+                  Price <strong>{collection.price} TENET</strong>
                 </p>
               </div>
               <div className="webIcons">

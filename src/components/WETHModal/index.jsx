@@ -127,7 +127,7 @@ const WETHModal = ({ visible, onClose }) => {
         await pollBalanceChange(balance, wrappedBalance);
         const toastId = showToast(
           'success',
-          'Wrapped CRO successfully!',
+          'Wrapped TENET successfully!',
           '',
           () => {
             toast.dismiss(toastId);
@@ -140,7 +140,7 @@ const WETHModal = ({ visible, onClose }) => {
         await pollBalanceChange(balance, wrappedBalance);
         const toastId = showToast(
           'success',
-          'Unwrap WCRO successfully!',
+          'Unwrap WTENET successfully!',
           '',
           () => {
             toast.dismiss(toastId);
@@ -161,7 +161,7 @@ const WETHModal = ({ visible, onClose }) => {
   return (
     <Modal
       visible={visible}
-      title="CRO / WCRO Station"
+      title="TENET / WTENET Station"
       onClose={onClose}
       submitDisabled={
         confirming ||
@@ -189,7 +189,7 @@ const WETHModal = ({ visible, onClose }) => {
     >
       <div className={cx(styles.swapContainer, !wrap && styles.reverse)}>
         <div className={styles.swapBox}>
-          <div className={styles.symbol}>CRO</div>
+          <div className={styles.symbol}>TENET</div>
           <div className={styles.swapBoxInner}>
             <div className={styles.balance}>
               Balance:{' '}
@@ -223,7 +223,7 @@ const WETHModal = ({ visible, onClose }) => {
           <SwapVertIcon className={styles.icon} />
         </div>
         <div className={styles.swapBox}>
-          <div className={styles.symbol}>WCRO</div>
+          <div className={styles.symbol}>WTENET</div>
           <div className={styles.swapBoxInner}>
             <div className={styles.balance}>
               Balance:{' '}

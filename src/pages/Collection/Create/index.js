@@ -1,5 +1,11 @@
 /* eslint-disable react/no-unescaped-entities */
-import React, { useRef, useState, useEffect, useCallback, Fragment } from 'react';
+import React, {
+  useRef,
+  useState,
+  useEffect,
+  useCallback,
+  Fragment,
+} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import cx from 'classnames';
@@ -34,7 +40,6 @@ import {
   faInstagram,
   faMedium,
   faTelegramPlane,
-
 } from '@fortawesome/free-brands-svg-icons';
 
 import styles from './styles.module.scss';
@@ -68,7 +73,7 @@ const CustomRadio = withStyles({
 const CollectionCreate = ({ isRegister }) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const {getSigner} = useConnectionUtils();
+  const { getSigner } = useConnectionUtils();
   const { account } = useWeb3React();
 
   const { apiUrl, getNonce } = useApi();
@@ -267,7 +272,7 @@ const CollectionCreate = ({ isRegister }) => {
     { display_type: 'date', display_value: 'Date' },
   ];
   const [attributeFields, setAttributeFields] = useState([
-    { trait_type: '', display_type: 'text' }
+    { trait_type: '', display_type: 'text' },
   ]);
   const handleAddFields = () => {
     const values = [...attributeFields];
@@ -352,7 +357,7 @@ const CollectionCreate = ({ isRegister }) => {
     setCreating(true);
 
     const img = new Image();
-    img.onload = function () {
+    img.onload = function() {
       const w = this.width;
       const h = this.height;
       const size = Math.min(w, h);
@@ -443,7 +448,6 @@ const CollectionCreate = ({ isRegister }) => {
   };
 
   const handleCreate = async () => {
-
     setDeploying(true);
     try {
       const tx = await createNFTContract(
@@ -452,8 +456,8 @@ const CollectionCreate = ({ isRegister }) => {
             ? await getPrivateFactoryContract()
             : await getFactoryContract()
           : isPrivate
-            ? await getPrivateArtFactoryContract()
-            : await getArtFactoryContract(),
+          ? await getPrivateArtFactoryContract()
+          : await getArtFactoryContract(),
         name,
         symbol,
         ethers.utils.parseEther('50'),
@@ -472,7 +476,7 @@ const CollectionCreate = ({ isRegister }) => {
           const address = ethers.utils.hexDataSlice(evt.data, 44);
 
           const img = new Image();
-          img.onload = function () {
+          img.onload = function() {
             const w = this.width;
             const h = this.height;
             const size = Math.min(w, h);
@@ -516,7 +520,9 @@ const CollectionCreate = ({ isRegister }) => {
                   erc721Address: address,
                   collectionName: name,
                   description,
-                  attribute_template: attributeFields.filter((item) => { return item.trait_type.trim() !== '' }),
+                  attribute_template: attributeFields.filter(item => {
+                    return item.trait_type.trim() !== '';
+                  }),
                   categories: selected.join(','),
                   logoImageHash,
                   siteUrl,
@@ -587,20 +593,20 @@ const CollectionCreate = ({ isRegister }) => {
     </Menu>
   );
 
-
-
   return (
     <PageLayout
       containerClassName="form-container-page box"
       cover={
         !isRegister && (
-          <div className="container" style={{ paddingLeft: 0, paddingRight: 0 }}>
-
+          <div
+            className="container"
+            style={{ paddingLeft: 0, paddingRight: 0 }}
+          >
             <div className="d-flex justify-content-between mt-40 space-x-40 sm:space-x-20">
               <TokenChoiceCard
                 title="SINGLE TOKEN"
                 subtitle="STANDARD COLLECTION"
-                network="CRC721"
+                network="ERC721"
                 detail="Your collectible will be one of a kind"
                 selected={isSingle}
                 onClick={() => setIsSingle(true)}
@@ -608,7 +614,7 @@ const CollectionCreate = ({ isRegister }) => {
               <TokenChoiceCard
                 title="MULTI TOKEN"
                 subtitle="STANDARD COLLECTION"
-                network="CRC1155"
+                network="ERC1155"
                 detail="Your collectible will have multiple entities of one kind"
                 selected={!isSingle}
                 onClick={() => setIsSingle(false)}
@@ -622,9 +628,9 @@ const CollectionCreate = ({ isRegister }) => {
         <div className="col-lg-4 col-md-8 space-y-20">
           <h4>{isRegister ? 'COLLECTION REGISTOR' : 'COLLECTION CREATOR'}</h4>
           <p>
-            NFTs can represent essentially any type of digital file, with artists
-            creating NFTs featuring images, videos, gifs, audio files, or a
-            combination of each.
+            NFTs can represent essentially any type of digital file, with
+            artists creating NFTs featuring images, videos, gifs, audio files,
+            or a combination of each.
           </p>
           {!isRegister &&
             (isModerator ||
@@ -808,13 +814,16 @@ const CollectionCreate = ({ isRegister }) => {
               )}
             </div>
           </div>
-          {
-            !isRegister && <div className={styles.inputGroup}>
+          {!isRegister && (
+            <div className={styles.inputGroup}>
               <p className={styles.inputTitle}>Attribute Template</p>
 
               {attributeFields.map((attributeField, index) => (
                 <Fragment key={`${attributeField}~${index}`}>
-                  <div className="form-row mt-10 space-x-5" style={{ display: 'flex' }}>
+                  <div
+                    className="form-row mt-10 space-x-5"
+                    style={{ display: 'flex' }}
+                  >
                     <div className="form-group col-sm-5">
                       <label htmlFor="trait_type">Title</label>
                       <input
@@ -833,10 +842,15 @@ const CollectionCreate = ({ isRegister }) => {
 
                       <Select
                         options={attributeDisplayTypeList}
-                        values={attributeDisplayTypeList.filter((item) => { return item.display_type === attributeFields[index].display_type })}
+                        values={attributeDisplayTypeList.filter(item => {
+                          return (
+                            item.display_type ===
+                            attributeFields[index].display_type
+                          );
+                        })}
                         className={styles.select}
                         onChange={([col]) => {
-                          handleSelectChange(index, col)
+                          handleSelectChange(index, col);
                         }}
                         placeholder="Choose Collection"
                         itemRenderer={({ item, methods }) => (
@@ -848,36 +862,35 @@ const CollectionCreate = ({ isRegister }) => {
                               methods.addItem(item);
                             }}
                           >
-                            <div className={`${styles.collectionName} ${styles.collectionList}`}>
+                            <div
+                              className={`${styles.collectionName} ${styles.collectionList}`}
+                            >
                               <strong>{item.display_value}</strong>
                             </div>
                           </div>
                         )}
-                        contentRenderer={({ props: { values } }) =>
+                        contentRenderer={({ props: { values } }) => (
                           <div className={styles.collection}>
-
                             <div className={styles.collectionName}>
                               <strong>{values[0].display_value}</strong>
                             </div>
                           </div>
-                        }
+                        )}
                       />
                     </div>
 
                     <div className="form-group col-sm-2">
-
                       <button
                         className="btn btn-link"
                         type="button"
                         onClick={() => handleRemoveFields(index)}
-                        disabled={attributeFields.length<=1}
+                        disabled={attributeFields.length <= 1}
                       >
                         <FontAwesomeIcon icon={faMinus} />
                       </button>
                       <button
                         className="btn btn-link"
                         type="button"
-
                         onClick={() => handleAddFields()}
                       >
                         <FontAwesomeIcon icon={faPlus} />
@@ -892,7 +905,7 @@ const CollectionCreate = ({ isRegister }) => {
                 // </pre>
               }
             </div>
-          }
+          )}
           {isRegister && (
             <div className={styles.inputGroup}>
               <div className={styles.inputTitle}>
@@ -1067,9 +1080,6 @@ const CollectionCreate = ({ isRegister }) => {
                     onChange={e => setTelegram(e.target.value)}
                   />
                 </div>
-
-
-
               </div>
             </div>
           </div>
@@ -1098,7 +1108,8 @@ const CollectionCreate = ({ isRegister }) => {
           <div>
             <strong>Note</strong>
             <p>
-              The process of creating Collection is an irreversible process. Please make sure all of the above details are correct.
+              The process of creating Collection is an irreversible process.
+              Please make sure all of the above details are correct.
             </p>
           </div>
           <div className={styles.buttonsWrapper}>
@@ -1136,7 +1147,6 @@ const CollectionCreate = ({ isRegister }) => {
               </div>
             )}
           </div>
-
         </div>
       </div>
       {renderMenu}

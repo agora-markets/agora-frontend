@@ -37,7 +37,7 @@ export function LaunchpadPage() {
           <h2>Minting and DAO</h2>
           <p>
             Shaggies NFT minting and ShaggyDAO constitution. All the Shaggies
-            immediately start counting to be eligible in the weekly CRO claim
+            immediately start counting to be eligible in the weekly TENET claim
             rounds.
           </p>
           <br></br>
@@ -50,7 +50,7 @@ export function LaunchpadPage() {
           <h2>$COMB LP and Vesting</h2>
           <p>
             25% of $COMB total supply will be provided as liquidity
-            collateralized by CRO on VVSFinance in order to set the initial
+            collateralized by TENET on VVSFinance in order to set the initial
             price. 70% will be unlocked on a weekly basis and Shaggy hodlers can
             claim their share. The remaining 5% will be kept by the team as
             treasury.

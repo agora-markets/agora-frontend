@@ -5,7 +5,7 @@ import Skeleton from 'react-loading-skeleton';
 import useTokens from 'hooks/useTokens';
 import { formatNumber } from 'utils';
 import { Link } from 'react-router-dom';
-import wETHLogo from 'assets/imgs/CRO.png';
+import wETHLogo from 'assets/imgs/tenet.png';
 import { useWeb3React } from '@web3-react/core';
 export function AssetCardFourPriceTag(props) {
   const { account } = useWeb3React();

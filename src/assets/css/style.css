@@ -20786,7 +20786,7 @@ label:active:after {
 .is__dark .upcoming_projects tr.white td,
 .is__dark .upcoming_projects .calendar_icon,
 .is__dark .card__item.six .card_body .card_footer .details {
-  background-color: #1e1e1e !important;
+  background-color: #000000 !important;
   border: none;
 }
 
@@ -20847,7 +20847,7 @@ label:active:after {
 
 .is__dark .bg-white,
 .is__dark .call2action.is__light {
-  background: #08131b !important;
+  background: #000000 !important;
 }
 
 .is__dark .community .community__items .item .logo {

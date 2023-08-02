@@ -2,14 +2,14 @@ import React, { useState /*,useEffect*/ } from 'react';
 import PropTypes from 'prop-types';
 import Skeleton from 'react-loading-skeleton';
 import cx from 'classnames';
-import tokenicon from 'assets/imgs/coin-removebg2.png';
+// import tokenicon from 'assets/imgs/coin-removebg2.png';
 import Identicon from 'components/Identicon';
 import { shortenAddress } from 'utils';
 import { useDetectOutsideRef } from 'hooks/useDetectOutsideRef';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Tooltip /*FormControlLabel, Checkbox*/ } from '@material-ui/core';
 //import { withStyles } from '@material-ui/core/styles';
-import WCRO_IMAGE from 'assets/imgs/CRO.png';
+import TENET_IMAGE from 'assets/imgs/tenet.png';
 import { makeStyles } from '@material-ui/styles';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -41,7 +41,7 @@ export function HeaderAvatarMenu(props) {
   const styles = useStyle();
 
   const [balance, setBalance] = useState(0);
-  const [agoBalance, setAgoBalance] = useState(0);
+  // const [agoBalance, setAgoBalance] = useState(0);
   const [menuVisible, setMenuVisible] = useState(false);
   const [copied, setCopied] = useState(false);
   const [tooltipOpen, setTooltipOpen] = useState(false);
@@ -75,14 +75,14 @@ export function HeaderAvatarMenu(props) {
 
     const agoContract = await getERC20Contract(AGO_ADDRESS[chainId]);
 
-    let [ethBal, /*wethBal,*/ agoBal] = await Promise.all([
+    let [ethBal, /*wethBal,*/ /*agoBal*/] = await Promise.all([
       await provider.getBalance(account),
       // await getWETHBalance(account),
       await agoContract.balanceOf(account),
     ]);
 
     setBalance(parseFloat(ethBal.toString()) / 10 ** 18);
-    setAgoBalance(parseFloat(agoBal.toString()) / 10 ** 18);
+    // setAgoBalance(parseFloat(agoBal.toString()) / 10 ** 18);
 
     // setWrappedBalance(parseFloat(wethBal.toString()) / 10 ** 18);
 
@@ -164,7 +164,7 @@ export function HeaderAvatarMenu(props) {
       >
         <div className="price">
           <span>
-            <img src={tokenicon} /> {formatNumber(parseBalance(agoBalance), 2)}
+            <img src={TENET_IMAGE} /> {formatNumber(parseBalance(balance), 2)}
           </span>
         </div>
         {props.loading ? (
@@ -207,14 +207,14 @@ export function HeaderAvatarMenu(props) {
             <div className="d-flex align-items-center space-x-10">
               <img
                 className={cx('coin', styles.coinImage)}
-                src={WCRO_IMAGE}
+                src={TENET_IMAGE}
                 alt="/"
               />
               <div className="info">
                 <p className="text-sm font-book text-gray-400">Balance</p>
                 <p className="w-full text-sm font-bold text-green-500">{`${parseBalance(
                   balance
-                )} CRO`}</p>
+                )} TENET`}</p>
               </div>
             </div>
           )}
@@ -227,7 +227,7 @@ export function HeaderAvatarMenu(props) {
             >
               <div></div>
               <div>FIRST TIME?</div>
-              <div>Claim Free CRO to Start</div>
+              <div>Claim Free TENET to Start</div>
             </div>
           )} */}
           {/*
@@ -272,7 +272,7 @@ export function HeaderAvatarMenu(props) {
             </Link>
             <a onClick={handleOpenWrapStation}>
               <i className="ri-refresh-fill"></i>{' '}
-              <span> CRO / WCRO Station</span>
+              <span> TENET / WTENET Station</span>
             </a>
 
             {(props.isAdmin || props.isModerator) && (

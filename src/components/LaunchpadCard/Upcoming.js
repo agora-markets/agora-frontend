@@ -31,7 +31,7 @@ const UpcomingCard = ({ dark, upcoming }) => {
             </div>
             <div className={styles.price}>
               <label>Price:</label>
-              <span>{upcoming.price} CRO</span>
+              <span>{upcoming.price} TENET</span>
             </div>
           </div>
         </div>

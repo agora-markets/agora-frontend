@@ -24,8 +24,8 @@ const BurnModal = ({ visible, burning, onBurn, onClose }) => {
         <br />
         <br />
         Please make sure this action is deliberate and you fully understand the
-        consequences as Pixelly will not be held responsible for the loss of NFTs
-        under any circumstances.
+        consequences as Pixelly will not be held responsible for the loss of
+        NFTs under any circumstances.
       </div>
     </Modal>
   );

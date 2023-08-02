@@ -8,7 +8,7 @@ import ReCAPTCHA from 'react-google-recaptcha';
 import showToast from 'utils/toast';
 import { RaroinModal as Modal } from '../Modal/RaroinModal';
 import axios from 'axios';
-import WCRO_IMAGE from 'assets/imgs/wan.png';
+import TENET_IMAGE from 'assets/imgs/tenet.png';
 import { ethers } from 'ethers';
 import { useWeb3React } from '@web3-react/core';
 
@@ -62,7 +62,7 @@ const FaucetModal = ({ account, visible, onClose, setFaucetModalVisible }) => {
       );
       if (data.success == true) {
         setFaucetModalVisible(false);
-        showToast('success', '0.02 CRO transferred to your address!');
+        showToast('success', '0.02 TENET transferred to your address!');
       } else {
         setClaiming(false);
         setRecaptchaValue(null);
@@ -100,10 +100,10 @@ const FaucetModal = ({ account, visible, onClose, setFaucetModalVisible }) => {
         </div>
         <div className="faucentBalanceAmount">
           <div className="faucentBalanceAmountIcon">
-            <img className="wanImage" src={WCRO_IMAGE} alt="" />
+            <img className="wanImage" src={TENET_IMAGE} alt="" />
             {faucetBalance}
           </div>
-          <span>0.02 CRO per address</span>
+          <span>0.02 TENET per address</span>
         </div>
       </div>
       {!claiming && (

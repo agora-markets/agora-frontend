@@ -1954,12 +1954,12 @@ export function ArtworkDetailPage() {
           const toastId = showToast(
             'error',
             `Insufficient ${listing.token.symbol} Balance!`,
-            listing.token.symbol === 'WCRO'
-              ? 'You can wrap CRO in the WCRO station.'
+            listing.token.symbol === 'WTENET'
+              ? 'You can wrap TENET in the WTENET station.'
               : `You can exchange ${listing.token.symbol} on other exchange site.`,
             () => {
               toast.dismiss(toastId);
-              if (listing.token.symbol === 'WCRO') {
+              if (listing.token.symbol === 'WTENET') {
                 dispatch(ModalActions.showWETHModal());
               }
             }
@@ -2026,12 +2026,12 @@ export function ArtworkDetailPage() {
           const toastId = showToast(
             'error',
             `Insufficient ${token.symbol} Balance!`,
-            token.symbol === 'WETH' || token.symbol === 'WCRO'
-              ? 'You can wrap CRO in the WCRO station.'
+            token.symbol === 'WETH' || token.symbol === 'WTENET'
+              ? 'You can wrap TENET in the WTENET station.'
               : `You can exchange ${token.symbol} on other exchange site.`,
             () => {
               toast.dismiss(toastId);
-              if (token.symbol === 'WETH' || token.symbol === 'WCRO') {
+              if (token.symbol === 'WETH' || token.symbol === 'WTENET') {
                 dispatch(ModalActions.showWETHModal());
               }
             }
@@ -2077,13 +2077,13 @@ export function ArtworkDetailPage() {
         const toastId = showToast(
           'error',
           `Insufficient ${token.symbol} Balance!`,
-          token.symbol === 'WCRO'
-            ? 'You can wrap CRO in the WCRO station.'
+          token.symbol === 'WTENET'
+            ? 'You can wrap TENET in the WTENET station.'
             : `You can exchange ${token.symbol} on other exchange site.`,
           () => {
             toast.dismiss(toastId);
             setOfferModalVisible(false);
-            if (token.symbol === 'WCRO') {
+            if (token.symbol === 'WTENET') {
               dispatch(ModalActions.showWETHModal());
             }
           }
@@ -2331,13 +2331,13 @@ export function ArtworkDetailPage() {
           const toastId = showToast(
             'error',
             `Insufficient ${token.symbol} Balance!`,
-            token.symbol === 'WETH' || token.symbol === 'WCRO'
-              ? 'You can wrap CRO in the WCRO station.'
+            token.symbol === 'WETH' || token.symbol === 'WTENET'
+              ? 'You can wrap TENET in the WTENET station.'
               : `You can exchange ${token.symbol} on other exchange site.`,
             () => {
               toast.dismiss(toastId);
               setBidModalVisible(false);
-              if (token.symbol === 'WETH' || token.symbol === 'WCRO') {
+              if (token.symbol === 'WETH' || token.symbol === 'WTENET') {
                 dispatch(ModalActions.showWETHModal());
               }
             }
