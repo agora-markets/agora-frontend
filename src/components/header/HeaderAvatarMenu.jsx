@@ -69,13 +69,13 @@ export function HeaderAvatarMenu(props) {
     const provider = new ethers.providers.Web3Provider(web3provider);
 
     const AGO_ADDRESS = {
-      1559: '',
+      1559: '0xd6cb8a253e12893b0cF39Ca78F7d858652cCa1fe',
       155: '0xc31D02f9CD7315A674107AB82258448bCb386d6F',
     };
 
     const agoContract = await getERC20Contract(AGO_ADDRESS[chainId]);
 
-    let [ethBal, /*wethBal,*/ /*agoBal*/] = await Promise.all([
+    let [ethBal /*wethBal,*/ /*agoBal*/] = await Promise.all([
       await provider.getBalance(account),
       // await getWETHBalance(account),
       await agoContract.balanceOf(account),

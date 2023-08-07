@@ -17,7 +17,7 @@ const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
 const Tokens = {
   1559: [
     {
-      address: '',
+      address: '0xd6cb8a253e12893b0cF39Ca78F7d858652cCa1fe',
       name: 'Wrapped Tenet',
       symbol: 'WTENET',
       decimals: 18,

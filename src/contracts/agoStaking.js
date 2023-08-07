@@ -24,7 +24,7 @@ const TOKEN_DISTRIBUTOR = {
 
 // eslint-disable-next-line no-undef
 const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
-const CHAIN = isMainnet ? 25 : ChainId.ARBITRUM;
+const CHAIN = isMainnet ? 1559 : 155;
 
 export const useAgoContract = () => {
   const { getContract } = useContract();

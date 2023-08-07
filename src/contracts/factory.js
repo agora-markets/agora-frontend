@@ -1,5 +1,3 @@
-import { ChainId } from '@sushiswap/sdk';
-
 import { calculateGasMargin } from 'utils';
 import useConnectionUtils from 'hooks/useConnectionUtils';
 import { Contracts } from 'constants/networks';
@@ -10,7 +8,7 @@ import { FACTORY_ABI } from './abi';
 
 // eslint-disable-next-line no-undef
 const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
-const CHAIN = isMainnet ? 25 : ChainId.ARBITRUM;
+const CHAIN = isMainnet ? 1559 : 155;
 
 export const useFactoryContract = () => {
   const { getContract } = useContract();

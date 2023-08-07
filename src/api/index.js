@@ -9,8 +9,8 @@ export const useApi = () => {
     : 'https://testnet.tenetscan.io';
 
   const apiUrl = isMainnet
-    ? 'https://pixelly-api.herokuapp.com'
-    : 'https://api.testnet.artion.io';
+    ? 'https://pixelly-server.onrender.com'
+    : 'https://pixelly-server.onrender.com';
 
   // eslint-disable-next-line no-undef
   // const apiUrl = process.env.REACT_APP_API_URI;

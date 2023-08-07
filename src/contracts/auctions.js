@@ -1,5 +1,4 @@
-import { ChainId } from '@sushiswap/sdk';
-
+/* eslint-disable no-undef */
 import { calculateGasMargin, getHigherGWEI } from 'utils';
 import { Contracts } from 'constants/networks';
 import useContract from 'hooks/useContract';
@@ -9,7 +8,7 @@ import { useWeb3React } from '@web3-react/core';
 
 // eslint-disable-next-line no-undef
 const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
-const CHAIN = isMainnet ? 25 : ChainId.ARBITRUM;
+const CHAIN = isMainnet ? 1559 : 155;
 
 export const useAuctionContract = () => {
   const { getContract } = useContract();

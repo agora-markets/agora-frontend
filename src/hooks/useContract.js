@@ -1,7 +1,6 @@
 import { useCallback } from 'react';
 import { ethers } from 'ethers';
 import { useWeb3React } from '@web3-react/core';
-import { ChainId } from '@sushiswap/sdk';
 
 // eslint-disable-next-line no-undef
 const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
@@ -21,13 +20,11 @@ export default () => {
         return new ethers.Contract(address, abi, signer);
       } else {
         const provider = new ethers.providers.StaticJsonRpcProvider(
-          isMainnet
-            ? 'https://rpc.tenet.org'
-            : 'https://arb1.arbitrum.io/rpc',
-          isMainnet ? 25 : ChainId.ARBITRUM
+          isMainnet ? 'https://rpc.tenet.org' : 'https://rpc.testnet.tenet.org',
+          isMainnet ? 1559 : 155
         );
         provider.pollingInterval = 10 * 1000;
-        
+
         return new ethers.Contract(address, abi, provider);
       }
     },

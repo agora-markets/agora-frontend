@@ -10,7 +10,7 @@ export function LaunchpadPage() {
   const [dark, setDark] = useState(false);
 
   const collectionsLaunchpad = [
-    {
+    /* {
       nameCollection: 'Cronos Shaggy Galaxy',
       sale: 'Public Sale',
       status: 'Live',
@@ -71,7 +71,7 @@ export function LaunchpadPage() {
       teamMemberDetails1: <p>Founder, Web3 Dev</p>,
       teamMemberDetails2: <p>Graphic Designer</p>,
       teamMemberDetails3: <p>Dev, Animator</p>,
-    },
+    },*/
   ];
 
   {

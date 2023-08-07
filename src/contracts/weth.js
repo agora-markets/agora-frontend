@@ -5,7 +5,7 @@ import { ethers } from 'ethers';
 import { useWeb3React } from '@web3-react/core';
 
 const WETH_ADDRESS = {
-  [25]: '0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23',
+  1559: '0xd6cb8a253e12893b0cF39Ca78F7d858652cCa1fe',
   155: '0x821A1C06F2C9aAF9Eb4b80A2A7881ae69595Cb10',
 };
 

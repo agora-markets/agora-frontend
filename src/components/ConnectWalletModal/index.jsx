@@ -94,10 +94,10 @@ const ConnectWalletModal = ({ visible, onClose }) => {
               } else {
                 try {
                   const param = {
-                    chainId: '0x9b',
-                    chainName: 'Tenet Testnet',
-                    rpcUrls: ['https://rpc.testnet.tenet.org'],
-                    blockExplorerUrls: ['https://testnet.tenetscan.io/'],
+                    chainId: '0x617',
+                    chainName: 'Tenet Mainnet',
+                    rpcUrls: ['https://rpc.tenet.org'],
+                    blockExplorerUrls: ['https://tenetscan.io/'],
                     nativeCurrency: {
                       name: 'TENET',
                       symbol: 'TENET', // 2-6 characters long
@@ -115,7 +115,7 @@ const ConnectWalletModal = ({ visible, onClose }) => {
               }
             }}
           >
-            Switch to Tenet Testnet in MetaMask
+            Switch to Tenet Mainnet in MetaMask
           </div>
           <div className={styles.switchBtn} onClick={deactivate}>
             Disconnect

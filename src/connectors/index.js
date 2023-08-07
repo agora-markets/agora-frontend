@@ -19,7 +19,7 @@ const RPC = isMainnet
     };
 
 export const network = new NetworkConnector({
-  defaultChainId: 155,
+  defaultChainId: 1559,
   urls: RPC,
 });
 
@@ -34,18 +34,18 @@ export const injected = new InjectedConnector({
 });
 
 export const walletlink = new WalletLinkConnector({
-  url: 'https://rpc.testnet.tenet.org',
+  url: 'https://rpc.tenet.org',
   appName: 'pixelly',
   appLogoUrl: PIXELLY_LOGO_URL,
 });
 
 export const defiwallet = new DeFiWeb3Connector({
-  supportedChainIds: [155],
-  rpc: { [155]: 'https://rpc.testnet.tenet.org' },
+  supportedChainIds: [1559],
+  rpc: { [1559]: 'https://rpc.tenet.org' },
   pollingInterval: 15000,
 });
 
 export const walletconnect = new WalletConnectConnector({
-  rpc: 'https://rpc.testnet.tenet.org',
-  chainId: 155,
+  rpc: 'https://rpc.tenet.org',
+  chainId: 1559,
 });

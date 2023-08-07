@@ -8,7 +8,7 @@ import {
   ERC1155_CONTRACT_ABI,
 } from './abi';
 
-import csg from '../config/abi/csg.json'
+import csg from '../config/abi/csg.json';
 
 export const useNFTContract = () => {
   const { getContract } = useContract();
@@ -22,21 +22,25 @@ export const useNFTContract = () => {
 
   const getERC1155Contract = async address =>
     await getContract(address, ERC1155_CONTRACT_ABI);
-  
-  const getCSGContract = async address =>
-    await getContract(address, csg)
 
-    const mintNFT = async (address, amount, value, from) => {
-      const contract = await getCSGContract(address);
-      const options = {
-        value,
-        from,
-        gasPrice: getHigherGWEI(library),
-      };
-  
-      return await contract.mintToken(amount, options);
+  const getCSGContract = async address => await getContract(address, csg);
+
+  const mintNFT = async (address, amount, value, from) => {
+    const contract = await getCSGContract(address);
+    const options = {
+      value,
+      from,
+      gasPrice: getHigherGWEI(library),
     };
-  
 
-  return { mintNFT, getERC20Contract, getERC721Contract, getERC1155Contract, getCSGContract };
+    return await contract.mintToken(amount, options);
+  };
+
+  return {
+    mintNFT,
+    getERC20Contract,
+    getERC721Contract,
+    getERC1155Contract,
+    getCSGContract,
+  };
 };
