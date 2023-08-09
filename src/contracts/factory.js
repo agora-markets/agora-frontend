@@ -14,7 +14,7 @@ export const useFactoryContract = () => {
   const { getContract } = useContract();
   // const { library } = useWeb3React();
 
-  const {getHigherGWEI} = useConnectionUtils();
+  const { getHigherGWEI } = useConnectionUtils();
   const getFactoryContract = async () =>
     await getContract(Contracts[CHAIN].factory, FACTORY_ABI);
 

@@ -172,7 +172,7 @@ export function HeaderAvatarMenu(props) {
         ) : props.user?.imageHash ? (
           <img
             className="avatar"
-            src={`https://pixelly.mypinata.cloud/ipfs/${props.user?.imageHash}`}
+            src={`https://pixelly.infura-ipfs.io/ipfs/${props.user?.imageHash}`}
             alt="avatar"
           />
         ) : (

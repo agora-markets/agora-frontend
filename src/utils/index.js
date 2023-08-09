@@ -5,8 +5,6 @@ import { Categories } from 'constants/filter.constants';
 import { IPFSUris } from 'constants/ipfs.constants';
 import MetamaskErrors from 'constants/errors';
 
-
-
 export function isAddress(value) {
   try {
     return getAddress(value);
@@ -38,9 +36,11 @@ export const getHigherGWEI = async library => {
   return price;
 };
 
-
-
-export const getRandomIPFS = (tokenURI, justURL = false, isFallback = false) => {
+export const getRandomIPFS = (
+  tokenURI,
+  justURL = false,
+  isFallback = false
+) => {
   let random = Math.floor(Math.random() * IPFSUris.length);
 
   if (justURL) {
@@ -48,10 +48,13 @@ export const getRandomIPFS = (tokenURI, justURL = false, isFallback = false) => 
   }
   if (isFallback) {
     if (tokenURI.includes('ipfs://')) {
-      return `https://pixelly.mypinata.cloud/ipfs/${tokenURI.split('ipfs://')[1].replace(/([^:]\/)\/+/g, "$1")}`;
-    }
-    else {
-      return `https://agortamarket.mypinata.cloud/ipfs/${tokenURI.split('ipfs/')[1]}`;
+      return `https://pixelly.infura-ipfs.io/ipfs/${tokenURI
+        .split('ipfs://')[1]
+        .replace(/([^:]\/)\/+/g, '$1')}`;
+    } else {
+      return `https://pixelly.infura-ipfs.io/ipfs/${
+        tokenURI.split('ipfs/')[1]
+      }`;
     }
   }
   try {
@@ -63,15 +66,14 @@ export const getRandomIPFS = (tokenURI, justURL = false, isFallback = false) => 
     ) {
       return `${IPFSUris[random]}${tokenURI.split('ipfs/')[1]}`;
     } else if (tokenURI.includes('ipfs://')) {
-      return `${IPFSUris[random]}${tokenURI.split('ipfs://')[1].replace(/([^:]\/)\/+/g, "$1")}`;
+      return `${IPFSUris[random]}${tokenURI
+        .split('ipfs://')[1]
+        .replace(/([^:]\/)\/+/g, '$1')}`;
     }
     return tokenURI;
-  }
-  catch (error) {
+  } catch (error) {
     return tokenURI;
   }
-
-
 };
 
 export const formatUSD = (num, digits) => {
@@ -79,21 +81,25 @@ export const formatUSD = (num, digits) => {
     return '$' + num.toFixed(digits);
   }
   const lookup = [
-    { value: 1, symbol: "" },
-    { value: 1e3, symbol: "k" },
-    { value: 1e6, symbol: "M" },
-    { value: 1e9, symbol: "G" },
-    { value: 1e12, symbol: "T" },
-    { value: 1e15, symbol: "P" },
-    { value: 1e18, symbol: "E" }
+    { value: 1, symbol: '' },
+    { value: 1e3, symbol: 'k' },
+    { value: 1e6, symbol: 'M' },
+    { value: 1e9, symbol: 'G' },
+    { value: 1e12, symbol: 'T' },
+    { value: 1e15, symbol: 'P' },
+    { value: 1e18, symbol: 'E' },
   ];
   const rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
-  var item = lookup.slice().reverse().find(function (item) {
-    return num >= item.value;
-  });
-  return item ? '$' + (num / item.value).toFixed(digits).replace(rx, "$1") + item.symbol : "$0";
-}
-
+  var item = lookup
+    .slice()
+    .reverse()
+    .find(function(item) {
+      return num >= item.value;
+    });
+  return item
+    ? '$' + (num / item.value).toFixed(digits).replace(rx, '$1') + item.symbol
+    : '$0';
+};
 
 export const formatNumber = num => {
   if (isNaN(num) || num === null) return '';
@@ -101,8 +107,6 @@ export const formatNumber = num => {
   parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   return parts.join('.');
 };
-
-
 
 export const formatCategory = category => {
   return Categories.find(item => item.id === category).label;
@@ -183,23 +187,28 @@ export const formatDateTimeAgo = (_date, _now) => {
 
 function getLocationSearchParams() {
   try {
-    return window.location.search.replace("?", "").toLowerCase().split("&");
+    return window.location.search
+      .replace('?', '')
+      .toLowerCase()
+      .split('&');
   } catch {
-    return []
+    return [];
   }
 }
 
 function isEmbed() {
-  return getLocationSearchParams().find(x => x.startsWith("embed")) ?? false;
+  return getLocationSearchParams().find(x => x.startsWith('embed')) ?? false;
 }
 
 function isDarkModeRequested() {
-  return getLocationSearchParams().find(x => x.startsWith("theme=dark")) ?? false;
+  return (
+    getLocationSearchParams().find(x => x.startsWith('theme=dark')) ?? false
+  );
 }
 
 export function getEmbedParams() {
   return {
     isEmbed: isEmbed(),
-    isDarkMode: isDarkModeRequested()
-  }
+    isDarkMode: isDarkModeRequested(),
+  };
 }

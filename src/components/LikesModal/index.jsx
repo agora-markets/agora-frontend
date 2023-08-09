@@ -33,7 +33,7 @@ const LikesModal = ({ visible, onClose, users }) => {
                 <Skeleton width={40} height={40} />
               ) : user.imageHash ? (
                 <img
-                  src={`https://pixelly.mypinata.cloud/ipfs/${user.imageHash}`}
+                  src={`https://pixelly.infura-ipfs.io/ipfs/${user.imageHash}`}
                   width={40}
                   height={40}
                 />

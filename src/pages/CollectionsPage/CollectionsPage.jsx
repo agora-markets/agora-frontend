@@ -12,7 +12,6 @@ import { useMemo } from 'react';
 //   '0xa67213608db9d4bffac75bad01ca5b1f4ad0724c'
 // ]
 
-
 export function CollectionsPage() {
   const { fetchCollectionList } = useApi();
   const [collections, setCollections] = useState([]);
@@ -48,17 +47,16 @@ export function CollectionsPage() {
     [collections, count, loading]
   );
 
-  useMemo(()=>{
+  useMemo(() => {
     setCollections([]);
     setFrom(0);
     setTo(0);
     setCount(0);
-  },[onlyVerified, sortedBy])
-
+  }, [onlyVerified, sortedBy]);
 
   useEffect(() => {
     if (typeof onlyVerified === 'undefined') return;
-    
+
     getAllCollections(0);
   }, [onlyVerified, sortedBy]);
 
@@ -73,11 +71,10 @@ export function CollectionsPage() {
   //   return array;
   // }
 
-  const getAllCollections = async (dir) => {
+  const getAllCollections = async dir => {
     setLoading(true);
 
-    if (dir === 0)
-    {
+    if (dir === 0) {
       console.log(collections);
     }
 
@@ -94,12 +91,16 @@ export function CollectionsPage() {
       return;
     }
 
-    const res = await fetchCollectionList(onlyVerified, start, _count, sortedBy);
+    const res = await fetchCollectionList(
+      onlyVerified,
+      start,
+      _count,
+      sortedBy
+    );
     if (res.status === 'success') {
       // let official = [];
       // let nonofficial = [];
 
-      
       // res.data.collections.map(item => {
       //   if (
       //     stickylist.indexOf(item.address) !== -1
@@ -111,17 +112,16 @@ export function CollectionsPage() {
       // });
 
       //nonofficial = shuffleArray(nonofficial);
-      
+
       setCount(res.data.total);
       //setCollections(res.data.collections);
-      
 
       let _from = from;
       let _to = to;
 
       if (dir > 0) {
         _to += res.data.collections.length;
-      }  else {
+      } else {
         _to = _from + res.data.collections.length;
       }
       setFrom(_from);

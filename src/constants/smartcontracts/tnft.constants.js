@@ -1,6 +1,6 @@
 export const TenetNFTConstants = {
   ADDRESS: {
-    [1559]: '',
+    [1559]: '0xfB00d86aE4eb04c3899415199032fC306262b693',
     [155]: '0xd86B1105D09Ee93DCAb68D279C658e46c5b74904',
   },
   ABI: [

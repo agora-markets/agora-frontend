@@ -87,7 +87,7 @@ export function AccountProfilePageHeader(props) {
             <Skeleton width="100%" height="100%" />
           ) : bannerHash || user.bannerHash ? (
             <img
-              src={`https://pixelly.mypinata.cloud/ipfs/${bannerHash ||
+              src={`https://pixelly.infura-ipfs.io/ipfs/${bannerHash ||
                 user.bannerHash}`}
               alt=""
             />
@@ -95,7 +95,10 @@ export function AccountProfilePageHeader(props) {
             <div className={styles.bannerPlaceholder}></div>
           )}
           {isMe && (
-            <div className={`${styles.editBanner} editBannerBtn`} onClick={selectBanner}>
+            <div
+              className={`${styles.editBanner} editBannerBtn`}
+              onClick={selectBanner}
+            >
               <input
                 ref={fileInput}
                 hidden

@@ -26,7 +26,7 @@ const OwnersModal = ({ visible, onClose, holders }) => {
             <div className={styles.avatarWrapper}>
               {holder.imageHash ? (
                 <img
-                  src={`https://pixelly.mypinata.cloud/ipfs/${holder.imageHash}`}
+                  src={`https://pixelly.infura-ipfs.io/ipfs/${holder.imageHash}`}
                   width={40}
                   height={40}
                 />

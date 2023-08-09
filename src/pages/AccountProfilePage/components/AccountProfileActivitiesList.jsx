@@ -13,7 +13,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 export function AccountProfileActivitiesList(props) {
   const { activityLoading, activities } = props;
-  const { storageUrl,explorerUrl } = useApi();
+  const { storageUrl, explorerUrl } = useApi();
 
   const renderMedia = image => {
     if (image?.includes('youtube')) {
@@ -73,9 +73,7 @@ export function AccountProfileActivitiesList(props) {
                         : activity.imageURL
                     )}
                   </div>
-                  <div>
-                  {activity.name}
-                  </div>
+                  <div>{activity.name}</div>
                 </Link>
               ) : (
                 <div className={styles.name}>
@@ -107,7 +105,7 @@ export function AccountProfileActivitiesList(props) {
                     <div className={styles.ownerAvatarWrapper}>
                       {activity.image ? (
                         <img
-                          src={`https://pixelly.mypinata.cloud/ipfs/${activity.image}`}
+                          src={`https://pixelly.infura-ipfs.io/ipfs/${activity.image}`}
                           className={styles.ownerAvatar}
                         />
                       ) : (
@@ -136,9 +134,16 @@ export function AccountProfileActivitiesList(props) {
                 )}
               </div>
               <div className={styles.quantity}>
-
                 {activity ? (
-                  activity?.txHash && <a rel="noreferrer" target="_blank" href={explorerUrl+'/tx/'+activity?.txHash}><FontAwesomeIcon icon={faSearch}/></a>
+                  activity?.txHash && (
+                    <a
+                      rel="noopener noreferrer"
+                      target="_blank"
+                      href={explorerUrl + '/tx/' + activity?.txHash}
+                    >
+                      <FontAwesomeIcon icon={faSearch} />
+                    </a>
+                  )
                 ) : (
                   <Skeleton width={120} height={20} />
                 )}

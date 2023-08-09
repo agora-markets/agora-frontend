@@ -49,7 +49,7 @@ export function ArtworkDetailPageListingsTab(props) {
                     <div className={styles.userAvatarWrapper}>
                       {ownerInfo?.imageHash ? (
                         <img
-                          src={`https://pixelly.mypinata.cloud/ipfs/${ownerInfo.imageHash}`}
+                          src={`https://pixelly.infura-ipfs.io/ipfs/${ownerInfo.imageHash}`}
                           className={styles.userAvatar}
                         />
                       ) : (
@@ -100,7 +100,7 @@ export function ArtworkDetailPageListingsTab(props) {
                   <div className={styles.userAvatarWrapper}>
                     {listing.image ? (
                       <img
-                        src={`https://pixelly.mypinata.cloud/ipfs/${listing.image}`}
+                        src={`https://pixelly.infura-ipfs.io/ipfs/${listing.image}`}
                         className={styles.userAvatar}
                       />
                     ) : (

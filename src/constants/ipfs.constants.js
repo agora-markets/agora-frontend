@@ -1,9 +1,9 @@
 export const IPFSConstants = {
-  HashURI: 'https://pixelly.mypinata.cloud/ipfs/',
+  HashURI: 'https://pixelly.infura-ipfs.io/ipfs/',
 };
 
 export const IPFSUris = [
-  'https://pixelly.mypinata.cloud/ipfs/',
-  'https://pixelly2.mypinata.cloud/ipfs/',
-  'https://pixelly3.mypinata.cloud/ipfs/',
+  'https://pixelly.infura-ipfs.io/ipfs/',
+  'https://gateway.pinata.cloud/ipfs/',
+  'https://pixelly.infura-ipfs.io/ipfs/',
 ];

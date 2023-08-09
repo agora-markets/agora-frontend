@@ -123,7 +123,7 @@ const Header = () => {
               <Skeleton className={styles.avatar} />
             ) : user?.imageHash ? (
               <img
-                src={`https://pixelly.mypinata.cloud/ipfs/${user?.imageHash}`}
+                src={`https://pixelly.infura-ipfs.io/ipfs/${user?.imageHash}`}
                 width="24"
                 height="24"
                 className={styles.avatar}

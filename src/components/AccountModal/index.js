@@ -39,7 +39,7 @@ const AccountModal = () => {
   useEffect(() => {
     if (accountModalVisible) {
       if (user.imageHash) {
-        setAvatar(`https://pixelly.mypinata.cloud/ipfs/${user.imageHash}`);
+        setAvatar(`https://pixelly.infura-ipfs.io/ipfs/${user.imageHash}`);
       } else {
         setAvatar(null);
       }

@@ -112,7 +112,8 @@ export function ArtworkDetailPageDetailSection(props) {
               {info?.attributes && (
                 <li className="nav-item mx-1.5 mb-2 ">
                   <a
-                    className={`btn btn-white btn-sm  ${info?.attributes && 'active'}`}
+                    className={`btn btn-white btn-sm  ${info?.attributes &&
+                      'active'}`}
                     data-toggle="tab"
                     href="#tabs-attributes"
                     role="tab"
@@ -124,7 +125,8 @@ export function ArtworkDetailPageDetailSection(props) {
 
               <li className="nav-item mx-1.5 mb-2">
                 <a
-                  className={`btn btn-white btn-sm  ${!info?.attributes && 'active'}`}
+                  className={`btn btn-white btn-sm  ${!info?.attributes &&
+                    'active'}`}
                   data-toggle="tab"
                   href="#tabs-details"
                   role="tab"
@@ -207,7 +209,11 @@ export function ArtworkDetailPageDetailSection(props) {
           </div>
           <div className="hr"></div>
           <div className="tab-content pb-10">
-            <div className={`tab-pane  ${!info?.attributes && 'active'}`} id="tabs-details" role="tabpanel">
+            <div
+              className={`tab-pane  ${!info?.attributes && 'active'}`}
+              id="tabs-details"
+              role="tabpanel"
+            >
               <p>{info?.description ?? '-'}</p>
             </div>
             <div className="tab-pane" id="tabs-price-history" role="tabpanel">
@@ -256,7 +262,7 @@ export function ArtworkDetailPageDetailSection(props) {
                 setOfferModalVisible={setOfferModalVisible}
               />
             </div>
-           {/* <div className={`tab-pane ${info?.attributes && 'active'} pb`} id="tabs-attributes" role="tabpanel">
+            {/* <div className={`tab-pane ${info?.attributes && 'active'} pb`} id="tabs-attributes" role="tabpanel">
               {info?.attributes && (
                 <ArtworkDetailPageAttributesView
                   address={address}
@@ -331,12 +337,17 @@ export function ArtworkDetailPageDetailSection(props) {
             &nbsp;Transfer
           </div>
         )}
-        {isMine && !bundleID && itemType === 721 && address !== '0x992e4447f470ea47819d677b84d2459677bfdadf' && address !=='0x38034b2e6ae3fb7fec5d895a9ff3474ba0c283f6' && address !== '0xa67213608db9d4bffac75bad01ca5b1f4ad0724c' && (
-          <div className="btn btn-sm btn-white" onClick={onBurnClick}>
-            <i className="ri-delete-bin-line color_info"></i>
-            &nbsp;Delete
-          </div>
-        )}
+        {isMine &&
+          !bundleID &&
+          itemType === 721 &&
+          address !== '0x992e4447f470ea47819d677b84d2459677bfdadf' &&
+          address !== '0x38034b2e6ae3fb7fec5d895a9ff3474ba0c283f6' &&
+          address !== '0xa67213608db9d4bffac75bad01ca5b1f4ad0724c' && (
+            <div className="btn btn-sm btn-white" onClick={onBurnClick}>
+              <i className="ri-delete-bin-line color_info"></i>
+              &nbsp;Delete
+            </div>
+          )}
       </div>
       <ReportModal />
     </>
