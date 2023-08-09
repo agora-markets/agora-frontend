@@ -4,6 +4,6 @@ export const IPFSConstants = {
 
 export const IPFSUris = [
   'https://pixelly.infura-ipfs.io/ipfs/',
-  'https://gateway.pinata.cloud/ipfs/',
+  'https://pixelly.mypinata.cloud/ipfs/',
   'https://pixelly.infura-ipfs.io/ipfs/',
 ];
