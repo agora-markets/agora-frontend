@@ -123,8 +123,8 @@ export function AccountProfilePageHeader(props) {
                 <div className="avatars d-flex space-x-20 align-items-center">
                   <div className="avatar_wrap"></div>
                   <a
-                     href="javascript:void(0)"
-                    style={{cursor:'pointer'}}
+                    href="javascript:void(0)"
+                    style={{ cursor: 'pointer' }}
                     className={styles.followers}
                     onClick={props.showFollowers}
                   >
@@ -139,7 +139,7 @@ export function AccountProfilePageHeader(props) {
                   </a>
                   <a
                     href="javascript:void(0)"
-                   style={{cursor:'pointer'}}
+                    style={{ cursor: 'pointer' }}
                     className={styles.followers}
                     onClick={props.showFollowings}
                   >
@@ -205,11 +205,9 @@ export function AccountProfilePageHeader(props) {
                         </button>
                       </div>
                     )}
-                    {
-                    /*<div className="mb-20">
+                    {/*<div className="mb-20">
                       <ShareButton />
-                    </div>*/
-                    }
+                    </div>*/}
                     <div className="mb-20">
                       <ReportButton />
                     </div>
@@ -237,7 +235,6 @@ const useStyle = makeStyles(() => ({
     alignItems: 'center',
     justifyContent: 'center',
     cursor: 'pointer',
-    
   },
   bannerPlaceholder: {
     width: '100%',

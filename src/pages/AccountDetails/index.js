@@ -953,7 +953,6 @@ const AccountDetails = () => {
                           <Skeleton width={120} height={20} />
                         )}
                       </div>
-                      
                     </div>
                   )
                 )}
