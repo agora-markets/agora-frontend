@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import HeaderActions from 'actions/header.actions';
 import Header from 'components/header';
 
-import agoraLogo from 'assets/imgs/logos/logo_8.png';
+import agoraLogo from 'assets/imgs/logos/pixelly.png';
 
 import styles from './styles.module.scss';
 

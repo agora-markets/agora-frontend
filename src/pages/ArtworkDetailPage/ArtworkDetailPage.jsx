@@ -314,7 +314,7 @@ export function ArtworkDetailPage() {
 
   const getPrices = async () => {
     try {
-      const data = await Promise.all(
+      /* const data = await Promise.all(
         tokens.map(async token => {
           const provider = new ethers.providers.Web3Provider(window.ethereum);
           const oracle = new ethers.Contract(
@@ -340,13 +340,13 @@ export function ArtworkDetailPage() {
           let _price = parseFloat(_priceraw.toString()) / 10 ** 6;
           return [token.address, _price];
         })
-      );
+      );*/
+      const response = await axios.get(
+        'https://api.coingecko.com/api/v3/simple/price?ids=tenet-1b000f7b-59cb-4e06-89ce-d62b32d362b9&vs_currencies=usd'
+      )
 
-      const _prices = {};
-      data.map(([addr, price]) => {
-        _prices[addr] = price;
-      });
-      setPrices(_prices);
+      const _price = response.data['data']['price'];
+      setPrices(_price);
     } catch (err) {
       console.log(err);
     }
