@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-// import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {
   BrowserRouter as Router,
   Switch,
@@ -8,7 +8,7 @@ import {
 } from 'react-router-dom';
 
 import { Toaster } from 'react-hot-toast';
-// import { ethers } from 'ethers';
+import { ethers } from 'ethers';
 import { useWeb3React } from '@web3-react/core';
 //import { axios } from 'axios';
 
@@ -23,7 +23,7 @@ import AccountDetails from '../pages/AccountDetails';
 import CollectionCreate from '../pages/Collection/Create';
 import CollectionReview from '../pages/Collection/Review';
 import NotificationSetting from '../pages/NotificationSetting';
-// import PriceActions from 'actions/price.actions';
+import PriceActions from 'actions/price.actions';
 import { HomePage } from 'pages/HomePage';
 import { NewExplorePage } from 'pages/NewExplorePage';
 import { ArtworkDetailPage } from 'pages/ArtworkDetailPage';
@@ -35,25 +35,36 @@ import { useApi } from 'api';
 import LaunchpadCollection from 'pages/LaunchpadCollection';
 
 const App = () => {
-  // const dispatch = useDispatch();
-  const { chainId } = useWeb3React();
+  const dispatch = useDispatch();
+  const { chainId, connector } = useWeb3React();
 
-  // const [priceInterval, setPriceInterval] = useState(null);
+  const [priceInterval, setPriceInterval] = useState(null);
   const [globalStats, setGlobalStats] = useState();
   const { getLatestStats } = useApi();
 
-  /*const getPrice = async () => {
+  const getPrice = async () => {
     try {
       if (chainId === 1559) {
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const web3provider = await connector.getProvider();
+        const provider = new ethers.providers.Web3Provider(web3provider);
         const oracle = new ethers.Contract(
-          '0xF849C1ddd19f524c12A043556fAa5602a6B81F98',
+          '0xF9168ba694f5264DA7915563debeCF963C8fDeC7',
           [
             {
-              inputs: [],
-              name: 'lastPrice',
+              inputs: [
+                {
+                  internalType: 'address',
+                  name: 'token',
+                  type: 'address',
+                },
+              ],
+              name: 'getCurrentPrice',
               outputs: [
-                { internalType: 'int256', name: '_lastPrice', type: 'int256' },
+                {
+                  internalType: 'uint256',
+                  name: 'price',
+                  type: 'uint256',
+                },
               ],
               stateMutability: 'view',
               type: 'function',
@@ -61,32 +72,47 @@ const App = () => {
           ],
           provider
         );
-        const _price = await oracle.lastPrice();
+        const wtenet = '0xd6cb8a253e12893b0cf39ca78f7d858652cca1fe';
+        const _price = await oracle.getCurrentPrice(wtenet);
         const price = parseFloat(_price.toString()) / 10 ** 6;
         dispatch(PriceActions.updatePrice(price));
       } else if (chainId === 155) {
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const web3provider = await connector.getProvider();
+        const provider = new ethers.providers.Web3Provider(web3provider);
         const oracle = new ethers.Contract(
-          '0xe04676B9A9A2973BCb0D1478b5E1E9098BBB7f3D',
+          '0xF9168ba694f5264DA7915563debeCF963C8fDeC7',
           [
             {
-              inputs: [],
-              name: 'latestAnswer',
-              outputs: [{ internalType: 'int256', name: '', type: 'int256' }],
+              inputs: [
+                {
+                  internalType: 'address',
+                  name: 'token',
+                  type: 'address',
+                },
+              ],
+              name: 'getCurrentPrice',
+              outputs: [
+                {
+                  internalType: 'uint256',
+                  name: 'price',
+                  type: 'uint256',
+                },
+              ],
               stateMutability: 'view',
               type: 'function',
             },
           ],
           provider
         );
-        const _price = await oracle.latestAnswer();
-        const price = parseFloat(_price.toString()) / 10 ** 8;
+        const wtenet = '0xd6cb8a253e12893b0cf39ca78f7d858652cca1fe';
+        const _price = await oracle.getCurrentPrice(wtenet);
+        const price = parseFloat(_price.toString()) / 10 ** 18;
         dispatch(PriceActions.updatePrice(price));
       }
     } catch (err) {
       console.log(err);
     }
-  };*/
+  };
 
   useEffect(() => {
     const fetchLatestStats = async () => {
@@ -94,12 +120,12 @@ const App = () => {
       setGlobalStats(_stats.data);
     };
 
-    /*if (priceInterval) {
+    if (priceInterval) {
       clearInterval(priceInterval);
-    }*/
+    }
 
-    // getPrice();
-    // setPriceInterval(setInterval(getPrice, 1000 * 10));
+    getPrice();
+    setPriceInterval(setInterval(getPrice, 1000 * 10));
 
     fetchLatestStats();
   }, [chainId]);

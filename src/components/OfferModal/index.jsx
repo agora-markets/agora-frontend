@@ -64,7 +64,7 @@ const OfferModal = ({
       try {
         const salesContract = await getSalesContract();
         const price = await salesContract.getPrice(tk);
-        setTokenPrice(parseFloat(ethers.utils.formatUnits(price, 18)));
+        setTokenPrice(parseFloat(ethers.utils.formatUnits(price, 6)));
       } catch {
         setTokenPrice(null);
       }

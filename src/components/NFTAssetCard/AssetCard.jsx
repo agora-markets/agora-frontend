@@ -50,7 +50,15 @@ const propTypes = {
 // };
 
 function AssetCardComponent(props) {
-  const { preset, item, loading, onLike, cardHeaderClassName, warnedCollections, ...rest } = props;
+  const {
+    preset,
+    item,
+    loading,
+    onLike,
+    cardHeaderClassName,
+    warnedCollections,
+    ...rest
+  } = props;
 
   const { likeItem, likeBundle } = useApi();
   const { getAuction } = useAuctionContract();

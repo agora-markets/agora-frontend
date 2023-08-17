@@ -317,7 +317,7 @@ const NFTItem = () => {
       );
       const _prices = {};
       data.map(([addr, price]) => {
-        _prices[addr] = parseFloat(ethers.utils.formatUnits(price, 18));
+        _prices[addr] = parseFloat(ethers.utils.formatUnits(price, 6));
       });
       setPrices(_prices);
     } catch (err) {

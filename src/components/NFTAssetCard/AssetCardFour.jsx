@@ -54,7 +54,9 @@ export function AssetCardFour(props) {
   } = props;
   const { apiUrl } = useApi();
   const assetUrl = item
-    ? `/collection/${item?.contractAddress}/${item?.tokenID}${getEmbedParams().isEmbed ? window.location.search : ""}`
+    ? `/collection/${item?.contractAddress}/${item?.tokenID}${
+        getEmbedParams().isEmbed ? window.location.search : ''
+      }`
     : '#';
 
   const { collections } = useSelector(state => state.Collections);
@@ -347,7 +349,6 @@ export function AssetCardFour(props) {
                     'fromTop',
                     document.documentElement.scrollTop
                   );
-
                 }
                 if (window.location.href.includes('collection')) {
                   window.localStorage.setItem(
@@ -358,11 +359,9 @@ export function AssetCardFour(props) {
               }}
             >
               {collection?.collectionName || collection?.name}
-              {collection?.isVerified && (
-                <img src={VerifiedLogo} />
-              )}
+              {collection?.isVerified && <img src={VerifiedLogo} />}
               {warnedCollections &&
-                warnedCollections.includes(item?.contractAddress) ? (
+              warnedCollections.includes(item?.contractAddress) ? (
                 <BootstrapTooltip
                   title="Warning: This content has been flagged by the Pixelly Team as suspicious."
                   placement="top"

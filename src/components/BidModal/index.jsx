@@ -35,15 +35,12 @@ const BidModal = ({
   const [inputError, setInputError] = useState(null);
 
   useEffect(() => {
-    if (firstBid)
-    {
-      setPrice(''+minBidAmount);
+    if (firstBid) {
+      setPrice('' + minBidAmount);
+    } else {
+      setPrice('' + (minBidAmount + 1));
     }
-    else
-    {
-      setPrice(''+(minBidAmount+1));
-    }
-    
+
     setCurrentBid(parseFloat(minBidAmount));
   }, [visible]);
 
@@ -60,7 +57,7 @@ const BidModal = ({
       try {
         const salesContract = await getSalesContract();
         const price = await salesContract.getPrice(tk);
-        setTokenPrice(parseFloat(ethers.utils.formatUnits(price, 18)));
+        setTokenPrice(parseFloat(ethers.utils.formatUnits(price, 6)));
       } catch {
         setTokenPrice(null);
       }
@@ -148,7 +145,7 @@ const BidModal = ({
             className={styles.formInput}
             placeholder="0.00"
             decimals={token?.decimals || 0}
-            value={''+price}
+            value={'' + price}
             onChange={setPrice}
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
@@ -166,14 +163,14 @@ const BidModal = ({
           </div>
         </div>
         <div className={`${styles.usdPriceMobile} d-sm-none`}>
-            {!isNaN(tokenPrice) && tokenPrice !== null ? (
-              `$${formatNumber(
-                ((parseFloat(price) || 0) * tokenPrice).toFixed(2)
-              )}`
-            ) : (
-              <Skeleton width={100} height={24} />
-            )}
-          </div>
+          {!isNaN(tokenPrice) && tokenPrice !== null ? (
+            `$${formatNumber(
+              ((parseFloat(price) || 0) * tokenPrice).toFixed(2)
+            )}`
+          ) : (
+            <Skeleton width={100} height={24} />
+          )}
+        </div>
         <InputError text={inputError} />
       </div>
     </Modal>

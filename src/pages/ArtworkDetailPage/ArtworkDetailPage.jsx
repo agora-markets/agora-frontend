@@ -314,39 +314,20 @@ export function ArtworkDetailPage() {
 
   const getPrices = async () => {
     try {
-      /* const data = await Promise.all(
-        tokens.map(async token => {
-          const provider = new ethers.providers.Web3Provider(window.ethereum);
-          const oracle = new ethers.Contract(
-            '0xF849C1ddd19f524c12A043556fAa5602a6B81F98',
-            [
-              {
-                inputs: [],
-                name: 'lastPrice',
-                outputs: [
-                  {
-                    internalType: 'int256',
-                    name: '_lastPrice',
-                    type: 'int256',
-                  },
-                ],
-                stateMutability: 'view',
-                type: 'function',
-              },
-            ],
-            provider
-          );
-          const _priceraw = await oracle.lastPrice();
-          let _price = parseFloat(_priceraw.toString()) / 10 ** 6;
-          return [token.address, _price];
-        })
-      );*/
-      const response = await axios.get(
-        'https://api.coingecko.com/api/v3/simple/price?ids=tenet-1b000f7b-59cb-4e06-89ce-d62b32d362b9&vs_currencies=usd'
-      )
-
-      const _price = response.data['data']['price'];
-      setPrices(_price);
+      const salesContract = await getSalesContract();
+      const data = await Promise.all(
+        tokens.map(async token => [
+          token.address,
+          await salesContract.getPrice(
+            token.address || ethers.constants.AddressZero
+          ),
+        ])
+      );
+      const _prices = {};
+      data.map(([addr, price]) => {
+        _prices[addr] = parseFloat(ethers.utils.formatUnits(price, 6));
+      });
+      setPrices(_prices);
     } catch (err) {
       console.log(err);
     }
