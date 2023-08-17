@@ -3,8 +3,10 @@ import React from 'react';
 
 import logoDark from 'assets/imgs/logos/pixelly.png';
 import { Link } from 'react-router-dom';
+import { useWeb3React } from '@web3-react/core';
 
 export function Footer() {
+  const { account } = useWeb3React();
   return (
     <footer className="footer__1">
       <div className="container">
@@ -20,7 +22,7 @@ export function Footer() {
               <ul className="footer__social space-x-10 mb-40">
                 <li>
                   <a
-                    href="https://twitter.com/pixelly_gg"
+                    href="https://twitter.com/pixellygg"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -29,14 +31,14 @@ export function Footer() {
                 </li>
                 <li>
                   <a
-                    href="https://discord.gg/XybunZQ3Cv "
+                    href="https://discord.gg/MqjvgtDh"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     <i className="ri-discord-line"></i>
                   </a>
                 </li>
-                <li>
+                {/* <li>
                   <a
                     href="https://t.me/Pixelly_gg"
                     target="_blank"
@@ -44,12 +46,12 @@ export function Footer() {
                   >
                     <i className="ri-telegram-line"></i>
                   </a>
-                </li>
-                <li>
+                </li> */}
+                {/*<li>
                   <a href="http://" target="_blank" rel="noopener noreferrer">
-                    <i className="ri-medium-line"></i>
+                    <i className="ri-notion-line"></i>
                   </a>
-                </li>
+              </li> */}
               </ul>
             </div>
           </div>
@@ -69,13 +71,13 @@ export function Footer() {
             <h6 className="footer__title">Assets</h6>
             <ul className="footer__list">
               <li>
-                <Link to="/"> Profile </Link>
+                <Link to={`/account/${account}`}> Profile </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link to="/"> Creators </Link>
-              </li>
+            </li> */}
               <li>
-                <Link to="/"> Collections </Link>
+                <Link to="/collections"> Collections </Link>
               </li>
               <li></li>
             </ul>
