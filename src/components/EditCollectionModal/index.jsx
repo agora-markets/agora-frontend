@@ -1,7 +1,9 @@
 import {
-  faDiscord, faInstagram,
+  faDiscord,
+  faInstagram,
   faMedium,
-  faTelegramPlane, faTwitter
+  faTelegramPlane,
+  faTwitter,
 } from '@fortawesome/free-brands-svg-icons';
 import { faGlobe } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -36,13 +38,15 @@ const EditCollectionModal = ({ visible, onClose }) => {
     logoImageHash: null,
     categories: [],
     erc721Address: null,
-  }
+  };
   const { getSigner } = useConnectionUtils();
   const { addr } = useParams();
   const { fetchCollection, apiUrl, updateCollection, getNonce } = useApi();
   const [form, setForm] = useState(FORM_INITIAL);
   const [errors, setErrors] = useState({
-    name: null, description: null, logoImageHash: null,
+    name: null,
+    description: null,
+    logoImageHash: null,
   });
   const [formLoading, setFormLoading] = useState(true);
   const [logo, setLogo] = useState(null);
@@ -52,9 +56,11 @@ const EditCollectionModal = ({ visible, onClose }) => {
   const { authToken } = useSelector(state => state.ConnectWallet);
   const { account } = useWeb3React();
   const imageRef = useRef();
-  const [collectionName, setCollectionName] = useState(null)
+  const [collectionName, setCollectionName] = useState(null);
 
-  const options = Categories.filter(cat => form.categories.indexOf(cat.id.toString()) === -1);
+  const options = Categories.filter(
+    cat => form.categories.indexOf(cat.id.toString()) === -1
+  );
   const selectedCategories = Categories.filter(
     cat => form.categories.indexOf(cat.id.toString()) > -1
   );
@@ -71,7 +77,12 @@ const EditCollectionModal = ({ visible, onClose }) => {
   };
 
   const deselectCategory = catId => {
-    setForm({ ...form, categories: form.categories.filter(id => id.toString() !== catId.toString()) });
+    setForm({
+      ...form,
+      categories: form.categories.filter(
+        id => id.toString() !== catId.toString()
+      ),
+    });
   };
 
   const handleMenuOpen = e => {
@@ -143,35 +154,35 @@ const EditCollectionModal = ({ visible, onClose }) => {
 
   const removeImage = () => {
     setLogo(null);
-    setLogoChanged(true)
+    setLogoChanged(true);
     if (imageRef.current) {
       imageRef.current.value = '';
     }
   };
 
-  const validateRequired = (fieldName) => {
+  const validateRequired = fieldName => {
     if (form[fieldName].length === 0) {
       setErrors({ ...errors, [fieldName]: "This field can't be blank" });
     } else {
       setErrors({ ...errors, [fieldName]: null });
     }
-  }
+  };
 
   const validate = {
     // collectionName: validateRequired.bind(this, "collectionName"),
-    description: validateRequired.bind(this, "description"),
-    categories: validateRequired.bind(this, "categories"),
+    description: validateRequired.bind(this, 'description'),
+    categories: validateRequired.bind(this, 'categories'),
     logoImageHash: () => {
-      setErrors({ ...errors, logoImageHash: logo ? null : "Logo is required" })
-    }
-  }
+      setErrors({ ...errors, logoImageHash: logo ? null : 'Logo is required' });
+    },
+  };
 
   useEffect(() => {
     validate.categories();
   }, [form.categories]);
   useEffect(() => {
     validate.logoImageHash();
-  }, [logo])
+  }, [logo]);
 
   const uploadImage = async () => {
     return new Promise((resolve, reject) => {
@@ -185,7 +196,7 @@ const EditCollectionModal = ({ visible, onClose }) => {
 
       const img = new Image();
       img.src = URL.createObjectURL(logo);
-      img.onload = function () {
+      img.onload = function() {
         const w = this.width;
         const h = this.height;
         const size = Math.min(w, h);
@@ -207,16 +218,16 @@ const EditCollectionModal = ({ visible, onClose }) => {
               },
             });
             const logoImageHash = result.data.data;
-            let newForm = { ...form, logoImageHash: logoImageHash }
+            let newForm = { ...form, logoImageHash: logoImageHash };
             setForm(newForm);
             return resolve(newForm);
           } catch (e) {
             return reject(e);
           }
         });
-      }
-    })
-  }
+      };
+    });
+  };
 
   useEffect(() => {
     if (!visible) {
@@ -224,7 +235,7 @@ const EditCollectionModal = ({ visible, onClose }) => {
     }
 
     setLogoChanged(false);
-    fetchCollection(addr).then((response) => {
+    fetchCollection(addr).then(response => {
       setSaving(false);
       const collection = response.data;
       setForm({
@@ -237,20 +248,24 @@ const EditCollectionModal = ({ visible, onClose }) => {
         mediumHandle: collection.mediumHandle,
         telegram: collection.telegram,
         logoImageHash: collection.logoImageHash,
-        categories: collection.categories, erc721Address: addr
+        categories: collection.categories,
+        erc721Address: addr,
       });
       setCollectionName(collection.collectionName);
       setFormLoading(false);
       if (collection.logoImageHash)
-        axios.get(`${getRandomIPFS('', true)}${collection.logoImageHash}`, { responseType: 'arraybuffer' }).then(response => {
-          try {
-            setLogo(new Blob([response.data]));
-          } catch (e) {
-            setLogo(null);
-          }
-        })
+        axios
+          .get(`${getRandomIPFS('', true)}${collection.logoImageHash}`, {
+            responseType: 'arraybuffer',
+          })
+          .then(response => {
+            try {
+              setLogo(new Blob([response.data]));
+            } catch (e) {
+              setLogo(null);
+            }
+          });
     });
-
   }, [visible]);
 
   const sign = async () => {
@@ -273,42 +288,52 @@ const EditCollectionModal = ({ visible, onClose }) => {
       );
       throw err;
     }
-  }
+  };
 
   const saveCollection = async () => {
     setSaving(true);
 
     try {
-      console.log(sign)
+      console.log(sign);
       //const signature = {}
       const signature = await sign();
       let newForm = await uploadImage();
       console.log(newForm);
-      await updateCollection(newForm, signature.signature, signature.signatureAddress, authToken);
-      showToast('success', "The collection has been saved successfully. The page will reload in 2 seconds.");
+      await updateCollection(
+        newForm,
+        signature.signature,
+        signature.signatureAddress,
+        authToken
+      );
+      showToast(
+        'success',
+        'The collection has been saved successfully. The page will reload in 2 seconds.'
+      );
       onClose();
-      setTimeout(() => { window.location.reload(); }, 2000);
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
     } catch {
-      showToast('error', "An error occurred while saving the form.");
-    }
-    finally {
+      showToast('error', 'An error occurred while saving the form.');
+    } finally {
       setSaving(false);
     }
-  }
+  };
 
   const isValid = () => {
     return Object.values(errors).every(x => x === null);
   };
 
-  return (<Modal
-    visible={visible}
-    onClose={onClose}
-    title="Edit Collection">
-    <div className='modal-body' style={{ maxHeight: "60vh", overflow: "auto" }}>
-      {
-        formLoading ? <ClipLoader size={100} /> :
-
-          (<>
+  return (
+    <Modal visible={visible} onClose={onClose} title="Edit Collection">
+      <div
+        className="modal-body"
+        style={{ maxHeight: '60vh', overflow: 'auto' }}
+      >
+        {formLoading ? (
+          <ClipLoader size={100} />
+        ) : (
+          <>
             <div
               {...getRootProps({
                 className: cx(styles.uploadCont, 'md:mx-auto'),
@@ -317,9 +342,15 @@ const EditCollectionModal = ({ visible, onClose }) => {
               <input {...getInputProps()} ref={imageRef} />
               {logo ? (
                 <>
-                  <img className={styles.image} src={URL.createObjectURL(logo)} />
+                  <img
+                    className={styles.image}
+                    src={URL.createObjectURL(logo)}
+                  />
                   <div className={styles.overlay}>
-                    <CloseIcon className={styles.remove} onClick={removeImage} />
+                    <CloseIcon
+                      className={styles.remove}
+                      onClick={removeImage}
+                    />
                   </div>
                 </>
               ) : (
@@ -370,12 +401,16 @@ const EditCollectionModal = ({ visible, onClose }) => {
                   maxLength={250}
                   placeholder="Provide a description for your collection"
                   value={form.description}
-                  onChange={e => setForm({ ...form, description: e.target.value })}
+                  onChange={e =>
+                    setForm({ ...form, description: e.target.value })
+                  }
                   onBlur={validate.description}
                 />
-                {form.description && <div className={styles.lengthIndicator}>
-                  {form.description.length}/250
-                </div>}
+                {form.description && (
+                  <div className={styles.lengthIndicator}>
+                    {form.description.length}/250
+                  </div>
+                )}
                 {errors.description && (
                   <div className={styles.error}>{errors.description}</div>
                 )}
@@ -425,7 +460,9 @@ const EditCollectionModal = ({ visible, onClose }) => {
                     className={styles.linkInput}
                     placeholder="Website"
                     value={form.siteUrl}
-                    onChange={e => setForm({ ...form, siteUrl: e.target.value })}
+                    onChange={e =>
+                      setForm({ ...form, siteUrl: e.target.value })
+                    }
                   />
                 </div>
                 <div className={styles.linkItem}>
@@ -439,7 +476,9 @@ const EditCollectionModal = ({ visible, onClose }) => {
                     className={styles.linkInput}
                     placeholder="Discord"
                     value={form.discord}
-                    onChange={e => setForm({ ...form, discord: e.target.value })}
+                    onChange={e =>
+                      setForm({ ...form, discord: e.target.value })
+                    }
                   />
                 </div>
                 <div className={styles.linkItem}>
@@ -453,7 +492,9 @@ const EditCollectionModal = ({ visible, onClose }) => {
                     className={styles.linkInput}
                     placeholder="Twitter"
                     value={form.twitterHandle}
-                    onChange={e => setForm({ ...form, twitterHandle: e.target.value })}
+                    onChange={e =>
+                      setForm({ ...form, twitterHandle: e.target.value })
+                    }
                   />
                 </div>
                 <div className={styles.linkItem}>
@@ -467,7 +508,9 @@ const EditCollectionModal = ({ visible, onClose }) => {
                     className={styles.linkInput}
                     placeholder="Instagram"
                     value={form.instagramHandle}
-                    onChange={e => setForm({ ...form, instagramHandle: e.target.value })}
+                    onChange={e =>
+                      setForm({ ...form, instagramHandle: e.target.value })
+                    }
                   />
                 </div>
                 <div className={styles.linkItem}>
@@ -481,7 +524,9 @@ const EditCollectionModal = ({ visible, onClose }) => {
                     className={styles.linkInput}
                     placeholder="Medium"
                     value={form.mediumHandle}
-                    onChange={e => setForm({ ...form, mediumHandle: e.target.value })}
+                    onChange={e =>
+                      setForm({ ...form, mediumHandle: e.target.value })
+                    }
                   />
                 </div>
                 <div className={styles.linkItem}>
@@ -495,34 +540,32 @@ const EditCollectionModal = ({ visible, onClose }) => {
                     className={styles.linkInput}
                     placeholder="Telegram"
                     value={form.telegram}
-                    onChange={e => setForm({ ...form, telegram: e.target.value })}
+                    onChange={e =>
+                      setForm({ ...form, telegram: e.target.value })
+                    }
                   />
                 </div>
               </div>
             </div>
             {renderMenu}
           </>
-          )
-      }
-    </div>
-    <div className="modal-footer">
-      <div className={styles.buttonsWrapper}>
-        <div
-          className={cx(
-            styles.createButton,
-            (saving || !isValid()) && styles.disabled
-          )}
-          onClick={isValid() ? saveCollection : null}
-        >
-          {saving ? (
-            <ClipLoader color="#FFF" size={16} />
-          ) : (
-            'Save'
-          )}
+        )}
+      </div>
+      <div className="modal-footer">
+        <div className={styles.buttonsWrapper}>
+          <div
+            className={cx(
+              styles.createButton,
+              (saving || !isValid()) && styles.disabled
+            )}
+            onClick={isValid() ? saveCollection : null}
+          >
+            {saving ? <ClipLoader color="#FFF" size={16} /> : 'Save'}
+          </div>
         </div>
       </div>
-    </div>
-  </Modal>)
-}
+    </Modal>
+  );
+};
 
-export default EditCollectionModal
+export default EditCollectionModal;

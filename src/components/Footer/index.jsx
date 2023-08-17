@@ -15,9 +15,7 @@ export function Footer() {
                 <img src={logoDark} alt="logo" id="logo_js_f" />
               </Link>
             </div>
-            <p className="footer__text">
-              Pixelly is Tenet's First NFT Marketplace
-            </p>
+            <p className="footer__text">Tenet's First NFT Marketplace</p>
             <div>
               <ul className="footer__social space-x-10 mb-40">
                 <li>
