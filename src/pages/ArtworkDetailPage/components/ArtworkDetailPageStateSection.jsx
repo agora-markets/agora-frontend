@@ -8,7 +8,7 @@ import {
   People as PeopleIcon,
   Person as PersonIcon,
   ViewModule as ViewModuleIcon,
-  ReportOutlined as WarningIcon
+  ReportOutlined as WarningIcon,
 } from '@material-ui/icons';
 import cx from 'classnames';
 import { ViewProofButton } from './ViewProofButton';
@@ -29,14 +29,14 @@ export function ArtworkDetailPageStateSection(props) {
     creatorInfo,
     creatorInfoLoading,
     account,
-    tokenUri
+    tokenUri,
   } = props.data;
 
   const [mine, setMine] = useState(0);
   useEffect(() => {
     if (holders.length > 0) {
       let myAccount = account?.toLowerCase();
-      holders.map((v) => {
+      holders.map(v => {
         if (v.address === myAccount) {
           setMine(v.supply);
         }
@@ -52,10 +52,12 @@ export function ArtworkDetailPageStateSection(props) {
       )}
     >
       <div className={cx('ml-10 space-y-10')}>
-        {(!owner && !tokenType.current) &&
-          <div className={`${styles.itemOwner} text-danger`}><WarningIcon className={styles.itemIcon} c /> This item is not listed on Pixelly (Still syncing, Burned, or Banned)</div>
-
-        }
+        {!owner && !tokenType.current && (
+          <div className={`${styles.itemOwner} text-danger`}>
+            <WarningIcon className={styles.itemIcon} c /> This item is not
+            listed on Pixelly (Still syncing, Burned, or Banned)
+          </div>
+        )}
         {(ownerInfoLoading || tokenOwnerLoading || owner || tokenInfo) && (
           <div className={styles.itemOwner}>
             {ownerInfoLoading || tokenOwnerLoading ? (
@@ -77,24 +79,23 @@ export function ArtworkDetailPageStateSection(props) {
                     />
                   )}
                 </div>
-
-                <Link to={`/account/${owner}`} target={getEmbedParams().isEmbed ? "_blank" : "_self"} className={styles.ownerName}>
+                <Link
+                  to={`/account/${owner}`}
+                  target={getEmbedParams().isEmbed ? '_blank' : '_self'}
+                  className={styles.ownerName}
+                >
                   {isMine ? 'Me' : ownerInfo?.alias || shortenAddress(owner)}
                 </Link>
               </>
             ) : tokenInfo ? (
-
               <>
-                {
-                  account && <div
-                    className={cx(styles.itemViews)}
-
-                  >
+                {account && (
+                  <div className={cx(styles.itemViews)}>
                     <PersonIcon style={styles.itemIcon} />
                     &nbsp;{formatNumber(mine)}
                     &nbsp;{mine > 1 ? 'Items are' : 'Item is'} mine
                   </div>
-                }
+                )}
                 <div
                   className={cx(styles.itemViews, styles.clickable)}
                   onClick={() => setOwnersModalVisible(true)}
@@ -132,7 +133,11 @@ export function ArtworkDetailPageStateSection(props) {
                     />
                   )}
                 </div>
-                <Link to={`/account/${creator}`} target={getEmbedParams().isEmbed ? "_blank" : "_self"} className={styles.ownerName}>
+                <Link
+                  to={`/account/${creator}`}
+                  target={getEmbedParams().isEmbed ? '_blank' : '_self'}
+                  className={styles.ownerName}
+                >
                   {creatorInfo?.alias || shortenAddress(creatorInfo?.address)}
                 </Link>
               </>

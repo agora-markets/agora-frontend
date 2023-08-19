@@ -1,11 +1,11 @@
 import { InjectedConnector } from '@web3-react/injected-connector';
-import { WalletLinkConnector } from '@web3-react/walletlink-connector';
+// import { WalletLinkConnector } from '@web3-react/walletlink-connector';
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector';
 import { DeFiWeb3Connector } from 'deficonnect';
 
 import { NetworkConnector } from './NetworkConnector';
 
-import PIXELLY_LOGO_URL from '../assets/svgs/logo_blue.svg';
+// import PIXELLY_LOGO_URL from '../assets/svgs/logo_blue.svg';
 
 // eslint-disable-next-line no-undef
 const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
@@ -33,11 +33,11 @@ export const injected = new InjectedConnector({
       ],
 });
 
-export const walletlink = new WalletLinkConnector({
+/* export const walletlink = new WalletLinkConnector({
   url: 'https://rpc.tenet.org',
   appName: 'pixelly',
   appLogoUrl: PIXELLY_LOGO_URL,
-});
+}); */
 
 export const defiwallet = new DeFiWeb3Connector({
   supportedChainIds: [1559],
@@ -46,6 +46,10 @@ export const defiwallet = new DeFiWeb3Connector({
 });
 
 export const walletconnect = new WalletConnectConnector({
-  rpc: 'https://rpc.tenet.org',
+  rpcUrl: 'https://rpc.tenet.org',
   chainId: 1559,
+  networkId: 1559,
+  rpc: {
+    1559: 'https://rpc.tenet.org/',
+  },
 });

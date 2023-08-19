@@ -13,13 +13,13 @@ import TENET_IMAGE from 'assets/imgs/tenet.png';
 import { makeStyles } from '@material-ui/styles';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-//import FilterActions from 'actions/filter.actions';
+// import FilterActions from 'actions/filter.actions';
 import ModalActions from 'actions/modal.actions';
 import { useWeb3React } from '@web3-react/core';
 import { ethers } from 'ethers';
 import { /*useWETHContract,*/ useNFTContract } from 'contracts';
 import { formatNumber } from 'utils';
-import FaucetModal from 'components/FaucetModal';
+// import FaucetModal from 'components/FaucetModal';
 
 const propTypes = {
   user: PropTypes.object,
@@ -46,7 +46,7 @@ export function HeaderAvatarMenu(props) {
   const [copied, setCopied] = useState(false);
   const [tooltipOpen, setTooltipOpen] = useState(false);
   //const [gettingBalance, setGettingBalance] = useState(false);
-  const [faucetModalVisible, setFaucetModalVisible] = useState(false);
+  // const [faucetModalVisible, setFaucetModalVisible] = useState(false);
   const wrapperRef = useDetectOutsideRef(() => {
     setMenuVisible(false);
   });
@@ -68,17 +68,17 @@ export function HeaderAvatarMenu(props) {
     await web3provider.enable();
     const provider = new ethers.providers.Web3Provider(web3provider);
 
-    const AGO_ADDRESS = {
+    const TENET_ADDRESS = {
       1559: '0xd6cb8a253e12893b0cF39Ca78F7d858652cCa1fe',
       155: '0xc31D02f9CD7315A674107AB82258448bCb386d6F',
     };
 
-    const agoContract = await getERC20Contract(AGO_ADDRESS[chainId]);
+    const tenetContract = await getERC20Contract(TENET_ADDRESS[chainId]);
 
     let [ethBal /*wethBal,*/ /*agoBal*/] = await Promise.all([
       await provider.getBalance(account),
       // await getWETHBalance(account),
-      await agoContract.balanceOf(account),
+      await tenetContract.balanceOf(account),
     ]);
 
     setBalance(parseFloat(ethBal.toString()) / 10 ** 18);
@@ -150,12 +150,12 @@ export function HeaderAvatarMenu(props) {
 */
   return (
     <>
-      <FaucetModal
+      {/* <FaucetModal
         account={account}
         visible={faucetModalVisible}
         onClose={() => setFaucetModalVisible(false)}
         setFaucetModalVisible={setFaucetModalVisible}
-      />
+  /> */}
       <div
         className="header__avatar"
         onClick={handleOnClick}
