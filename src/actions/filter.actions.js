@@ -8,7 +8,7 @@ const FilterActions = {
   updateGroupTypeFilter,
   updateSortByFilter,
   updateVerifiedFilter,
-  updateAttributeFilter
+  updateAttributeFilter,
 };
 
 function updateVerifiedFilter(field, selected) {
@@ -113,8 +113,8 @@ function updateAttributeFilter(sortBy) {
 const _updateAttributeFilter = attributes => {
   return {
     type: FilterConstants.UPDATE_ATTRIBUTE_FILTER,
-    attributes
-  }
-}
+    attributes,
+  };
+};
 
 export default FilterActions;
