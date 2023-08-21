@@ -24,7 +24,7 @@ const Tokens = {
       icon: iconWTENET,
     },
     {
-      address: '',
+      address: '0x55c32e8aB56021C012AB3d5a586b743664E73DA0',
       name: 'USDC',
       symbol: 'USDC',
       decimals: 6,
@@ -72,7 +72,7 @@ export default function useTokens() {
     const address =
       !addr ||
       addr === '0x0000000000000000000000000000000000000000' ||
-      addr === 'eth'
+      addr === 'tenet'
         ? ''
         : addr;
     return (tokens || []).find(

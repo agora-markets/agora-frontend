@@ -5,127 +5,6 @@ export const SALES_CONTRACT_ABI = [
       {
         indexed: true,
         internalType: 'address',
-        name: 'creator',
-        type: 'address',
-      },
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'addressee',
-        type: 'address',
-      },
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'nft',
-        type: 'address',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'tokenId',
-        type: 'uint256',
-      },
-    ],
-    name: 'CounterOfferCanceled',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'creator',
-        type: 'address',
-      },
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'addressee',
-        type: 'address',
-      },
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'nft',
-        type: 'address',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'tokenId',
-        type: 'uint256',
-      },
-      {
-        components: [
-          {
-            internalType: 'contract IERC20Upgradeable',
-            name: 'payToken',
-            type: 'address',
-          },
-          {
-            internalType: 'uint256',
-            name: 'quantity',
-            type: 'uint256',
-          },
-          {
-            internalType: 'uint256',
-            name: 'pricePerItem',
-            type: 'uint256',
-          },
-          {
-            internalType: 'uint256',
-            name: 'deadline',
-            type: 'uint256',
-          },
-        ],
-        indexed: false,
-        internalType: 'struct PixellyMarketplace.Offer',
-        name: 'counteroffer',
-        type: 'tuple',
-      },
-    ],
-    name: 'CounterOfferCreated',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'creator',
-        type: 'address',
-      },
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'addressee',
-        type: 'address',
-      },
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'nft',
-        type: 'address',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'tokenId',
-        type: 'uint256',
-      },
-    ],
-    name: 'CounterOfferRefused',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
         name: 'owner',
         type: 'address',
       },
@@ -366,31 +245,6 @@ export const SALES_CONTRACT_ABI = [
       {
         indexed: true,
         internalType: 'address',
-        name: 'creator',
-        type: 'address',
-      },
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'nft',
-        type: 'address',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'tokenId',
-        type: 'uint256',
-      },
-    ],
-    name: 'OfferRefused',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
         name: 'previousOwner',
         type: 'address',
       },
@@ -429,24 +283,6 @@ export const SALES_CONTRACT_ABI = [
     ],
     name: 'UpdatePlatformFeeRecipient',
     type: 'event',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '_nftAddress',
-        type: 'address',
-      },
-      {
-        internalType: 'uint256',
-        name: '_tokenId',
-        type: 'uint256',
-      },
-    ],
-    name: 'acceptCounterOffer',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
   },
   {
     inputs: [
@@ -525,17 +361,22 @@ export const SALES_CONTRACT_ABI = [
         type: 'uint256',
       },
       {
+        internalType: 'address',
+        name: '_payToken',
+        type: 'address',
+      },
+      {
+        internalType: 'address',
+        name: '_owner',
+        type: 'address',
+      },
+      {
         internalType: 'uint256',
         name: '_quantity',
         type: 'uint256',
       },
-      {
-        internalType: 'address',
-        name: '_addressee',
-        type: 'address',
-      },
     ],
-    name: 'cancelCounterOffer',
+    name: 'buyItemWithQuantity',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
@@ -609,50 +450,6 @@ export const SALES_CONTRACT_ABI = [
     inputs: [
       {
         internalType: 'address',
-        name: '',
-        type: 'address',
-      },
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256',
-      },
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
-    ],
-    name: 'counterOffers',
-    outputs: [
-      {
-        internalType: 'contract IERC20Upgradeable',
-        name: 'payToken',
-        type: 'address',
-      },
-      {
-        internalType: 'uint256',
-        name: 'quantity',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: 'pricePerItem',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: 'deadline',
-        type: 'uint256',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
         name: '_nftAddress',
         type: 'address',
       },
@@ -662,57 +459,7 @@ export const SALES_CONTRACT_ABI = [
         type: 'uint256',
       },
       {
-        components: [
-          {
-            internalType: 'contract IERC20Upgradeable',
-            name: 'payToken',
-            type: 'address',
-          },
-          {
-            internalType: 'uint256',
-            name: 'quantity',
-            type: 'uint256',
-          },
-          {
-            internalType: 'uint256',
-            name: 'pricePerItem',
-            type: 'uint256',
-          },
-          {
-            internalType: 'uint256',
-            name: 'deadline',
-            type: 'uint256',
-          },
-        ],
-        internalType: 'struct PixellyMarketplace.Offer',
-        name: 'counteroffer',
-        type: 'tuple',
-      },
-      {
-        internalType: 'address',
-        name: '_addressee',
-        type: 'address',
-      },
-    ],
-    name: 'createCounterOffer',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '_nftAddress',
-        type: 'address',
-      },
-      {
-        internalType: 'uint256',
-        name: '_tokenId',
-        type: 'uint256',
-      },
-      {
-        internalType: 'contract IERC20Upgradeable',
+        internalType: 'contract IERC20',
         name: '_payToken',
         type: 'address',
       },
@@ -914,7 +661,7 @@ export const SALES_CONTRACT_ABI = [
     name: 'offers',
     outputs: [
       {
-        internalType: 'contract IERC20Upgradeable',
+        internalType: 'contract IERC20',
         name: 'payToken',
         type: 'address',
       },
@@ -951,30 +698,6 @@ export const SALES_CONTRACT_ABI = [
     type: 'function',
   },
   {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256',
-      },
-    ],
-    name: 'ownerOfERC1155',
-    outputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
     inputs: [],
     name: 'platformFee',
     outputs: [
@@ -985,52 +708,6 @@ export const SALES_CONTRACT_ABI = [
       },
     ],
     stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '_nftAddress',
-        type: 'address',
-      },
-      {
-        internalType: 'uint256',
-        name: '_tokenId',
-        type: 'uint256',
-      },
-    ],
-    name: 'refuseCounterOffer',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '_nftAddress',
-        type: 'address',
-      },
-      {
-        internalType: 'uint256',
-        name: '_tokenId',
-        type: 'uint256',
-      },
-      {
-        internalType: 'address',
-        name: '_creator',
-        type: 'address',
-      },
-      {
-        internalType: 'uint256',
-        name: '_quantity',
-        type: 'uint256',
-      },
-    ],
-    name: 'refuseOffer',
-    outputs: [],
-    stateMutability: 'nonpayable',
     type: 'function',
   },
   {
@@ -1498,12 +1175,25 @@ export const BUNDLE_SALES_CONTRACT_ABI = [
     name: 'addressRegistry',
     outputs: [
       {
-        internalType: 'contract IPixellyAddressRegistry',
+        internalType: 'contract IFantomAddressRegistry',
         name: '',
         type: 'address',
       },
     ],
     stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'string',
+        name: '_bundleID',
+        type: 'string',
+      },
+    ],
+    name: 'buyItem',
+    outputs: [],
+    stateMutability: 'payable',
     type: 'function',
   },
   {
@@ -1558,7 +1248,7 @@ export const BUNDLE_SALES_CONTRACT_ABI = [
         type: 'string',
       },
       {
-        internalType: 'contract IERC20Upgradeable',
+        internalType: 'contract IERC20',
         name: '_payToken',
         type: 'address',
       },
@@ -1746,7 +1436,7 @@ export const BUNDLE_SALES_CONTRACT_ABI = [
     name: 'offers',
     outputs: [
       {
-        internalType: 'contract IERC20Upgradeable',
+        internalType: 'contract IERC20',
         name: 'payToken',
         type: 'address',
       },
@@ -1917,12 +1607,6 @@ export const BUNDLE_SALES_CONTRACT_ABI = [
 ];
 
 export const AUCTION_CONTRACT_ABI = [
-  {
-    anonymous: false,
-    inputs: [],
-    name: 'PixellyAuctionContractDeployed',
-    type: 'event',
-  },
   {
     anonymous: false,
     inputs: [
@@ -2111,6 +1795,12 @@ export const AUCTION_CONTRACT_ABI = [
   },
   {
     anonymous: false,
+    inputs: [],
+    name: 'FantomAuctionContractDeployed',
+    type: 'event',
+  },
+  {
+    anonymous: false,
     inputs: [
       {
         indexed: true,
@@ -2279,7 +1969,7 @@ export const AUCTION_CONTRACT_ABI = [
     name: 'addressRegistry',
     outputs: [
       {
-        internalType: 'contract IPixellyAddressRegistry',
+        internalType: 'contract IFantomAddressRegistry',
         name: '',
         type: 'address',
       },
@@ -2544,11 +2234,6 @@ export const AUCTION_CONTRACT_ABI = [
         name: '_platformFeeRecipient',
         type: 'address',
       },
-      {
-        internalType: 'uint256',
-        name: '_minBidIncrement',
-        type: 'uint256',
-      },
     ],
     name: 'initialize',
     outputs: [],
@@ -2615,6 +2300,24 @@ export const AUCTION_CONTRACT_ABI = [
     name: 'placeBid',
     outputs: [],
     stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: '_nftAddress',
+        type: 'address',
+      },
+      {
+        internalType: 'uint256',
+        name: '_tokenId',
+        type: 'uint256',
+      },
+    ],
+    name: 'placeBid',
+    outputs: [],
+    stateMutability: 'payable',
     type: 'function',
   },
   {
