@@ -13,7 +13,7 @@ import styles from '../Modal/common.module.scss';
 
 const ModModal = ({ visible, onClose, isAdding }) => {
   const { getNonce, addMod, removeMod } = useApi();
-  const {getSigner} = useConnectionUtils();
+  const { getSigner } = useConnectionUtils();
   const { account } = useWeb3React();
 
   const { authToken } = useSelector(state => state.ConnectWallet);
