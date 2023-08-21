@@ -1,8 +1,35 @@
-# React + Vite
+# Client for Artion Marketplace - Powered by Fantom
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A client side implementation of the Artion Marketplace for NFT trading on Fantom Opera network.
 
-Currently, two official plugins are available:
+Artion allows users: 
+- to explore existing NFTs on Fantom Opera network.
+- to create a new collection of a new NFT
+- to register a collection of already deployed NFT.
+- to buy / sell / collect rare NFTs.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+See [Guide](https://docs.fantom.foundation/tutorials/collection-and-bundle-guide-on-artion)
+
+## Project Setup
+```
+npm install / yarn
+```
+
+## Compile
+```
+npm run start
+```
+
+### Compiles and minifies for production
+```
+npm run build
+```
+
+#### .env file sample
+```
+REACT_APP_API_URL=
+SKIP_PREFLIGHT_CHECK=true
+VITE_ENV=
+REACT_APP_USDC=
+REACT_APP_FUSDT=
+```

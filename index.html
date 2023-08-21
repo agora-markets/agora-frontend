@@ -1,13 +1,109 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="shortcut icon" href="/icon.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:title" content="Pixelly Marketplace">
+  <meta name="twitter:title" content="Pixelly Marketplace">
+  <meta name="description" content="Global NFT MarketPlace Built On Tenet">
+  <meta property="og:description" content="Global NFT MarketPlace Built On Tenet">
+  <meta name="twitter:description" content="Global NFT MarketPlace Built On Tenet">
+  <meta property="og:image" content="/pixelly-banner.png">
+  <meta name="twitter:image" content="/pixelly-banner.png">
+
+
+  <link rel="apple-touch-icon" href="icon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://use.typekit.net/evf2xmx.css" />
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css" /> -->
+  <!-- <link rel="stylesheet" type="text/css" charset="UTF-8"
+    href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" />
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" /> -->
+  <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+  <link rel="manifest" href="/manifest.json" />
+  <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+  <title>Pixelly</title>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXRC5ZHHHC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-XXRC5ZHHHC');
+   // ga('send', 'pageview', 'Test');
+  </script>
+</head>
+
+<body id="body" class="body">
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="root">
+    <main>
+      <div class="custom-loader"></div>
+    </main>
+    <style>
+      main {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .custom-loader {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        border: 8px solid;
+        border-color: #36b37e;
+        border-right-color: #00A59A;
+        animation: s2 1s infinite linear;
+      }
+
+      @keyframes s2 {
+        to {
+          transform: rotate(1turn)
+        }
+      }
+    </style>
+  </div>
+  <!-- <div id="root">Loading...<br/>If the page seems stuck, please click "<a href="#" onclick="javascript:window.location.reload(true)">reload</a>"</div> -->
+  <script src="/assets/js/jquery-3.6.0.js"></script>
+  <script src="/assets/js/bootstrap.bundle.min.js"></script>
+  <script src="/assets/js/swiper-bundle.min.js"></script>
+  <!-- <script src="%PUBLIC_URL%/assets/js/gsap.min.js"></script> -->
+  <script src="/assets/js/ScrollTrigger.min.js"></script>
+  <!-- <script src="%PUBLIC_URL%/assets/js/sticky-sidebar.js"></script> -->
+  <script src="/assets/js/script.js"></script>
+  <script type="module" src="/src/index.jsx"></script>
+  <script>
+    setTimeout(() => {
+      const elem = document.querySelector("#root");
+      //alert(elem.childNodes.length)
+      if (elem.childNodes.length === 5) {
+        window.location.reload(true);
+      }
+    }, 3000)
+  </script>
+</body>
+
 </html>

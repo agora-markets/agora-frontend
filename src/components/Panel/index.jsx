@@ -1,0 +1,58 @@
+import React, { useState } from 'react';
+import cx from 'classnames';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+
+import styles from './styles.module.scss';
+
+const Panel = ({
+  title,
+  icon,
+  expanded,
+  fixed,
+  responsive,
+  children,
+  containerClassName,
+  headerClassName,
+}) => {
+  const [open, setOpen] = useState(!!expanded || !!fixed);
+
+  const handleOpen = () => {
+    if (!fixed) {
+      setOpen(!open);
+    }
+  };
+
+  const Icon = icon;
+
+  return (
+    <div className={cx(styles.container, containerClassName)}>
+      <div className={cx(styles.header, headerClassName)} onClick={handleOpen}>
+        <div className={styles.titleWrapper}>
+          {icon && <Icon className={styles.titleIcon} />}
+          <span
+            className={styles.title}
+            dangerouslySetInnerHTML={{ __html: title }}
+          ></span>
+        </div>
+        {!fixed &&
+          (open ? (
+            <ExpandLessIcon className={styles.icon} />
+          ) : (
+            <ExpandMoreIcon className={styles.icon} />
+          ))}
+      </div>
+      <div
+        className={cx(
+          styles.body,
+          open ? styles.open : null,
+          responsive && styles.responsive
+        )}
+      >
+        {children}
+      </div>
+    </div>
+  );
+};
+
+export default Panel;
