@@ -179,21 +179,21 @@ export const useApi = () => {
 
   // Caching for Collections //
   const writeToCache = (cacheKey, data) => {
-    sessionStorage.setItem(cacheKey, JSON.stringify(data))
-  }
+    sessionStorage.setItem(cacheKey, JSON.stringify(data));
+  };
 
-  const readFromCache = cacheKey => JSON.parse(sessionStorage.getItem(cacheKey)) || null
+  const readFromCache = cacheKey =>
+    JSON.parse(sessionStorage.getItem(cacheKey)) || null;
 
   const fetchCollections = async () => {
-    const cacheKey = 'collections'
+    const cacheKey = 'collections';
     const cacheData = readFromCache(cacheKey);
 
     if (!cacheData) {
       const res = await axios.get(`${apiUrl}/info/getcollections`);
-      writeToCache(cacheKey, res.data)
+      writeToCache(cacheKey, res.data);
       return res.data;
-    }
-    else {
+    } else {
       return cacheData;
     }
   };
@@ -213,7 +213,6 @@ export const useApi = () => {
 
   // For Colleciton List page //
   const fetchCollectionList = async (isVerified, start, _count, sortedBy) => {
-
     const res = await axios({
       method: 'post',
       url: `${apiUrl}/info/getCollectionList`,
@@ -333,7 +332,7 @@ export const useApi = () => {
     cancelToken,
     isProfile = false,
     mediaType = null,
-    attributes = {},
+    attributes = {}
   ) => {
     const data = { from, count, type, isProfile };
     if (collections.length > 0) {
@@ -1033,23 +1032,28 @@ export const useApi = () => {
     return res;
   };
 
-  const updateCollection = async (collection, signature, signatureAddress, authToken) => {
+  const updateCollection = async (
+    collection,
+    signature,
+    signatureAddress,
+    authToken
+  ) => {
     const res = await axios({
       method: 'post',
       url: `${apiUrl}/collection/update`,
       data: JSON.stringify({
         signature,
         signatureAddress,
-        collection
+        collection,
       }),
       headers: {
         'content-type': 'application/json',
         Authorization: `Bearer ${authToken}`,
-      }
+      },
     });
 
     return res;
-  }
+  };
 
   return {
     explorerUrl,
@@ -1123,6 +1127,6 @@ export const useApi = () => {
     isAttributeFilterAvailable,
     warnCollection,
     unwarnCollection,
-    updateCollection
+    updateCollection,
   };
 };

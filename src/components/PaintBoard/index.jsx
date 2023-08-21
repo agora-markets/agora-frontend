@@ -455,7 +455,7 @@ const PaintBoard = () => {
       return;
     }
     if (chainId !== 888 && chainId !== 999) {
-      showToast('info', 'You are not connected to Wanchain Network');
+      showToast('info', 'You are not connected to Tenet Network');
       return;
     }
 
@@ -464,7 +464,7 @@ const PaintBoard = () => {
     if (balance < fee) {
       showToast(
         'custom',
-        `Your balance should be at least ${fee} WAN to mint an NFT`
+        `Your balance should be at least ${fee} TENET to mint an NFT`
       );
       return;
     }
@@ -1177,7 +1177,7 @@ const PaintBoard = () => {
             {fee !== null && fee > 0 ? (
               <>
                 <InfoIcon />
-                &nbsp;{fee} WANs are charged to create a new NFT.
+                &nbsp;{fee} TENETs are charged to create a new NFT.
               </>
             ) : fee > 0 ? (
               <Skeleton width={330} height={22} />

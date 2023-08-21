@@ -65,7 +65,7 @@ const FaucetModal = ({ account, visible, onClose, setFaucetModalVisible }) => {
       );
       if (data.success == true) {
         setFaucetModalVisible(false);
-        showToast('success', '0.02 WAN transferred to your address!');
+        showToast('success', '0.02 TENET transferred to your address!');
       } else {
         setClaiming(false);
         setRecaptchaValue(null);
@@ -88,7 +88,7 @@ const FaucetModal = ({ account, visible, onClose, setFaucetModalVisible }) => {
       onSubmit={() => (!claiming && recaptchaValue ? handleMakeOffer() : null)}
     >
       <p className="faucetP">
-        <span className="color_brand">CLAIM YOUR FREE WAN</span>
+        <span className="color_brand">CLAIM YOUR FREE TENET</span>
         <br />
         to begin your creative journey
         <br />
@@ -107,7 +107,7 @@ const FaucetModal = ({ account, visible, onClose, setFaucetModalVisible }) => {
               src={WWAN_IMAGE}
               alt=""
             />{faucetBalance}</div>
-          <span>0.02 WAN per address</span>
+          <span>0.02 TENET per address</span>
         </div>
       </div>
       {!claiming && (

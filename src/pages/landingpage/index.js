@@ -33,7 +33,7 @@ const cards = [
     icon: card2,
     title: 'Super Fast',
     description:
-      'Since Pixelly runs on the Wanchain Network, transactions are usually confirmed within 5 seconds.',
+      'Since Pixelly runs on the Tenet Network, transactions are usually confirmed within 5 seconds.',
     path: '/',
   },
   {
@@ -97,7 +97,7 @@ const LandingPage = () => {
           <div className={styles.mainLeft}>
             <div className={styles.title}>{`Fast NFT trading on Pixelly`}</div>
             <div className={styles.subtitle}>
-              Pixelly is an NFT marketplace built on Wanchain. Create and trade
+              Pixelly is an NFT marketplace built on Tenet. Create and trade
               NFTs instantly with low network costs.
             </div>
             <div className={styles.subtitle}>

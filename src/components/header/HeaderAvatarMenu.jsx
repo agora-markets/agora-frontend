@@ -9,12 +9,12 @@ import { useDetectOutsideRef } from 'hooks/useDetectOutsideRef';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Tooltip /*FormControlLabel, Checkbox*/ } from '@material-ui/core';
 //import { withStyles } from '@material-ui/core/styles';
-import WWAN_IMAGE from 'assets/imgs/wan.png';
+import TENET_IMAGE from 'assets/imgs/tenet.png';
 import { makeStyles } from '@material-ui/styles';
 import { Link } from 'react-router-dom';
-//import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 //import FilterActions from 'actions/filter.actions';
-//import ModalActions from 'actions/modal.actions';
+import ModalActions from 'actions/modal.actions';
 import { useWeb3React } from '@web3-react/core';
 import { ethers } from 'ethers';
 import { /*useWFTMContract,*/ useNFTContract } from 'contracts';
@@ -34,14 +34,14 @@ const propTypes = {
 export function HeaderAvatarMenu(props) {
   //const coinCurrency = 'ZOO';
   const { getERC20Contract } = useNFTContract();
-  //const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const { account, chainId, connector } = useWeb3React();
   //const { getWFTMBalance } = useWFTMContract();
 
   const styles = useStyle();
 
   const [balance, setBalance] = useState(0);
-  const [zooBalance, setZooBalance] = useState(0);
+  // const [zooBalance, setZooBalance] = useState(0);
   const [menuVisible, setMenuVisible] = useState(false);
   const [copied, setCopied] = useState(false);
   const [tooltipOpen, setTooltipOpen] = useState(false);
@@ -68,23 +68,21 @@ export function HeaderAvatarMenu(props) {
     await web3provider.enable();
     const provider = new ethers.providers.Web3Provider(web3provider);
 
-    const ZOO_ADDRESS = {
-      888: '0x6e11655d6aB3781C6613db8CB1Bc3deE9a7e111F',
-      999: '0x890589dC8BD3F973dcAFcB02b6e1A133A76C8135',
+    const TENET_ADDRESS = {
+      1559: '0xd6cb8a253e12893b0cF39Ca78F7d858652cCa1fe',
+      155: '0x890589dC8BD3F973dcAFcB02b6e1A133A76C8135',
     };
 
-    const zooContract = await getERC20Contract(ZOO_ADDRESS[chainId]);
+    const tenetContract = await getERC20Contract(TENET_ADDRESS[chainId]);
 
-    let [ftmBal, /*wftmBal,*/ zooBal] = await Promise.all([
+    let [ftmBal /*wftmBal,*/ /* zooBal */] = await Promise.all([
       await provider.getBalance(account),
       // await getWFTMBalance(account),
-      await zooContract.balanceOf(account),
+      await tenetContract.balanceOf(account),
     ]);
 
-    
-
     setBalance(parseFloat(ftmBal.toString()) / 10 ** 18);
-    setZooBalance(parseFloat(zooBal.toString()) / 10 ** 18);
+    // setZooBalance(parseFloat(zooBal.toString()) / 10 ** 18);
 
     // setWrappedBalance(parseFloat(wftmBal.toString()) / 10 ** 18);
 
@@ -127,11 +125,9 @@ export function HeaderAvatarMenu(props) {
     setTooltipOpen(on);
   };
 
-  /*
   const handleOpenWrapStation = () => {
     dispatch(ModalActions.showWFTMModal());
   };
-  */
   /*
   const [onlyVerified, setOnlyVerified] = React.useState(() => {
     const onlyVerifiedValue = window.localStorage.getItem('onlyVerified');
@@ -167,8 +163,7 @@ export function HeaderAvatarMenu(props) {
       >
         <div className="price">
           <span>
-            <img src="/zoo32x32.png" />{' '}
-            {formatNumber(parseBalance(zooBalance), 2)}
+            <img src={TENET_IMAGE} /> {formatNumber(parseBalance(balance), 2)}
           </span>
         </div>
         {props.loading ? (
@@ -211,29 +206,16 @@ export function HeaderAvatarMenu(props) {
             <div className="d-flex align-items-center space-x-10">
               <img
                 className={cx('coin', styles.coinImage)}
-                src={WWAN_IMAGE}
+                src={TENET_IMAGE}
                 alt="/"
               />
               <div className="info">
                 <p className="text-sm font-book text-gray-400">Balance</p>
                 <p className="w-full text-sm font-bold text-green-500">{`${parseBalance(
                   balance
-                )} WAN`}</p>
+                )} TENET`}</p>
               </div>
             </div>
-          )}
-          {balance < 0.02 && (
-            <a
-              href={`https://t.me/wan_faucet_bot`} target="_blank" rel="noreferrer"
-              onClick={() => {
-                //setFaucetModalVisible(true);
-              }}
-              className="d-flex flex-column align-items-start space-x-10 claimFreeWanBtn"
-            >
-              <div></div>
-              <div>FIRST TIME?</div>
-              <div>Claim Free WAN to Start</div>
-            </a>
           )}
           {/*
         <div className="hr"></div>
@@ -276,11 +258,10 @@ export function HeaderAvatarMenu(props) {
               <span> Create New Collection</span>
             </Link>
 
-            {/*
-          <a onClick={handleOpenWrapStation}>
-            <i className="ri-refresh-fill"></i> <span> WAN / WWAN Station</span>
-          </a>
-          */}
+            <a onClick={handleOpenWrapStation}>
+              <i className="ri-refresh-fill"></i>
+              <span> TENET / WTENET Station</span>
+            </a>
 
             {(props.isAdmin || props.isModerator) && (
               <div className="hr mt-2"></div>

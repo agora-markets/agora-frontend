@@ -20,13 +20,11 @@ export default () => {
         return new ethers.Contract(address, abi, signer);
       } else {
         const provider = new ethers.providers.StaticJsonRpcProvider(
-          isMainnet
-            ? 'https://rpc.zookeeper.finance/'
-            : 'https://rpc.zookeeper.finance/testnet',
-          isMainnet ? 888 : 999
+          isMainnet ? 'https://rpc.tenet.org' : 'https://rpc.testnet.tenet.org',
+          isMainnet ? 1559 : 155
         );
         provider.pollingInterval = 10 * 1000;
-        
+
         return new ethers.Contract(address, abi, provider);
       }
     },

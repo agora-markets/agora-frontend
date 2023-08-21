@@ -1,51 +1,39 @@
-// import { ChainId } from '@sushiswap/sdk';
 import { InjectedConnector } from '@web3-react/injected-connector';
-//import { WalletLinkConnector } from '@web3-react/walletlink-connector';
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector';
-//import { Wallet } from 'ethers';
 import { NetworkConnector } from './NetworkConnector';
 
-//import ARTION_LOGO_URL from '../assets/svgs/logo_blue.svg';
-
-// eslint-disable-next-line no-undef
 const isMainnet = import.meta.env.VITE_ENV === 'MAINNET';
 
 const RPC = isMainnet
   ? {
-    [888]: 'https://rpc.zookeeper.finance',
-  }
+      [1559]: 'https://rpc.tenet.org',
+    }
   : {
-    [999]: 'https://rpc.zookeeper.finance/testnet',
-  };
+      [155]: 'https://rpc.testnet.tenet.org',
+    };
 
 export const network = new NetworkConnector({
-  defaultChainId: 888,
+  defaultChainId: 1559,
   urls: RPC,
 });
 
 export const injected = new InjectedConnector({
   supportedChainIds: isMainnet
     ? [
-      888, // fantom
-    ]
+        1559, // fantom
+      ]
     : [
-      999, // fantom testnet
-    ],
+        155, // fantom testnet
+      ],
 });
 
 export const walletconnect = new WalletConnectConnector({
   infuraId: '326fb0397704475abffcfa9ca9c0ee5a',
-  rpcUrl: 'https://rpc.zookeeper.finance',
-  chainId: 888,
-  networkId: 888,
+  rpcUrl: 'https://rpc.tenet.org',
+  chainId: 1559,
+  networkId: 1559,
   rpc: {
-    888: 'https://rpc.zookeeper.finance',
-    999: 'https://rpc.zookeeper.finance/testnet',
-  }
+    1559: 'https://rpc.tenet.org',
+    155: 'https://rpc.testnet.tenet.org',
+  },
 });
-
-// export const walletlink = new WalletLinkConnector({
-//   url: 'https://rpc.zookeeper.finance',
-//   appName: 'Pixelly',
-//   appLogoUrl: ARTION_LOGO_URL,
-// });

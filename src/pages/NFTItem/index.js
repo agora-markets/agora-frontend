@@ -1794,14 +1794,14 @@ const NFTItem = () => {
           const toastId = showToast(
             'error',
             `Insufficient ${listing.token.symbol} Balance!`,
-            listing.token.symbol === 'WFTM' || listing.token.symbol === 'WWAN'
-              ? 'You can wrap WAN in the WWAN station.'
+            listing.token.symbol === 'WFTM' || listing.token.symbol === 'WTENET'
+              ? 'You can wrap TENET in the WTENET station.'
               : `You can exchange ${listing.token.symbol} on other exchange site.`,
             () => {
               toast.dismiss(toastId);
               if (
                 listing.token.symbol === 'WFTM' ||
-                listing.token.symbol === 'WWAN'
+                listing.token.symbol === 'WTENET'
               ) {
                 dispatch(ModalActions.showWFTMModal());
               }
@@ -1856,12 +1856,12 @@ const NFTItem = () => {
           const toastId = showToast(
             'error',
             `Insufficient ${token.symbol} Balance!`,
-            token.symbol === 'WFTM' || token.symbol === 'WWAN'
-              ? 'You can wrap WAN in the WWAN station.'
+            token.symbol === 'WFTM' || token.symbol === 'WTENET'
+              ? 'You can wrap TENET in the WTENET station.'
               : `You can exchange ${token.symbol} on other exchange site.`,
             () => {
               toast.dismiss(toastId);
-              if (token.symbol === 'WFTM' || token.symbol === 'WWAN') {
+              if (token.symbol === 'WFTM' || token.symbol === 'WTENET') {
                 dispatch(ModalActions.showWFTMModal());
               }
             }
@@ -1907,13 +1907,13 @@ const NFTItem = () => {
         const toastId = showToast(
           'error',
           `Insufficient ${token.symbol} Balance!`,
-          token.symbol === 'WFTM' || token.symbol === 'WWAN'
-            ? 'You can wrap WAN in the WWAN station.'
+          token.symbol === 'WFTM' || token.symbol === 'WTENET'
+            ? 'You can wrap TENET in the WTENET station.'
             : `You can exchange ${token.symbol} on other exchange site.`,
           () => {
             toast.dismiss(toastId);
             setOfferModalVisible(false);
-            if (token.symbol === 'WFTM' || token.symbol === 'WWAN') {
+            if (token.symbol === 'WFTM' || token.symbol === 'WTENET') {
               dispatch(ModalActions.showWFTMModal());
             }
           }
@@ -2161,13 +2161,13 @@ const NFTItem = () => {
           const toastId = showToast(
             'error',
             `Insufficient ${token.symbol} Balance!`,
-            token.symbol === 'WFTM' || token.symbol === 'WWAN'
-              ? 'You can wrap WAN in the WWAN station.'
+            token.symbol === 'WFTM' || token.symbol === 'WTENET'
+              ? 'You can wrap TENET in the WTENET station.'
               : `You can exchange ${token.symbol} on other exchange site.`,
             () => {
               toast.dismiss(toastId);
               setBidModalVisible(false);
-              if (token.symbol === 'WFTM' || token.symbol === 'WWAN') {
+              if (token.symbol === 'WFTM' || token.symbol === 'WTENET') {
                 dispatch(ModalActions.showWFTMModal());
               }
             }
@@ -2985,7 +2985,7 @@ const NFTItem = () => {
         </div>
         <div className={styles.panelLine}>
           <div className={styles.panelLabel}>Network</div>
-          <div className={styles.panelValue}>Wanchain Mainnet</div>
+          <div className={styles.panelValue}>Tenet Mainnet</div>
         </div>
         <div className={styles.panelLine}>
           <div className={styles.panelLabel}>Chain ID</div>

@@ -20,8 +20,8 @@ export const NETWORK_LABEL = {
   //[ChainId.HECO_TESTNET]: 'HECO Testnet',
   //[ChainId.HARMONY]: 'Harmony',
   //[ChainId.HARMONY_TESTNET]: 'Harmony Testnet',
-  888: 'Wanchain',
-  999: 'Wanchain Testnet',
+  888: 'Tenet',
+  999: 'Tenet Testnet',
 };
 
 export const Contracts = {

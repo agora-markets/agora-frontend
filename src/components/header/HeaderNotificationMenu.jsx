@@ -50,7 +50,7 @@ export function HeaderNotificationMenu() {
               {' '}
               <h6>Money revieved</h6>{' '}
             </Link>
-            <p>0.6 ETH</p>
+            <p>0.6 TENET</p>
           </div>
           <span className="circle"></span>
         </div>

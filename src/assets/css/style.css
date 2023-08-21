@@ -13700,7 +13700,7 @@ label:active:after {
 
 .card__item .card_head {
   border-radius: 10px;
-  background-color: #ffbfb;
+  background-color: #ffbfbf;
   height: 300px;
   overflow: hidden;
   position: relative;
@@ -14955,7 +14955,12 @@ label:active:after {
 }
 
 .header__1 .header__avatar .price {
-  padding: 0 10px 0 20px;
+  padding: 0 10px 0 0px;
+}
+
+.header__1 .header__avatar .price img {
+  height: 40px;
+  width: 40px;
 }
 
 .header__1 .header__avatar .avatar_popup {

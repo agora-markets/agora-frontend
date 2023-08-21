@@ -1988,14 +1988,14 @@ export function ArtworkDetailPage() {
           const toastId = showToast(
             'error',
             `Insufficient ${listing.token.symbol} Balance!`,
-            listing.token.symbol === 'WFTM' || listing.token.symbol === 'WWAN'
-              ? 'You can wrap WAN in the WWAN station.'
+            listing.token.symbol === 'WFTM' || listing.token.symbol === 'WTENET'
+              ? 'You can wrap TENET in the WTENET station.'
               : `You can exchange ${listing.token.symbol} on other exchange site.`,
             () => {
               toast.dismiss(toastId);
               if (
                 listing.token.symbol === 'WFTM' ||
-                listing.token.symbol === 'WWAN'
+                listing.token.symbol === 'WTENET'
               ) {
                 dispatch(ModalActions.showWFTMModal());
               }
@@ -2063,12 +2063,12 @@ export function ArtworkDetailPage() {
           const toastId = showToast(
             'error',
             `Insufficient ${token.symbol} Balance!`,
-            token.symbol === 'WFTM' || token.symbol === 'WWAN'
-              ? 'You can wrap WAN in the WWAN station.'
+            token.symbol === 'WFTM' || token.symbol === 'WTENET'
+              ? 'You can wrap TENET in the WTENET station.'
               : `You can exchange ${token.symbol} on other exchange site.`,
             () => {
               toast.dismiss(toastId);
-              if (token.symbol === 'WFTM' || token.symbol === 'WWAN') {
+              if (token.symbol === 'WFTM' || token.symbol === 'WTENET') {
                 dispatch(ModalActions.showWFTMModal());
               }
             }
@@ -2114,13 +2114,13 @@ export function ArtworkDetailPage() {
         const toastId = showToast(
           'error',
           `Insufficient ${token.symbol} Balance!`,
-          token.symbol === 'WFTM' || token.symbol === 'WWAN'
-            ? 'You can wrap WAN in the WWAN station.'
+          token.symbol === 'WFTM' || token.symbol === 'WTENET'
+            ? 'You can wrap TENET in the WTENET station.'
             : `You can exchange ${token.symbol} on other exchange site.`,
           () => {
             toast.dismiss(toastId);
             setOfferModalVisible(false);
-            if (token.symbol === 'WFTM' || token.symbol === 'WWAN') {
+            if (token.symbol === 'WFTM' || token.symbol === 'WTENET') {
               dispatch(ModalActions.showWFTMModal());
             }
           }
@@ -2368,13 +2368,13 @@ export function ArtworkDetailPage() {
           const toastId = showToast(
             'error',
             `Insufficient ${token.symbol} Balance!`,
-            token.symbol === 'WFTM' || token.symbol === 'WWAN'
-              ? 'You can wrap WAN in the WWAN station.'
+            token.symbol === 'WFTM' || token.symbol === 'WTENET'
+              ? 'You can wrap TENET in the WTENET station.'
               : `You can exchange ${token.symbol} on other exchange site.`,
             () => {
               toast.dismiss(toastId);
               setBidModalVisible(false);
-              if (token.symbol === 'WFTM' || token.symbol === 'WWAN') {
+              if (token.symbol === 'WFTM' || token.symbol === 'WTENET') {
                 dispatch(ModalActions.showWFTMModal());
               }
             }
@@ -3125,7 +3125,7 @@ export function ArtworkDetailPage() {
                       headerClassName="px-0"
                     >
                       <div className={styles.multichain}>
-                        Users can utilize Wanchain&apos;s Industry-Best
+                        Users can utilize Tenet&apos;s Industry-Best
                         Crosschain Bridge to Execute Decentralised,
                         Non-Custodial NFT Crosschain Transactions Between
                         Multiple Chains

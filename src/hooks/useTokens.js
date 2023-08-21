@@ -12,7 +12,6 @@ import iconVZOO from 'assets/imgs/vZoo_ticker.svg';
 // import iconETH from 'assets/imgs/wanETH.png';
 // import iconWASP from 'assets/imgs/wasp.png';
 
-
 // eslint-disable-next-line no-undef
 const isMainnet = import.meta.env.VITE_ENV === 'MAINNET';
 
@@ -35,8 +34,8 @@ const Tokens = {
     /*
     {
       address: '0xdabd997ae5e4799be47d6e69d9431615cba28f48',
-      name: 'Wrapped WAN',
-      symbol: 'WWAN',
+      name: 'Wrapped TENET',
+      symbol: 'WTENET',
       decimals: 18,
       icon: iconWFTM,
     },
@@ -66,12 +65,12 @@ const Tokens = {
     },
     // {
     //   address: '0x916283cc60fdaf05069796466af164876e35d21f',
-    //   name: 'Wrapped WAN',
-    //   symbol: 'WWAN',
+    //   name: 'Wrapped TENET',
+    //   symbol: 'WTENET',
     //   decimals: 18,
     //   icon: iconWFTM,
     // },
-    
+
     // {
     //   address: '0x3D5950287b45F361774E5fB6e50d70eEA06Bc167',
     //   name: 'wanUSDT',

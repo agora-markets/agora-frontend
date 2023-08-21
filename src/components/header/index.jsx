@@ -23,7 +23,7 @@ import BoostCollectionModal from 'components/BoostCollectionModal';
 import ConnectWalletModal from 'components/ConnectWalletModal';
 import Identicon from 'components/Identicon';
 
-import logoSmallBlue from 'assets/svgs/openzoo_icon.svg';
+import logoSmallBlue from 'assets/imgs/logos/pixelly.png';
 
 import styles from './styles.module.scss';
 import FilterActions from '../../actions/filter.actions';
@@ -476,6 +476,9 @@ const Header = props => {
 
   return (
     <header className={cx('header__1', 'js-header', styles.header)}>
+      <marquee direction="right" scrollamount="12">
+        This is a beta version of the Pixelly marketplace
+      </marquee>
       <div onClick={scrollToTop} className="scroll-to-top">
         <FontAwesomeIcon icon={faAngleUp} />
       </div>

@@ -84,24 +84,24 @@ const ConnectWalletModal = ({ visible, onClose }) => {
         <div>
           <div className={styles.text}>
             Please connect to the{' '}
-            {isMainnet ? 'Wanchain Mainnet' : 'Wanchain Testnet'}.
+            {isMainnet ? 'Tenet Mainnet' : 'Tenet Testnet'}.
           </div>
           <div
             className={styles.switchBtn}
-            style={{ backgroundColor: '#f9bb32' }}
+            style={{ backgroundColor: '#05DE9D' }}
             onClick={async () => {
               if (!window.ethereum) {
                 window.alert('please install MetaMask at: MetaMask.io');
               } else {
                 try {
-                  const param = { 
-                    chainId: '0x378',
-                    chainName: 'Wanchain Mainnet',
-                    rpcUrls: ['https://gwan-ssl.wandevs.org:56891'],
-                    blockExplorerUrls: ['https://wanscan.org/'],
+                  const param = {
+                    chainId: '0x617',
+                    chainName: 'Tenet Mainnet',
+                    rpcUrls: ['https://rpc.tenet.org'],
+                    blockExplorerUrls: ['https://tenetscan.io/'],
                     nativeCurrency: {
-                      name: 'WAN',
-                      symbol: 'WAN', // 2-6 characters long
+                      name: 'TENET',
+                      symbol: 'TENET', // 2-6 characters long
                       decimals: 18,
                     },
                   };
@@ -116,7 +116,7 @@ const ConnectWalletModal = ({ visible, onClose }) => {
               }
             }}
           >
-            Switch to Wanchain in MetaMask
+            Switch to Tenet in MetaMask
           </div>
           <div className={styles.switchBtn} onClick={deactivate}>
             Disconnect
