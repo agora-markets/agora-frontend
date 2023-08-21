@@ -14,9 +14,6 @@ body {
   color: #141E27;
 }
 
-iframe{
-  pointer-events: none;
-}
 .slick-slide {
   outline: none;
   width: unset !important;

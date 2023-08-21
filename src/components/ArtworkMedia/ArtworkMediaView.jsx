@@ -12,7 +12,7 @@ import {
   //useProgress,
   //Html,
   Environment,
-  Loader as Loader3d
+  Loader as Loader3d,
 } from '@react-three/drei';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
@@ -62,7 +62,10 @@ export function ArtworkMediaView(props) {
     return (
       <div className="player-wrapper">
         <ReactPlayer
-          className={`${cx(styles.mediaInner, className)} react-player item_vdo`}
+          className={`${cx(
+            styles.mediaInner,
+            className
+          )} react-player item_vdo`}
           loop={true}
           url={image}
           controls={true}
@@ -130,13 +133,20 @@ export function ArtworkMediaView(props) {
 
           <OrbitControls makeDefault autoRotate={true} />
         </Canvas>
-        <Loader3d dataStyles={{color:'#05DE9D'}} barStyles={{background:'#05DE9D'}} dataInterpolation={(p) => `Loading ${p.toFixed(2)}%`}/>
+        <Loader3d
+          dataStyles={{ color: '#05DE9D' }}
+          barStyles={{ background: '#05DE9D' }}
+          dataInterpolation={p => `Loading ${p.toFixed(2)}%`}
+        />
       </div>
     );
   } else {
     if (image) {
       // Convert from zoo-factory.vercel.app to Zookeeper //
-      let image2 = image.replace("zoo-factory.vercel.app","app.zookeeper.finance");
+      let image2 = image.replace(
+        'zoo-factory.vercel.app',
+        'app.zookeeper.finance'
+      );
       return (
         <Suspense fallback={<Loader type="Oval" stroke="#00A59A" size={32} />}>
           <SuspenseImg
