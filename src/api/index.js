@@ -217,8 +217,55 @@ export const useApi = () => {
     return res.data;
   };
 
+  // Caching for Collections //
+  const writeToCache = (cacheKey, data) => {
+    sessionStorage.setItem(cacheKey, JSON.stringify(data));
+  };
+
+  const readFromCache = cacheKey =>
+    JSON.parse(sessionStorage.getItem(cacheKey)) || null;
+
   const fetchCollections = async () => {
-    const res = await axios.get(`${apiUrl}/info/getcollections`);
+    const cacheKey = 'collections';
+    const cacheData = readFromCache(cacheKey);
+
+    if (!cacheData) {
+      const res = await axios.get(`${apiUrl}/info/getcollections`);
+      writeToCache(cacheKey, res.data);
+      return res.data;
+    } else {
+      return cacheData;
+    }
+  };
+
+  // For Profile Colleciton List //
+  const fetchProfileCollectionList = async owner => {
+    const res = await axios({
+      method: 'post',
+      url: `${apiUrl}/info/getProfileCollectionList`,
+      data: JSON.stringify({ owner }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    return res.data;
+  };
+
+  // For Colleciton List page //
+  const fetchCollectionList = async (isVerified, start, _count, sortedBy) => {
+    const res = await axios({
+      method: 'post',
+      url: `${apiUrl}/info/getCollectionList`,
+      data: JSON.stringify({
+        isVerified,
+        start,
+        count: _count,
+        sortedBy: sortedBy.id,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
     return res.data;
   };
 
@@ -289,51 +336,6 @@ export const useApi = () => {
 
     return res.data;
   };
-
-  /* const fetchTokens = async (
-    from,
-    count,
-    type = 'all',
-    collections = [],
-    category = null,
-    sortBy = 'listedAt',
-    filterBy = [],
-    address = null,
-    cancelToken,
-    attributes = [],
-    tokenIds = []
-  ) => {
-    const data = { from, count, type };
-    if (collections.length > 0) {
-      data.collectionAddresses = collections;
-    }
-    if (attributes.length > 0) {
-      data.attributes = attributes;
-    }
-    if (tokenIds.length > 0) {
-      data.tokenIds = tokenIds;
-    }
-    if (category !== null) {
-      data.category = category;
-    }
-    if (address) {
-      data.address = address.length ? address : [address];
-    }
-    if (filterBy.length) {
-      data.filterby = filterBy;
-    }
-    data.sortby = sortBy;
-    const res = await axios({
-      method: 'post',
-      url: `${apiUrl}/nftitems/fetchTokens`,
-      data: JSON.stringify(data),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      cancelToken,
-    });
-    return res.data;
-  }; */
 
   const getItemsLiked = async (items, authToken, cancelToken) => {
     const data = { items: JSON.stringify(items) };
@@ -892,37 +894,6 @@ export const useApi = () => {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${authToken}`,
-      },
-    });
-    return res.data;
-  };
-
-  // For Profile Colleciton List //
-  const fetchProfileCollectionList = async owner => {
-    const res = await axios({
-      method: 'post',
-      url: `${apiUrl}/info/getProfileCollectionList`,
-      data: JSON.stringify({ owner }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    return res.data;
-  };
-
-  // For Colleciton List page //
-  const fetchCollectionList = async (isVerified, start, _count, sortedBy) => {
-    const res = await axios({
-      method: 'post',
-      url: `${apiUrl}/info/getCollectionList`,
-      data: JSON.stringify({
-        isVerified,
-        start,
-        count: _count,
-        sortedBy: sortedBy.id,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
       },
     });
     return res.data;
