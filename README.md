@@ -1,35 +1,8 @@
-# Client for Pixelly Marketplace - Powered by Tenet
+# React + Vite
 
-A client side implementation of the Pixelly Marketplace for NFT trading on Tenet Chain.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Pixelly allows users: 
-- to explore existing NFTs on Tenet.
-- to create a new collection of a new NFT
-- to register a collection of already deployed NFT.
-- to buy / sell / collect rare NFTs.
+Currently, two official plugins are available:
 
-See [Guide](https://docs.pixelly.gg)
-
-## Project Setup
-```
-npm install / yarn
-```
-
-## Compile
-```
-npm run start
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-#### .env file sample
-```
-REACT_APP_API_URL=
-SKIP_PREFLIGHT_CHECK=true
-REACT_APP_ENV=
-REACT_APP_USDC=
-REACT_APP_FUSDT=
-```
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
