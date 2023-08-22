@@ -42,20 +42,43 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
   <title>Pixelly Marketplace</title>
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXRC5ZHHHC"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', 'G-XXRC5ZHHHC');
-   // ga('send', 'pageview', 'Test');
-  </script>
 </head>
 
 <body id="body" class="body">
   <noscript>You need to enable JavaScript to run this app.</noscript>
-  <div id="root">Loading...</div>
+  <div id="root">
+    <main>
+      <div class="custom-loader"></div>
+    </main>
+    <style>
+      body {
+        background-color: #000000;
+      }
+      main {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .custom-loader {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        border: 8px solid;
+        border-color: #07ff8b;
+        border-right-color: #00A59A;
+        animation: s2 1s infinite linear;
+      }
+
+      @keyframes s2 {
+        to {
+          transform: rotate(1turn)
+        }
+      }
+    </style>
+  </div>
   <script src="%PUBLIC_URL%/assets/js/jquery-3.6.0.js"></script>
   <script src="%PUBLIC_URL%/assets/js/bootstrap.bundle.min.js"></script>
   <script src="%PUBLIC_URL%/assets/js/swiper-bundle.min.js"></script>
@@ -70,7 +93,7 @@
       {
         window.location.reload(true);
       }
-    },3000)
+    }, 3000)
   </script>
 </body>
 
