@@ -31,7 +31,7 @@ import { AccountProfilePage } from 'pages/AccountProfilePage';
 import { CollectionsPage } from 'pages/CollectionsPage';
 import { CollectionList } from 'pages/CollectionList';
 import { LaunchpadPage } from 'pages/Launchpad';
-import { useApi } from 'api';
+// import { useApi } from 'api';
 import LaunchpadCollection from 'pages/LaunchpadCollection';
 
 const App = () => {
@@ -39,8 +39,6 @@ const App = () => {
   const { chainId, connector } = useWeb3React();
 
   const [priceInterval, setPriceInterval] = useState(null);
-  const [globalStats, setGlobalStats] = useState();
-  const { getLatestStats } = useApi();
 
   const getPrice = async () => {
     try {
@@ -115,31 +113,19 @@ const App = () => {
   };
 
   useEffect(() => {
-    const fetchLatestStats = async () => {
-      const _stats = await getLatestStats();
-      setGlobalStats(_stats.data);
-    };
-
     if (priceInterval) {
       clearInterval(priceInterval);
     }
 
     getPrice();
     setPriceInterval(setInterval(getPrice, 1000 * 10));
-
-    fetchLatestStats();
   }, [chainId]);
 
   return (
     <div>
       <Router history={history}>
         <Switch>
-          <Route
-            exact
-            path="/"
-            component={HomePage}
-            globalStats={globalStats}
-          />
+          <Route exact path="/" component={HomePage} />
           <Route exact path="/home" component={HomePage} />
           {/*
           <Route exact path="/old-explore" component={ExplorePage} />

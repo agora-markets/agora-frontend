@@ -10,8 +10,8 @@ import TxButton from 'components/TxButton';
 import styles from './styles.module.scss';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faBook } from '@fortawesome/free-solid-svg-icons';
-// import verifiedLogo from 'assets/imgs/verify.png';
-// import { HomePageCommunitySection } from './HomePageCommunitySection';
+import verifiedLogo from 'assets/imgs/verify.png';
+import { HomePageCommunitySection } from './HomePageCommunitySection';
 // import { HomePageArtistsSection } from './HomePageArtistsSection';
 // import { HomePageRecentlyListSection } from './HomePageRecentlyListSection';
 import { HomePageStartOwnCollectionSection } from './HomePageStartOwnCollectionSection';
@@ -86,8 +86,6 @@ export function HomePage() {
                   Create NFT
                 </TxButton>
               </div>
-
-              {/* 
               <div className={styles.contact}>
                 <div className={styles.become}>
                   <div>
@@ -100,28 +98,11 @@ export function HomePage() {
                 <div className={styles.seperator}></div>
                 <div className={styles.become2}>
                   <div>
-                    On Telegram
-                    <span>
-                      <a
-                        rel="noreferrer"
-                        href="https://t.me/pixelly"
-                        target="_blank"
-                      >
-                        here
-                      </a>
-                    </span>
-                  </div>
-                </div>
-                <div className={styles.become2}>
-                  <div>OR</div>
-                </div>
-                <div className={styles.become2}>
-                  <div>
                     On Discord
                     <span>
                       <a
-                        rel="noreferrer"
-                        href="https://discord.gg/XybunZQ3Cv"
+                        rel="noopener noreferrer"
+                        href="https://discord.gg/MqjvgtDh"
                         target="_blank"
                       >
                         here
@@ -129,13 +110,13 @@ export function HomePage() {
                     </span>
                   </div>
                 </div>
-              </div> */}
+              </div>
             </div>
           </div>
         </div>
         {/* <HomePageArtistsSection /> */}
         {/* <HomePageRecentlyListSection /> */}
-        {/* <HomePageCommunitySection /> */}
+        <HomePageCommunitySection />
         <HomePageStartOwnCollectionSection />
         {/* <HomePageTopArtworksSection /> */}
         <Footer />

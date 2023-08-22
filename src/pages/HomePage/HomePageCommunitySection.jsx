@@ -1,10 +1,22 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import TotalSales from 'assets/imgs/icons/total_sales.png';
 import TotalVolume from 'assets/imgs/icons/total_volume.png';
 import styles from './styles.module.scss';
+import { useApi } from 'api';
 
-export function HomePageCommunitySection({ globalStats }) {
+export function HomePageCommunitySection() {
+  const [globalStats, setGlobalStats] = useState();
+  const { getLatestStats } = useApi();
+
+  useEffect(() => {
+    const fetchLatestStats = async () => {
+      const _stats = await getLatestStats();
+      setGlobalStats(_stats.data);
+    };
+
+    fetchLatestStats();
+  }, []);
   return (
     <div className="container">
       <div className="community">
@@ -17,66 +29,72 @@ export function HomePageCommunitySection({ globalStats }) {
           </p>
         </div>
 
-    <div className="community__items">
-      <div className="row justify-content-center mb-20_reset">
-      <div className="col-md-3">
-        <div className="item space-y-10">
-          <div className="logo">
-          <img src={TotalVolume} alt="logo_community" className={styles.stats_logo} />
-        </div>
-        <div className={styles.stats}>
-          $ {Math.round(globalStats?.dailyVolume) || 0}
-        </div>
-        <div className="text-center">
-          Daily Volume
-        </div>
-      </div>
-      </div>
-      <div className="col-md-3">
-        <div className="item space-y-10">
-          <div className="logo">
-          <img src={TotalSales} alt="logo_community" className={styles.stats_logo} />
-        </div>
-        <div>
-          <div className={styles.stats}>
-            {Math.round(globalStats?.dailySales) || 0}
+        <div className="community__items">
+          <div className="row justify-content-center mb-20_reset">
+            <div className="col-md-3">
+              <div className="item space-y-10">
+                <div className="logo">
+                  <img
+                    src={TotalVolume}
+                    alt="logo_community"
+                    className={styles.stats_logo}
+                  />
+                </div>
+                <div className={styles.stats}>
+                  $ {Math.round(globalStats?.dailyVolume) || 0}
+                </div>
+                <div className="text-center">Daily Volume</div>
+              </div>
+            </div>
+            <div className="col-md-3">
+              <div className="item space-y-10">
+                <div className="logo">
+                  <img
+                    src={TotalSales}
+                    alt="logo_community"
+                    className={styles.stats_logo}
+                  />
+                </div>
+                <div>
+                  <div className={styles.stats}>
+                    {Math.round(globalStats?.dailySales) || 0}
+                  </div>
+                </div>
+                <div className="text-center">Daily Sales</div>
+              </div>
+            </div>
+            <div className="col-md-3">
+              <div className="item space-y-10">
+                <div className="logo">
+                  <img
+                    src={TotalVolume}
+                    alt="logo_community"
+                    className={styles.stats_logo}
+                  />
+                </div>
+                <div className={styles.stats}>
+                  $ {Math.round(globalStats?.totalVolume) || 0}
+                </div>
+                <div className="text-center">Total Volume</div>
+              </div>
+            </div>
+            <div className="col-md-3">
+              <div className="item space-y-10">
+                <div className="logo is_twitter">
+                  <img
+                    src={TotalSales}
+                    alt="logo_community"
+                    className={styles.stats_logo}
+                  />
+                </div>
+                <div className={styles.stats}>
+                  {Math.round(globalStats?.totalSales) || 0}
+                </div>
+                <div className="text-center">Total Sales</div>
+              </div>
+            </div>
           </div>
         </div>
-        <div className="text-center">
-          Daily Sales
-        </div>
-      </div>
-      </div>
-        <div className="col-md-3">
-          <div className="item space-y-10">
-            <div className="logo">
-            <img src={TotalVolume} alt="logo_community" className={styles.stats_logo} />
-        </div>
-        <div className={styles.stats}>
-          $ {Math.round(globalStats?.totalVolume) || 0}
-        </div>
-        <div className="text-center">
-          Total Volume
-        </div>
-      </div>
-      </div>
-      <div className="col-md-3">
-        <div className="item space-y-10">
-          <div className="logo is_twitter">
-          <img src={TotalSales} alt="logo_community" className={styles.stats_logo} />
-        </div>
-        <div className={styles.stats}>
-          {Math.round(globalStats?.totalSales) || 0}
-        </div>
-        <div className="text-center">
-          Total Sales
-        </div>
-      </div>
-      </div>
-    </div>
-    </div>
-
-
       </div>
     </div>
   );
