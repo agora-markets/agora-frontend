@@ -1,5 +1,3 @@
-import { ChainId } from '@sushiswap/sdk';
-
 import {
   FEE_SHARING_ABI,
   ERC20_CONTRACT_ABI,
@@ -14,16 +12,16 @@ import { Contracts } from 'constants/networks';
 
 const FEE_SHARING_SYSTEM = {
   [25]: '0x2bDDBA3F7DD5Fd18da89CD7eD5BaA1da37FD4eE0',
-  [ChainId.ARBITRUM]: '',
+  155: '',
 };
 
 const TOKEN_DISTRIBUTOR = {
   [25]: '0xE2a13d4398d87bbC310b6c3189fB950963a252C7',
-  [ChainId.ARBITRUM]: '',
+  155: '',
 };
 
 // eslint-disable-next-line no-undef
-const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
+const isMainnet = import.meta.env.VITE_ENV === 'MAINNET';
 const CHAIN = isMainnet ? 1559 : 155;
 
 export const useAgoContract = () => {

@@ -12,7 +12,7 @@ import iconUSDC from 'assets/imgs/usdc.png';
 // import iconWASP from 'assets/imgs/wasp.png';
 
 // eslint-disable-next-line no-undef
-const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
+const isMainnet = import.meta.env.VITE_ENV === 'MAINNET';
 
 const Tokens = {
   1559: [

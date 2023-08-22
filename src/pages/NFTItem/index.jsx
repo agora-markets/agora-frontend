@@ -25,7 +25,6 @@ import {
   CartesianGrid,
   Line,
 } from 'recharts';
-// import { ChainId } from '@sushiswap/sdk';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { useWeb3React } from '@web3-react/core';
@@ -111,7 +110,7 @@ const ONE_MONTH = ONE_DAY * 30;
 const filters = ['Trade History', 'Transfer History'];
 
 // eslint-disable-next-line no-undef
-const ENV = process.env.REACT_APP_ENV;
+const ENV = import.meta.env.VITE_ENV;
 const CHAIN = ENV === 'MAINNET' ? 1559 : 155;
 
 const NFTItem = () => {

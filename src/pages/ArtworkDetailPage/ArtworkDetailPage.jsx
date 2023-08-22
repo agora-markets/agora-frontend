@@ -53,7 +53,6 @@ import {
   CartesianGrid,
   Line,
 } from 'recharts';
-import { ChainId } from '@sushiswap/sdk';
 //import warned from 'constants/warned.collections';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -101,7 +100,7 @@ const ONE_DAY = ONE_HOUR * 24;
 const ONE_MONTH = ONE_DAY * 30;
 
 // eslint-disable-next-line no-undef
-const ENV = process.env.REACT_APP_ENV;
+const ENV = import.meta.env.VITE_ENV;
 const CHAIN = ENV === 'MAINNET' ? 1559 : 155;
 
 import { FooterEmbed } from 'components/FooterEmbed';

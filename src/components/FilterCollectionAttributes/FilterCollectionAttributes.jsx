@@ -18,7 +18,7 @@ import FilterActions from 'actions/filter.actions';
 import { Contracts } from 'constants/networks';
 
 // eslint-disable-next-line no-undef
-const ENV = process.env.REACT_APP_ENV;
+const ENV = import.meta.env.VITE_ENV;
 
 const CHAIN = ENV === 'MAINNET' ? 1559 : 155;
 

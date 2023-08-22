@@ -17,7 +17,6 @@ import nftActiveIcon from 'assets/svgs/nft_active.svg';
 
 import './styles.css';
 
-
 const ExploreFilterHeader = ({ loading, category }) => {
   const dispatch = useDispatch();
 
@@ -37,9 +36,7 @@ const ExploreFilterHeader = ({ loading, category }) => {
     const res = new Array(collections.length).fill(null);
 
     collectionItems.map(item => {
-
       const index = collections.findIndex(_item => _item === item.address);
-
 
       if (index > -1) {
         res[index] = item;
@@ -73,7 +70,8 @@ const ExploreFilterHeader = ({ loading, category }) => {
             <Skeleton width={100} height={24} />
           ) : (
             `${formatNumber(count)} Result${count !== 1 ? 's' : ''}
-            ${category === null ? '' : `- Category: ${formatCategory(category)}`
+            ${
+              category === null ? '' : `- Category: ${formatCategory(category)}`
             }`
           )}
         </label>

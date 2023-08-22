@@ -1,5 +1,3 @@
-import { ChainId } from '@sushiswap/sdk';
-
 import { LP_AGO_STAKING_ABI } from './abi';
 
 import { getHigherGWEI } from 'utils';
@@ -8,12 +6,12 @@ import { useWeb3React } from '@web3-react/core';
 
 const AGO_STAKING = {
   [25]: '0x6aa6D5447e4f904Eca62F45cDD1C01aE1dc05f02',
-  [ChainId.ARBITRUM]: '',
+  [155]: '',
 };
 
 // eslint-disable-next-line no-undef
-const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
-const CHAIN = isMainnet ? 25 : ChainId.ARBITRUM;
+const isMainnet = import.meta.env.VITE_ENV === 'MAINNET';
+const CHAIN = isMainnet ? 25 : 155;
 
 export const useStakeContract = () => {
   const { getContract } = useContract();

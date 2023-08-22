@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // eslint-disable-next-line no-undef
-const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
+const isMainnet = import.meta.env.VITE_ENV === 'MAINNET';
 
 export const useApi = () => {
   const explorerUrl = isMainnet
@@ -13,7 +13,7 @@ export const useApi = () => {
     : 'https://pixelly-api-server-avsh.onrender.com';
 
   // eslint-disable-next-line no-undef
-  // const apiUrl = process.env.REACT_APP_API_URI;
+  // const apiUrl = import.meta.env.REACT_APP_API_URI;
   const storageUrl = isMainnet
     ? 'https://storage.artion.io'
     : 'https://storage.testnet.artion.io';

@@ -7,7 +7,7 @@ import { AUCTION_CONTRACT_ABI } from './abi';
 import { useWeb3React } from '@web3-react/core';
 
 // eslint-disable-next-line no-undef
-const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
+const isMainnet = import.meta.env.VITE_ENV === 'MAINNET';
 const CHAIN = isMainnet ? 1559 : 155;
 
 export const useAuctionContract = () => {
@@ -81,8 +81,8 @@ export const useAuctionContract = () => {
     let bid;
 
     if (
-      tokenAddress.toLowerCase() === process.env.REACT_APP_USDC ||
-      tokenAddress === process.env.REACT_APP_FUSDT
+      tokenAddress.toLowerCase() === import.meta.env.REACT_APP_USDC ||
+      tokenAddress === import.meta.env.REACT_APP_FUSDT
     ) {
       bid = parseFloat(res[1].toString()) / 1e6;
     } else {

@@ -1,5 +1,3 @@
-import { ChainId } from '@sushiswap/sdk';
-
 import { CROCOS_STAKING_ABI } from './abi';
 import { getHigherGWEI } from 'utils';
 import useContract from 'hooks/useContract';
@@ -7,16 +5,16 @@ import { useWeb3React } from '@web3-react/core';
 
 const CROCOS_STAKING = {
   [25]: '0x6aa6D5447e4f904Eca62F45cDD1C01aE1dc05f02',
-  [ChainId.ARBITRUM]: '',
+  [155]: '',
 };
 const CROCOS_XMAS_STAKING = {
   [25]: '0x2ee818b2dd3749d33943f8226e5a72d4d3b0c14b',
-  [ChainId.ARBITRUM]: '',
+  [155]: '',
 };
 
 // eslint-disable-next-line no-undef
-const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
-const CHAIN = isMainnet ? 25 : ChainId.ARBITRUM;
+const isMainnet = import.meta.env.VITE_ENV === 'MAINNET';
+const CHAIN = isMainnet ? 25 : 155;
 export const useStakingContract = () => {
   const { getContract } = useContract();
   const { library } = useWeb3React();

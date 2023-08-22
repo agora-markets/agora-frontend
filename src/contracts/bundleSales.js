@@ -8,7 +8,7 @@ import { BUNDLE_SALES_CONTRACT_ABI } from './abi';
 import { useWeb3React } from '@web3-react/core';
 
 // eslint-disable-next-line no-undef
-const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
+const isMainnet = import.meta.env.VITE_ENV === 'MAINNET';
 const CHAIN = isMainnet ? 1559 : 155;
 
 export const useBundleSalesContract = () => {

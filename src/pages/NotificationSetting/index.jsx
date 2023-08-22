@@ -166,7 +166,7 @@ const SettingOption = ({
 
 const NotificationSetting = () => {
   const dispatch = useDispatch();
-  const {getSigner} = useConnectionUtils();
+  const { getSigner } = useConnectionUtils();
   const { account } = useWeb3React();
   const {
     getNonce,
@@ -306,14 +306,15 @@ const NotificationSetting = () => {
                 className={cx(styles.createButton, saving && styles.disabled)}
                 onClick={!saving ? handleSave : null}
               >
-                {saving ? <ClipLoader color="#FFF" size={16} /> : 'Save Settings'}
+                {saving ? (
+                  <ClipLoader color="#FFF" size={16} />
+                ) : (
+                  'Save Settings'
+                )}
               </div>
             </div>
           </div>
-
         </div>
-
-
       </div>
     </PageLayout>
   );

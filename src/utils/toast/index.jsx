@@ -18,10 +18,10 @@ const icons = {
 
 export default (type, title, body = '', onClick = () => {}) => {
   return toast(
-    (t) => (
+    t => (
       <div className={styles.toastInner} onClick={onClick}>
         <div className={styles.close} onClick={() => toast.dismiss(t.id)}>
-          <FontAwesomeIcon icon={faTimes}/>
+          <FontAwesomeIcon icon={faTimes} />
         </div>
         <div className={styles.header}>
           <img src={icons[type]} alt={type} className={styles.icon} />

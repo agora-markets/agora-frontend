@@ -3,7 +3,7 @@ import { ethers } from 'ethers';
 import { useWeb3React } from '@web3-react/core';
 
 // eslint-disable-next-line no-undef
-const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
+const isMainnet = import.meta.env.VITE_ENV === 'MAINNET';
 
 export default () => {
   const { chainId, connector } = useWeb3React();

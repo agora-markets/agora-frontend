@@ -9,7 +9,7 @@ import Modal from '../Modal';
 import styles from './styles.module.scss';
 
 // eslint-disable-next-line no-undef
-const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
+const isMainnet = import.meta.env.VITE_ENV === 'MAINNET';
 
 const Option = ({ onClick = null, header, icon, active = false }) => {
   return (

@@ -24,7 +24,7 @@ const PriceInput = ({
       onInputError(null);
     }
   }, [value]);
-/*
+  /*
   const handleKeyDown = e => {
     const key = e.keyCode;
     console.log(key);

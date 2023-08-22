@@ -9,7 +9,7 @@ import 'assets/css/style.css';
 
 import App from 'components/app';
 import Web3ReactManager from 'components/Web3ReactManager';
-import { store } from '../src/stores/reduxStore';
+import { store } from './stores/reduxStore';
 import { NetworkContextName } from './constants';
 import getLibrary from './utils/getLibrary';
 

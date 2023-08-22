@@ -3,7 +3,7 @@ import Header from 'components/header';
 import { Footer } from 'components/Footer';
 
 import { Splide, SplideSlide } from '@splidejs/react-splide';
-import '@splidejs/react-splide/dist/css/splide.min.css';
+import './splide.min.css';
 
 import { Link } from 'react-router-dom';
 import TxButton from 'components/TxButton';

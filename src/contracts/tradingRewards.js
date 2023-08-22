@@ -1,4 +1,3 @@
-import { ChainId } from '@sushiswap/sdk';
 import { TRADING_REWARDS_ABI } from './abi';
 import { getHigherGWEI } from 'utils';
 import useContract from 'hooks/useContract';
@@ -7,12 +6,12 @@ import { ethers } from 'ethers';
 
 const TRADING_REWARDS = {
   [25]: '0x3A0d3b7FAAb7fc4bAADf9805992cE536099B98E8',
-  [ChainId.ARBITRUM]: '',
+  [155]: '',
 };
 
 // eslint-disable-next-line no-undef
-const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
-const CHAIN = isMainnet ? 25 : ChainId.ARBITRUM;
+const isMainnet = import.meta.env.VITE_ENV === 'MAINNET';
+const CHAIN = isMainnet ? 25 : 155;
 
 export const tradingRewards = () => {
   const { getContract } = useContract();
