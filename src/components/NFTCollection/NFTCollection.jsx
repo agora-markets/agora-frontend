@@ -33,14 +33,17 @@ export function NFTCollection(props) {
       <div className="d-flex flex-column collections_item">
         <div className="d-flex space-x-10">
           <div className="images-box">
-            <Link to={`/collection/${address}`} onClick={() => {
+            <Link
+              to={`/collection/${address}`}
+              onClick={() => {
                 // Delete //
                 window.localStorage.removeItem('collection_tokens');
                 window.localStorage.removeItem('collection_count');
                 window.localStorage.removeItem('collection_from');
                 window.localStorage.removeItem('collection_to');
                 window.localStorage.removeItem('collection_fromTop');
-              }}>
+              }}
+            >
               <img
                 onError={addDefaultSrc}
                 src={`${getRandomIPFS('', true)}${logoImageHash}`}
@@ -62,11 +65,7 @@ export function NFTCollection(props) {
               <h4 className="d-flex">
                 {collectionName || name}{' '}
                 {isVerified && (
-                  <img
-                    src={VerifiedLogo}
-                    className="verified"
-                    alt="verified"
-                  />
+                  <img src={VerifiedLogo} className="verified" alt="verified" />
                 )}
               </h4>
             </Link>

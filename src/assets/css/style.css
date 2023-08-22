@@ -20799,7 +20799,6 @@ label:active:after {
 .is__dark .swiper-button-next,
 .is__dark .collections_item,
 .is__dark .logos__wrap,
-.is__dark .footer__1,
 .is__dark .card__item .likes,
 .is__dark .community__items .item,
 .is__dark .hero__2 .wrapper,
@@ -20813,6 +20812,11 @@ label:active:after {
 .is__dark .upcoming_projects tr.white td,
 .is__dark .upcoming_projects .calendar_icon,
 .is__dark .card__item.six .card_body .card_footer .details {
+  background-color: #1e1e1e !important;
+  border: none;
+}
+
+.is__dark .footer__1 {
   background-color: #000000 !important;
   border: none;
 }

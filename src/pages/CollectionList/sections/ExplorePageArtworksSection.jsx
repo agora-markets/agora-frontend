@@ -21,7 +21,7 @@ export function ExplorePageArtworksSection(props) {
 
   const loadMoreRef = React.useCallback(
     node => {
-      const hasMore = props.items.length !== props.count-1;
+      const hasMore = props.items.length !== props.count - 1;
       if (props.loading) return;
       if (observer.current) observer.current?.disconnect();
       observer.current = new IntersectionObserver(entries => {
@@ -41,7 +41,11 @@ export function ExplorePageArtworksSection(props) {
           key={'explore-artwork-item-' + index.toString()}
           className="col-xl-3 col-lg-4 col-md-6 col-sm-6"
         >
-          <AssetCard preset="four" item={item} warnedCollections={props.warnedCollections} />
+          <AssetCard
+            preset="four"
+            item={item}
+            warnedCollections={props.warnedCollections}
+          />
         </div>
       ))}
       {!props.loading &&

@@ -42,7 +42,7 @@ export function ExplorePageFillterStatus(props) {
 
   useEffect(() => {
     isAttributeFilterAvailable(addr).then(setEnableAttributeFilter);
-  },[]);
+  }, []);
 
   const filter = useSelector(state => state.Filter);
   const {
@@ -81,14 +81,13 @@ export function ExplorePageFillterStatus(props) {
       updateStatusFilter('statusOnAuction', _onAuction);
     }
     props.onChange?.(values);
-    
+
     // Delete //
     window.localStorage.removeItem('collection_tokens');
     window.localStorage.removeItem('collection_count');
     window.localStorage.removeItem('collection_from');
     window.localStorage.removeItem('collection_to');
     window.localStorage.removeItem('collection_fromTop');
-
   };
 
   /*
@@ -98,12 +97,12 @@ export function ExplorePageFillterStatus(props) {
 */
   const handleOnClickSortBy = item => {
     dispatch(FilterActions.updateSortByFilter(item.id));
-        // Delete //
-        window.localStorage.removeItem('collection_tokens');
-        window.localStorage.removeItem('collection_count');
-        window.localStorage.removeItem('collection_from');
-        window.localStorage.removeItem('collection_to');
-        window.localStorage.removeItem('collection_fromTop');
+    // Delete //
+    window.localStorage.removeItem('collection_tokens');
+    window.localStorage.removeItem('collection_count');
+    window.localStorage.removeItem('collection_from');
+    window.localStorage.removeItem('collection_to');
+    window.localStorage.removeItem('collection_fromTop');
   };
 
   return (
@@ -131,7 +130,9 @@ export function ExplorePageFillterStatus(props) {
           */}
             <div>
               <button
-                className={`btn btn-sm btn-white ${enableAttributeFilter ? '' : 'disabled'}`}
+                className={`btn btn-sm btn-white ${
+                  enableAttributeFilter ? '' : 'disabled'
+                }`}
                 onClick={toggleAttributeFilter}
                 endIcon={<FilterList />}
                 disabled={!enableAttributeFilter}

@@ -8,7 +8,7 @@ import './index.css';
 import 'assets/css/style.css';
 
 import App from 'components/app';
-// import Web3ReactManager from 'components/Web3ReactManager';
+import Web3ReactManager from 'components/Web3ReactManager';
 import { store } from '../src/stores/reduxStore';
 import { NetworkContextName } from './constants';
 import getLibrary from './utils/getLibrary';
@@ -19,9 +19,9 @@ ReactDOM.render(
   <Provider store={store}>
     <Web3ReactProvider getLibrary={getLibrary}>
       <Web3ProviderNetwork getLibrary={getLibrary}>
-        {/* <Web3ReactManager> */}
-        <App fullScreen />
-        {/* </Web3ReactManager> */}
+        <Web3ReactManager>
+          <App fullScreen />
+        </Web3ReactManager>
       </Web3ProviderNetwork>
     </Web3ReactProvider>
   </Provider>,

@@ -70,7 +70,7 @@ const propTypes = {
 export function CollectionsPageFilterStatus(props) {
   //const [categorySortedBy, setCategorySortedBy] = useState(categorySortByItems[0]);
 
-/*
+  /*
   const handleOnFilterChange = values => {
     console.log(values);
     props.onFilterChange?.(values);
@@ -89,10 +89,11 @@ export function CollectionsPageFilterStatus(props) {
   return (
     <div className="row justify-content-between align-items-center">
       <div className="col-lg-auto">
-      <div style={{fontSize:20,fontWeight:'bold'}}><span style={{color:'#05DE9D'}}>{props.count}</span> {props.onlyVerified ? 'Collections Verified' : 'Total Collections'}</div>
+        <div style={{ fontSize: 20, fontWeight: 'bold' }}>
+          <span style={{ color: '#05DE9D' }}>{props.count}</span>{' '}
+          {props.onlyVerified ? 'Collections Verified' : 'Total Collections'}
+        </div>
       </div>
-
-      
 
       {/*
       <div className="col-lg-auto">
@@ -108,22 +109,21 @@ export function CollectionsPageFilterStatus(props) {
       */}
       {
         <div className="col-lg-auto">
-        <div className="d-flex space-x-10 align-items-center sm:mt-20">
-          {/*
+          <div className="d-flex space-x-10 align-items-center sm:mt-20">
+            {/*
           <DropdownButton
             value={categorySortedBy?.id}
             items={categorySortByItems}
             onClickItem={handleCategoryOnSelectSortBy}
-          />*/
-        }
+          />*/}
 
-          <DropdownButton
-            value={props.sortedBy?.id}
-            items={sortByItems}
-            onClickItem={handleOnSelectSortBy}
-          />
+            <DropdownButton
+              value={props.sortedBy?.id}
+              items={sortByItems}
+              onClickItem={handleOnSelectSortBy}
+            />
+          </div>
         </div>
-      </div>
       }
     </div>
   );
