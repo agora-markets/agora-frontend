@@ -121,16 +121,22 @@ const OfferModal = ({
     setExpiryOption(option);
     if (option.text === '6 hours') {
       setEndTime(new Date(new Date().getTime() + 6 * 60 * 60 * 1000));
+      setExpanded(false);
     } else if (option.text === '1 day') {
       setEndTime(new Date(new Date().getTime() + 24 * 60 * 60 * 1000));
+      setExpanded(false);
     } else if (option.text === '3 days') {
       setEndTime(new Date(new Date().getTime() + 72 * 60 * 60 * 1000));
+      setExpanded(false);
     } else if (option.text === '1 week') {
       setEndTime(new Date(new Date().getTime() + 168 * 60 * 60 * 1000));
+      setExpanded(false);
     } else if (option.text === '1 month') {
       setEndTime(new Date(new Date().getTime() + 672 * 60 * 60 * 1000));
+      setExpanded(false);
     } else if (option.text === '3 months') {
       setEndTime(new Date(new Date().getTime() + 2016 * 60 * 60 * 1000));
+      setExpanded(false);
     } else {
       setExpanded(false);
     }
