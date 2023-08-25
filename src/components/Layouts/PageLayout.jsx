@@ -15,24 +15,20 @@ export function PageLayout(props) {
 
   return (
     <div className={cx('overflow-hidden', className)} {...rest}>
-      {
-        isEmbed ?
-          (
-            <>
-              {cover}
-              <div className={cx('container', containerClassName)}>{children}</div>
-              <FooterEmbed />
-            </>
-          ) :
-          (
-            <>
-              <Header />
-              {cover}
-              <div className={cx('container', containerClassName)}>{children}</div>
-              <Footer />
-            </>
-          )
-      }
+      {isEmbed ? (
+        <>
+          {cover}
+          <div className={cx('container', containerClassName)}>{children}</div>
+          <FooterEmbed />
+        </>
+      ) : (
+        <>
+          <Header />
+          {cover}
+          <div className={cx('container', containerClassName)}>{children}</div>
+          <Footer />
+        </>
+      )}
     </div>
   );
 }

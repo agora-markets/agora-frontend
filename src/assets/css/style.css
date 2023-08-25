@@ -84,7 +84,7 @@ body {
   -moz-font-smoothing: antialiased !important;
   -o-font-smoothing: antialiased !important;
   -ms-font-smoothing: antialiased !important;
-  font-smoothing: antialiased !important;
+  font-smooth: antialiased !important;
   font-family: "SoraStd", sans-serif;
   font-size: 16px;
   color: #4b4b4b;
@@ -13700,7 +13700,7 @@ label:active:after {
 
 .card__item .card_head {
   border-radius: 10px;
-  background-color: #ffbfb;
+  background-color: #ffffff;
   height: 300px;
   overflow: hidden;
   position: relative;
