@@ -40,10 +40,22 @@ export function HomePage() {
             <div className={styles.slider}>
               <Splide aria-label="My Favorite Images" options={options}>
                 <SplideSlide>
-                  <img src="/02.jpg" alt="Image 2" />
+                  <img src="/01.png" alt="Image 1" />
                 </SplideSlide>
                 <SplideSlide>
-                  <img src="/03.jpeg" alt="Image 2" />
+                  <img src="/02.png" alt="Image 2" />
+                </SplideSlide>
+                <SplideSlide>
+                  <img src="/03.png" alt="Image 3" />
+                </SplideSlide>
+                <SplideSlide>
+                  <img src="/04.png" alt="Image 4" />
+                </SplideSlide>
+                <SplideSlide>
+                  <img src="/05.png" alt="Image 5" />
+                </SplideSlide>
+                <SplideSlide>
+                  <img src="/06.png" alt="Image 6" />
                 </SplideSlide>
               </Splide>
             </div>
