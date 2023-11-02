@@ -788,7 +788,7 @@ const PaintBoard = () => {
                   }}
                 >
                   <img
-                    src={`https://pixelly.infura-ipfs.io/ipfs/${item.logoImageHash}`}
+                    src={`https://turquoise-marvellous-hippopotamus-626.mypinata.cloud/ipfs/${item.logoImageHash}`}
                     className={styles.collectionLogo}
                   />
                   <div className={styles.collectionName}>
@@ -801,7 +801,7 @@ const PaintBoard = () => {
                   <div className={styles.collection}>
                     {
                       <img
-                        src={`https://pixelly.infura-ipfs.io/ipfs/${values[0].logoImageHash}`}
+                        src={`https://turquoise-marvellous-hippopotamus-626.mypinata.cloud/ipfs/${values[0].logoImageHash}`}
                         className={styles.collectionLogo}
                       />
                     }

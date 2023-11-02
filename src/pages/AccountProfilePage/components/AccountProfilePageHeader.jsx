@@ -87,7 +87,7 @@ export function AccountProfilePageHeader(props) {
             <Skeleton width="100%" height="100%" />
           ) : bannerHash || user.bannerHash ? (
             <img
-              src={`https://pixelly.infura-ipfs.io/ipfs/${bannerHash ||
+              src={`https://turquoise-marvellous-hippopotamus-626.mypinata.cloud/ipfs/${bannerHash ||
                 user.bannerHash}`}
               alt=""
             />

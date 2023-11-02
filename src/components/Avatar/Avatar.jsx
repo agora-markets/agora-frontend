@@ -76,7 +76,7 @@ export function Avatar(props) {
     <img
       src={
         props.imageSrc ||
-        `https://pixelly.infura-ipfs.io/ipfs/${props.user?.imageHash}`
+        `https://turquoise-marvellous-hippopotamus-626.mypinata.cloud/ipfs/${props.user?.imageHash}`
       }
       alt="Avatar"
       className={cx('avatar', `avatar-${props.size}` , props.className)}

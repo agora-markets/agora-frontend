@@ -91,7 +91,7 @@ export function ArtworkDetailPageDirectOfferTab(props) {
                     <div className={styles.userAvatarWrapper}>
                       {offer.image ? (
                         <img
-                          src={`https://pixelly.infura-ipfs.io/ipfs/${offer.image}`}
+                          src={`https://turquoise-marvellous-hippopotamus-626.mypinata.cloud/ipfs/${offer.image}`}
                           className={styles.userAvatar}
                         />
                       ) : (

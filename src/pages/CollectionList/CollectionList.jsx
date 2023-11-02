@@ -498,7 +498,7 @@ export function CollectionList() {
                     <div className={styles.logo}>
                       <img
                         onError={addDefaultSrc}
-                        src={`https://pixelly.infura-ipfs.io/ipfs/${collectionData?.logoImageHash}`}
+                        src={`https://turquoise-marvellous-hippopotamus-626.mypinata.cloud/ipfs/${collectionData?.logoImageHash}`}
                       />
                     </div>
                     <div>

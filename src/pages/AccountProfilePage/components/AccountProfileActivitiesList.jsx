@@ -105,7 +105,7 @@ export function AccountProfileActivitiesList(props) {
                     <div className={styles.ownerAvatarWrapper}>
                       {activity.image ? (
                         <img
-                          src={`https://pixelly.infura-ipfs.io/ipfs/${activity.image}`}
+                          src={`https://turquoise-marvellous-hippopotamus-626.mypinata.cloud/ipfs/${activity.image}`}
                           className={styles.ownerAvatar}
                         />
                       ) : (

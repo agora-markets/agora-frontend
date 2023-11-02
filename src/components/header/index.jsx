@@ -392,7 +392,7 @@ const Header = props => {
                   {account.imageHash ? (
                     <img
                       className={styles.resultimg}
-                      src={`https://pixelly.infura-ipfs.io/ipfs/${account.imageHash}`}
+                      src={`https://turquoise-marvellous-hippopotamus-626.mypinata.cloud/ipfs/${account.imageHash}`}
                     />
                   ) : (
                     <Identicon
