@@ -770,6 +770,8 @@ const PaintBoard = () => {
               options={collections}
               disabled={isMinting}
               values={selected}
+              labelField="collectionName"
+              valueField="erc721Address"
               onChange={([col]) => {
                 setSelected([col]);
                 setNft(col.erc721Address);
