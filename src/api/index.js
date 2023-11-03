@@ -281,13 +281,13 @@ export const useApi = () => {
     return res.data;
   };
 
-  const fetchPendingCollections = async authToken => {
+  const fetchPendingCollections = async () => {
     const res = await axios({
       method: 'post',
       url: `${apiUrl}/collection/getReviewApplications`,
-      headers: {
+      /* headers: {
         Authorization: `Bearer ${authToken}`,
-      },
+      }, */
     });
     return res.data;
   };
