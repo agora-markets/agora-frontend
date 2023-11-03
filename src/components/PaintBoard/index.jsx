@@ -618,12 +618,12 @@ const PaintBoard = () => {
           );
         }
         console.log('royalty', nft, mintedTkId.toNumber(), _royalty);
-        const royaltyTx = await registerRoyalty(
+        /* const royaltyTx = await registerRoyalty(
           nft,
           mintedTkId.toNumber(),
           isNaN(_royalty) ? 0 : _royalty.toFixed(0)
-        );
-        await royaltyTx.wait();
+        ); */
+        // await royaltyTx.wait();
 
         // save unlockable content
         if (hasUnlockableContent && unlockableContent.length > 0) {
