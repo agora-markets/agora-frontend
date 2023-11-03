@@ -39,9 +39,7 @@ const AccountModal = () => {
   useEffect(() => {
     if (accountModalVisible) {
       if (user.imageHash) {
-        setAvatar(
-          `https://turquoise-marvellous-hippopotamus-626.mypinata.cloud/ipfs/${user.imageHash}`
-        );
+        setAvatar(`https://pixellygg.mypinata.cloud/ipfs/${user.imageHash}`);
       } else {
         setAvatar(null);
       }

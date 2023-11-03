@@ -128,7 +128,7 @@ const CollectionCreate = () => {
                 onClick={() => setIndex(idx)}
               >
                 <img
-                  src={`https://turquoise-marvellous-hippopotamus-626.mypinata.cloud/ipfs/${collection.logoImageHash}`}
+                  src={`https://pixellygg.mypinata.cloud/ipfs/${collection.logoImageHash}`}
                   className={styles.collectionLogo}
                 />
                 <div className={styles.collectionName}>
@@ -146,7 +146,7 @@ const CollectionCreate = () => {
               <div className={styles.inputWrapper}>
                 <div className={styles.logoUploadBox}>
                   <img
-                    src={`https://turquoise-marvellous-hippopotamus-626.mypinata.cloud/ipfs/${collections[index].logoImageHash}`}
+                    src={`https://pixellygg.mypinata.cloud/ipfs/${collections[index].logoImageHash}`}
                   />
                 </div>
               </div>

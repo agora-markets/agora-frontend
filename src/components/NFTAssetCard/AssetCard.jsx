@@ -39,7 +39,7 @@ const propTypes = {
 //     tokenID: 322,
 //     tokenType: 721,
 //     tokenURI:
-//       'https://turquoise-marvellous-hippopotamus-626.mypinata.cloud/ipfs/QmTbgsZSGQLrFjKte9RuEK3pgwmJJqUfv5641ULxTpvq5Z',
+//       'https://pixellygg.mypinata.cloud/ipfs/QmTbgsZSGQLrFjKte9RuEK3pgwmJJqUfv5641ULxTpvq5Z',
 //     liked: faker.random.number({ min: 0, max: 99 }),
 //     _id: '6186d1f5dafdf997a5c07afe',
 //     lastSalePrice: 10,

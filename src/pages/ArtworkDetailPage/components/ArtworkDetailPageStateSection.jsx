@@ -68,7 +68,7 @@ export function ArtworkDetailPageStateSection(props) {
                 <div className={styles.ownerAvatar}>
                   {ownerInfo?.imageHash ? (
                     <img
-                      src={`https://turquoise-marvellous-hippopotamus-626.mypinata.cloud/ipfs/${ownerInfo.imageHash}`}
+                      src={`https://pixellygg.mypinata.cloud/ipfs/${ownerInfo.imageHash}`}
                       className={styles.avatar}
                     />
                   ) : (
@@ -122,7 +122,7 @@ export function ArtworkDetailPageStateSection(props) {
                 <div className={styles.ownerAvatar}>
                   {creatorInfo?.imageHash ? (
                     <img
-                      src={`https://turquoise-marvellous-hippopotamus-626.mypinata.cloud/ipfs/${creatorInfo.imageHash}`}
+                      src={`https://pixellygg.mypinata.cloud/ipfs/${creatorInfo.imageHash}`}
                       className={styles.avatar}
                     />
                   ) : (

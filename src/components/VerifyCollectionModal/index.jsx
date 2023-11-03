@@ -13,7 +13,7 @@ import styles from '../Modal/common.module.scss';
 
 const VerifyCollectionModal = ({ visible, isVerify, onClose }) => {
   const { getNonce, verifyCollection, unverifyCollection } = useApi();
-  const {getSigner} = useConnectionUtils();
+  const { getSigner } = useConnectionUtils();
   const { account } = useWeb3React();
 
   const { authToken } = useSelector(state => state.ConnectWallet);
@@ -57,12 +57,10 @@ const VerifyCollectionModal = ({ visible, isVerify, onClose }) => {
         signature,
         addr
       );
-      if (ret.status == 'success')
-      {
+      if (ret.status == 'success') {
         toast('success', 'Success!');
-      }
-      else{
-        toast('error',ret.data);
+      } else {
+        toast('error', ret.data);
       }
     } catch (e) {
       console.log(e);

@@ -3090,7 +3090,7 @@ export function ArtworkDetailPage() {
                                     <div className={styles.userAvatarWrapper}>
                                       {ownerInfo?.imageHash ? (
                                         <img
-                                          src={`https://turquoise-marvellous-hippopotamus-626.mypinata.cloud/ipfs/${ownerInfo.imageHash}`}
+                                          src={`https://pixellygg.mypinata.cloud/ipfs/${ownerInfo.imageHash}`}
                                           className={styles.userAvatar}
                                         />
                                       ) : (
@@ -3205,7 +3205,7 @@ export function ArtworkDetailPage() {
                                   <div className={styles.userAvatarWrapper}>
                                     {listing.image ? (
                                       <img
-                                        src={`https://turquoise-marvellous-hippopotamus-626.mypinata.cloud/ipfs/${listing.image}`}
+                                        src={`https://pixellygg.mypinata.cloud/ipfs/${listing.image}`}
                                         className={styles.userAvatar}
                                       />
                                     ) : (
@@ -3349,7 +3349,7 @@ export function ArtworkDetailPage() {
                                     <div className={styles.userAvatarWrapper}>
                                       {offer.image ? (
                                         <img
-                                          src={`https://turquoise-marvellous-hippopotamus-626.mypinata.cloud/ipfs/${offer.image}`}
+                                          src={`https://pixellygg.mypinata.cloud/ipfs/${offer.image}`}
                                           className={styles.userAvatar}
                                         />
                                       ) : (

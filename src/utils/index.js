@@ -48,11 +48,11 @@ export const getRandomIPFS = (
   }
   if (isFallback) {
     if (tokenURI.includes('ipfs://')) {
-      return `https://turquoise-marvellous-hippopotamus-626.mypinata.cloud/ipfs/${tokenURI
+      return `https://pixellygg.mypinata.cloud/ipfs/${tokenURI
         .split('ipfs://')[1]
         .replace(/([^:]\/)\/+/g, '$1')}`;
     } else {
-      return `https://turquoise-marvellous-hippopotamus-626.mypinata.cloud/ipfs/${
+      return `https://pixellygg.mypinata.cloud/ipfs/${
         tokenURI.split('ipfs/')[1]
       }`;
     }

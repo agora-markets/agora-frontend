@@ -392,7 +392,7 @@ const Header = props => {
                   {account.imageHash ? (
                     <img
                       className={styles.resultimg}
-                      src={`https://turquoise-marvellous-hippopotamus-626.mypinata.cloud/ipfs/${account.imageHash}`}
+                      src={`https://pixellygg.mypinata.cloud/ipfs/${account.imageHash}`}
                     />
                   ) : (
                     <Identicon
