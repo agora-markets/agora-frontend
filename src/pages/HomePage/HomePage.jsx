@@ -114,7 +114,7 @@ export function HomePage() {
                     <span>
                       <a
                         rel="noopener noreferrer"
-                        href="https://discord.gg/MqjvgtDh"
+                        href="https://discord.gg/myuqdvUT"
                         target="_blank"
                       >
                         here

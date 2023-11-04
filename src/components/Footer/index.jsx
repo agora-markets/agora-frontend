@@ -31,7 +31,7 @@ export function Footer() {
                 </li>
                 <li>
                   <a
-                    href="https://discord.gg/MqjvgtDh"
+                    href="https://discord.gg/myuqdvUT"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
