@@ -98,7 +98,6 @@ function AssetCardComponent(props) {
           item.imageURL = getRandomIPFS(item.imageURL);
         }
 
-
         setLiked(item.liked);
         setAuction(null);
         if (item.items) {
@@ -140,7 +139,6 @@ function AssetCardComponent(props) {
     }
     setFetching(false);
   };
-
 
   const getCurrentAuction = async () => {
     try {
@@ -188,8 +186,7 @@ function AssetCardComponent(props) {
     }
   };
 
-  if (preset === 'four')
-  {
+  if (preset === 'four') {
     return (
       <AssetCardFour
         item={_item}

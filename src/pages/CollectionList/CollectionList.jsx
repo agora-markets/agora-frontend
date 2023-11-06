@@ -498,6 +498,7 @@ export function CollectionList() {
                     <div className={styles.logo}>
                       <img
                         onError={addDefaultSrc}
+                        crossOrigin="anonymous"
                         src={`https://pixellygg.mypinata.cloud/ipfs/${collectionData?.logoImageHash}`}
                       />
                     </div>

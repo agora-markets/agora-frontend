@@ -34,7 +34,7 @@ const imgCache = {
 const SuspenseImg = ({ src, ...rest }) => {
   imgCache.read(src);
 
-  return <img alt="" src={src} {...rest} />;
+  return <img alt="" crossOrigin="anonymous" src={src} {...rest} />;
 };
 
 export default SuspenseImg;

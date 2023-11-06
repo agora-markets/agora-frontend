@@ -215,6 +215,7 @@ export function AssetCardFour(props) {
           <div className={cx('card_head', cardHeaderClassName)}>
             <img
               className="blur_thumb"
+              crossOrigin="anonymous"
               src={
                 (item?.thumbnailPath !== '-' &&
                   item?.thumbnailPath !== '.' &&
@@ -242,6 +243,7 @@ export function AssetCardFour(props) {
                 }}
               >
                 <ArtworkMediaView
+                  crossOrigin="anonymous"
                   image={
                     (item?.thumbnailPath !== '-' &&
                       item?.thumbnailPath !== '.' &&
