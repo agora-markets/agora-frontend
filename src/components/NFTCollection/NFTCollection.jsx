@@ -46,6 +46,7 @@ export function NFTCollection(props) {
             >
               <img
                 onError={addDefaultSrc}
+                crossOrigin="anonymous"
                 src={`${getRandomIPFS('', true)}${logoImageHash}`}
               />
             </Link>
