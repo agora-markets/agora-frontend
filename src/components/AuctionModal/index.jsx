@@ -192,6 +192,8 @@ const AuctionModal = ({
         >
           <Select
             options={options}
+            labelField="symbol"
+            valueField="address"
             disabled={auction || confirming}
             values={selected}
             onChange={tk => {
@@ -288,7 +290,8 @@ const AuctionModal = ({
             }}
             closeOnSelect
             isValidDate={cur =>
-              cur.valueOf() > startTime.getTime() - ((1000 * 60 * 60 * 24)+(300*1000))
+              cur.valueOf() >
+              startTime.getTime() - (1000 * 60 * 60 * 24 + 300 * 1000)
             }
           />
         </div>

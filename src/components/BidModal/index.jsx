@@ -113,6 +113,8 @@ const BidModal = ({
         >
           <Select
             options={options}
+            labelField="symbol"
+            valueField="address"
             disabled
             values={token ? [token] : []}
             className={styles.select}

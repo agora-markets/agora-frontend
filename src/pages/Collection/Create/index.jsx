@@ -842,6 +842,8 @@ const CollectionCreate = ({ isRegister }) => {
 
                       <Select
                         options={attributeDisplayTypeList}
+                        labelField="display_value"
+                        valueField="display_type"
                         values={attributeDisplayTypeList.filter(item => {
                           return (
                             item.display_type ===

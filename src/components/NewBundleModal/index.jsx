@@ -357,6 +357,8 @@ const NewBundleModal = ({ visible, onClose, onCreateSuccess = () => {} }) => {
               <div className={styles.formLabel}>Price</div>
               <div className={styles.formInputCont}>
                 <Select
+                  labelField="symbol"
+                  valueField="address"
                   options={options}
                   disabled={creating}
                   values={paySelected}
