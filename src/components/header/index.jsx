@@ -483,7 +483,7 @@ const Header = props => {
               </Link>
             </div>
             <div className={cx('header__menu', styles.left)}>
-              <ul className="d-flex space-x-20">
+              <ul className="d-flex space-x-30">
                 {/*
               <li>
                 <NavLink
@@ -504,7 +504,7 @@ const Header = props => {
                     Explore
                   </NavLink>
                 </li>
-                <li>
+                {/* <li>
                   <NavLink
                     to="/launchpad"
                     className={'color_black'}
@@ -512,7 +512,7 @@ const Header = props => {
                   >
                     Launchpad
                   </NavLink>
-                </li>
+            </li> */}
                 {
                   <li>
                     <NavLink
